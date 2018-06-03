@@ -1,0 +1,23 @@
+
+{
+    "geFondApp": {
+        "chapitre" : {
+            "home": {
+                "title": "Chapitres",
+                "createLabel": "Create a new Chapitre",
+                "createOrEditLabel": "Create or edit a Chapitre"
+            },
+            "created": "A new Chapitre is created with identifier {{ param }}",
+            "updated": "A Chapitre is updated with identifier {{ param }}",
+            "deleted": "A Chapitre is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Chapitre {{ id }}?"
+            },
+            "detail": {
+                "title": "Chapitre"
+            },
+            "libChapitre": "Lib Chapitre",
+            "categorieCompte": "Categorie Compte"
+        }
+    }
+}

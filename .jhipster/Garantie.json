@@ -1,0 +1,47 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "pret",
+            "otherEntityName": "pret",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "typeGar",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "montantEvalue",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "montantAfect",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "dateDepot",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "numDocument",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "etat",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dateRetrait",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "changelogDate": "20180603134502",
+    "entityTableName": "garantie",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}

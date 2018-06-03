@@ -1,0 +1,68 @@
+
+<div *ngIf="client">
+    <h2><span jhiTranslate="geFondApp.client.detail.title">Client</span> {{client.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="geFondApp.client.dateCreat">Date Creat</span></dt>
+        <dd>
+            <span>{{client.dateCreat | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.client.lieuResid">Lieu Resid</span></dt>
+        <dd>
+            <span>{{client.lieuResid}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.client.typeResid">Type Resid</span></dt>
+        <dd>
+            <span>{{client.typeResid}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.client.arrondResid">Arrond Resid</span></dt>
+        <dd>
+            <span>{{client.arrondResid}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.client.nomPersonneContact">Nom Personne Contact</span></dt>
+        <dd>
+            <span>{{client.nomPersonneContact}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.client.telPersonneContact">Tel Personne Contact</span></dt>
+        <dd>
+            <span>{{client.telPersonneContact}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.client.adressPersonneContact">Adress Personne Contact</span></dt>
+        <dd>
+            <span>{{client.adressPersonneContact}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.client.typeClient">Type Client</span></dt>
+        <dd>
+            <span>{{client.typeClient}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.client.pointsFidel">Points Fidel</span></dt>
+        <dd>
+            <span>{{client.pointsFidel}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.client.dateMaj">Date Maj</span></dt>
+        <dd>
+            <span>{{client.dateMaj | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.client.candidat">Candidat</span></dt>
+        <dd>
+            <div *ngIf="client.candidat">
+                <a [routerLink]="['/candidat', client.candidat?.id]">{{client.candidat?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'client/'+ client.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

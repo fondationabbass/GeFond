@@ -1,0 +1,92 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myClientLabel" jhiTranslate="geFondApp.client.home.createOrEditLabel">Create or edit a Client</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!client.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="client.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.client.dateCreat" for="field_dateCreat">Date Creat</label>
+            <div class="input-group">
+                <input id="field_dateCreat" type="text" class="form-control" name="dateCreat" ngbDatepicker  #dateCreatDp="ngbDatepicker" [(ngModel)]="client.dateCreat"
+                />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="dateCreatDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.client.lieuResid" for="field_lieuResid">Lieu Resid</label>
+            <input type="text" class="form-control" name="lieuResid" id="field_lieuResid"
+                [(ngModel)]="client.lieuResid" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.client.typeResid" for="field_typeResid">Type Resid</label>
+            <input type="text" class="form-control" name="typeResid" id="field_typeResid"
+                [(ngModel)]="client.typeResid" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.client.arrondResid" for="field_arrondResid">Arrond Resid</label>
+            <input type="text" class="form-control" name="arrondResid" id="field_arrondResid"
+                [(ngModel)]="client.arrondResid" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.client.nomPersonneContact" for="field_nomPersonneContact">Nom Personne Contact</label>
+            <input type="text" class="form-control" name="nomPersonneContact" id="field_nomPersonneContact"
+                [(ngModel)]="client.nomPersonneContact" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.client.telPersonneContact" for="field_telPersonneContact">Tel Personne Contact</label>
+            <input type="text" class="form-control" name="telPersonneContact" id="field_telPersonneContact"
+                [(ngModel)]="client.telPersonneContact" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.client.adressPersonneContact" for="field_adressPersonneContact">Adress Personne Contact</label>
+            <input type="text" class="form-control" name="adressPersonneContact" id="field_adressPersonneContact"
+                [(ngModel)]="client.adressPersonneContact" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.client.typeClient" for="field_typeClient">Type Client</label>
+            <input type="text" class="form-control" name="typeClient" id="field_typeClient"
+                [(ngModel)]="client.typeClient" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.client.pointsFidel" for="field_pointsFidel">Points Fidel</label>
+            <input type="number" class="form-control" name="pointsFidel" id="field_pointsFidel"
+                [(ngModel)]="client.pointsFidel" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.client.dateMaj" for="field_dateMaj">Date Maj</label>
+            <div class="input-group">
+                <input id="field_dateMaj" type="text" class="form-control" name="dateMaj" ngbDatepicker  #dateMajDp="ngbDatepicker" [(ngModel)]="client.dateMaj"
+                />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="dateMajDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.client.candidat" for="field_candidat">Candidat</label>
+            <select class="form-control" id="field_candidat" name="candidat" [(ngModel)]="client.candidat">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="candidatOption.id === client.candidat?.id ? client.candidat : candidatOption" *ngFor="let candidatOption of candidats; trackBy: trackCandidatById">{{candidatOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

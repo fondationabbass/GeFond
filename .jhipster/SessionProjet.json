@@ -1,0 +1,44 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "dateOuvert",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "dateFermeture",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "plafondFinance",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "nombreClient",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "plafondClient",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "dateCreat",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dateMaj",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "etat",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180603134459",
+    "entityTableName": "session_projet",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}

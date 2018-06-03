@@ -1,0 +1,72 @@
+<div>
+    <h2>
+        <span jhiTranslate="geFondApp.sessionProjet.home.title">Session Projets</span>
+        <button class="btn btn-primary float-right jh-create-entity create-session-projet" [routerLink]="['/', { outlets: { popup: ['session-projet-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="geFondApp.sessionProjet.home.createLabel">
+            Create new Session Projet
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="sessionProjets">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="geFondApp.sessionProjet.dateOuvert">Date Ouvert</span></th>
+            <th><span jhiTranslate="geFondApp.sessionProjet.dateFermeture">Date Fermeture</span></th>
+            <th><span jhiTranslate="geFondApp.sessionProjet.plafondFinance">Plafond Finance</span></th>
+            <th><span jhiTranslate="geFondApp.sessionProjet.nombreClient">Nombre Client</span></th>
+            <th><span jhiTranslate="geFondApp.sessionProjet.plafondClient">Plafond Client</span></th>
+            <th><span jhiTranslate="geFondApp.sessionProjet.dateCreat">Date Creat</span></th>
+            <th><span jhiTranslate="geFondApp.sessionProjet.dateMaj">Date Maj</span></th>
+            <th><span jhiTranslate="geFondApp.sessionProjet.etat">Etat</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let sessionProjet of sessionProjets ;trackBy: trackId">
+                <td><a [routerLink]="['../session-projet', sessionProjet.id ]">{{sessionProjet.id}}</a></td>
+                <td>{{sessionProjet.dateOuvert | date:'mediumDate'}}</td>
+                <td>{{sessionProjet.dateFermeture | date:'mediumDate'}}</td>
+                <td>{{sessionProjet.plafondFinance}}</td>
+                <td>{{sessionProjet.nombreClient}}</td>
+                <td>{{sessionProjet.plafondClient}}</td>
+                <td>{{sessionProjet.dateCreat}}</td>
+                <td>{{sessionProjet.dateMaj}}</td>
+                <td>{{sessionProjet.etat}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../session-projet', sessionProjet.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'session-projet/'+ sessionProjet.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'session-projet/'+ sessionProjet.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

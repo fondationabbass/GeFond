@@ -1,0 +1,47 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "candidature",
+            "otherEntityName": "candidature",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "dateEnreg",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "lib",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "typeDocument",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "module",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "etat",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "fichier",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "tail",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180603134509",
+    "entityTableName": "document",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}

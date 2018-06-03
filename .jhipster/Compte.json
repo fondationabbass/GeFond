@@ -1,0 +1,45 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "client",
+            "otherEntityName": "client",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "chapitre",
+            "otherEntityName": "chapitre",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "intituleCompte",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dateOuverture",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "solde",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "dateDernierCredit",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dateDernierDebit",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "changelogDate": "20180603134504",
+    "entityTableName": "compte",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true
+}

@@ -1,0 +1,29 @@
+
+{
+    "geFondApp": {
+        "sessionProjet" : {
+            "home": {
+                "title": "SessionProjets",
+                "createLabel": "Créer un nouveau Session Projet",
+                "createOrEditLabel": "Créer ou éditer un Session Projet"
+            },
+            "created": "Un nouveau Session Projet a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Session Projet avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Session Projet avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Session Projet {{ id }} ?"
+            },
+            "detail": {
+                "title": "Session Projet"
+            },
+            "dateOuvert": "Date Ouvert",
+            "dateFermeture": "Date Fermeture",
+            "plafondFinance": "Plafond Finance",
+            "nombreClient": "Nombre Client",
+            "plafondClient": "Plafond Client",
+            "dateCreat": "Date Creat",
+            "dateMaj": "Date Maj",
+            "etat": "Etat"
+        }
+    }
+}

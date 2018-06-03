@@ -1,0 +1,25 @@
+
+{
+    "geFondApp": {
+        "candidature" : {
+            "home": {
+                "title": "Candidatures",
+                "createLabel": "Créer un nouveau Candidature",
+                "createOrEditLabel": "Créer ou éditer un Candidature"
+            },
+            "created": "Un nouveau Candidature a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Candidature avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Candidature avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Candidature {{ id }} ?"
+            },
+            "detail": {
+                "title": "Candidature"
+            },
+            "type": "Type",
+            "status": "Status",
+            "session": "Session",
+            "candidat": "Candidat"
+        }
+    }
+}

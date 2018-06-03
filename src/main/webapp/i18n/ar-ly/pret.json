@@ -1,0 +1,36 @@
+
+{
+    "geFondApp": {
+        "pret" : {
+            "home": {
+                "title": "Prets",
+                "createLabel": "Create a new Pret",
+                "createOrEditLabel": "Create or edit a Pret"
+            },
+            "created": "A new Pret is created with identifier {{ param }}",
+            "updated": "A Pret is updated with identifier {{ param }}",
+            "deleted": "A Pret is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Pret {{ id }}?"
+            },
+            "detail": {
+                "title": "Pret"
+            },
+            "typPret": "Typ Pret",
+            "montAaccord": "Mont Aaccord",
+            "montDebloq": "Mont Debloq",
+            "nbrEcheance": "Nbr Echeance",
+            "periodicite": "Periodicite",
+            "dateMisePlace": "Date Mise Place",
+            "datePremiereEcheance": "Date Premiere Echeance",
+            "dateDerniereEcheance": "Date Derniere Echeance",
+            "dateDernierDebloq": "Date Dernier Debloq",
+            "etat": "Etat",
+            "encours": "Encours",
+            "userInitial": "User Initial",
+            "userDecideur": "User Decideur",
+            "userDebloq": "User Debloq",
+            "client": "Client"
+        }
+    }
+}

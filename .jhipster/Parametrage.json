@@ -1,0 +1,48 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "codeTypeParam",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "codeParam",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "libelle",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "lib1",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "lib2",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "lib3",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "mnt1",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "mnt2",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "mnt3",
+            "fieldType": "Double"
+        }
+    ],
+    "changelogDate": "20180603134505",
+    "entityTableName": "parametrage",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}
