@@ -1,0 +1,39 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "candidature",
+            "otherEntityName": "candidature",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "cadre",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "resultat",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "interlocuteur",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "etat",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dateEntretien",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "changelogDate": "20180603134506",
+    "entityTableName": "entretien",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}

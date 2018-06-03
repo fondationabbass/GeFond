@@ -5,6 +5,34 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180603134454_added_entity_Candidat.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180603134455_added_entity_ExperienceCandidat.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180603134456_added_entity_Candidature.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180603134457_added_entity_Projet.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180603134458_added_entity_Visite.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180603134459_added_entity_SessionProjet.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180603134500_added_entity_Client.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180603134501_added_entity_Pret.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180603134502_added_entity_Garantie.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180603134503_added_entity_Echeance.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180603134504_added_entity_Compte.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180603134505_added_entity_Parametrage.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180603134506_added_entity_Entretien.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180603134507_added_entity_Chapitre.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180603134508_added_entity_Mouvement.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180603134509_added_entity_Document.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20180603134455_added_entity_constraints_ExperienceCandidat.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180603134456_added_entity_constraints_Candidature.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180603134457_added_entity_constraints_Projet.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180603134458_added_entity_constraints_Visite.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180603134500_added_entity_constraints_Client.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180603134501_added_entity_constraints_Pret.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180603134502_added_entity_constraints_Garantie.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180603134503_added_entity_constraints_Echeance.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180603134504_added_entity_constraints_Compte.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180603134506_added_entity_constraints_Entretien.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180603134508_added_entity_constraints_Mouvement.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180603134509_added_entity_constraints_Document.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

@@ -1,0 +1,77 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myGarantieLabel" jhiTranslate="geFondApp.garantie.home.createOrEditLabel">Create or edit a Garantie</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!garantie.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="garantie.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.garantie.typeGar" for="field_typeGar">Type Gar</label>
+            <input type="text" class="form-control" name="typeGar" id="field_typeGar"
+                [(ngModel)]="garantie.typeGar" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.garantie.montantEvalue" for="field_montantEvalue">Montant Evalue</label>
+            <input type="number" class="form-control" name="montantEvalue" id="field_montantEvalue"
+                [(ngModel)]="garantie.montantEvalue" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.garantie.montantAfect" for="field_montantAfect">Montant Afect</label>
+            <input type="number" class="form-control" name="montantAfect" id="field_montantAfect"
+                [(ngModel)]="garantie.montantAfect" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.garantie.dateDepot" for="field_dateDepot">Date Depot</label>
+            <div class="input-group">
+                <input id="field_dateDepot" type="text" class="form-control" name="dateDepot" ngbDatepicker  #dateDepotDp="ngbDatepicker" [(ngModel)]="garantie.dateDepot"
+                />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="dateDepotDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.garantie.numDocument" for="field_numDocument">Num Document</label>
+            <input type="text" class="form-control" name="numDocument" id="field_numDocument"
+                [(ngModel)]="garantie.numDocument" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.garantie.etat" for="field_etat">Etat</label>
+            <input type="text" class="form-control" name="etat" id="field_etat"
+                [(ngModel)]="garantie.etat" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.garantie.dateRetrait" for="field_dateRetrait">Date Retrait</label>
+            <div class="input-group">
+                <input id="field_dateRetrait" type="text" class="form-control" name="dateRetrait" ngbDatepicker  #dateRetraitDp="ngbDatepicker" [(ngModel)]="garantie.dateRetrait"
+                />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="dateRetraitDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.garantie.pret" for="field_pret">Pret</label>
+            <select class="form-control" id="field_pret" name="pret" [(ngModel)]="garantie.pret" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="pretOption.id === garantie.pret?.id ? garantie.pret : pretOption" *ngFor="let pretOption of prets; trackBy: trackPretById">{{pretOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

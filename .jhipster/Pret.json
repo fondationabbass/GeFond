@@ -1,0 +1,75 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "client",
+            "otherEntityName": "client",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "typPret",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "montAaccord",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "montDebloq",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "nbrEcheance",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "periodicite",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dateMisePlace",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "datePremiereEcheance",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "dateDerniereEcheance",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "dateDernierDebloq",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "etat",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "encours",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "userInitial",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "userDecideur",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "userDebloq",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180603134501",
+    "entityTableName": "pret",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true
+}

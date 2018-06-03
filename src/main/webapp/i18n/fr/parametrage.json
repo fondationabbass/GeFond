@@ -1,0 +1,30 @@
+
+{
+    "geFondApp": {
+        "parametrage" : {
+            "home": {
+                "title": "Parametrages",
+                "createLabel": "Créer un nouveau Parametrage",
+                "createOrEditLabel": "Créer ou éditer un Parametrage"
+            },
+            "created": "Un nouveau Parametrage a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Parametrage avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Parametrage avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Parametrage {{ id }} ?"
+            },
+            "detail": {
+                "title": "Parametrage"
+            },
+            "codeTypeParam": "Code Type Param",
+            "codeParam": "Code Param",
+            "libelle": "Libelle",
+            "lib1": "Lib 1",
+            "lib2": "Lib 2",
+            "lib3": "Lib 3",
+            "mnt1": "Mnt 1",
+            "mnt2": "Mnt 2",
+            "mnt3": "Mnt 3"
+        }
+    }
+}

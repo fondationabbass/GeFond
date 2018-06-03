@@ -1,0 +1,61 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "candidat",
+            "otherEntityName": "candidat",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "client"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "dateCreat",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "lieuResid",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "typeResid",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "arrondResid",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "nomPersonneContact",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "telPersonneContact",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "adressPersonneContact",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "typeClient",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "pointsFidel",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "dateMaj",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "changelogDate": "20180603134500",
+    "entityTableName": "client",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true
+}

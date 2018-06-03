@@ -1,0 +1,88 @@
+<div>
+    <h2>
+        <span jhiTranslate="geFondApp.projet.home.title">Projets</span>
+        <button class="btn btn-primary float-right jh-create-entity create-projet" [routerLink]="['/', { outlets: { popup: ['projet-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="geFondApp.projet.home.createLabel">
+            Create new Projet
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="projets">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="intitule"><span jhiTranslate="geFondApp.projet.intitule">Intitule</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="montEstime"><span jhiTranslate="geFondApp.projet.montEstime">Mont Estime</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="montApp"><span jhiTranslate="geFondApp.projet.montApp">Mont App</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="domaine"><span jhiTranslate="geFondApp.projet.domaine">Domaine</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="type"><span jhiTranslate="geFondApp.projet.type">Type</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="description"><span jhiTranslate="geFondApp.projet.description">Description</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="dateCreation"><span jhiTranslate="geFondApp.projet.dateCreation">Date Creation</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="etat"><span jhiTranslate="geFondApp.projet.etat">Etat</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="lieu"><span jhiTranslate="geFondApp.projet.lieu">Lieu</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="candidature.id"><span jhiTranslate="geFondApp.projet.candidature">Candidature</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let projet of projets ;trackBy: trackId">
+                <td><a [routerLink]="['../projet', projet.id ]">{{projet.id}}</a></td>
+                <td>{{projet.intitule}}</td>
+                <td>{{projet.montEstime}}</td>
+                <td>{{projet.montApp}}</td>
+                <td>{{projet.domaine}}</td>
+                <td>{{projet.type}}</td>
+                <td>{{projet.description}}</td>
+                <td>{{projet.dateCreation | date:'mediumDate'}}</td>
+                <td>{{projet.etat}}</td>
+                <td>{{projet.lieu}}</td>
+                <td>
+                    <div *ngIf="projet.candidature">
+                        <a [routerLink]="['../candidature', projet.candidature?.id ]" >{{projet.candidature?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../projet', projet.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'projet/'+ projet.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'projet/'+ projet.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="projets && projets.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

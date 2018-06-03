@@ -1,0 +1,72 @@
+<div>
+    <h2>
+        <span jhiTranslate="geFondApp.entretien.home.title">Entretiens</span>
+        <button class="btn btn-primary float-right jh-create-entity create-entretien" [routerLink]="['/', { outlets: { popup: ['entretien-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="geFondApp.entretien.home.createLabel">
+            Create new Entretien
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="entretiens">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="geFondApp.entretien.cadre">Cadre</span></th>
+            <th><span jhiTranslate="geFondApp.entretien.resultat">Resultat</span></th>
+            <th><span jhiTranslate="geFondApp.entretien.interlocuteur">Interlocuteur</span></th>
+            <th><span jhiTranslate="geFondApp.entretien.etat">Etat</span></th>
+            <th><span jhiTranslate="geFondApp.entretien.dateEntretien">Date Entretien</span></th>
+            <th><span jhiTranslate="geFondApp.entretien.candidature">Candidature</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let entretien of entretiens ;trackBy: trackId">
+                <td><a [routerLink]="['../entretien', entretien.id ]">{{entretien.id}}</a></td>
+                <td>{{entretien.cadre}}</td>
+                <td>{{entretien.resultat}}</td>
+                <td>{{entretien.interlocuteur}}</td>
+                <td>{{entretien.etat}}</td>
+                <td>{{entretien.dateEntretien | date:'mediumDate'}}</td>
+                <td>
+                    <div *ngIf="entretien.candidature">
+                        <a [routerLink]="['../candidature', entretien.candidature?.id ]" >{{entretien.candidature?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../entretien', entretien.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'entretien/'+ entretien.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'entretien/'+ entretien.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

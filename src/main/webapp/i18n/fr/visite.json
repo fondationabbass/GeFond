@@ -1,0 +1,31 @@
+
+{
+    "geFondApp": {
+        "visite" : {
+            "home": {
+                "title": "Visites",
+                "createLabel": "Créer un nouveau Visite",
+                "createOrEditLabel": "Créer ou éditer un Visite"
+            },
+            "created": "Un nouveau Visite a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Visite avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Visite avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Visite {{ id }} ?"
+            },
+            "detail": {
+                "title": "Visite"
+            },
+            "lieuVisite": "Lieu Visite",
+            "dateVisite": "Date Visite",
+            "persRencontre": "Pers Rencontre",
+            "cadreVisite": "Cadre Visite",
+            "etatLieu": "Etat Lieu",
+            "visiteur": "Visiteur",
+            "etat": "Etat",
+            "recomendation": "Recomendation",
+            "rapport": "Rapport",
+            "candidature": "Candidature"
+        }
+    }
+}

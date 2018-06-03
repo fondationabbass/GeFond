@@ -1,0 +1,70 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myParametrageLabel" jhiTranslate="geFondApp.parametrage.home.createOrEditLabel">Create or edit a Parametrage</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!parametrage.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="parametrage.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.parametrage.codeTypeParam" for="field_codeTypeParam">Code Type Param</label>
+            <input type="text" class="form-control" name="codeTypeParam" id="field_codeTypeParam"
+                [(ngModel)]="parametrage.codeTypeParam" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.parametrage.codeParam" for="field_codeParam">Code Param</label>
+            <input type="text" class="form-control" name="codeParam" id="field_codeParam"
+                [(ngModel)]="parametrage.codeParam" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.parametrage.libelle" for="field_libelle">Libelle</label>
+            <input type="text" class="form-control" name="libelle" id="field_libelle"
+                [(ngModel)]="parametrage.libelle" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.parametrage.lib1" for="field_lib1">Lib 1</label>
+            <input type="text" class="form-control" name="lib1" id="field_lib1"
+                [(ngModel)]="parametrage.lib1" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.parametrage.lib2" for="field_lib2">Lib 2</label>
+            <input type="text" class="form-control" name="lib2" id="field_lib2"
+                [(ngModel)]="parametrage.lib2" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.parametrage.lib3" for="field_lib3">Lib 3</label>
+            <input type="text" class="form-control" name="lib3" id="field_lib3"
+                [(ngModel)]="parametrage.lib3" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.parametrage.mnt1" for="field_mnt1">Mnt 1</label>
+            <input type="number" class="form-control" name="mnt1" id="field_mnt1"
+                [(ngModel)]="parametrage.mnt1" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.parametrage.mnt2" for="field_mnt2">Mnt 2</label>
+            <input type="number" class="form-control" name="mnt2" id="field_mnt2"
+                [(ngModel)]="parametrage.mnt2" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.parametrage.mnt3" for="field_mnt3">Mnt 3</label>
+            <input type="number" class="form-control" name="mnt3" id="field_mnt3"
+                [(ngModel)]="parametrage.mnt3" />
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

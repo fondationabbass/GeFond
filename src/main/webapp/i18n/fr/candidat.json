@@ -1,0 +1,28 @@
+
+{
+    "geFondApp": {
+        "candidat" : {
+            "home": {
+                "title": "Candidats",
+                "createLabel": "Créer un nouveau Candidat",
+                "createOrEditLabel": "Créer ou éditer un Candidat"
+            },
+            "created": "Un nouveau Candidat a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Candidat avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Candidat avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Candidat {{ id }} ?"
+            },
+            "detail": {
+                "title": "Candidat"
+            },
+            "nom": "Nom",
+            "prenom": "Prenom",
+            "dateNaissance": "Date Naissance",
+            "lieuNaissance": "Lieu Naissance",
+            "adresse": "Adresse",
+            "tel": "Tel",
+            "situation": "Situation"
+        }
+    }
+}
