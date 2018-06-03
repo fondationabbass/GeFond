@@ -1,0 +1,182 @@
+entity Candidat {
+    nom String,
+    prenom String
+    dateNaissance LocalDate,
+    lieuNaissance String,
+    adresse String,
+    tel String,
+    situation String
+}
+
+entity ExperienceCandidat {
+   typeInfo String,
+	titre String,
+    etab String,
+    adressEtab String,
+    dateDeb LocalDate,
+    dateFin LocalDate
+}
+entity Candidature {
+	type String,
+    status String
+}
+
+// an ignored comment
+/** not an ignored comment */
+entity Projet {
+	intitule String,
+	montEstime Double,
+    montApp Double
+	domaine String,
+	type String,
+    description String,
+    dateCreation LocalDate,
+    etat String,
+    lieu String
+}
+entity Visite {
+	lieuVisite String,
+	dateVisite LocalDate,
+    persRencontre Integer
+	cadreVisite String,
+	etatLieu String,
+    visiteur String,
+    etat String,
+    recomendation String,
+    rapport String
+}
+entity SessionProjet {
+	dateOuvert LocalDate,
+    dateFermeture LocalDate,
+    plafondFinance Integer
+	nombreClient Integer,
+    plafondClient Integer
+	dateCreat String,
+    dateMaj String,
+    etat String,
+}
+entity Client {
+    dateCreat LocalDate,
+   	lieuResid String,
+	typeResid String,
+	arrondResid String,
+	nomPersonneContact String,
+	telPersonneContact  String,
+	adressPersonneContact String,
+    typeClient String,
+	pointsFidel Double,
+    dateCreat LocalDate,
+    dateMaj LocalDate
+}
+entity Pret {
+typPret String,
+montAaccord Double,
+montDebloq Double,
+nbrEcheance Integer,
+periodicite String,
+dateMisePlace LocalDate,
+datePremiereEcheance LocalDate,
+dateDerniereEcheance LocalDate,
+dateDernierDebloq LocalDate,
+etat String,
+encours Double
+userInitial String,
+userDecideur String,
+userDebloq String,
+}
+entity Garantie {
+   typeGar String,
+   montantEvalue Double,
+   montantAfect Double,
+	dateDepot LocalDate,
+	numDocument String,
+	etat String,
+	dateRetrait LocalDate
+}
+entity Echeance {
+	dateTombe LocalDate,
+	montant Double,
+	etatEcheance String,
+	datePayement LocalDate,
+	dateRetrait LocalDate
+}
+entity Compte {
+    intituleCompte String
+	dateOuverture LocalDate,
+	solde Double,
+	dateDernierCredit String,
+	dateDernierDebit LocalDate
+    }
+  entity Parametrage {
+    codeTypeParam String,
+	codeParam  String,
+	libelle String,
+	lib1 String,
+	lib2 String,
+	lib3 String,
+	mnt1 Double,
+	mnt2 Double,
+	mnt3 Double
+    }
+ entity Entretien {
+    cadre String,
+	resultat  String,
+    interlocuteur String
+    etat String,
+    dateEntretien LocalDate
+    }   
+entity Chapitre {
+    libChapitre String,
+	categorieCompte  String,
+    }
+entity Mouvement {
+    dateMvt LocalDate,
+    lib String,
+	montant  Double,
+    sens String,
+    etat String
+    }
+entity Document {
+    dateEnreg LocalDate,
+    lib String,
+	typeDocument  String,
+    module String,
+    etat String,
+    fichier String
+    tail String
+    }
+relationship OneToOne {
+	Projet{candidature} to Candidature,
+	Candidature{session} to SessionProjet,
+    Client{candidat} to Candidat
+}
+
+relationship ManyToOne {
+	Visite{candidature} to Candidature,
+    Entretien{candidature} to Candidature,
+    Document{candidature} to Candidature
+	Candidature{candidat} to Candidat,
+	Compte{client} to Client,
+    Mouvement{compte} to Compte,
+	Pret{client} to Client,
+	Compte{chapitre} to Chapitre,
+	Echeance{pret} to Pret,
+	Garantie{pret} to Pret,
+	ExperienceCandidat{candidat} to Candidat
+}
+// Set pagination options
+paginate Candidature with pagination
+paginate Mouvement  with pagination
+paginate Client with pagination
+paginate Projet  with pagination
+paginate Compte  with pagination
+paginate Echeance  with pagination
+
+filter Compte
+filter Client
+filter Pret
+filter Projet
+filter Candidat
+filter Candidature
+
+
