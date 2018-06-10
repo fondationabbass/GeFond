@@ -1,6 +1,7 @@
 package com.bdi.fondation.service.dto;
 
 import java.io.Serializable;
+
 import io.github.jhipster.service.filter.BooleanFilter;
 import io.github.jhipster.service.filter.DoubleFilter;
 import io.github.jhipster.service.filter.Filter;

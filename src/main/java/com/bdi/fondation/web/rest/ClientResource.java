@@ -1,6 +1,7 @@
 package com.bdi.fondation.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.bdi.fondation.domain.Candidat;
 import com.bdi.fondation.domain.Client;
 import com.bdi.fondation.service.ClientService;
 import com.bdi.fondation.web.rest.errors.BadRequestAlertException;
@@ -102,7 +103,13 @@ public class ClientResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/clients");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
-
+    @GetMapping("/clients/last")
+    @Timed
+    public ResponseEntity<List<Client>> getLast3Clients() {
+    	log.debug("REST request to get last 3 clients");
+    	List<Client> entityList = clientQueryService.findLast3();
+    	return ResponseEntity.ok().body(entityList);
+    }
     /**
      * GET  /clients/:id : get the "id" client.
      *

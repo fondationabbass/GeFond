@@ -1,6 +1,7 @@
 package com.bdi.fondation.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+
 import com.bdi.fondation.domain.Candidat;
 import com.bdi.fondation.service.CandidatService;
 import com.bdi.fondation.web.rest.errors.BadRequestAlertException;
@@ -81,6 +82,19 @@ public class CandidatResource {
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, candidat.getId().toString()))
             .body(result);
     }
+    
+    @PutMapping("/candidats")
+    @Timed
+    public ResponseEntity<Candidat> validateCandidat(@RequestBody Candidat candidat) throws URISyntaxException {
+        log.debug("REST request to validate Candidat : {}", candidat);
+        if (candidat.getId() == null) {
+            return createCandidat(candidat);
+        }
+        Candidat result = candidatService.validate(candidat);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, candidat.getId().toString()))
+            .body(result);
+    }
 
     /**
      * GET  /candidats : get all the candidats.
@@ -94,6 +108,13 @@ public class CandidatResource {
         log.debug("REST request to get Candidats by criteria: {}", criteria);
         List<Candidat> entityList = candidatQueryService.findByCriteria(criteria);
         return ResponseEntity.ok().body(entityList);
+    }
+    @GetMapping("/candidats/last")
+    @Timed
+    public ResponseEntity<List<Candidat>> getLast3Candidats() {
+    	log.debug("REST request to get last 3 candidats");
+    	List<Candidat> entityList = candidatQueryService.findLast3();
+    	return ResponseEntity.ok().body(entityList);
     }
 
     /**

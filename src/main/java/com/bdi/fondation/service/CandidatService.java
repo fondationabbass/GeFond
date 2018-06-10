@@ -1,6 +1,7 @@
 package com.bdi.fondation.service;
 
 import com.bdi.fondation.domain.Candidat;
+
 import com.bdi.fondation.repository.CandidatRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,5 +67,10 @@ public class CandidatService {
     public void delete(Long id) {
         log.debug("Request to delete Candidat : {}", id);
         candidatRepository.delete(id);
+    }
+
+	 public Candidat validate(Candidat candidat) {
+        log.debug("Request to validate Candidat : {}", candidat);
+        return candidatRepository.validate(candidat);
     }
 }

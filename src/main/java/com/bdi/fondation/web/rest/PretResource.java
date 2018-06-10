@@ -1,6 +1,7 @@
 package com.bdi.fondation.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.bdi.fondation.domain.Client;
 import com.bdi.fondation.domain.Pret;
 import com.bdi.fondation.service.PretService;
 import com.bdi.fondation.web.rest.errors.BadRequestAlertException;
@@ -109,6 +110,14 @@ public class PretResource {
      * @param id the id of the pret to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the pret, or with status 404 (Not Found)
      */
+    
+    @GetMapping("/prets/last")
+    @Timed
+    public ResponseEntity<List<Pret>> getLast3Prets() {
+    	log.debug("REST request to get last 3 prets");
+    	List<Pret> entityList = pretQueryService.findLast3();
+    	return ResponseEntity.ok().body(entityList);
+    }
     @GetMapping("/prets/{id}")
     @Timed
     public ResponseEntity<Pret> getPret(@PathVariable Long id) {

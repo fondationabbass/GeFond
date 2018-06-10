@@ -39,7 +39,11 @@ export class PretService {
         return this.http.get<Pret[]>(this.resourceUrl, { params: options, observe: 'response' })
             .map((res: HttpResponse<Pret[]>) => this.convertArrayResponse(res));
     }
-
+    last(req?: any): Observable<HttpResponse<Pret[]>> {
+        const options = createRequestOption(req);
+        return this.http.get<Pret[]>(this.resourceUrl + '/last', { params: options, observe: 'response' })
+            .map((res: HttpResponse<Pret[]>) => this.convertArrayResponse(res));
+    }
     delete(id: number): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
     }

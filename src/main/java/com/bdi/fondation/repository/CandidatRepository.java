@@ -1,7 +1,12 @@
 package com.bdi.fondation.repository;
 
-import com.bdi.fondation.domain.Candidat;
+import com.bdi.fondation.domain.Candidat
+;
+
+
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 import org.springframework.data.jpa.repository.*;
 
@@ -12,5 +17,11 @@ import org.springframework.data.jpa.repository.*;
 @SuppressWarnings("unused")
 @Repository
 public interface CandidatRepository extends JpaRepository<Candidat, Long>, JpaSpecificationExecutor<Candidat> {
+	
+	public List<Candidat> findFirst3ByOrderByIdDesc();
+
+	public Candidat validate(Candidat candidat);
+
+	
 
 }

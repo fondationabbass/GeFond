@@ -1,6 +1,8 @@
 package com.bdi.fondation.service;
 
 import java.time.LocalDate;
+
+
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -12,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.github.jhipster.service.QueryService;
-
 import com.bdi.fondation.domain.Client;
 import com.bdi.fondation.domain.*; // for static metamodels
 import com.bdi.fondation.repository.ClientRepository;
@@ -49,7 +50,11 @@ public class ClientQueryService extends QueryService<Client> {
         final Specifications<Client> specification = createSpecification(criteria);
         return clientRepository.findAll(specification);
     }
-
+    @Transactional(readOnly = true)
+    public List<Client> findLast3() {
+        log.debug("find last three3");
+        return  clientRepository.findFirst3ByOrderByIdDesc();
+    }
     /**
      * Return a {@link Page} of {@link Client} which matches the criteria from the database
      * @param criteria The object which holds all the filters, which the entities should match.

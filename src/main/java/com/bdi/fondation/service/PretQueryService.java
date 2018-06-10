@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import io.github.jhipster.service.QueryService;
 
-import com.bdi.fondation.domain.Pret;
 import com.bdi.fondation.domain.*; // for static metamodels
 import com.bdi.fondation.repository.PretRepository;
 import com.bdi.fondation.service.dto.PretCriteria;
@@ -49,7 +48,11 @@ public class PretQueryService extends QueryService<Pret> {
         final Specifications<Pret> specification = createSpecification(criteria);
         return pretRepository.findAll(specification);
     }
-
+    @Transactional(readOnly = true)
+    public List<Pret> findLast3() {
+        log.debug("find last three3");
+        return pretRepository.findFirst3ByOrderByIdDesc();
+    }
     /**
      * Return a {@link Page} of {@link Pret} which matches the criteria from the database
      * @param criteria The object which holds all the filters, which the entities should match.

@@ -39,6 +39,12 @@ export class CandidatService {
         return this.http.get<Candidat[]>(this.resourceUrl, { params: options, observe: 'response' })
             .map((res: HttpResponse<Candidat[]>) => this.convertArrayResponse(res));
     }
+    
+    last(req?: any): Observable<HttpResponse<Candidat[]>> {
+        const options = createRequestOption(req);
+        return this.http.get<Candidat[]>(this.resourceUrl + '/last', { params: options, observe: 'response' })
+            .map((res: HttpResponse<Candidat[]>) => this.convertArrayResponse(res));
+    }
 
     delete(id: number): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});

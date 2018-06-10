@@ -40,6 +40,11 @@ export class ClientService {
             .map((res: HttpResponse<Client[]>) => this.convertArrayResponse(res));
     }
 
+    last(req?: any): Observable<HttpResponse<Client[]>> {
+        const options = createRequestOption(req);
+        return this.http.get<Client[]>(this.resourceUrl + '/last', { params: options, observe: 'response' })
+            .map((res: HttpResponse<Client[]>) => this.convertArrayResponse(res));
+    }
     delete(id: number): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
     }

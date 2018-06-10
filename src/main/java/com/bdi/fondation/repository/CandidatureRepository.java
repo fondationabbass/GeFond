@@ -1,6 +1,7 @@
 package com.bdi.fondation.repository;
 
 import com.bdi.fondation.domain.Candidature;
+
 import org.springframework.stereotype.Repository;
 
 import org.springframework.data.jpa.repository.*;

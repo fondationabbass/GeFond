@@ -1,6 +1,7 @@
 package com.bdi.fondation.service;
 
 import java.time.LocalDate;
+
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -48,6 +49,11 @@ public class CandidatQueryService extends QueryService<Candidat> {
         log.debug("find by criteria : {}", criteria);
         final Specifications<Candidat> specification = createSpecification(criteria);
         return candidatRepository.findAll(specification);
+    }
+    @Transactional(readOnly = true)
+    public List<Candidat> findLast3() {
+        log.debug("find last three3");
+        return candidatRepository.findFirst3ByOrderByIdDesc();
     }
 
     /**
