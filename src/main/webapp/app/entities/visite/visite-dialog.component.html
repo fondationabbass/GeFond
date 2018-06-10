@@ -101,7 +101,7 @@
             <label class="form-control-label" jhiTranslate="geFondApp.visite.candidature" for="field_candidature">Candidature</label>
             <select class="form-control" id="field_candidature" name="candidature" [(ngModel)]="visite.candidature" >
                 <option [ngValue]="null"></option>
-                <option [ngValue]="candidatureOption.id === visite.candidature?.id ? visite.candidature : candidatureOption" *ngFor="let candidatureOption of candidatures; trackBy: trackCandidatureById">{{candidatureOption.id}}</option>
+                <option [ngValue]="candidatureOption.id === visite.candidature?.id ? visite.candidature : candidatureOption" *ngFor="let candidatureOption of candidatures; trackBy: trackCandidatureById">{{candidatureOption.type}}</option>
             </select>
         </div>
     </div>

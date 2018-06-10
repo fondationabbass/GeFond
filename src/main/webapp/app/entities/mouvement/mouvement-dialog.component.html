@@ -69,7 +69,7 @@
             <label class="form-control-label" jhiTranslate="geFondApp.mouvement.compte" for="field_compte">Compte</label>
             <select class="form-control" id="field_compte" name="compte" [(ngModel)]="mouvement.compte" >
                 <option [ngValue]="null"></option>
-                <option [ngValue]="compteOption.id === mouvement.compte?.id ? mouvement.compte : compteOption" *ngFor="let compteOption of comptes; trackBy: trackCompteById">{{compteOption.id}}</option>
+                <option [ngValue]="compteOption.id === mouvement.compte?.id ? mouvement.compte : compteOption" *ngFor="let compteOption of comptes; trackBy: trackCompteById">{{compteOption.intituleCompte}}</option>
             </select>
         </div>
         <div class="form-group">

@@ -92,7 +92,7 @@
             <label class="form-control-label" jhiTranslate="geFondApp.compte.chapitre" for="field_chapitre">Chapitre</label>
             <select class="form-control" id="field_chapitre" name="chapitre" [(ngModel)]="compte.chapitre" >
                 <option [ngValue]="null"></option>
-                <option [ngValue]="chapitreOption.id === compte.chapitre?.id ? compte.chapitre : chapitreOption" *ngFor="let chapitreOption of chapitres; trackBy: trackChapitreById">{{chapitreOption.id}}</option>
+                <option [ngValue]="chapitreOption.id === compte.chapitre?.id ? compte.chapitre : chapitreOption" *ngFor="let chapitreOption of chapitres; trackBy: trackChapitreById">{{chapitreOption.libChapitre}}</option>
             </select>
         </div>
     </div>

@@ -100,7 +100,7 @@
             <label class="form-control-label" jhiTranslate="geFondApp.garantie.pret" for="field_pret">Pret</label>
             <select class="form-control" id="field_pret" name="pret" [(ngModel)]="garantie.pret" >
                 <option [ngValue]="null"></option>
-                <option [ngValue]="pretOption.id === garantie.pret?.id ? garantie.pret : pretOption" *ngFor="let pretOption of prets; trackBy: trackPretById">{{pretOption.id}}</option>
+                <option [ngValue]="pretOption.id === garantie.pret?.id ? garantie.pret : pretOption" *ngFor="let pretOption of prets; trackBy: trackPretById">{{pretOption.typPret}}</option>
             </select>
         </div>
     </div>
