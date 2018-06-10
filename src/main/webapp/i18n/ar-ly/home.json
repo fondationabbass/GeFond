@@ -1,5 +1,8 @@
 {
     "home": {
+        "lastThreeCandidats":"اخر ثلاثة مترشحين",
+        "lastThreeClients":"اخر ثلاثة زبائن",
+        "lastThreePrets":"اخر ثلاث قروض",
         "title": "أهلا وسهلا بك، جافا هبستر!",
         "subtitle": "هذه صفحتك الرئيسية",
         "logged": {
@@ -13,7 +16,7 @@
             "chat": "JHipster public chat room",
             "follow": "follow @java_hipster on Twitter"
         },
-        "like": "إذا كنت تحب JHipster، لا تنسى أن تعطي لنا نجم على",
+        "like": "إذا كنت تحب JHipster، لا تنس أن تعطي لنا نجم على",
         "github": "GitHub"
     }
 }

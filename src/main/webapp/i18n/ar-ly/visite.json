@@ -3,29 +3,29 @@
     "geFondApp": {
         "visite" : {
             "home": {
-                "title": "Visites",
-                "createLabel": "Create a new Visite",
-                "createOrEditLabel": "Create or edit a Visite"
+                "title": "الزيارات",
+                "createLabel":"إضافة زيارة",
+                "createOrEditLabel":" إضافة أو تعديل زيارة"
             },
-            "created": "A new Visite is created with identifier {{ param }}",
-            "updated": "A Visite is updated with identifier {{ param }}",
-            "deleted": "A Visite is deleted with identifier {{ param }}",
+            "created": "تمت إضافة زيارة جديدة {{ param }}",
+            "updated": "تم تحديث الزيارة {{ param }}",
+            "deleted": "تم حذف الزيارة {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Visite {{ id }}?"
+                "question": "هل أنت متأكد من حذف الزيارة {{ id }}?"
             },
             "detail": {
-                "title": "Visite"
+                "title": "الزيارة"
             },
-            "lieuVisite": "Lieu Visite",
-            "dateVisite": "Date Visite",
-            "persRencontre": "Pers Rencontre",
-            "cadreVisite": "Cadre Visite",
-            "etatLieu": "Etat Lieu",
-            "visiteur": "Visiteur",
-            "etat": "Etat",
-            "recomendation": "Recomendation",
-            "rapport": "Rapport",
-            "candidature": "Candidature"
+            "lieuVisite": "مكان الزيارة",
+            "dateVisite": "تاريخ الزيارة",
+            "persRencontre": "الشخص المستقبل",
+            "cadreVisite": "مجال الزيارة",
+            "etatLieu": "حالة المكان",
+            "visiteur": "الزائر",
+            "etat": "الحالة",
+            "recomendation": "التوصية",
+            "rapport": "التقرير",
+            "candidature": "الترشح"
         }
     }
 }

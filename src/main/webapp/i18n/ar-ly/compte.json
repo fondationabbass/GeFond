@@ -3,25 +3,25 @@
     "geFondApp": {
         "compte" : {
             "home": {
-                "title": "Comptes",
-                "createLabel": "Create a new Compte",
-                "createOrEditLabel": "Create or edit a Compte"
+                "title": "الحسابات",
+                "createLabel":"إضافة حساب",
+                "createOrEditLabel":" إضافة أو تعديل حساب"
             },
-            "created": "A new Compte is created with identifier {{ param }}",
-            "updated": "A Compte is updated with identifier {{ param }}",
-            "deleted": "A Compte is deleted with identifier {{ param }}",
+            "created": "تمت إضافة حساب جديد {{ param }}",
+            "updated": "تم تحديث الحساب {{ param }}",
+            "deleted": "تم حذف الحساب {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Compte {{ id }}?"
+                "question": "هل أنت متأكد من حذف الحساب {{ id }}?"
             },
             "detail": {
-                "title": "Compte"
+                "title": "الحساب"
             },
-            "intituleCompte": "Intitule Compte",
-            "dateOuverture": "Date Ouverture",
-            "solde": "Solde",
+            "intituleCompte": "اسم الحساب",
+            "dateOuverture": "تاريخ الفتح",
+            "solde": "الرصيد",
             "dateDernierCredit": "Date Dernier Credit",
             "dateDernierDebit": "Date Dernier Debit",
-            "client": "Client",
+            "client": "الزبون",
             "chapitre": "Chapitre"
         }
     }

@@ -4,14 +4,14 @@
         "candidature" : {
             "home": {
                 "title": "Candidatures",
-                "createLabel": "Créer un nouveau Candidature",
-                "createOrEditLabel": "Créer ou éditer un Candidature"
+                "createLabel": "Ajouter une Candidature",
+                "createOrEditLabel": "Créer ou éditer une Candidature"
             },
-            "created": "Un nouveau Candidature a été créé avec l'identifiant {{ param }}",
-            "updated": "Le Candidature avec l'identifiant {{ param }} a été mis à jour",
-            "deleted": "Le Candidature avec l'identifiant {{ param }} a été supprimé",
+            "created": "Une nouvelle Candidature a été créée avec l'identifiant {{ param }}",
+            "updated": "La Candidature avec l'identifiant {{ param }} a été mise à jour",
+            "deleted": "La Candidature avec l'identifiant {{ param }} a été supprimée",
             "delete": {
-                "question": "Etes-vous certain de vouloir supprimer le Candidature {{ id }} ?"
+                "question": "Etes-vous certain de vouloir supprimer la Candidature {{ id }} ?"
             },
             "detail": {
                 "title": "Candidature"

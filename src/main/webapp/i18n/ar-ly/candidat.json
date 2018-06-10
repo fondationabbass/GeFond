@@ -3,26 +3,26 @@
     "geFondApp": {
         "candidat" : {
             "home": {
-                "title": "Candidats",
-                "createLabel": "Create a new Candidat",
-                "createOrEditLabel": "Create or edit a Candidat"
+                "title": "المترشحون",
+                "createLabel": "إصافة مترشح",
+                "createOrEditLabel": "إضافة أو تعديل مترشح"
             },
-            "created": "A new Candidat is created with identifier {{ param }}",
-            "updated": "A Candidat is updated with identifier {{ param }}",
-            "deleted": "A Candidat is deleted with identifier {{ param }}",
+            "created": "تمت إضافة مترشح جديد {{ param }}",
+            "updated": "تم تحديث المترشح {{ param }}",
+            "deleted": "تم حذف المترشح {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Candidat {{ id }}?"
+                "question": "هل أنت متأكد من حذف المترشح {{ id }}?"
             },
             "detail": {
-                "title": "Candidat"
+                "title": "المترشح"
             },
-            "nom": "Nom",
-            "prenom": "Prenom",
-            "dateNaissance": "Date Naissance",
-            "lieuNaissance": "Lieu Naissance",
-            "adresse": "Adresse",
-            "tel": "Tel",
-            "situation": "Situation"
+            "nom": "الاسم",
+            "prenom": "اللقب",
+            "dateNaissance": "تاريخ الميلاد",
+            "lieuNaissance": "مكان الميلاد",
+            "adresse": "العنوان",
+            "tel": "الهاتف",
+            "situation": "الوضعية"
         }
     }
 }

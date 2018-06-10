@@ -16,13 +16,13 @@
             "detail": {
                 "title": "Document"
             },
-            "dateEnreg": "Date Enreg",
+            "dateEnreg": "Date Enregistrement",
             "lib": "Lib",
             "typeDocument": "Type Document",
             "module": "Module",
             "etat": "Etat",
             "fichier": "Fichier",
-            "tail": "Tail",
+            "tail": "Taille",
             "candidature": "Candidature"
         }
     }

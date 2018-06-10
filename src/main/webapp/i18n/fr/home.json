@@ -1,6 +1,9 @@
 {
     "home": {
-        "title": "Bienvenue, Java Hipster !",
+        "lastThreeCandidats":"Trois derniers candidats",
+        "lastThreeClients":"Trois derniers clients",
+        "lastThreePrets":"Trois derniers prets",
+        "title": "GeFond ",
         "subtitle": "Ceci est votre page d'accueil",
         "logged": {
             "message": "Vous êtes connecté en tant que \"{{username}}\"."

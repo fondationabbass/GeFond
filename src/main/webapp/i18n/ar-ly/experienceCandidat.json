@@ -3,26 +3,26 @@
     "geFondApp": {
         "experienceCandidat" : {
             "home": {
-                "title": "Experience Candidats",
-                "createLabel": "Create a new Experience Candidat",
-                "createOrEditLabel": "Create or edit a Experience Candidat"
+                "title": "خبرات المترشحين",
+                "createLabel":"إضافة خبرة",
+                "createOrEditLabel":" إضافة أو تعديل خبرة"
             },
-            "created": "A new Experience Candidat is created with identifier {{ param }}",
-            "updated": "A Experience Candidat is updated with identifier {{ param }}",
-            "deleted": "A Experience Candidat is deleted with identifier {{ param }}",
+            "created": "تمت إضافة خبرة جديدة {{ param }}",
+            "updated": "تم تحديث الخبرة {{ param }}",
+            "deleted": "تم حذف الخبرة {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Experience Candidat {{ id }}?"
+                "question": "هل أنت متأكد من حذف الخبرة {{ id }}?"
             },
             "detail": {
-                "title": "Experience Candidat"
+                "title": "خبرة المترشح"
             },
-            "typeInfo": "Type Info",
-            "titre": "Titre",
-            "etab": "Etab",
-            "adressEtab": "Adress Etab",
-            "dateDeb": "Date Deb",
-            "dateFin": "Date Fin",
-            "candidat": "Candidat"
+            "typeInfo": "نوع المعلومات",
+            "titre": "العنوان",
+            "etab": "المؤسسة",
+            "adressEtab": "عنوان المؤسسة",
+            "dateDeb": "تاريخ البداية",
+            "dateFin": "تاريخ النهاية",
+            "candidat": "المترشح"
         }
     }
 }

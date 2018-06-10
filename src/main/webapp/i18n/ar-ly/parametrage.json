@@ -3,15 +3,15 @@
     "geFondApp": {
         "parametrage" : {
             "home": {
-                "title": "Parametrages",
-                "createLabel": "Create a new Parametrage",
-                "createOrEditLabel": "Create or edit a Parametrage"
+                "title": "الحسابات",
+                "createLabel":"إضافة حساب",
+                "createOrEditLabel":" إضافة أو تعديل حساب"
             },
-            "created": "A new Parametrage is created with identifier {{ param }}",
-            "updated": "A Parametrage is updated with identifier {{ param }}",
-            "deleted": "A Parametrage is deleted with identifier {{ param }}",
+            "created": "تمت إضافة حساب جديد {{ param }}",
+            "updated": "تم تحديث الحساب {{ param }}",
+            "deleted": "تم حذف الحساب {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Parametrage {{ id }}?"
+                "question": "هل أنت متأكد من حذف الحساب {{ id }}?"
             },
             "detail": {
                 "title": "Parametrage"

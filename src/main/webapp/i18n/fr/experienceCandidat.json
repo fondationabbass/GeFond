@@ -4,14 +4,14 @@
         "experienceCandidat" : {
             "home": {
                 "title": "ExperienceCandidats",
-                "createLabel": "Créer un nouveau Experience Candidat",
-                "createOrEditLabel": "Créer ou éditer un Experience Candidat"
+                "createLabel": "Ajouter une Experience Candidat",
+                "createOrEditLabel": "Créer ou éditer une Experience Candidat"
             },
-            "created": "Un nouveau Experience Candidat a été créé avec l'identifiant {{ param }}",
-            "updated": "Le Experience Candidat avec l'identifiant {{ param }} a été mis à jour",
-            "deleted": "Le Experience Candidat avec l'identifiant {{ param }} a été supprimé",
+            "created": "Une nouvelle Experience Candidat a été créée avec l'identifiant {{ param }}",
+            "updated": "L'Experience Candidat avec l'identifiant {{ param }} a été mise à jour",
+            "deleted": "L'Experience Candidat avec l'identifiant {{ param }} a été supprimée",
             "delete": {
-                "question": "Etes-vous certain de vouloir supprimer le Experience Candidat {{ id }} ?"
+                "question": "Etes-vous certain de vouloir supprimer l'Experience Candidat {{ id }} ?"
             },
             "detail": {
                 "title": "Experience Candidat"
@@ -20,7 +20,7 @@
             "titre": "Titre",
             "etab": "Etab",
             "adressEtab": "Adress Etab",
-            "dateDeb": "Date Deb",
+            "dateDeb": "Date Debut",
             "dateFin": "Date Fin",
             "candidat": "Candidat"
         }

@@ -3,21 +3,18 @@
     "geFondApp": {
         "chapitre" : {
             "home": {
-                "title": "Chapitres",
-                "createLabel": "Create a new Chapitre",
-                "createOrEditLabel": "Create or edit a Chapitre"
+                "title": "الفصول",
+                "createLabel": "إصافة فصل",
+                "createOrEditLabel": "إضافة أو تعديل فصل"
             },
-            "created": "A new Chapitre is created with identifier {{ param }}",
-            "updated": "A Chapitre is updated with identifier {{ param }}",
-            "deleted": "A Chapitre is deleted with identifier {{ param }}",
+            "created": "تمت إضافة فصل جديد {{ param }}",
+            "updated": "تم تحديث الفصل {{ param }}",
+            "deleted": "تم حذف الفصل {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Chapitre {{ id }}?"
-            },
-            "detail": {
-                "title": "Chapitre"
+                "question": "هل أنت متأكد من حذف الفصل {{ id }}?"
             },
             "libChapitre": "Lib Chapitre",
-            "categorieCompte": "Categorie Compte"
+            "categorieCompte": "نوع الحساب"
         }
     }
 }

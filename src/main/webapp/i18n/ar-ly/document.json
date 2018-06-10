@@ -3,27 +3,27 @@
     "geFondApp": {
         "document" : {
             "home": {
-                "title": "Documents",
-                "createLabel": "Create a new Document",
-                "createOrEditLabel": "Create or edit a Document"
+                "title": "الوثائق",
+                "createLabel":"إضافة وثيقة",
+                "createOrEditLabel":" إضافة أو تعديل وثيقة"
             },
-            "created": "A new Document is created with identifier {{ param }}",
-            "updated": "A Document is updated with identifier {{ param }}",
-            "deleted": "A Document is deleted with identifier {{ param }}",
+            "created": "تمت إضافة وثيقة جديدة {{ param }}",
+            "updated": "تم تحديث الوثيقة {{ param }}",
+            "deleted": "تم حذف الوثيقة {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Document {{ id }}?"
+                "question": "هل أنت متأكد من حذف الوثيقة {{ id }}?"
             },
             "detail": {
-                "title": "Document"
+                "title": "الوثيقة"
             },
-            "dateEnreg": "Date Enreg",
+            "dateEnreg": "تاريخ التسجيل",
             "lib": "Lib",
-            "typeDocument": "Type Document",
-            "module": "Module",
-            "etat": "Etat",
-            "fichier": "Fichier",
-            "tail": "Tail",
-            "candidature": "Candidature"
+            "typeDocument": "نوع الوثيقة",
+            "module": "الوحدة",
+            "etat": "الحالة",
+            "fichier": "الملف",
+            "tail": "الحجم",
+            "candidature": "الترشح"
         }
     }
 }

@@ -3,29 +3,29 @@
     "geFondApp": {
         "projet" : {
             "home": {
-                "title": "Projets",
-                "createLabel": "Create a new Projet",
-                "createOrEditLabel": "Create or edit a Projet"
+                "title": "المشاريع",
+                "createLabel":"إضافة مشروع",
+                "createOrEditLabel":" إضافة أو تعديل مشروع"
             },
-            "created": "A new Projet is created with identifier {{ param }}",
-            "updated": "A Projet is updated with identifier {{ param }}",
-            "deleted": "A Projet is deleted with identifier {{ param }}",
+            "created": "تمت إضافة مشروع جديد {{ param }}",
+            "updated": "تم تحديث المشروع {{ param }}",
+            "deleted": "تم حذف المشروع {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Projet {{ id }}?"
+                "question": "هل أنت متأكد من حذف المشروع {{ id }}?"
             },
             "detail": {
-                "title": "Projet"
+                "title": "المشروع"
             },
             "intitule": "Intitule",
             "montEstime": "Mont Estime",
             "montApp": "Mont App",
-            "domaine": "Domaine",
-            "type": "Type",
-            "description": "Description",
-            "dateCreation": "Date Creation",
-            "etat": "Etat",
-            "lieu": "Lieu",
-            "candidature": "Candidature"
+            "domaine": "المجال",
+            "type": "النوع",
+            "description": "الوصف",
+            "dateCreation": "تاريخ الإنشاء",
+            "etat": "الحالة",
+            "lieu": "المكان",
+            "candidature": "الترشح"
         }
     }
 }

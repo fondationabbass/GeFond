@@ -3,25 +3,25 @@
     "geFondApp": {
         "entretien" : {
             "home": {
-                "title": "Entretiens",
-                "createLabel": "Create a new Entretien",
-                "createOrEditLabel": "Create or edit a Entretien"
+                "title": "المقابلات",
+                "createLabel":"إضافة مقابلة",
+                "createOrEditLabel":" إضافة أو تعديل مقابلة"
             },
-            "created": "A new Entretien is created with identifier {{ param }}",
-            "updated": "A Entretien is updated with identifier {{ param }}",
-            "deleted": "A Entretien is deleted with identifier {{ param }}",
+            "created": "تمت إضافة مقابلة جديدة {{ param }}",
+            "updated": "تم تحديث المقابلة {{ param }}",
+            "deleted": "تم حذف المقابلة {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Entretien {{ id }}?"
+                "question": "هل أنت متأكد من حذف المقابلة {{ id }}?"
             },
             "detail": {
-                "title": "Entretien"
+                "title": "المقابلة"
             },
-            "cadre": "Cadre",
-            "resultat": "Resultat",
-            "interlocuteur": "Interlocuteur",
-            "etat": "Etat",
-            "dateEntretien": "Date Entretien",
-            "candidature": "Candidature"
+            "cadre": "المجال",
+            "resultat": "النتيجة",
+            "interlocuteur": "المحاور",
+            "etat": "الحالة",
+            "dateEntretien": "تاريخ المقابلة",
+            "candidature": "الترشح"
         }
     }
 }

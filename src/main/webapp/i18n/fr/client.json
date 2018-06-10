@@ -11,21 +11,21 @@
             "updated": "Le Client avec l'identifiant {{ param }} a été mis à jour",
             "deleted": "Le Client avec l'identifiant {{ param }} a été supprimé",
             "delete": {
-                "question": "Etes-vous certain de vouloir supprimer le Client {{ id }} ?"
+                "question": "Etes-vous certain de vouloir supprimer le Client {{ nom }} ?"
             },
             "detail": {
                 "title": "Client"
             },
-            "dateCreat": "Date Creat",
-            "lieuResid": "Lieu Resid",
-            "typeResid": "Type Resid",
-            "arrondResid": "Arrond Resid",
+            "dateCreat": "Date Creation",
+            "lieuResid": "Lieu Residence",
+            "typeResid": "Type Residence",
+            "arrondResid": "Arrond Residence",
             "nomPersonneContact": "Nom Personne Contact",
             "telPersonneContact": "Tel Personne Contact",
             "adressPersonneContact": "Adress Personne Contact",
             "typeClient": "Type Client",
             "pointsFidel": "Points Fidel",
-            "dateMaj": "Date Maj",
+            "dateMaj": "Date Mise à jours",
             "candidat": "Candidat"
         }
     }

@@ -4,14 +4,14 @@
         "sessionProjet" : {
             "home": {
                 "title": "SessionProjets",
-                "createLabel": "Créer un nouveau Session Projet",
+                "createLabel": "Créer une Session Projet",
                 "createOrEditLabel": "Créer ou éditer un Session Projet"
             },
-            "created": "Un nouveau Session Projet a été créé avec l'identifiant {{ param }}",
-            "updated": "Le Session Projet avec l'identifiant {{ param }} a été mis à jour",
-            "deleted": "Le Session Projet avec l'identifiant {{ param }} a été supprimé",
+            "created": "Une nouvelle Session Projet a été créée avec l'identifiant {{ param }}",
+            "updated": "La Session Projet avec l'identifiant {{ param }} a été mise à jour",
+            "deleted": "La Session Projet avec l'identifiant {{ param }} a été supprimée",
             "delete": {
-                "question": "Etes-vous certain de vouloir supprimer le Session Projet {{ id }} ?"
+                "question": "Etes-vous certain de vouloir supprimer la Session Projet {{ id }} ?"
             },
             "detail": {
                 "title": "Session Projet"
@@ -21,8 +21,8 @@
             "plafondFinance": "Plafond Finance",
             "nombreClient": "Nombre Client",
             "plafondClient": "Plafond Client",
-            "dateCreat": "Date Creat",
-            "dateMaj": "Date Maj",
+            "dateCreat": "Date Création",
+            "dateMaj": "Date Mise à jours",
             "etat": "Etat"
         }
     }

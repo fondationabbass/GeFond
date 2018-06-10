@@ -3,27 +3,27 @@
     "geFondApp": {
         "garantie" : {
             "home": {
-                "title": "Garanties",
-                "createLabel": "Create a new Garantie",
-                "createOrEditLabel": "Create or edit a Garantie"
+                "title": "الضمانات",
+                "createLabel":"إضافة ضمان",
+                "createOrEditLabel":" إضافة أو تعديل ضمان"
             },
-            "created": "A new Garantie is created with identifier {{ param }}",
-            "updated": "A Garantie is updated with identifier {{ param }}",
-            "deleted": "A Garantie is deleted with identifier {{ param }}",
+            "created": "تمت إضافة ضمان جديد {{ param }}",
+            "updated": "تم تحديث الضمان {{ param }}",
+            "deleted": "تم حذف الضمان {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Garantie {{ id }}?"
+                "question": "هل أنت متأكد من حذف الضمان {{ id }}?"
             },
             "detail": {
-                "title": "Garantie"
+                "title": "الضمان"
             },
-            "typeGar": "Type Gar",
-            "montantEvalue": "Montant Evalue",
+            "typeGar": "نوع الضمان",
+            "montantEvalue": "المبلغ المقيم",
             "montantAfect": "Montant Afect",
-            "dateDepot": "Date Depot",
-            "numDocument": "Num Document",
-            "etat": "Etat",
-            "dateRetrait": "Date Retrait",
-            "pret": "Pret"
+            "dateDepot": "تاريخ الإيداع",
+            "numDocument": "رقم الوثيقة",
+            "etat": "الحالة",
+            "dateRetrait": "تاريخ السحب",
+            "pret": "القرض"
         }
     }
 }

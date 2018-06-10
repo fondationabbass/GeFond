@@ -26,6 +26,15 @@
                 "document": "Document",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
+            "client": {
+                "main": "Clientèle"
+            },            
+            "candidat": {
+                "main": "Candidats"
+            }, "compte": {
+                "main": "Comptes"
+            },
+
             "account": {
                 "main": "Compte",
                 "settings": "Profil",

@@ -4,14 +4,14 @@
         "entretien" : {
             "home": {
                 "title": "Entretiens",
-                "createLabel": "Créer un nouveau Entretien",
+                "createLabel": "Créer un nouvel Entretien",
                 "createOrEditLabel": "Créer ou éditer un Entretien"
             },
-            "created": "Un nouveau Entretien a été créé avec l'identifiant {{ param }}",
-            "updated": "Le Entretien avec l'identifiant {{ param }} a été mis à jour",
-            "deleted": "Le Entretien avec l'identifiant {{ param }} a été supprimé",
+            "created": "Un nouvel Entretien a été créé avec l'identifiant {{ param }}",
+            "updated": "L'Entretien avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "L'Entretien avec l'identifiant {{ param }} a été supprimé",
             "delete": {
-                "question": "Etes-vous certain de vouloir supprimer le Entretien {{ id }} ?"
+                "question": "Etes-vous certain de vouloir supprimer l'Entretien {{ id }} ?"
             },
             "detail": {
                 "title": "Entretien"

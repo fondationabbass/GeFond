@@ -4,14 +4,14 @@
         "garantie" : {
             "home": {
                 "title": "Garanties",
-                "createLabel": "Créer un nouveau Garantie",
-                "createOrEditLabel": "Créer ou éditer un Garantie"
+                "createLabel": "Créer une nouvelle Garantie",
+                "createOrEditLabel": "Créer ou éditer une Garantie"
             },
-            "created": "Un nouveau Garantie a été créé avec l'identifiant {{ param }}",
-            "updated": "Le Garantie avec l'identifiant {{ param }} a été mis à jour",
-            "deleted": "Le Garantie avec l'identifiant {{ param }} a été supprimé",
+            "created": "Une nouvelle Garantie a été créée avec l'identifiant {{ param }}",
+            "updated": "La Garantie avec l'identifiant {{ param }} a été mise à jour",
+            "deleted": "La Garantie avec l'identifiant {{ param }} a été supprimée",
             "delete": {
-                "question": "Etes-vous certain de vouloir supprimer le Garantie {{ id }} ?"
+                "question": "Etes-vous certain de vouloir supprimer la Garantie {{ id }} ?"
             },
             "detail": {
                 "title": "Garantie"

@@ -4,14 +4,14 @@
         "echeance" : {
             "home": {
                 "title": "Echeances",
-                "createLabel": "Créer un nouveau Echeance",
-                "createOrEditLabel": "Créer ou éditer un Echeance"
+                "createLabel": "Ajouter une Echeance",
+                "createOrEditLabel": "Créer ou éditer une Echeance"
             },
-            "created": "Un nouveau Echeance a été créé avec l'identifiant {{ param }}",
-            "updated": "Le Echeance avec l'identifiant {{ param }} a été mis à jour",
-            "deleted": "Le Echeance avec l'identifiant {{ param }} a été supprimé",
+            "created": "Un nouvelle Echeance a été créée avec l'identifiant {{ param }}",
+            "updated": "L'Echeance avec l'identifiant {{ param }} a été mise à jour",
+            "deleted": "L'Echeance avec l'identifiant {{ param }} a été supprimée",
             "delete": {
-                "question": "Etes-vous certain de vouloir supprimer le Echeance {{ id }} ?"
+                "question": "Etes-vous certain de vouloir supprimer l'Echeance {{ id }} ?"
             },
             "detail": {
                 "title": "Echeance"

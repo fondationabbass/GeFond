@@ -3,25 +3,25 @@
     "geFondApp": {
         "echeance" : {
             "home": {
-                "title": "Echeances",
-                "createLabel": "Create a new Echeance",
-                "createOrEditLabel": "Create or edit a Echeance"
+                "title": "الحسابات",
+                "createLabel":"إضافة حساب",
+                "createOrEditLabel":" إضافة أو تعديل حساب"
             },
-            "created": "A new Echeance is created with identifier {{ param }}",
-            "updated": "A Echeance is updated with identifier {{ param }}",
-            "deleted": "A Echeance is deleted with identifier {{ param }}",
+            "created": "تمت إضافة حساب جديد {{ param }}",
+            "updated": "تم تحديث الحساب {{ param }}",
+            "deleted": "تم حذف الحساب {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Echeance {{ id }}?"
+                "question": "هل أنت متأكد من حذف الحساب {{ id }}?"
             },
             "detail": {
                 "title": "Echeance"
             },
             "dateTombe": "Date Tombe",
-            "montant": "Montant",
-            "etatEcheance": "Etat Echeance",
-            "datePayement": "Date Payement",
-            "dateRetrait": "Date Retrait",
-            "pret": "Pret",
+            "montant": "المبلغ",
+            "etatEcheance": "الحالة",
+            "datePayement": "تاريخ الدفع",
+            "dateRetrait": "تاريخ السحب",
+            "pret": "القرض",
             "mouvement": "Mouvement"
         }
     }

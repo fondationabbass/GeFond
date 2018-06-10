@@ -3,30 +3,30 @@
     "geFondApp": {
         "client" : {
             "home": {
-                "title": "Clients",
-                "createLabel": "Create a new Client",
-                "createOrEditLabel": "Create or edit a Client"
+                "title": "الزبائن",
+                "createLabel":"إضافة زبون",
+                "createOrEditLabel":" إضافة أو تعديل زبون"
             },
-            "created": "A new Client is created with identifier {{ param }}",
-            "updated": "A Client is updated with identifier {{ param }}",
-            "deleted": "A Client is deleted with identifier {{ param }}",
+            "created": "تمت إضافة زبون جديد {{ param }}",
+            "updated": "تم تحديث الزبون {{ param }}",
+            "deleted": "تم حذف الزبون {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Client {{ id }}?"
+                "question": "هل أنت متأكد من حذف الزبون {{ id }}?"
             },
             "detail": {
-                "title": "Client"
+                "title": "الزبون"
             },
-            "dateCreat": "Date Creat",
-            "lieuResid": "Lieu Resid",
-            "typeResid": "Type Resid",
-            "arrondResid": "Arrond Resid",
-            "nomPersonneContact": "Nom Personne Contact",
-            "telPersonneContact": "Tel Personne Contact",
-            "adressPersonneContact": "Adress Personne Contact",
-            "typeClient": "Type Client",
-            "pointsFidel": "Points Fidel",
-            "dateMaj": "Date Maj",
-            "candidat": "Candidat"
+            "dateCreat": "تاريخ الإنشاء",
+            "lieuResid": "مكان الإقامة",
+            "typeResid": "نوع الإقامة",
+            "arrondResid": "الدائرة",
+            "nomPersonneContact": "اسم الشخص",
+            "telPersonneContact": "هاتف الشخص",
+            "adressPersonneContact": "عنوان الشخص",
+            "typeClient": "نوع الزبون",
+            "pointsFidel": "النقاط",
+            "dateMaj": "تاريخ التحديث",
+            "candidat": "المترشح"
         }
     }
 }
