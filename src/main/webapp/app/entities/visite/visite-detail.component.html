@@ -1,0 +1,64 @@
+
+<div *ngIf="visite">
+    <h2><span jhiTranslate="geFondApp.visite.detail.title">Visite</span> {{visite.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="geFondApp.visite.lieuVisite">Lieu Visite</span></dt>
+        <dd>
+            <span>{{visite.lieuVisite}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.visite.dateVisite">Date Visite</span></dt>
+        <dd>
+            <span>{{visite.dateVisite | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.visite.persRencontre">Pers Rencontre</span></dt>
+        <dd>
+            <span>{{visite.persRencontre}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.visite.cadreVisite">Cadre Visite</span></dt>
+        <dd>
+            <span>{{visite.cadreVisite}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.visite.etatLieu">Etat Lieu</span></dt>
+        <dd>
+            <span>{{visite.etatLieu}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.visite.visiteur">Visiteur</span></dt>
+        <dd>
+            <span>{{visite.visiteur}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.visite.etat">Etat</span></dt>
+        <dd>
+            <span>{{visite.etat}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.visite.recomendation">Recomendation</span></dt>
+        <dd>
+            <span>{{visite.recomendation}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.visite.rapport">Rapport</span></dt>
+        <dd>
+            <span>{{visite.rapport}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.visite.candidature">Candidature</span></dt>
+        <dd>
+            <div *ngIf="visite.candidature">
+                <a [routerLink]="['/candidature', visite.candidature?.id]">{{visite.candidature?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'visite/'+ visite.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

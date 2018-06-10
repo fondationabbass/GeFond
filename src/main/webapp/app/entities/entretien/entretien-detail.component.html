@@ -1,0 +1,48 @@
+
+<div *ngIf="entretien">
+    <h2><span jhiTranslate="geFondApp.entretien.detail.title">Entretien</span> {{entretien.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="geFondApp.entretien.cadre">Cadre</span></dt>
+        <dd>
+            <span>{{entretien.cadre}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.entretien.resultat">Resultat</span></dt>
+        <dd>
+            <span>{{entretien.resultat}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.entretien.interlocuteur">Interlocuteur</span></dt>
+        <dd>
+            <span>{{entretien.interlocuteur}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.entretien.etat">Etat</span></dt>
+        <dd>
+            <span>{{entretien.etat}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.entretien.dateEntretien">Date Entretien</span></dt>
+        <dd>
+            <span>{{entretien.dateEntretien | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.entretien.candidature">Candidature</span></dt>
+        <dd>
+            <div *ngIf="entretien.candidature">
+                <a [routerLink]="['/candidature', entretien.candidature?.id]">{{entretien.candidature?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'entretien/'+ entretien.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

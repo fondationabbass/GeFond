@@ -1,0 +1,84 @@
+
+<div *ngIf="pret">
+    <h2><span jhiTranslate="geFondApp.pret.detail.title">Pret</span> {{pret.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="geFondApp.pret.typPret">Typ Pret</span></dt>
+        <dd>
+            <span>{{pret.typPret}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.pret.montAaccord">Mont Aaccord</span></dt>
+        <dd>
+            <span>{{pret.montAaccord}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.pret.montDebloq">Mont Debloq</span></dt>
+        <dd>
+            <span>{{pret.montDebloq}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.pret.nbrEcheance">Nbr Echeance</span></dt>
+        <dd>
+            <span>{{pret.nbrEcheance}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.pret.periodicite">Periodicite</span></dt>
+        <dd>
+            <span>{{pret.periodicite}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.pret.dateMisePlace">Date Mise Place</span></dt>
+        <dd>
+            <span>{{pret.dateMisePlace | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.pret.datePremiereEcheance">Date Premiere Echeance</span></dt>
+        <dd>
+            <span>{{pret.datePremiereEcheance | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.pret.dateDerniereEcheance">Date Derniere Echeance</span></dt>
+        <dd>
+            <span>{{pret.dateDerniereEcheance | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.pret.dateDernierDebloq">Date Dernier Debloq</span></dt>
+        <dd>
+            <span>{{pret.dateDernierDebloq | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.pret.etat">Etat</span></dt>
+        <dd>
+            <span>{{pret.etat}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.pret.encours">Encours</span></dt>
+        <dd>
+            <span>{{pret.encours}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.pret.userInitial">User Initial</span></dt>
+        <dd>
+            <span>{{pret.userInitial}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.pret.userDecideur">User Decideur</span></dt>
+        <dd>
+            <span>{{pret.userDecideur}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.pret.userDebloq">User Debloq</span></dt>
+        <dd>
+            <span>{{pret.userDebloq}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.pret.client">Client</span></dt>
+        <dd>
+            <div *ngIf="pret.client">
+                <a [routerLink]="['/client', pret.client?.id]">{{pret.client?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'pret/'+ pret.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

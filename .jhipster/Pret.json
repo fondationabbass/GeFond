@@ -1,0 +1,96 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "client",
+            "otherEntityName": "client",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "typPret",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "montAaccord",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "montDebloq",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "nbrEcheance",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "periodicite",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "dateMisePlace",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "datePremiereEcheance",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "dateDerniereEcheance",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "dateDernierDebloq",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "etat",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "encours",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "userInitial",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "userDecideur",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "userDebloq",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180610192824",
+    "entityTableName": "pret",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true
+}

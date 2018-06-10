@@ -1,0 +1,98 @@
+<div>
+    <h2>
+        <span jhiTranslate="geFondApp.pret.home.title">Prets</span>
+        <button class="btn btn-primary float-right jh-create-entity create-pret" [routerLink]="['/', { outlets: { popup: ['pret-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="geFondApp.pret.home.createLabel">
+            Create new Pret
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="prets">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="typPret"><span jhiTranslate="geFondApp.pret.typPret">Typ Pret</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="montAaccord"><span jhiTranslate="geFondApp.pret.montAaccord">Mont Aaccord</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="montDebloq"><span jhiTranslate="geFondApp.pret.montDebloq">Mont Debloq</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="nbrEcheance"><span jhiTranslate="geFondApp.pret.nbrEcheance">Nbr Echeance</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="periodicite"><span jhiTranslate="geFondApp.pret.periodicite">Periodicite</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="dateMisePlace"><span jhiTranslate="geFondApp.pret.dateMisePlace">Date Mise Place</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="datePremiereEcheance"><span jhiTranslate="geFondApp.pret.datePremiereEcheance">Date Premiere Echeance</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="dateDerniereEcheance"><span jhiTranslate="geFondApp.pret.dateDerniereEcheance">Date Derniere Echeance</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="dateDernierDebloq"><span jhiTranslate="geFondApp.pret.dateDernierDebloq">Date Dernier Debloq</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="etat"><span jhiTranslate="geFondApp.pret.etat">Etat</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="encours"><span jhiTranslate="geFondApp.pret.encours">Encours</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="userInitial"><span jhiTranslate="geFondApp.pret.userInitial">User Initial</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="userDecideur"><span jhiTranslate="geFondApp.pret.userDecideur">User Decideur</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="userDebloq"><span jhiTranslate="geFondApp.pret.userDebloq">User Debloq</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="client.id"><span jhiTranslate="geFondApp.pret.client">Client</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let pret of prets ;trackBy: trackId">
+                <td><a [routerLink]="['../pret', pret.id ]">{{pret.id}}</a></td>
+                <td>{{pret.typPret}}</td>
+                <td>{{pret.montAaccord}}</td>
+                <td>{{pret.montDebloq}}</td>
+                <td>{{pret.nbrEcheance}}</td>
+                <td>{{pret.periodicite}}</td>
+                <td>{{pret.dateMisePlace | date:'mediumDate'}}</td>
+                <td>{{pret.datePremiereEcheance | date:'mediumDate'}}</td>
+                <td>{{pret.dateDerniereEcheance | date:'mediumDate'}}</td>
+                <td>{{pret.dateDernierDebloq | date:'mediumDate'}}</td>
+                <td>{{pret.etat}}</td>
+                <td>{{pret.encours}}</td>
+                <td>{{pret.userInitial}}</td>
+                <td>{{pret.userDecideur}}</td>
+                <td>{{pret.userDebloq}}</td>
+                <td>
+                    <div *ngIf="pret.client">
+                        <a [routerLink]="['../client', pret.client?.id ]" >{{pret.client?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../pret', pret.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'pret/'+ pret.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'pret/'+ pret.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="prets && prets.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

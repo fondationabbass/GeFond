@@ -38,6 +38,25 @@ public class CacheConfiguration {
             cm.createCache(com.bdi.fondation.domain.User.class.getName(), jcacheConfiguration);
             cm.createCache(com.bdi.fondation.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(com.bdi.fondation.domain.User.class.getName() + ".authorities", jcacheConfiguration);
+            cm.createCache(com.bdi.fondation.domain.Candidat.class.getName(), jcacheConfiguration);
+            cm.createCache(com.bdi.fondation.domain.ExperienceCandidat.class.getName(), jcacheConfiguration);
+            cm.createCache(com.bdi.fondation.domain.Candidature.class.getName(), jcacheConfiguration);
+            cm.createCache(com.bdi.fondation.domain.Projet.class.getName(), jcacheConfiguration);
+            cm.createCache(com.bdi.fondation.domain.Visite.class.getName(), jcacheConfiguration);
+            cm.createCache(com.bdi.fondation.domain.SessionProjet.class.getName(), jcacheConfiguration);
+            cm.createCache(com.bdi.fondation.domain.Client.class.getName(), jcacheConfiguration);
+            cm.createCache(com.bdi.fondation.domain.Pret.class.getName(), jcacheConfiguration);
+            cm.createCache(com.bdi.fondation.domain.ElementFinancement.class.getName(), jcacheConfiguration);
+            cm.createCache(com.bdi.fondation.domain.Garantie.class.getName(), jcacheConfiguration);
+            cm.createCache(com.bdi.fondation.domain.Echeance.class.getName(), jcacheConfiguration);
+            cm.createCache(com.bdi.fondation.domain.Echeance.class.getName() + ".mouvements", jcacheConfiguration);
+            cm.createCache(com.bdi.fondation.domain.Compte.class.getName(), jcacheConfiguration);
+            cm.createCache(com.bdi.fondation.domain.Parametrage.class.getName(), jcacheConfiguration);
+            cm.createCache(com.bdi.fondation.domain.Entretien.class.getName(), jcacheConfiguration);
+            cm.createCache(com.bdi.fondation.domain.Chapitre.class.getName(), jcacheConfiguration);
+            cm.createCache(com.bdi.fondation.domain.Mouvement.class.getName(), jcacheConfiguration);
+            cm.createCache(com.bdi.fondation.domain.Mouvement.class.getName() + ".echeances", jcacheConfiguration);
+            cm.createCache(com.bdi.fondation.domain.Document.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

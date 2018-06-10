@@ -7,6 +7,23 @@
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "الكيانات",
+                "candidat": "Candidat",
+                "experienceCandidat": "Experience Candidat",
+                "candidature": "Candidature",
+                "projet": "Projet",
+                "visite": "Visite",
+                "sessionProjet": "Session Projet",
+                "client": "Client",
+                "pret": "Pret",
+                "elementFinancement": "Element Financement",
+                "garantie": "Garantie",
+                "echeance": "Echeance",
+                "compte": "Compte",
+                "parametrage": "Parametrage",
+                "entretien": "Entretien",
+                "chapitre": "Chapitre",
+                "mouvement": "Mouvement",
+                "document": "Document",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
