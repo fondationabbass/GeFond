@@ -1,0 +1,56 @@
+
+<div *ngIf="document">
+    <h2><span jhiTranslate="geFondApp.document.detail.title">Document</span> {{document.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="geFondApp.document.dateEnreg">Date Enreg</span></dt>
+        <dd>
+            <span>{{document.dateEnreg | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.document.lib">Lib</span></dt>
+        <dd>
+            <span>{{document.lib}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.document.typeDocument">Type Document</span></dt>
+        <dd>
+            <span>{{document.typeDocument}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.document.module">Module</span></dt>
+        <dd>
+            <span>{{document.module}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.document.etat">Etat</span></dt>
+        <dd>
+            <span>{{document.etat}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.document.fichier">Fichier</span></dt>
+        <dd>
+            <span>{{document.fichier}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.document.tail">Tail</span></dt>
+        <dd>
+            <span>{{document.tail}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.document.candidature">Candidature</span></dt>
+        <dd>
+            <div *ngIf="document.candidature">
+                <a [routerLink]="['/candidature', document.candidature?.id]">{{document.candidature?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'document/'+ document.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

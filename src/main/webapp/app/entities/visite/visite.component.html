@@ -1,0 +1,80 @@
+<div>
+    <h2>
+        <span jhiTranslate="geFondApp.visite.home.title">Visites</span>
+        <button class="btn btn-primary float-right jh-create-entity create-visite" [routerLink]="['/', { outlets: { popup: ['visite-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="geFondApp.visite.home.createLabel">
+            Create new Visite
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="visites">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="geFondApp.visite.lieuVisite">Lieu Visite</span></th>
+            <th><span jhiTranslate="geFondApp.visite.dateVisite">Date Visite</span></th>
+            <th><span jhiTranslate="geFondApp.visite.persRencontre">Pers Rencontre</span></th>
+            <th><span jhiTranslate="geFondApp.visite.cadreVisite">Cadre Visite</span></th>
+            <th><span jhiTranslate="geFondApp.visite.etatLieu">Etat Lieu</span></th>
+            <th><span jhiTranslate="geFondApp.visite.visiteur">Visiteur</span></th>
+            <th><span jhiTranslate="geFondApp.visite.etat">Etat</span></th>
+            <th><span jhiTranslate="geFondApp.visite.recomendation">Recomendation</span></th>
+            <th><span jhiTranslate="geFondApp.visite.rapport">Rapport</span></th>
+            <th><span jhiTranslate="geFondApp.visite.candidature">Candidature</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let visite of visites ;trackBy: trackId">
+                <td><a [routerLink]="['../visite', visite.id ]">{{visite.id}}</a></td>
+                <td>{{visite.lieuVisite}}</td>
+                <td>{{visite.dateVisite | date:'mediumDate'}}</td>
+                <td>{{visite.persRencontre}}</td>
+                <td>{{visite.cadreVisite}}</td>
+                <td>{{visite.etatLieu}}</td>
+                <td>{{visite.visiteur}}</td>
+                <td>{{visite.etat}}</td>
+                <td>{{visite.recomendation}}</td>
+                <td>{{visite.rapport}}</td>
+                <td>
+                    <div *ngIf="visite.candidature">
+                        <a [routerLink]="['../candidature', visite.candidature?.id ]" >{{visite.candidature?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../visite', visite.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'visite/'+ visite.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'visite/'+ visite.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

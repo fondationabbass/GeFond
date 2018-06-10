@@ -1,0 +1,32 @@
+
+{
+    "geFondApp": {
+        "client" : {
+            "home": {
+                "title": "Clients",
+                "createLabel": "Créer un nouveau Client",
+                "createOrEditLabel": "Créer ou éditer un Client"
+            },
+            "created": "Un nouveau Client a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Client avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Client avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Client {{ id }} ?"
+            },
+            "detail": {
+                "title": "Client"
+            },
+            "dateCreat": "Date Creat",
+            "lieuResid": "Lieu Resid",
+            "typeResid": "Type Resid",
+            "arrondResid": "Arrond Resid",
+            "nomPersonneContact": "Nom Personne Contact",
+            "telPersonneContact": "Tel Personne Contact",
+            "adressPersonneContact": "Adress Personne Contact",
+            "typeClient": "Type Client",
+            "pointsFidel": "Points Fidel",
+            "dateMaj": "Date Maj",
+            "candidat": "Candidat"
+        }
+    }
+}

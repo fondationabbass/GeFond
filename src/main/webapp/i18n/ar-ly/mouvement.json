@@ -1,0 +1,28 @@
+
+{
+    "geFondApp": {
+        "mouvement" : {
+            "home": {
+                "title": "Mouvements",
+                "createLabel": "Create a new Mouvement",
+                "createOrEditLabel": "Create or edit a Mouvement"
+            },
+            "created": "A new Mouvement is created with identifier {{ param }}",
+            "updated": "A Mouvement is updated with identifier {{ param }}",
+            "deleted": "A Mouvement is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Mouvement {{ id }}?"
+            },
+            "detail": {
+                "title": "Mouvement"
+            },
+            "dateMvt": "Date Mvt",
+            "lib": "Lib",
+            "montant": "Montant",
+            "sens": "Sens",
+            "etat": "Etat",
+            "compte": "Compte",
+            "echeance": "Echeance"
+        }
+    }
+}

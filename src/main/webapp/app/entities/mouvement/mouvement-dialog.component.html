@@ -1,0 +1,90 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myMouvementLabel" jhiTranslate="geFondApp.mouvement.home.createOrEditLabel">Create or edit a Mouvement</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!mouvement.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="mouvement.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.mouvement.dateMvt" for="field_dateMvt">Date Mvt</label>
+            <div class="input-group">
+                <input id="field_dateMvt" type="text" class="form-control" name="dateMvt" ngbDatepicker  #dateMvtDp="ngbDatepicker" [(ngModel)]="mouvement.dateMvt"
+                />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="dateMvtDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.mouvement.lib" for="field_lib">Lib</label>
+            <input type="text" class="form-control" name="lib" id="field_lib"
+                [(ngModel)]="mouvement.lib" required/>
+            <div [hidden]="!(editForm.controls.lib?.dirty && editForm.controls.lib?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.lib?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.mouvement.montant" for="field_montant">Montant</label>
+            <input type="number" class="form-control" name="montant" id="field_montant"
+                [(ngModel)]="mouvement.montant" required/>
+            <div [hidden]="!(editForm.controls.montant?.dirty && editForm.controls.montant?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.montant?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.montant?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.mouvement.sens" for="field_sens">Sens</label>
+            <input type="text" class="form-control" name="sens" id="field_sens"
+                [(ngModel)]="mouvement.sens" required/>
+            <div [hidden]="!(editForm.controls.sens?.dirty && editForm.controls.sens?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.sens?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.mouvement.etat" for="field_etat">Etat</label>
+            <input type="text" class="form-control" name="etat" id="field_etat"
+                [(ngModel)]="mouvement.etat" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.mouvement.compte" for="field_compte">Compte</label>
+            <select class="form-control" id="field_compte" name="compte" [(ngModel)]="mouvement.compte" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="compteOption.id === mouvement.compte?.id ? mouvement.compte : compteOption" *ngFor="let compteOption of comptes; trackBy: trackCompteById">{{compteOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label jhiTranslate="geFondApp.mouvement.echeance" for="field_echeance">Echeance</label>
+            <select class="form-control" id="field_echeance" multiple name="echeance" [(ngModel)]="mouvement.echeances">
+                <option [ngValue]="getSelected(mouvement.echeances, echeanceOption)" *ngFor="let echeanceOption of echeances; trackBy: trackEcheanceById">{{echeanceOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

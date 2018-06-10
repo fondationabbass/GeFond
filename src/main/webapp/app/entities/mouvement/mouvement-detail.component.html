@@ -1,0 +1,54 @@
+
+<div *ngIf="mouvement">
+    <h2><span jhiTranslate="geFondApp.mouvement.detail.title">Mouvement</span> {{mouvement.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="geFondApp.mouvement.dateMvt">Date Mvt</span></dt>
+        <dd>
+            <span>{{mouvement.dateMvt | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.mouvement.lib">Lib</span></dt>
+        <dd>
+            <span>{{mouvement.lib}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.mouvement.montant">Montant</span></dt>
+        <dd>
+            <span>{{mouvement.montant}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.mouvement.sens">Sens</span></dt>
+        <dd>
+            <span>{{mouvement.sens}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.mouvement.etat">Etat</span></dt>
+        <dd>
+            <span>{{mouvement.etat}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.mouvement.compte">Compte</span></dt>
+        <dd>
+            <div *ngIf="mouvement.compte">
+                <a [routerLink]="['/compte', mouvement.compte?.id]">{{mouvement.compte?.id}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.mouvement.echeance">Echeance</span></dt>
+        <dd>
+            <span *ngFor="let echeance of mouvement.echeances; let last = last">
+                <a [routerLink]="['/echeance', echeance?.id ]">{{echeance.id}}</a>{{last ? '' : ', '}}
+            </span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'mouvement/'+ mouvement.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

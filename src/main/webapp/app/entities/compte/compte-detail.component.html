@@ -1,0 +1,54 @@
+
+<div *ngIf="compte">
+    <h2><span jhiTranslate="geFondApp.compte.detail.title">Compte</span> {{compte.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="geFondApp.compte.intituleCompte">Intitule Compte</span></dt>
+        <dd>
+            <span>{{compte.intituleCompte}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.compte.dateOuverture">Date Ouverture</span></dt>
+        <dd>
+            <span>{{compte.dateOuverture | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.compte.solde">Solde</span></dt>
+        <dd>
+            <span>{{compte.solde}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.compte.dateDernierCredit">Date Dernier Credit</span></dt>
+        <dd>
+            <span>{{compte.dateDernierCredit | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.compte.dateDernierDebit">Date Dernier Debit</span></dt>
+        <dd>
+            <span>{{compte.dateDernierDebit | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.compte.client">Client</span></dt>
+        <dd>
+            <div *ngIf="compte.client">
+                <a [routerLink]="['/client', compte.client?.id]">{{compte.client?.id}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.compte.chapitre">Chapitre</span></dt>
+        <dd>
+            <div *ngIf="compte.chapitre">
+                <a [routerLink]="['/chapitre', compte.chapitre?.id]">{{compte.chapitre?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'compte/'+ compte.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

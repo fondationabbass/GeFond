@@ -1,0 +1,90 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myDocumentLabel" jhiTranslate="geFondApp.document.home.createOrEditLabel">Create or edit a Document</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!document.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="document.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.document.dateEnreg" for="field_dateEnreg">Date Enreg</label>
+            <div class="input-group">
+                <input id="field_dateEnreg" type="text" class="form-control" name="dateEnreg" ngbDatepicker  #dateEnregDp="ngbDatepicker" [(ngModel)]="document.dateEnreg"
+                />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="dateEnregDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.document.lib" for="field_lib">Lib</label>
+            <input type="text" class="form-control" name="lib" id="field_lib"
+                [(ngModel)]="document.lib" required/>
+            <div [hidden]="!(editForm.controls.lib?.dirty && editForm.controls.lib?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.lib?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.document.typeDocument" for="field_typeDocument">Type Document</label>
+            <input type="text" class="form-control" name="typeDocument" id="field_typeDocument"
+                [(ngModel)]="document.typeDocument" required/>
+            <div [hidden]="!(editForm.controls.typeDocument?.dirty && editForm.controls.typeDocument?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.typeDocument?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.document.module" for="field_module">Module</label>
+            <input type="text" class="form-control" name="module" id="field_module"
+                [(ngModel)]="document.module" required/>
+            <div [hidden]="!(editForm.controls.module?.dirty && editForm.controls.module?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.module?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.document.etat" for="field_etat">Etat</label>
+            <input type="text" class="form-control" name="etat" id="field_etat"
+                [(ngModel)]="document.etat" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.document.fichier" for="field_fichier">Fichier</label>
+            <input type="text" class="form-control" name="fichier" id="field_fichier"
+                [(ngModel)]="document.fichier" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.document.tail" for="field_tail">Tail</label>
+            <input type="text" class="form-control" name="tail" id="field_tail"
+                [(ngModel)]="document.tail" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.document.candidature" for="field_candidature">Candidature</label>
+            <select class="form-control" id="field_candidature" name="candidature" [(ngModel)]="document.candidature" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="candidatureOption.id === document.candidature?.id ? document.candidature : candidatureOption" *ngFor="let candidatureOption of candidatures; trackBy: trackCandidatureById">{{candidatureOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

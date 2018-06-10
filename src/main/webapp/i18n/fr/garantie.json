@@ -1,0 +1,29 @@
+
+{
+    "geFondApp": {
+        "garantie" : {
+            "home": {
+                "title": "Garanties",
+                "createLabel": "Créer un nouveau Garantie",
+                "createOrEditLabel": "Créer ou éditer un Garantie"
+            },
+            "created": "Un nouveau Garantie a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Garantie avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Garantie avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Garantie {{ id }} ?"
+            },
+            "detail": {
+                "title": "Garantie"
+            },
+            "typeGar": "Type Gar",
+            "montantEvalue": "Montant Evalue",
+            "montantAfect": "Montant Afect",
+            "dateDepot": "Date Depot",
+            "numDocument": "Num Document",
+            "etat": "Etat",
+            "dateRetrait": "Date Retrait",
+            "pret": "Pret"
+        }
+    }
+}

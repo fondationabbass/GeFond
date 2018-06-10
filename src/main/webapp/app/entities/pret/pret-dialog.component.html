@@ -1,0 +1,176 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myPretLabel" jhiTranslate="geFondApp.pret.home.createOrEditLabel">Create or edit a Pret</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!pret.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="pret.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.pret.typPret" for="field_typPret">Typ Pret</label>
+            <input type="text" class="form-control" name="typPret" id="field_typPret"
+                [(ngModel)]="pret.typPret" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.pret.montAaccord" for="field_montAaccord">Mont Aaccord</label>
+            <input type="number" class="form-control" name="montAaccord" id="field_montAaccord"
+                [(ngModel)]="pret.montAaccord" required/>
+            <div [hidden]="!(editForm.controls.montAaccord?.dirty && editForm.controls.montAaccord?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.montAaccord?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.montAaccord?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.pret.montDebloq" for="field_montDebloq">Mont Debloq</label>
+            <input type="number" class="form-control" name="montDebloq" id="field_montDebloq"
+                [(ngModel)]="pret.montDebloq" required/>
+            <div [hidden]="!(editForm.controls.montDebloq?.dirty && editForm.controls.montDebloq?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.montDebloq?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.montDebloq?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.pret.nbrEcheance" for="field_nbrEcheance">Nbr Echeance</label>
+            <input type="number" class="form-control" name="nbrEcheance" id="field_nbrEcheance"
+                [(ngModel)]="pret.nbrEcheance" required/>
+            <div [hidden]="!(editForm.controls.nbrEcheance?.dirty && editForm.controls.nbrEcheance?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.nbrEcheance?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.nbrEcheance?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.pret.periodicite" for="field_periodicite">Periodicite</label>
+            <input type="text" class="form-control" name="periodicite" id="field_periodicite"
+                [(ngModel)]="pret.periodicite" required/>
+            <div [hidden]="!(editForm.controls.periodicite?.dirty && editForm.controls.periodicite?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.periodicite?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.pret.dateMisePlace" for="field_dateMisePlace">Date Mise Place</label>
+            <div class="input-group">
+                <input id="field_dateMisePlace" type="text" class="form-control" name="dateMisePlace" ngbDatepicker  #dateMisePlaceDp="ngbDatepicker" [(ngModel)]="pret.dateMisePlace"
+                />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="dateMisePlaceDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.pret.datePremiereEcheance" for="field_datePremiereEcheance">Date Premiere Echeance</label>
+            <div class="input-group">
+                <input id="field_datePremiereEcheance" type="text" class="form-control" name="datePremiereEcheance" ngbDatepicker  #datePremiereEcheanceDp="ngbDatepicker" [(ngModel)]="pret.datePremiereEcheance"
+                required/>
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="datePremiereEcheanceDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+            <div [hidden]="!(editForm.controls.datePremiereEcheance?.dirty && editForm.controls.datePremiereEcheance?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.datePremiereEcheance?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.pret.dateDerniereEcheance" for="field_dateDerniereEcheance">Date Derniere Echeance</label>
+            <div class="input-group">
+                <input id="field_dateDerniereEcheance" type="text" class="form-control" name="dateDerniereEcheance" ngbDatepicker  #dateDerniereEcheanceDp="ngbDatepicker" [(ngModel)]="pret.dateDerniereEcheance"
+                required/>
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="dateDerniereEcheanceDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+            <div [hidden]="!(editForm.controls.dateDerniereEcheance?.dirty && editForm.controls.dateDerniereEcheance?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.dateDerniereEcheance?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.pret.dateDernierDebloq" for="field_dateDernierDebloq">Date Dernier Debloq</label>
+            <div class="input-group">
+                <input id="field_dateDernierDebloq" type="text" class="form-control" name="dateDernierDebloq" ngbDatepicker  #dateDernierDebloqDp="ngbDatepicker" [(ngModel)]="pret.dateDernierDebloq"
+                required/>
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="dateDernierDebloqDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+            <div [hidden]="!(editForm.controls.dateDernierDebloq?.dirty && editForm.controls.dateDernierDebloq?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.dateDernierDebloq?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.pret.etat" for="field_etat">Etat</label>
+            <input type="text" class="form-control" name="etat" id="field_etat"
+                [(ngModel)]="pret.etat" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.pret.encours" for="field_encours">Encours</label>
+            <input type="number" class="form-control" name="encours" id="field_encours"
+                [(ngModel)]="pret.encours" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.pret.userInitial" for="field_userInitial">User Initial</label>
+            <input type="text" class="form-control" name="userInitial" id="field_userInitial"
+                [(ngModel)]="pret.userInitial" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.pret.userDecideur" for="field_userDecideur">User Decideur</label>
+            <input type="text" class="form-control" name="userDecideur" id="field_userDecideur"
+                [(ngModel)]="pret.userDecideur" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.pret.userDebloq" for="field_userDebloq">User Debloq</label>
+            <input type="text" class="form-control" name="userDebloq" id="field_userDebloq"
+                [(ngModel)]="pret.userDebloq" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.pret.client" for="field_client">Client</label>
+            <select class="form-control" id="field_client" name="client" [(ngModel)]="pret.client" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="clientOption.id === pret.client?.id ? pret.client : clientOption" *ngFor="let clientOption of clients; trackBy: trackClientById">{{clientOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

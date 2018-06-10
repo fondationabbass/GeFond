@@ -1,0 +1,94 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myEcheanceLabel" jhiTranslate="geFondApp.echeance.home.createOrEditLabel">Create or edit a Echeance</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!echeance.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="echeance.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.echeance.dateTombe" for="field_dateTombe">Date Tombe</label>
+            <div class="input-group">
+                <input id="field_dateTombe" type="text" class="form-control" name="dateTombe" ngbDatepicker  #dateTombeDp="ngbDatepicker" [(ngModel)]="echeance.dateTombe"
+                />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="dateTombeDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.echeance.montant" for="field_montant">Montant</label>
+            <input type="number" class="form-control" name="montant" id="field_montant"
+                [(ngModel)]="echeance.montant" required/>
+            <div [hidden]="!(editForm.controls.montant?.dirty && editForm.controls.montant?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.montant?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.montant?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.echeance.etatEcheance" for="field_etatEcheance">Etat Echeance</label>
+            <input type="text" class="form-control" name="etatEcheance" id="field_etatEcheance"
+                [(ngModel)]="echeance.etatEcheance" required/>
+            <div [hidden]="!(editForm.controls.etatEcheance?.dirty && editForm.controls.etatEcheance?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.etatEcheance?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.echeance.datePayement" for="field_datePayement">Date Payement</label>
+            <div class="input-group">
+                <input id="field_datePayement" type="text" class="form-control" name="datePayement" ngbDatepicker  #datePayementDp="ngbDatepicker" [(ngModel)]="echeance.datePayement"
+                required/>
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="datePayementDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+            <div [hidden]="!(editForm.controls.datePayement?.dirty && editForm.controls.datePayement?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.datePayement?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.echeance.dateRetrait" for="field_dateRetrait">Date Retrait</label>
+            <div class="input-group">
+                <input id="field_dateRetrait" type="text" class="form-control" name="dateRetrait" ngbDatepicker  #dateRetraitDp="ngbDatepicker" [(ngModel)]="echeance.dateRetrait"
+                />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="dateRetraitDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.echeance.pret" for="field_pret">Pret</label>
+            <select class="form-control" id="field_pret" name="pret" [(ngModel)]="echeance.pret" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="pretOption.id === echeance.pret?.id ? echeance.pret : pretOption" *ngFor="let pretOption of prets; trackBy: trackPretById">{{pretOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

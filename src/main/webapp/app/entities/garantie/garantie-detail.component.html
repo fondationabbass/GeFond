@@ -1,0 +1,56 @@
+
+<div *ngIf="garantie">
+    <h2><span jhiTranslate="geFondApp.garantie.detail.title">Garantie</span> {{garantie.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="geFondApp.garantie.typeGar">Type Gar</span></dt>
+        <dd>
+            <span>{{garantie.typeGar}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.garantie.montantEvalue">Montant Evalue</span></dt>
+        <dd>
+            <span>{{garantie.montantEvalue}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.garantie.montantAfect">Montant Afect</span></dt>
+        <dd>
+            <span>{{garantie.montantAfect}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.garantie.dateDepot">Date Depot</span></dt>
+        <dd>
+            <span>{{garantie.dateDepot | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.garantie.numDocument">Num Document</span></dt>
+        <dd>
+            <span>{{garantie.numDocument}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.garantie.etat">Etat</span></dt>
+        <dd>
+            <span>{{garantie.etat}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.garantie.dateRetrait">Date Retrait</span></dt>
+        <dd>
+            <span>{{garantie.dateRetrait | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.garantie.pret">Pret</span></dt>
+        <dd>
+            <div *ngIf="garantie.pret">
+                <a [routerLink]="['/pret', garantie.pret?.id]">{{garantie.pret?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'garantie/'+ garantie.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,28 @@
+
+{
+    "geFondApp": {
+        "echeance" : {
+            "home": {
+                "title": "Echeances",
+                "createLabel": "Create a new Echeance",
+                "createOrEditLabel": "Create or edit a Echeance"
+            },
+            "created": "A new Echeance is created with identifier {{ param }}",
+            "updated": "A Echeance is updated with identifier {{ param }}",
+            "deleted": "A Echeance is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Echeance {{ id }}?"
+            },
+            "detail": {
+                "title": "Echeance"
+            },
+            "dateTombe": "Date Tombe",
+            "montant": "Montant",
+            "etatEcheance": "Etat Echeance",
+            "datePayement": "Date Payement",
+            "dateRetrait": "Date Retrait",
+            "pret": "Pret",
+            "mouvement": "Mouvement"
+        }
+    }
+}

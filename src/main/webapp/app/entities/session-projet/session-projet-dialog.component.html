@@ -1,0 +1,117 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="mySessionProjetLabel" jhiTranslate="geFondApp.sessionProjet.home.createOrEditLabel">Create or edit a Session Projet</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!sessionProjet.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="sessionProjet.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.sessionProjet.dateOuvert" for="field_dateOuvert">Date Ouvert</label>
+            <div class="input-group">
+                <input id="field_dateOuvert" type="text" class="form-control" name="dateOuvert" ngbDatepicker  #dateOuvertDp="ngbDatepicker" [(ngModel)]="sessionProjet.dateOuvert"
+                required/>
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="dateOuvertDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+            <div [hidden]="!(editForm.controls.dateOuvert?.dirty && editForm.controls.dateOuvert?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.dateOuvert?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.sessionProjet.dateFermeture" for="field_dateFermeture">Date Fermeture</label>
+            <div class="input-group">
+                <input id="field_dateFermeture" type="text" class="form-control" name="dateFermeture" ngbDatepicker  #dateFermetureDp="ngbDatepicker" [(ngModel)]="sessionProjet.dateFermeture"
+                required/>
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="dateFermetureDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+            <div [hidden]="!(editForm.controls.dateFermeture?.dirty && editForm.controls.dateFermeture?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.dateFermeture?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.sessionProjet.plafondFinance" for="field_plafondFinance">Plafond Finance</label>
+            <input type="number" class="form-control" name="plafondFinance" id="field_plafondFinance"
+                [(ngModel)]="sessionProjet.plafondFinance" required/>
+            <div [hidden]="!(editForm.controls.plafondFinance?.dirty && editForm.controls.plafondFinance?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.plafondFinance?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.plafondFinance?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.sessionProjet.nombreClient" for="field_nombreClient">Nombre Client</label>
+            <input type="number" class="form-control" name="nombreClient" id="field_nombreClient"
+                [(ngModel)]="sessionProjet.nombreClient" required/>
+            <div [hidden]="!(editForm.controls.nombreClient?.dirty && editForm.controls.nombreClient?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.nombreClient?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.nombreClient?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.sessionProjet.plafondClient" for="field_plafondClient">Plafond Client</label>
+            <input type="number" class="form-control" name="plafondClient" id="field_plafondClient"
+                [(ngModel)]="sessionProjet.plafondClient" required/>
+            <div [hidden]="!(editForm.controls.plafondClient?.dirty && editForm.controls.plafondClient?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.plafondClient?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.plafondClient?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.sessionProjet.dateCreat" for="field_dateCreat">Date Creat</label>
+            <input type="text" class="form-control" name="dateCreat" id="field_dateCreat"
+                [(ngModel)]="sessionProjet.dateCreat" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.sessionProjet.dateMaj" for="field_dateMaj">Date Maj</label>
+            <input type="text" class="form-control" name="dateMaj" id="field_dateMaj"
+                [(ngModel)]="sessionProjet.dateMaj" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.sessionProjet.etat" for="field_etat">Etat</label>
+            <input type="text" class="form-control" name="etat" id="field_etat"
+                [(ngModel)]="sessionProjet.etat" />
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

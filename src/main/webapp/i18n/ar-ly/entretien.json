@@ -1,0 +1,27 @@
+
+{
+    "geFondApp": {
+        "entretien" : {
+            "home": {
+                "title": "Entretiens",
+                "createLabel": "Create a new Entretien",
+                "createOrEditLabel": "Create or edit a Entretien"
+            },
+            "created": "A new Entretien is created with identifier {{ param }}",
+            "updated": "A Entretien is updated with identifier {{ param }}",
+            "deleted": "A Entretien is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Entretien {{ id }}?"
+            },
+            "detail": {
+                "title": "Entretien"
+            },
+            "cadre": "Cadre",
+            "resultat": "Resultat",
+            "interlocuteur": "Interlocuteur",
+            "etat": "Etat",
+            "dateEntretien": "Date Entretien",
+            "candidature": "Candidature"
+        }
+    }
+}

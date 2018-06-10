@@ -1,0 +1,48 @@
+
+<div *ngIf="echeance">
+    <h2><span jhiTranslate="geFondApp.echeance.detail.title">Echeance</span> {{echeance.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="geFondApp.echeance.dateTombe">Date Tombe</span></dt>
+        <dd>
+            <span>{{echeance.dateTombe | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.echeance.montant">Montant</span></dt>
+        <dd>
+            <span>{{echeance.montant}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.echeance.etatEcheance">Etat Echeance</span></dt>
+        <dd>
+            <span>{{echeance.etatEcheance}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.echeance.datePayement">Date Payement</span></dt>
+        <dd>
+            <span>{{echeance.datePayement | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.echeance.dateRetrait">Date Retrait</span></dt>
+        <dd>
+            <span>{{echeance.dateRetrait | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.echeance.pret">Pret</span></dt>
+        <dd>
+            <div *ngIf="echeance.pret">
+                <a [routerLink]="['/pret', echeance.pret?.id]">{{echeance.pret?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'echeance/'+ echeance.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

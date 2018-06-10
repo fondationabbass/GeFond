@@ -1,0 +1,54 @@
+
+<div *ngIf="sessionProjet">
+    <h2><span jhiTranslate="geFondApp.sessionProjet.detail.title">Session Projet</span> {{sessionProjet.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="geFondApp.sessionProjet.dateOuvert">Date Ouvert</span></dt>
+        <dd>
+            <span>{{sessionProjet.dateOuvert | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.sessionProjet.dateFermeture">Date Fermeture</span></dt>
+        <dd>
+            <span>{{sessionProjet.dateFermeture | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.sessionProjet.plafondFinance">Plafond Finance</span></dt>
+        <dd>
+            <span>{{sessionProjet.plafondFinance}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.sessionProjet.nombreClient">Nombre Client</span></dt>
+        <dd>
+            <span>{{sessionProjet.nombreClient}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.sessionProjet.plafondClient">Plafond Client</span></dt>
+        <dd>
+            <span>{{sessionProjet.plafondClient}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.sessionProjet.dateCreat">Date Creat</span></dt>
+        <dd>
+            <span>{{sessionProjet.dateCreat}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.sessionProjet.dateMaj">Date Maj</span></dt>
+        <dd>
+            <span>{{sessionProjet.dateMaj}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.sessionProjet.etat">Etat</span></dt>
+        <dd>
+            <span>{{sessionProjet.etat}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'session-projet/'+ sessionProjet.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,86 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myEntretienLabel" jhiTranslate="geFondApp.entretien.home.createOrEditLabel">Create or edit a Entretien</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!entretien.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="entretien.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.entretien.cadre" for="field_cadre">Cadre</label>
+            <input type="text" class="form-control" name="cadre" id="field_cadre"
+                [(ngModel)]="entretien.cadre" required/>
+            <div [hidden]="!(editForm.controls.cadre?.dirty && editForm.controls.cadre?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.cadre?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.entretien.resultat" for="field_resultat">Resultat</label>
+            <input type="text" class="form-control" name="resultat" id="field_resultat"
+                [(ngModel)]="entretien.resultat" required/>
+            <div [hidden]="!(editForm.controls.resultat?.dirty && editForm.controls.resultat?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.resultat?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.entretien.interlocuteur" for="field_interlocuteur">Interlocuteur</label>
+            <input type="text" class="form-control" name="interlocuteur" id="field_interlocuteur"
+                [(ngModel)]="entretien.interlocuteur" required/>
+            <div [hidden]="!(editForm.controls.interlocuteur?.dirty && editForm.controls.interlocuteur?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.interlocuteur?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.entretien.etat" for="field_etat">Etat</label>
+            <input type="text" class="form-control" name="etat" id="field_etat"
+                [(ngModel)]="entretien.etat" required/>
+            <div [hidden]="!(editForm.controls.etat?.dirty && editForm.controls.etat?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.etat?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.entretien.dateEntretien" for="field_dateEntretien">Date Entretien</label>
+            <div class="input-group">
+                <input id="field_dateEntretien" type="text" class="form-control" name="dateEntretien" ngbDatepicker  #dateEntretienDp="ngbDatepicker" [(ngModel)]="entretien.dateEntretien"
+                />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="dateEntretienDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.entretien.candidature" for="field_candidature">Candidature</label>
+            <select class="form-control" id="field_candidature" name="candidature" [(ngModel)]="entretien.candidature" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="candidatureOption.id === entretien.candidature?.id ? entretien.candidature : candidatureOption" *ngFor="let candidatureOption of candidatures; trackBy: trackCandidatureById">{{candidatureOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

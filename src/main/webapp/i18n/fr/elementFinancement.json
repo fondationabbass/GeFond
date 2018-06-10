@@ -1,0 +1,25 @@
+
+{
+    "geFondApp": {
+        "elementFinancement" : {
+            "home": {
+                "title": "ElementFinancements",
+                "createLabel": "Créer un nouveau Element Financement",
+                "createOrEditLabel": "Créer ou éditer un Element Financement"
+            },
+            "created": "Un nouveau Element Financement a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Element Financement avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Element Financement avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Element Financement {{ id }} ?"
+            },
+            "detail": {
+                "title": "Element Financement"
+            },
+            "type": "Type",
+            "montant": "Montant",
+            "dateFinancement": "Date Financement",
+            "pret": "Pret"
+        }
+    }
+}
