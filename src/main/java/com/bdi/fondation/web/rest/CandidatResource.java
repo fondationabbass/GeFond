@@ -82,19 +82,6 @@ public class CandidatResource {
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, candidat.getId().toString()))
             .body(result);
     }
-    
-    @PutMapping("/candidats")
-    @Timed
-    public ResponseEntity<Candidat> validateCandidat(@RequestBody Candidat candidat) throws URISyntaxException {
-        log.debug("REST request to validate Candidat : {}", candidat);
-        if (candidat.getId() == null) {
-            return createCandidat(candidat);
-        }
-        Candidat result = candidatService.validate(candidat);
-        return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, candidat.getId().toString()))
-            .body(result);
-    }
 
     /**
      * GET  /candidats : get all the candidats.

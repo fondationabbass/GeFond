@@ -20,8 +20,4 @@ public interface CandidatRepository extends JpaRepository<Candidat, Long>, JpaSp
 	
 	public List<Candidat> findFirst3ByOrderByIdDesc();
 
-	public Candidat validate(Candidat candidat);
-
-	
-
 }

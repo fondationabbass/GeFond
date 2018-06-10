@@ -68,9 +68,4 @@ public class CandidatService {
         log.debug("Request to delete Candidat : {}", id);
         candidatRepository.delete(id);
     }
-
-	 public Candidat validate(Candidat candidat) {
-        log.debug("Request to validate Candidat : {}", candidat);
-        return candidatRepository.validate(candidat);
-    }
 }
