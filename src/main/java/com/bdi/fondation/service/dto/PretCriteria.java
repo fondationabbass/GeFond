@@ -1,6 +1,12 @@
 package com.bdi.fondation.service.dto;
 
 import java.io.Serializable;
+
+import org.hibernate.tuple.entity.EntityBasedAssociationAttribute;
+
+import com.bdi.fondation.domain.Echeance;
+import com.bdi.fondation.domain.Echeance_;
+
 import io.github.jhipster.service.filter.BooleanFilter;
 import io.github.jhipster.service.filter.DoubleFilter;
 import io.github.jhipster.service.filter.Filter;
@@ -57,6 +63,16 @@ public class PretCriteria implements Serializable {
     private StringFilter userDebloq;
 
     private LongFilter clientId;
+    
+    public Echeance_ getEcheance() {
+		return Echeance;
+	}
+
+	public void setEcheance(Echeance_ echeance) {
+		Echeance = echeance;
+	}
+
+	private Echeance_ Echeance;
 
     public PretCriteria() {
     }

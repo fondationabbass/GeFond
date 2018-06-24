@@ -16,10 +16,10 @@
             "detail": {
                 "title": "Experience Candidat"
             },
-            "typeInfo": "Type Info",
+            "typeInfo": "Type Information",
             "titre": "Titre",
-            "etab": "Etab",
-            "adressEtab": "Adress Etab",
+            "etab": "Etablissement",
+            "adressEtab": "Adresse Etablissement",
             "dateDeb": "Date Debut",
             "dateFin": "Date Fin",
             "candidat": "Candidat"

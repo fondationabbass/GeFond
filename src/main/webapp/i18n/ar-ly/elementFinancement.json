@@ -3,23 +3,23 @@
     "geFondApp": {
         "elementFinancement" : {
             "home": {
-                "title": "Element Financements",
-                "createLabel": "Create a new Element Financement",
-                "createOrEditLabel": "Create or edit a Element Financement"
+                "title": "عناصر التمويل",
+                "createLabel": "إضافة عنصر",
+                "createOrEditLabel": "إضافة أو تعديل عنصر"
             },
-            "created": "A new Element Financement is created with identifier {{ param }}",
-            "updated": "A Element Financement is updated with identifier {{ param }}",
-            "deleted": "A Element Financement is deleted with identifier {{ param }}",
+            "created": "تمت إضافة عنصر جديد {{ param }}",
+            "updated": "تم تحديث العنصر {{ param }}",
+            "deleted": "تم حذف العنصر {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Element Financement {{ id }}?"
+                "question": "هل أنت متأكد من حذف العنصر {{ id }}?"
             },
             "detail": {
-                "title": "Element Financement"
+                "title": "عنصر التمويل"
             },
-            "type": "Type",
-            "montant": "Montant",
-            "dateFinancement": "Date Financement",
-            "pret": "Pret"
+            "type": "النوع",
+            "montant": "المبلغ",
+            "dateFinancement": "تاريخ التمويل",
+            "pret": "القرض"
         }
     }
 }

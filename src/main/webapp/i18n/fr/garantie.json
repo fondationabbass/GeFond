@@ -16,11 +16,11 @@
             "detail": {
                 "title": "Garantie"
             },
-            "typeGar": "Type Gar",
+            "typeGar": "Type Garantie",
             "montantEvalue": "Montant Evalue",
-            "montantAfect": "Montant Afect",
+            "montantAfect": "Montant Afecte",
             "dateDepot": "Date Depot",
-            "numDocument": "Num Document",
+            "numDocument": "Numero Document",
             "etat": "Etat",
             "dateRetrait": "Date Retrait",
             "pret": "Pret"

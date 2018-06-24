@@ -3,20 +3,20 @@
     "geFondApp": {
         "mouvement" : {
             "home": {
-                "title": "الحسابات",
-                "createLabel":"إضافة حساب",
-                "createOrEditLabel":" إضافة أو تعديل حساب"
+                "title": "الحركات",
+                "createLabel":"إضافة حركة",
+                "createOrEditLabel":" إضافة أو تعديل حركة"
             },
-            "created": "تمت إضافة حساب جديد {{ param }}",
-            "updated": "تم تحديث الحساب {{ param }}",
-            "deleted": "تم حذف الحساب {{ param }}",
+            "created": "تمت إضافة حركة جديدة {{ param }}",
+            "updated": "تم تحديث الحركة {{ param }}",
+            "deleted": "تم حذف الحركة {{ param }}",
             "delete": {
-                "question": "هل أنت متأكد من حذف الحساب {{ id }}?"
+                "question": "هل أنت متأكد من حذف الحركة {{ id }}?"
             },
             "detail": {
-                "title": "Mouvement"
+                "title": "الحركة"
             },
-            "dateMvt": "Date Mvt",
+            "dateMvt": "تاريخ الحركة",
             "lib": "Lib",
             "montant": "المبلغ",
             "sens": "الإتجاه",

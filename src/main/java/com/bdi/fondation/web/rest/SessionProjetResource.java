@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,7 +50,7 @@ public class SessionProjetResource {
         if (sessionProjet.getId() != null) {
             throw new BadRequestAlertException("A new sessionProjet cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        SessionProjet result = sessionProjetRepository.save(sessionProjet);
+        SessionProjet result = sessionProjetRepository.save(sessionProjet.dateCreat(LocalDate.now()));
         return ResponseEntity.created(new URI("/api/session-projets/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);

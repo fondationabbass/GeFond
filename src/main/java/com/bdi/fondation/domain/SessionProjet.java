@@ -46,7 +46,7 @@ public class SessionProjet implements Serializable {
     private Double plafondClient;
 
     @Column(name = "date_creat")
-    private String dateCreat;
+    private LocalDate dateCreat;
 
     @Column(name = "date_maj")
     private String dateMaj;
@@ -128,16 +128,16 @@ public class SessionProjet implements Serializable {
         this.plafondClient = plafondClient;
     }
 
-    public String getDateCreat() {
+    public LocalDate getDateCreat() {
         return dateCreat;
     }
 
-    public SessionProjet dateCreat(String dateCreat) {
-        this.dateCreat = dateCreat;
+    public SessionProjet dateCreat(LocalDate localDate) {
+        this.dateCreat = localDate;
         return this;
     }
 
-    public void setDateCreat(String dateCreat) {
+    public void setDateCreat(LocalDate dateCreat) {
         this.dateCreat = dateCreat;
     }
 

@@ -17,9 +17,9 @@
                 "title": "Pret"
             },
             "typPret": "Typ Pret",
-            "montAaccord": "Mont Aaccord",
-            "montDebloq": "Mont Debloq",
-            "nbrEcheance": "Nbr Echeance",
+            "montAaccord": "Montant Aaccorde",
+            "montDebloq": "Montant Debloq",
+            "nbrEcheance": "Nombre Echeance",
             "periodicite": "Periodicite",
             "dateMisePlace": "Date Mise Place",
             "datePremiereEcheance": "Date Premiere Echeance",
@@ -28,8 +28,8 @@
             "etat": "Etat",
             "encours": "Encours",
             "userInitial": "User Initial",
-            "userDecideur": "User Decideur",
-            "userDebloq": "User Debloq",
+            "userDecideur":"User Decideur",
+            "userDebloq":"User Debloq",
             "client": "Client"
         }
     }

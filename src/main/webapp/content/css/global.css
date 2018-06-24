@@ -3,11 +3,11 @@ Bootstrap tweaks
 ===============================================================*/
 
 body, h1, h2, h3, h4 {
-    font-weight: 300;
+    font-weight: 400;
 }
 
 body {
-    background: #e4e5e6;
+    background: #1FFED8;
 }
 
 a {

@@ -86,16 +86,7 @@
                 </small>
             </div>
         </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="geFondApp.projet.dateCreation" for="field_dateCreation">Date Creation</label>
-            <div class="input-group">
-                <input id="field_dateCreation" type="text" class="form-control" name="dateCreation" ngbDatepicker  #dateCreationDp="ngbDatepicker" [(ngModel)]="projet.dateCreation"
-                />
-                <span class="input-group-append">
-                    <button type="button" class="btn btn-secondary" (click)="dateCreationDp.toggle()"><i class="fa fa-calendar"></i></button>
-                </span>
-            </div>
-        </div>
+        
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="geFondApp.projet.etat" for="field_etat">Etat</label>
             <input type="text" class="form-control" name="etat" id="field_etat"

@@ -16,8 +16,8 @@
             "detail": {
                 "title": "Mouvement"
             },
-            "dateMvt": "Date Mvt",
-            "lib": "Lib",
+            "dateMvt": "Date Mouvement",
+            "lib": "Libelle",
             "montant": "Montant",
             "sens": "Sens",
             "etat": "Etat",

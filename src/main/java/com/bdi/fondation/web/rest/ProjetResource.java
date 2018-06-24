@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,7 +59,7 @@ public class ProjetResource {
         if (projet.getId() != null) {
             throw new BadRequestAlertException("A new projet cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Projet result = projetService.save(projet);
+        Projet result = projetService.save(projet.dateCreation(LocalDate.now()));
         return ResponseEntity.created(new URI("/api/projets/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);

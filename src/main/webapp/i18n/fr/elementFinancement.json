@@ -4,10 +4,10 @@
         "elementFinancement" : {
             "home": {
                 "title": "ElementFinancements",
-                "createLabel": "Créer un nouveau Element Financement",
+                "createLabel": "Créer un nouvel Element Financement",
                 "createOrEditLabel": "Créer ou éditer un Element Financement"
             },
-            "created": "Un nouveau Element Financement a été créé avec l'identifiant {{ param }}",
+            "created": "Un nouvel Element Financement a été créé avec l'identifiant {{ param }}",
             "updated": "Le Element Financement avec l'identifiant {{ param }} a été mis à jour",
             "deleted": "Le Element Financement avec l'identifiant {{ param }} a été supprimé",
             "delete": {

@@ -3,18 +3,18 @@
     "geFondApp": {
         "parametrage" : {
             "home": {
-                "title": "الحسابات",
-                "createLabel":"إضافة حساب",
-                "createOrEditLabel":" إضافة أو تعديل حساب"
+                "title": "الإعدادات",
+                "createLabel":"إضافة إعداد",
+                "createOrEditLabel":" إضافة أو تعديل إعداد"
             },
-            "created": "تمت إضافة حساب جديد {{ param }}",
-            "updated": "تم تحديث الحساب {{ param }}",
-            "deleted": "تم حذف الحساب {{ param }}",
+            "created": "تمت إضافة إعداد جديد {{ param }}",
+            "updated": "تم تحديث الإعداد {{ param }}",
+            "deleted": "تم حذف الإعداد {{ param }}",
             "delete": {
-                "question": "هل أنت متأكد من حذف الحساب {{ id }}?"
+                "question": "هل أنت متأكد من حذف الإعداد {{ id }}?"
             },
             "detail": {
-                "title": "Parametrage"
+                "title": "الإعدادات"
             },
             "codeTypeParam": "Code Type Param",
             "codeParam": "Code Param",

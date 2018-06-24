@@ -16,15 +16,15 @@
             "detail": {
                 "title": "Parametrage"
             },
-            "codeTypeParam": "Code Type Param",
-            "codeParam": "Code Param",
+            "codeTypeParam": "Code Type Parametrage",
+            "codeParam": "Code Parametrage",
             "libelle": "Libelle",
-            "lib1": "Lib 1",
-            "lib2": "Lib 2",
-            "lib3": "Lib 3",
-            "mnt1": "Mnt 1",
-            "mnt2": "Mnt 2",
-            "mnt3": "Mnt 3"
+            "lib1": "Libelle 1",
+            "lib2": "Libelle 2",
+            "lib3": "Libelle 3",
+            "mnt1": "Montant 1",
+            "mnt2": "Montant 2",
+            "mnt3": "Montant 3"
         }
     }
 }

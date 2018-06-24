@@ -17,7 +17,7 @@
                 "title": "Document"
             },
             "dateEnreg": "Date Enregistrement",
-            "lib": "Lib",
+            "lib": "Libelle",
             "typeDocument": "Type Document",
             "module": "Module",
             "etat": "Etat",

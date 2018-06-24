@@ -19,12 +19,12 @@
             "dateCreat": "Date Creation",
             "lieuResid": "Lieu Residence",
             "typeResid": "Type Residence",
-            "arrondResid": "Arrond Residence",
+            "arrondResid": "Arrondissement Residence",
             "nomPersonneContact": "Nom Personne Contact",
             "telPersonneContact": "Tel Personne Contact",
-            "adressPersonneContact": "Adress Personne Contact",
+            "adressPersonneContact": "Adresse Personne Contact",
             "typeClient": "Type Client",
-            "pointsFidel": "Points Fidel",
+            "pointsFidel": "Points Fidelité",
             "dateMaj": "Date Mise à jours",
             "candidat": "Candidat"
         }

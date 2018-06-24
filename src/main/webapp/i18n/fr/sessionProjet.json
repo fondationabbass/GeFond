@@ -16,10 +16,10 @@
             "detail": {
                 "title": "Session Projet"
             },
-            "dateOuvert": "Date Ouvert",
+            "dateOuvert": "Date Ouverture",
             "dateFermeture": "Date Fermeture",
-            "plafondFinance": "Plafond Finance",
-            "nombreClient": "Nombre Client",
+            "plafondFinance": "Plafond Financement",
+            "nombreClient": "Nombre Clients",
             "plafondClient": "Plafond Client",
             "dateCreat": "Date Création",
             "dateMaj": "Date Mise à jours",

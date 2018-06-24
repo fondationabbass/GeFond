@@ -1,7 +1,16 @@
 package com.bdi.fondation.service;
 
+import com.bdi.fondation.domain.Echeance;
 import com.bdi.fondation.domain.Pret;
+import com.bdi.fondation.repository.EcheanceRepository;
 import com.bdi.fondation.repository.PretRepository;
+
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -20,12 +29,14 @@ public class PretService {
     private final Logger log = LoggerFactory.getLogger(PretService.class);
 
     private final PretRepository pretRepository;
+    private final EcheanceRepository echeanceRepository;
 
-    public PretService(PretRepository pretRepository) {
-        this.pretRepository = pretRepository;
-    }
+    public PretService(PretRepository pretRepository, EcheanceRepository echeanceRepository) {
+		this.pretRepository = pretRepository;
+		this.echeanceRepository = echeanceRepository;
+	}
 
-    /**
+	/**
      * Save a pret.
      *
      * @param pret the entity to save
@@ -33,10 +44,27 @@ public class PretService {
      */
     public Pret save(Pret pret) {
         log.debug("Request to save Pret : {}", pret);
-        return pretRepository.save(pret);
+        Pret result = pretRepository.save(pret);
+        List<Echeance> echeances = new ArrayList<>();
+        for (int i = 0; i < pret.getNbrEcheance(); i++) {
+			Echeance echeance = new Echeance();
+			echeance.setEtatEcheance("En cours");
+			echeance.setDateTombe(computeDate(pret.getDatePremiereEcheance(), pret.getPeriodicite(), i));
+			echeance.setMontant(pret.getMontAaccord() / pret.getNbrEcheance());
+			
+			
+			echeance.setPret(result);
+			echeances.add(echeance);
+		}
+        echeanceRepository.save(echeances);
+		return result;
     }
 
-    /**
+    private LocalDate computeDate(LocalDate reference, String periodicite, int i) {
+    	return reference.plus(i, ChronoUnit.MONTHS);
+	}
+
+	/**
      * Get all the prets.
      *
      * @param pageable the pagination information

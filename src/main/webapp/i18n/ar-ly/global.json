@@ -15,14 +15,14 @@
                 "sessionProjet": "الدورة",
                 "client": "الزبون",
                 "pret": "القرض",
-                "elementFinancement": "Element Financement",
+                "elementFinancement": "عنصر التمويل",
                 "garantie": "الضمان",
                 "echeance": "Echeance",
                 "compte": "الحساب",
-                "parametrage": "Parametrage",
+                "parametrage": "الإعدادات",
                 "entretien": "المقابلة",
                 "chapitre": "الفصل",
-                "mouvement": "Mouvement",
+                "mouvement": "الحركة",
                 "document": "الوثيقة",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
@@ -145,5 +145,5 @@
         "emailexists": "البريد الالكتروني قيد الاستخدام بالفعل!",
         "idexists": "{{ entityName }} جديد لا يمكن أن يكون له معرف بالفعل"
     },
-    "footer": "هنا يضع الفووتر"
+    "footer": "GeFond © 2018"
 }
