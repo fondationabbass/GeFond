@@ -10,11 +10,13 @@
                 "candidat": "Candidat",
                 "experienceCandidat": "Experience Candidat",
                 "candidature": "Candidature",
+                "candidatures": "Candidatures",
                 "projet": "Projet",
                 "visite": "Visite",
                 "sessionProjet": "Session Projet",
                 "client": "Client",
                 "pret": "Pret",
+                "prets": "Prets",
                 "elementFinancement": "Element Financement",
                 "garantie": "Garantie",
                 "echeance": "Echeance",
@@ -154,5 +156,5 @@
         "emailexists": "Email déjà utilisé !",
         "idexists": "Une nouvelle entité {{entityName}} ne peut pas avoir d'ID !"
     },
-    "footer": "GeFond © 2018"
+    "footer": "Fondation Abbass © 2018. GeFond "
 }

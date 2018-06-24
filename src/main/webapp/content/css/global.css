@@ -3,11 +3,18 @@ Bootstrap tweaks
 ===============================================================*/
 
 body, h1, h2, h3, h4 {
-    font-weight: 400;
+    font-weight: 300;
 }
 
 body {
-    background: #1FFED8;
+    background: #e4e5e6;
+}
+body, h1, h2, h3, h4 {
+    font-weight: 300;
+}
+
+body {
+    background: #e4e5e6;
 }
 
 a {
@@ -80,6 +87,7 @@ Generic styles
 
 .footer {
     border-top: 1px solid rgba(0,0,0,.125);
+    text-align: center;
 }
 
 /* ==========================================================================

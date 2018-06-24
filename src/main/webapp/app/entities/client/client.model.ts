@@ -1,4 +1,5 @@
 import { BaseEntity } from './../../shared';
+import {Candidat} from './../candidat';
 
 export class Client implements BaseEntity {
     constructor(
@@ -13,7 +14,7 @@ export class Client implements BaseEntity {
         public typeClient?: string,
         public pointsFidel?: number,
         public dateMaj?: any,
-        public candidat?: BaseEntity,
+        public candidat?: Candidat,
     ) {
     }
 }

@@ -35,12 +35,10 @@ public class Echeance implements Serializable {
     @Column(name = "montant", nullable = false)
     private Double montant;
 
-    @NotNull
-    @Column(name = "etat_echeance", nullable = false)
+    @Column(name = "etat_echeance")
     private String etatEcheance;
 
-    @NotNull
-    @Column(name = "date_payement", nullable = false)
+    @Column(name = "date_payement")
     private LocalDate datePayement;
 
     @Column(name = "date_retrait")
