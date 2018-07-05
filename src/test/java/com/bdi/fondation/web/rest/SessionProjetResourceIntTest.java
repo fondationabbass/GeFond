@@ -55,8 +55,8 @@ public class SessionProjetResourceIntTest {
     private static final Double DEFAULT_PLAFOND_CLIENT = 1D;
     private static final Double UPDATED_PLAFOND_CLIENT = 2D;
 
-    private static final String DEFAULT_DATE_CREAT = "AAAAAAAAAA";
-    private static final String UPDATED_DATE_CREAT = "BBBBBBBBBB";
+    private static final LocalDate DEFAULT_DATE_CREAT = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_DATE_CREAT = LocalDate.now(ZoneId.systemDefault());
 
     private static final String DEFAULT_DATE_MAJ = "AAAAAAAAAA";
     private static final String UPDATED_DATE_MAJ = "BBBBBBBBBB";
