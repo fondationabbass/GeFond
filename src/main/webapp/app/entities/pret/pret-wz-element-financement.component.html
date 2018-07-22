@@ -1,0 +1,56 @@
+<pret-wz-navbar></pret-wz-navbar>
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="row">
+            <jhi-alert></jhi-alert>
+            <div class="table-responsive" *ngIf="elementFinancements">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                    <th><span jhiTranslate="geFondApp.elementFinancement.type">Type</span></th>
+                    <th><span jhiTranslate="geFondApp.elementFinancement.montant">Montant</span></th>
+                    <th><span jhiTranslate="geFondApp.elementFinancement.dateFinancement">Date Financement</span></th>
+                    <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let elementFinancement of elementFinancements ;trackBy: trackId">
+                        <td>{{elementFinancement.type}}</td>
+                        <td>{{elementFinancement.montant}}</td>
+                        <td>{{elementFinancement.dateFinancement | date:'mediumDate'}}</td>
+                        <td class="text-right">
+                            <div class="btn-group flex-btn-group-container">
+                                <button type="submit"
+                                        [routerLink]="['/', { outlets: { popup: 'element-financement/'+ elementFinancement.id + '/edit'} }]"
+                                        replaceUrl="true"
+                                        queryParamsHandling="merge"
+                                        class="btn btn-primary btn-sm">
+                                    <span class="fa fa-pencil"></span>
+                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                                </button>
+                                <button type="submit"
+                                        (click)="removeElementFinancement(elementFinancement)"
+                                        class="btn btn-danger btn-sm">
+                                    <span class="fa fa-remove"></span>
+                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="form-group text-center">
+            <button (click)="goToPrevious(elementFinancements)" class="btn btn-info">
+                <span class="fa fa-arrow-left"></span>&nbsp;
+                <span jhiTranslate="entity.action.precedent">Back</span>
+
+            </button>
+            <button (click)="goToNext(elementFinancements)" class="btn btn-info">
+                <span jhiTranslate="entity.action.next">Next</span>&nbsp;
+                <span class="fa fa-arrow-right"></span>
+            </button>
+        </div>
+    </div>
+</div>

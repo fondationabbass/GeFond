@@ -1,0 +1,44 @@
+<div class="wizard">
+    <div class="wizard-inner">
+        <div class="connecting-line"></div>
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="nav-item">
+                <a routerLink="/pret-wz" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" data-toggle="tab" aria-controls="step1"
+                    role="tab" title="Prêt" class="nav-link active">
+                    <span class="round-tab">
+                        <i class="fa fa-money"></i>
+                    </span>
+                </a>
+            </li>
+            <li role="presentation" class="nav-item">
+                <a routerLink="/pret-wz-echeance" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" data-toggle="tab" aria-controls="step2"
+                    role="tab" title="Echéancier" class="nav-link disabled">
+                    <span class="round-tab">
+                        <i class="fa fa-calculator"></i>
+                    </span>
+                </a>
+            </li>
+            <li role="presentation" class="nav-item">
+                <a routerLink="/pret-wz-element-financement" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" data-toggle="tab" aria-controls="step3" role="tab" title="Elements" class="nav-link disabled">
+                    <span class="round-tab">
+                        <i class="fa fa-list-ol"></i>
+                    </span>
+                </a>
+            </li>
+            <li role="presentation" class="nav-item">
+                <a routerLink="/pret-wz-garantie" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" data-toggle="tab" aria-controls="step4" role="tab" title="Garanties" class="nav-link disabled">
+                    <span class="round-tab">
+                        <i class="fa fa-cubes"></i>
+                    </span>
+                </a>
+            </li>
+            <li role="presentation" class="nav-item">
+                <a routerLink="/pret-wz-result" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" data-toggle="tab" aria-controls="step5" role="tab" title="Résultat" class="nav-link disabled">
+                    <span class="round-tab">
+                        <i class="fa fa-check"></i>
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

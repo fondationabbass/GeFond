@@ -3,19 +3,20 @@
     "geFondApp": {
         "client" : {
             "home": {
-                "title": "الزبائن",
-                "createLabel":"إضافة زبون",
-                "createOrEditLabel":" إضافة أو تعديل زبون"
+                "title": "العملاء",
+                "createLabel":"إضافة عميل",
+                "createOrEditLabel":" إضافة أو تعديل عميل"
             },
-            "created": "تمت إضافة زبون جديد {{ param }}",
-            "updated": "تم تحديث الزبون {{ param }}",
-            "deleted": "تم حذف الزبون {{ param }}",
+            "created": "تمت إضافة عميل جديد {{ param }}",
+            "updated": "تم تحديث العميل {{ param }}",
+            "deleted": "تم حذف العميل {{ param }}",
             "delete": {
-                "question": "هل أنت متأكد من حذف الزبون {{ id }}?"
+                "question": "هل أنت متأكد من حذف العميل {{ id }}?"
             },
             "detail": {
-                "title": "الزبون"
+                "title": "العميل"
             },
+            "code":"الرمز",
             "dateCreat": "تاريخ الإنشاء",
             "lieuResid": "مكان الإقامة",
             "typeResid": "نوع الإقامة",
@@ -23,7 +24,7 @@
             "nomPersonneContact": "اسم الشخص",
             "telPersonneContact": "هاتف الشخص",
             "adressPersonneContact": "عنوان الشخص",
-            "typeClient": "نوع الزبون",
+            "typeClient": "نوع العميل",
             "pointsFidel": "النقاط",
             "dateMaj": "تاريخ التحديث",
             "candidat": "المترشح"

@@ -16,6 +16,7 @@
             "detail": {
                 "title": "Client"
             },
+            "code":"Code",
             "dateCreat": "Date Creation",
             "lieuResid": "Lieu Residence",
             "typeResid": "Type Residence",

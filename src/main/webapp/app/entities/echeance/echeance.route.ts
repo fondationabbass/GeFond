@@ -69,6 +69,16 @@ export const echeancePopupRoute: Routes = [
         outlet: 'popup'
     },
     {
+        path: 'echeance/:item/edit-new',
+        component: EcheancePopupComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'geFondApp.echeance.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
+    },
+    {
         path: 'echeance/:id/delete',
         component: EcheanceDeletePopupComponent,
         data: {

@@ -7,6 +7,7 @@ import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 import { Echeance } from './echeance.model';
 import { EcheanceService } from './echeance.service';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
+import { PretWzFormDataService } from '../pret/pret-wz-form-data.service';
 
 @Component({
     selector: 'jhi-echeance',
@@ -36,6 +37,7 @@ currentAccount: any;
         private principal: Principal,
         private activatedRoute: ActivatedRoute,
         private router: Router,
+        private formDataService: PretWzFormDataService,
         private eventManager: JhiEventManager
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
@@ -48,6 +50,10 @@ currentAccount: any;
     }
 
     loadAll() {
+        if(this.formDataService.getEcheances()){
+            this.echeances=this.formDataService.getEcheances();
+            return;
+        }
         this.echeanceService.query({
             page: this.page - 1,
             size: this.itemsPerPage,

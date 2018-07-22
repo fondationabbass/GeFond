@@ -1,0 +1,85 @@
+import { Injectable }                        from '@angular/core';
+
+import { PretWzFormData }       from './pret-wz-form-data.model';
+import { PretWzWorkflowService }                   from './pret-wz-workflow.service';
+import { PRET_WZ_STEPS }                             from './pret-wz-workflow.model';
+import { Pret } from './pret.model';
+import { Echeance } from '../echeance';
+import { ElementFinancement } from '../element-financement';
+import { Garantie } from '../garantie';
+
+@Injectable()
+export class PretWzFormDataService {
+
+    private formData: PretWzFormData = new PretWzFormData();
+    private isPretFormValid: boolean = false;
+    private isEcheanceFormValid: boolean = false;
+    private isElementFinancementFormValid: boolean = false;
+    private isGarantieFormValid: boolean = false;
+
+
+    constructor(private workflowService: PretWzWorkflowService) { 
+    }
+
+    getPret(): Pret {
+        return this.formData.pret;
+    }
+
+    setPret(data: Pret) {
+        // Update the Personal data only when the Personal Form had been validated successfully
+        this.isPretFormValid = true;
+        this.formData.pret = data;
+        // Validate Personal Step in Workflow
+        this.workflowService.validateStep(PRET_WZ_STEPS.pret);
+    }
+
+    getElementFinancements() : ElementFinancement[] {
+        return this.formData.elementFinancements;
+    }
+    
+    setElementFinancements(data: ElementFinancement[]) {
+        this.isElementFinancementFormValid = true;
+        this.formData.elementFinancements = data;
+        this.workflowService.validateStep(PRET_WZ_STEPS.elementFinancement);
+    }
+    getGaranties() : Garantie[] {
+        return this.formData.garanties;
+    }
+    
+    setGaranties(data: Garantie[]) {
+        this.isGarantieFormValid = true;
+        this.formData.garanties = data;
+        this.workflowService.validateStep(PRET_WZ_STEPS.garantie);
+    }
+    getEcheances() : Echeance[] {
+        return this.formData.echeances;
+    }
+    
+    setEcheances(data: Echeance[]) {
+        this.isEcheanceFormValid = true;
+        this.formData.echeances = data;
+        this.workflowService.validateStep(PRET_WZ_STEPS.echeance);
+    }
+
+    getFormData(): PretWzFormData {
+        // Return the entire Form Data
+        return this.formData;
+    }
+
+    resetFormData(): PretWzFormData {
+        // Reset the workflow
+        this.workflowService.resetSteps();
+        // Return the form data after all this.* members had been reset
+        //this.formData.clear();
+        this.isPretFormValid = this.isEcheanceFormValid = this.isElementFinancementFormValid = this.isGarantieFormValid = false;
+        return this.formData;
+    }
+
+    isFormValid() {
+        // Return true if all forms had been validated successfully; otherwise, return false
+        return this.isPretFormValid &&
+                this.isEcheanceFormValid && 
+                this.isElementFinancementFormValid &&
+                this.isGarantieFormValid;
+    }
+}

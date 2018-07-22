@@ -31,6 +31,8 @@ public class ClientCriteria implements Serializable {
     private LocalDateFilter dateCreat;
 
     private StringFilter lieuResid;
+    
+    private StringFilter code;
 
     private StringFilter typeResid;
 
@@ -149,10 +151,19 @@ public class ClientCriteria implements Serializable {
         this.candidatId = candidatId;
     }
 
-    @Override
+    public StringFilter getCode() {
+		return code;
+	}
+
+	public void setCode(StringFilter code) {
+		this.code = code;
+	}
+
+	@Override
     public String toString() {
         return "ClientCriteria{" +
                 (id != null ? "id=" + id + ", " : "") +
+                (code != null ? "code=" + code + ", " : "") +
                 (dateCreat != null ? "dateCreat=" + dateCreat + ", " : "") +
                 (lieuResid != null ? "lieuResid=" + lieuResid + ", " : "") +
                 (typeResid != null ? "typeResid=" + typeResid + ", " : "") +

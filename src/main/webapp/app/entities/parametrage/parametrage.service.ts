@@ -37,6 +37,9 @@ export class ParametrageService {
         return this.http.get<Parametrage[]>(this.resourceUrl, { params: options, observe: 'response' })
             .map((res: HttpResponse<Parametrage[]>) => this.convertArrayResponse(res));
     }
+    pretTypes(req?: any): Observable<HttpResponse<string[]>> {
+        return this.http.get<string[]>(`${this.resourceUrl}/pretTypes`, { observe: 'response'});
+    }
 
     delete(id: number): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});

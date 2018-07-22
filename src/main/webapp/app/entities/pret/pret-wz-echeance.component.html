@@ -1,0 +1,71 @@
+<pret-wz-navbar></pret-wz-navbar>
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="row">
+            <jhi-alert></jhi-alert>
+            <div class="table-responsive" *ngIf="echeances">
+                <table class="table table-striped">
+                    <thead>
+                        <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
+                            <th jhiSortBy="dateTombe">
+                                <span jhiTranslate="geFondApp.echeance.dateTombe">Date Tombe</span>
+                                <span class="fa fa-sort"></span>
+                            </th>
+                            <th jhiSortBy="montant">
+                                <span jhiTranslate="geFondApp.echeance.montant">Montant</span>
+                                <span class="fa fa-sort"></span>
+                            </th>
+                            <th jhiSortBy="etatEcheance">
+                                <span jhiTranslate="geFondApp.echeance.etatEcheance">Etat Echeance</span>
+                                <span class="fa fa-sort"></span>
+                            </th>
+                            <th jhiSortBy="datePayement">
+                                <span jhiTranslate="geFondApp.echeance.datePayement">Date Payement</span>
+                                <span class="fa fa-sort"></span>
+                            </th>
+                            <th jhiSortBy="dateRetrait">
+                                <span jhiTranslate="geFondApp.echeance.dateRetrait">Date Retrait</span>
+                                <span class="fa fa-sort"></span>
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let echeance of echeances ;trackBy: trackId">
+                            <td>{{echeance.dateTombe  | date:'mediumDate'}}</td>
+                            <td>{{echeance.montant}}</td>
+                            <td>{{echeance.etatEcheance}}</td>
+                            <td>{{echeance.datePayement}}</td>
+                            <td>{{echeance.dateRetrait}}</td>
+                            <td class="text-right">
+                                <div class="btn-group flex-btn-group-container">
+                                    <button type="submit" [routerLink]="['/', { outlets: { popup: 'echeance/'+ echeances.indexOf(echeance) + '/edit-new'} }]" replaceUrl="true" queryParamsHandling="merge"
+                                        class="btn btn-primary btn-sm">
+                                        <span class="fa fa-pencil"></span>
+                                        <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                                    </button>
+                                    <button (click)="removeEcheance(echeance)" class="btn btn-danger btn-sm">
+                                        <span class="fa fa-remove"></span>
+                                        <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class="form-group text-center">
+            <button (click)="goToPrevious(echeances)" class="btn btn-info">
+                <span class="fa fa-arrow-left"></span>&nbsp;
+                <span jhiTranslate="entity.action.precedent">Back</span>
+
+            </button>
+            <button (click)="goToNext(echeances)" class="btn btn-info">
+                <span jhiTranslate="entity.action.next">Next</span>&nbsp;
+                <span class="fa fa-arrow-right"></span>
+            </button>
+        </div>
+    </div>
+</div>

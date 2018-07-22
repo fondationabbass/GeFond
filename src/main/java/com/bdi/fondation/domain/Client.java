@@ -32,6 +32,10 @@ public class Client implements Serializable {
     @NotNull
     @Column(name = "lieu_resid", nullable = false)
     private String lieuResid;
+    
+    @NotNull
+    @Column(name = "code", nullable = false)
+    private String code;
 
     @NotNull
     @Column(name = "type_resid", nullable = false)
@@ -235,7 +239,15 @@ public class Client implements Serializable {
         return Objects.equals(getId(), client.getId());
     }
 
-    @Override
+    public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	@Override
     public int hashCode() {
         return Objects.hashCode(getId());
     }
@@ -244,6 +256,7 @@ public class Client implements Serializable {
     public String toString() {
         return "Client{" +
             "id=" + getId() +
+            ", code='" + getCode() + "'" +
             ", dateCreat='" + getDateCreat() + "'" +
             ", lieuResid='" + getLieuResid() + "'" +
             ", typeResid='" + getTypeResid() + "'" +

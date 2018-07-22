@@ -17,6 +17,7 @@ import java.net.URISyntaxException;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing Parametrage.
@@ -87,6 +88,13 @@ public class ParametrageResource {
     public List<Parametrage> getAllParametrages() {
         log.debug("REST request to get all Parametrages");
         return parametrageRepository.findAll();
+        }
+    
+    @GetMapping("/parametrages/pretTypes")
+    @Timed
+    public List<String> getPretTypes() {
+        log.debug("REST request to get pret Types");
+        return parametrageRepository.findByCodeTypeParam("Type pret").stream().map(a -> a.getLibelle()).collect(Collectors.toList());
         }
 
     /**

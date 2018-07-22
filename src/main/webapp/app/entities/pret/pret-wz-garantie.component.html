@@ -1,0 +1,64 @@
+<pret-wz-navbar></pret-wz-navbar>
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="row">
+            <jhi-alert></jhi-alert>
+            <div class="table-responsive" *ngIf="garanties">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                    <th><span jhiTranslate="geFondApp.garantie.typeGar">Type Gar</span></th>
+                    <th><span jhiTranslate="geFondApp.garantie.montantEvalue">Montant Evalue</span></th>
+                    <th><span jhiTranslate="geFondApp.garantie.montantAfect">Montant Afect</span></th>
+                    <th><span jhiTranslate="geFondApp.garantie.dateDepot">Date Depot</span></th>
+                    <th><span jhiTranslate="geFondApp.garantie.numDocument">Num Document</span></th>
+                    <th><span jhiTranslate="geFondApp.garantie.etat">Etat</span></th>
+                    <th><span jhiTranslate="geFondApp.garantie.dateRetrait">Date Retrait</span></th>
+                    <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let garantie of garanties ;trackBy: trackId">
+                        <td>{{garantie.typeGar}}</td>
+                        <td>{{garantie.montantEvalue}}</td>
+                        <td>{{garantie.montantAfect}}</td>
+                        <td>{{garantie.dateDepot | date:'mediumDate'}}</td>
+                        <td>{{garantie.numDocument}}</td>
+                        <td>{{garantie.etat}}</td>
+                        <td>{{garantie.dateRetrait | date:'mediumDate'}}</td>
+                        <td class="text-right">
+                            <div class="btn-group flex-btn-group-container">
+                                <button type="submit"
+                                        [routerLink]="['/', { outlets: { popup: 'garantie/'+ garantie.id + '/edit'} }]"
+                                        replaceUrl="true"
+                                        queryParamsHandling="merge"
+                                        class="btn btn-primary btn-sm">
+                                    <span class="fa fa-pencil"></span>
+                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                                </button>
+                                <button type="submit"
+                                        (click)="removeGarantie(garantie)"
+                                        class="btn btn-danger btn-sm">
+                                    <span class="fa fa-remove"></span>
+                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="form-group text-center">
+            <button (click)="goToPrevious(garanties)" class="btn btn-info">
+                <span class="fa fa-arrow-left"></span>&nbsp;
+                <span jhiTranslate="entity.action.precedent">Back</span>
+
+            </button>
+            <button (click)="goToNext(garanties)" class="btn btn-info">
+                <span jhiTranslate="entity.action.next">Next</span>&nbsp;
+                <span class="fa fa-arrow-right"></span>
+            </button>
+        </div>
+    </div>
+</div>

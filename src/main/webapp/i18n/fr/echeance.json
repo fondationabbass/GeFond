@@ -16,12 +16,12 @@
             "detail": {
                 "title": "Echeance"
             },
-            "dateTombe": "Date Tombe",
+            "dateTombe": "Date de tombée",
             "montant": "Montant",
-            "etatEcheance": "Etat Echeance",
-            "datePayement": "Date Payement",
-            "dateRetrait": "Date Retrait",
-            "pret": "Pret",
+            "etatEcheance": "Etat",
+            "datePayement": "Date de payement",
+            "dateRetrait": "Date de retrait",
+            "pret": "Numéro Prêt",
             "mouvement": "Mouvement"
         }
     }

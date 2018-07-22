@@ -1,9 +1,10 @@
-import { BaseEntity } from './../../shared';
-import {Candidat} from './../candidat';
+import { BaseEntity } from '../../shared';
+import {Candidat} from '../candidat';
 
 export class Client implements BaseEntity {
     constructor(
         public id?: number,
+        public code?:string,
         public dateCreat?: any,
         public lieuResid?: string,
         public typeResid?: string,

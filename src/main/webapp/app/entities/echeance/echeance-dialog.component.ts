@@ -118,6 +118,9 @@ export class EcheancePopupComponent implements OnInit, OnDestroy {
             if ( params['id'] ) {
                 this.echeancePopupService
                     .open(EcheanceDialogComponent as Component, params['id']);
+            } else if(params['item']){
+                this.echeancePopupService
+                    .open(EcheanceDialogComponent as Component, null, params['item']);
             } else {
                 this.echeancePopupService
                     .open(EcheanceDialogComponent as Component);

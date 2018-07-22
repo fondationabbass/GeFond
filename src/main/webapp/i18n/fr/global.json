@@ -119,6 +119,8 @@
             "addblob": "Ajouter blob",
             "addimage": "Ajouter image",
             "back": "Retour",
+            "next": "Suivant",
+            "precedent": "Précedent",
             "cancel": "Annuler",
             "edit": "Editer",
             "delete": "Supprimer",

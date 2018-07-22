@@ -5,4 +5,5 @@ export * from './pret-dialog.component';
 export * from './pret-delete-dialog.component';
 export * from './pret-detail.component';
 export * from './pret.component';
+export * from './pret-create.component';
 export * from './pret.route';

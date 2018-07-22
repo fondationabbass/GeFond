@@ -7,6 +7,13 @@ import { PretComponent } from './pret.component';
 import { PretDetailComponent } from './pret-detail.component';
 import { PretPopupComponent } from './pret-dialog.component';
 import { PretDeletePopupComponent } from './pret-delete-dialog.component';
+import { PretCreateComponent} from './pret-create.component';
+import { PretWzComponent } from './pret-wz.component';
+import { PretWzEcheanceComponent } from './pret-wz-echeance.component';
+import { PretWzResultComponent } from './pret-wz-result.component';
+import { PretWzWorkflowGuard } from './pret-wz-workflow-guard.service';
+import { PretWzElementFinancementComponent } from './pret-wz-element-financement.component';
+import { PretWzGarantieComponent } from './pret-wz-garantie.component';
 
 @Injectable()
 export class PretResolvePagingParams implements Resolve<any> {
@@ -36,7 +43,17 @@ export const pretRoute: Routes = [
             pageTitle: 'geFondApp.pret.home.title'
         },
         canActivate: [UserRouteAccessService]
-    }, {
+    },
+    {
+        path: 'pretcreate',
+        component: PretCreateComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'geFondApp.pret.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
         path: 'pret/:id',
         component: PretDetailComponent,
         data: {
@@ -44,7 +61,14 @@ export const pretRoute: Routes = [
             pageTitle: 'geFondApp.pret.home.title'
         },
         canActivate: [UserRouteAccessService]
-    }
+    },
+     { path: 'pret-wz',  component: PretWzComponent, data: {authorities: ['ROLE_USER']} ,canActivate: [UserRouteAccessService] },
+     { path: 'pret-wz-echeance',  component: PretWzEcheanceComponent, data: {authorities: ['ROLE_USER']}, canActivate: [UserRouteAccessService, PretWzWorkflowGuard] },
+     { path: 'pret-wz-element-financement',  component: PretWzElementFinancementComponent, data: {authorities: ['ROLE_USER']}, canActivate: [UserRouteAccessService, PretWzWorkflowGuard] },
+     { path: 'pret-wz-garantie',  component: PretWzGarantieComponent, data: {authorities: ['ROLE_USER']}, canActivate: [UserRouteAccessService, PretWzWorkflowGuard] },
+     { path: 'pret-wz-result',  component: PretWzResultComponent, data: {authorities: ['ROLE_USER']}, canActivate: [UserRouteAccessService, PretWzWorkflowGuard] }
+     //,{ path: '',   redirectTo: '/pretwz', pathMatch: 'full' }
+
 ];
 
 export const pretPopupRoute: Routes = [

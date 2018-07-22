@@ -4,6 +4,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { HttpResponse } from '@angular/common/http';
 import { Echeance } from './echeance.model';
 import { EcheanceService } from './echeance.service';
+import { PretWzFormDataService } from '../pret/pret-wz-form-data.service';
 
 @Injectable()
 export class EcheancePopupService {
@@ -12,13 +13,14 @@ export class EcheancePopupService {
     constructor(
         private modalService: NgbModal,
         private router: Router,
+        private dataService: PretWzFormDataService,
         private echeanceService: EcheanceService
 
     ) {
         this.ngbModalRef = null;
     }
 
-    open(component: Component, id?: number | any): Promise<NgbModalRef> {
+    open(component: Component, id?: number | any, item?: number | any): Promise<NgbModalRef> {
         return new Promise<NgbModalRef>((resolve, reject) => {
             const isOpen = this.ngbModalRef !== null;
             if (isOpen) {
@@ -55,8 +57,14 @@ export class EcheancePopupService {
                     });
             } else {
                 // setTimeout used as a workaround for getting ExpressionChangedAfterItHasBeenCheckedError
+                let echeance: Echeance = new Echeance();
+                if(item) {
+                    echeance = this.dataService.getEcheances()[item];
+                    console.log("found echeance:");
+                    console.log(echeance);
+                }
                 setTimeout(() => {
-                    this.ngbModalRef = this.echeanceModalRef(component, new Echeance());
+                    this.ngbModalRef = this.echeanceModalRef(component, echeance);
                     resolve(this.ngbModalRef);
                 }, 0);
             }

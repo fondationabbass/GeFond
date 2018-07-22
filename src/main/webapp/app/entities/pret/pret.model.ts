@@ -1,4 +1,5 @@
-import { BaseEntity } from './../../shared';
+import { BaseEntity } from '../../shared';
+import { Client } from '../client';
 
 export class Pret implements BaseEntity {
     constructor(
@@ -17,7 +18,7 @@ export class Pret implements BaseEntity {
         public userInitial?: string,
         public userDecideur?: string,
         public userDebloq?: string,
-        public client?: BaseEntity,
+        public client?: Client,
     ) {
     }
 }

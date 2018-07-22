@@ -1,0 +1,146 @@
+<pret-wz-navbar></pret-wz-navbar>
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <form name="editForm" role="form" novalidate #editForm="ngForm">
+            <jhi-alert-error></jhi-alert-error>
+            <div class="form-group" [hidden]="!pret.id">
+                <label for="id" jhiTranslate="global.field.id">ID</label>
+                <input type="text" class="form-control" id="id" name="id" [(ngModel)]="pret.id" readonly />
+            </div>
+            <div class="row">
+                <div class='col-xs-12 col-sm-6'>
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="geFondApp.client.code" for="field_code">Code Client</label>
+                        <input type="text" class="form-control" name="codeClient" id="field_codeClient" [ngModel]="pret.client.code" (ngModelChange)="findClient($event)" required/>
+                        <div [hidden]="!(editForm.controls.codeClient?.dirty && editForm.controls.codeClient?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.codeClient?.errors?.required" jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.codeClient?.errors?.number" jhiTranslate="entity.validation.number">
+                                This field should be a number.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-xs-12 col-sm-6'>
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="geFondApp.candidat.nom" for="field_clientId">Id client</label>
+                        <input type="text" class="form-control" name="clientId" id="field_clientId" [(ngModel)]="pret.client.candidat.nom" [disabled]= "true"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class='col-xs-12 col-sm-6'>
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="geFondApp.pret.typPret" for="field_typPret">Typ Pret</label>
+                        <select class="form-control" id="field_typPret" name="typPret" [(ngModel)]="pret.typPret" required>
+                            <option [ngValue]="null"></option>
+                            <option [ngValue]="typeOption" *ngFor="let typeOption of pretTypes">{{typeOption}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class='col-xs-12 col-sm-6'>
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="geFondApp.pret.montAaccord" for="field_montAaccord">Mont Aaccord</label>
+                        <input type="number" class="form-control" name="montAaccord" id="field_montAaccord" [(ngModel)]="pret.montAaccord" required/>
+                        <div [hidden]="!(editForm.controls.montAaccord?.dirty && editForm.controls.montAaccord?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.montAaccord?.errors?.required" jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.montAaccord?.errors?.number" jhiTranslate="entity.validation.number">
+                                This field should be a number.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class='col-xs-12 col-sm-3'>
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="geFondApp.pret.nbrEcheance" for="field_nbrEcheance">Nbr Echeance</label>
+                        <input type="number" class="form-control" name="nbrEcheance" id="field_nbrEcheance" [(ngModel)]="pret.nbrEcheance" (ngModelChange)="computeEndDate($event)" required/>
+                        <div [hidden]="!(editForm.controls.nbrEcheance?.dirty && editForm.controls.nbrEcheance?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.nbrEcheance?.errors?.required" jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.nbrEcheance?.errors?.number" jhiTranslate="entity.validation.number">
+                                This field should be a number.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-xs-12 col-sm-3'>
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="geFondApp.pret.periodicite" for="field_periodicite">Periodicite</label>
+                        <select class="form-control" id="field_periodicite" name="periodicite" [(ngModel)]="pret.periodicite"  (ngModelChange)="computeEndDate($event)" required>
+                            <option [ngValue]="null"></option>
+                            <option>Mensuel</option>
+                            <option>Bimensuel</option>
+                            <option>Trimestriel</option>
+                        </select>
+                        <div [hidden]="!(editForm.controls.periodicite?.dirty && editForm.controls.periodicite?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.periodicite?.errors?.required" jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-xs-12 col-sm-3'>
+                    <!-- <div class="form-group">
+                <label class="form-control-label" jhiTranslate="geFondApp.pret.dateMisePlace" for="field_dateMisePlace">Date Mise Place</label>
+                <div class="input-group">
+                    <input id="field_dateMisePlace" type="text" class="form-control" name="dateMisePlace" ngbDatepicker  #dateMisePlaceDp="ngbDatepicker" [(ngModel)]="pret.dateMisePlace"
+                    />
+                    <span class="input-group-append">
+                        <button type="button" class="btn btn-secondary" (click)="dateMisePlaceDp.toggle()"><i class="fa fa-calendar"></i></button>
+                    </span>
+                </div>
+            </div> -->
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="geFondApp.pret.datePremiereEcheance" for="field_datePremiereEcheance">Date Premiere Echeance</label>
+                        <div class="input-group">
+                            <input id="field_datePremiereEcheance" type="text" class="form-control" name="datePremiereEcheance" ngbDatepicker #datePremiereEcheanceDp="ngbDatepicker"
+                                [(ngModel)]="pret.datePremiereEcheance" (ngModelChange)="computeEndDate($event)" required/>
+                            <span class="input-group-append">
+                                <button type="button" class="btn btn-secondary" (click)="datePremiereEcheanceDp.toggle()">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                        <div [hidden]="!(editForm.controls.datePremiereEcheance?.dirty && editForm.controls.datePremiereEcheance?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.datePremiereEcheance?.errors?.required" jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-xs-12 col-sm-3'>
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="geFondApp.pret.dateDerniereEcheance" for="field_dateDerniereEcheance">Date Derniere Echeance</label>
+                        <div class="input-group">
+                            <input id="field_dateDerniereEcheance" [disabled]="true" type="text" class="form-control" name="dateDerniereEcheance" ngbDatepicker #dateDerniereEcheanceDp="ngbDatepicker"
+                                [(ngModel)]="pret.dateDerniereEcheance" required/>
+                            <span class="input-group-append">
+                                <button type="button" class="btn btn-secondary" (click)="dateDerniereEcheanceDp.toggle()" [disabled]="true" >
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                        <div [hidden]="!(editForm.controls.dateDerniereEcheance?.dirty && editForm.controls.dateDerniereEcheance?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.dateDerniereEcheance?.errors?.required" jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group text-center">
+                <button (click)="goToNext(editForm)" [disabled]="editForm.form.invalid || isSaving" class="btn btn-info">
+                    <span jhiTranslate="entity.action.next">Next</span>&nbsp;
+                    <span class="fa fa-arrow-right"></span>
+                </button>
+            </div>
+    </div>
+    </form>
+</div>
+</div>

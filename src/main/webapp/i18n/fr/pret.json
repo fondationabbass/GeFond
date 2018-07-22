@@ -14,22 +14,22 @@
                 "question": "Etes-vous certain de vouloir supprimer le Pret {{ id }} ?"
             },
             "detail": {
-                "title": "Pret"
+                "title": "Prêt"
             },
-            "typPret": "Typ Pret",
-            "montAaccord": "Montant Aaccorde",
-            "montDebloq": "Montant Debloq",
-            "nbrEcheance": "Nombre Echeance",
-            "periodicite": "Periodicite",
-            "dateMisePlace": "Date Mise Place",
-            "datePremiereEcheance": "Date Premiere Echeance",
-            "dateDerniereEcheance": "Date Derniere Echeance",
+            "typPret": "Type de Prêt",
+            "montAaccord": "Montant accordé",
+            "montDebloq": "Montant débloqué",
+            "nbrEcheance": "Nombre d'écheances",
+            "periodicite": "Périodicité",
+            "dateMisePlace": "Date de mise en place",
+            "datePremiereEcheance": "Date de première écheance",
+            "dateDerniereEcheance": "Date de dernière écheance",
             "dateDernierDebloq": "Date Dernier Debloq",
             "etat": "Etat",
             "encours": "Encours",
             "userInitial": "User Initial",
-            "userDecideur":"User Decideur",
-            "userDebloq":"User Debloq",
+            "userDecideur":"User Décideur",
+            "userDebloq":"User Debloqueur",
             "client": "Client"
         }
     }

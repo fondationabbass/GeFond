@@ -77,8 +77,11 @@ public class ClientQueryService extends QueryService<Client> {
             if (criteria.getId() != null) {
                 specification = specification.and(buildSpecification(criteria.getId(), Client_.id));
             }
+            if (criteria.getCode() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getCode(), Client_.code));
+            }
             if (criteria.getDateCreat() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getDateCreat(), Client_.dateCreat));
+            	specification = specification.and(buildRangeSpecification(criteria.getDateCreat(), Client_.dateCreat));
             }
             if (criteria.getLieuResid() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getLieuResid(), Client_.lieuResid));

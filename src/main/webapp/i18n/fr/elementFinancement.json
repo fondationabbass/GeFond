@@ -18,8 +18,8 @@
             },
             "type": "Type",
             "montant": "Montant",
-            "dateFinancement": "Date Financement",
-            "pret": "Pret"
+            "dateFinancement": "Date de financement",
+            "pret": "Prêt"
         }
     }
 }
