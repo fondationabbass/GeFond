@@ -1,15 +1,21 @@
 package com.bdi.fondation.service;
 
 import com.bdi.fondation.domain.Echeance;
+import com.bdi.fondation.domain.ElementFinancement;
 import com.bdi.fondation.domain.Pret;
 import com.bdi.fondation.repository.EcheanceRepository;
+import com.bdi.fondation.repository.ElementFinancementRepository;
+import com.bdi.fondation.repository.GarantieRepository;
 import com.bdi.fondation.repository.PretRepository;
+import com.bdi.fondation.service.dto.PretAggregate;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,12 +36,18 @@ public class PretService {
 
     private final PretRepository pretRepository;
     private final EcheanceRepository echeanceRepository;
+    private final GarantieRepository garantieRepository;
+    private final ElementFinancementRepository elementFinancementRepository;
 
-    public PretService(PretRepository pretRepository, EcheanceRepository echeanceRepository) {
+   
+
+	public PretService(PretRepository pretRepository, EcheanceRepository echeanceRepository,
+			GarantieRepository garantieRepository, ElementFinancementRepository elementFinancementRepository) {
 		this.pretRepository = pretRepository;
 		this.echeanceRepository = echeanceRepository;
+		this.garantieRepository = garantieRepository;
+		this.elementFinancementRepository = elementFinancementRepository;
 	}
-
 	/**
      * Save a pret.
      *
@@ -45,24 +57,32 @@ public class PretService {
     public Pret save(Pret pret) {
         log.debug("Request to save Pret : {}", pret);
         Pret result = pretRepository.save(pret);
-        List<Echeance> echeances = new ArrayList<>();
-        for (int i = 0; i < pret.getNbrEcheance(); i++) {
-			Echeance echeance = new Echeance();
-			echeance.setEtatEcheance("En cours");
-			echeance.setDateTombe(computeDate(pret.getDatePremiereEcheance(), pret.getPeriodicite(), i));
-			echeance.setMontant(pret.getMontAaccord() / pret.getNbrEcheance());
-			
-			
-			echeance.setPret(result);
-			echeances.add(echeance);
-		}
-        echeanceRepository.save(echeances);
+//        List<Echeance> echeances = new ArrayList<>();
+//        for (int i = 0; i < pret.getNbrEcheance(); i++) {
+//			Echeance echeance = new Echeance();
+//			echeance.setEtatEcheance("En cours");
+//			echeance.setDateTombe(computeDate(pret.getDatePremiereEcheance(), pret.getPeriodicite(), i));
+//			echeance.setMontant(pret.getMontAaccord() / pret.getNbrEcheance());
+//			
+//			
+//			echeance.setPret(result);
+//			echeances.add(echeance);
+//		}
+//        echeanceRepository.save(echeances);
 		return result;
     }
-
-    private LocalDate computeDate(LocalDate reference, String periodicite, int i) {
-    	return reference.plus(i, ChronoUnit.MONTHS);
+    public Pret save(PretAggregate aggregate) {
+    	log.debug("Request to save full Pret : {}", aggregate);
+    	Pret result = pretRepository.save(aggregate.getPret());
+    	elementFinancementRepository.save(Arrays.stream(aggregate.getElementFinancements()).map(a -> a.pret(result)).collect(Collectors.toList()));
+    	garantieRepository.save(Arrays.stream(aggregate.getGaranties()).map(a -> a.pret(result)).collect(Collectors.toList()));
+    	echeanceRepository.save(Arrays.stream(aggregate.getEcheances()).map(a -> a.pret(result)).collect(Collectors.toList()));
+    	return result;
 	}
+//
+//    private LocalDate computeDate(LocalDate reference, String periodicite, int i) {
+//    	return reference.plus(i, ChronoUnit.MONTHS);
+//	}
 
 	/**
      * Get all the prets.

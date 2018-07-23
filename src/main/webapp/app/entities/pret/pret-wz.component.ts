@@ -15,7 +15,6 @@ import { ParametrageService } from '../parametrage/parametrage.service';
 export class PretWzComponent implements OnInit {
     title = 'Please tell us about yourself.';
     pret: Pret;
-    isSaving: boolean = false;
     pretTypes: string[];
     form: any;
 
@@ -27,8 +26,10 @@ export class PretWzComponent implements OnInit {
 
     ngOnInit() {
         this.pret = this.formDataService.getPret();
-        this.pret.client = {};
-        this.pret.client.candidat = {};
+        if(!this.pret.client) {        
+            this.pret.client = {};
+            this.pret.client.candidat = {};
+        }
         this.parametrageService.pretTypes().subscribe(
             (res: HttpResponse<string[]>) => {
                 this.pretTypes = res.body;
@@ -36,7 +37,6 @@ export class PretWzComponent implements OnInit {
         );
     }
     findClient(code: string) {
-        console.log("event : " + code);
         this.clientService.query({ "code.equals": code }).subscribe(
             (res: HttpResponse<Client[]>) => {
                 if (res.body.length > 0) {
@@ -50,19 +50,13 @@ export class PretWzComponent implements OnInit {
         );
     }
     save(form: any): boolean {
-        //  if (!form.valid) {
-        //      return false;
-        // }
-
         this.formDataService.setPret(this.pret);
         return true;
     }
 
     goToNext(form: any) {
         if (this.save(form)) {
-            // Navigate to the work page
-
-            this.router.navigate(['/pret-wz-echeance']);
+            this.router.navigate(['/pret-wz-element-financement']);
         }
     }
     computeEndDate(event: any) {
@@ -81,8 +75,5 @@ export class PretWzComponent implements OnInit {
         if (period === "Bimensuel")
             return 2;
         return 1
-    }
-    trackClientById(item: Client) {
-        return item.id;
     }
 }

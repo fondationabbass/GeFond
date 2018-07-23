@@ -67,13 +67,13 @@ export class PretWzEcheanceComponent implements OnInit {
         if (this.save(echeances)) {
             // Navigate to the personal page
             console.log(this.formDataService.getFormData());
-            this.router.navigate(['/pret-wz']);
+            this.router.navigate(['/pret-wz-garantie']);
         }
     }
 
     goToNext(echeances: Echeance[]) {
         if (this.save(echeances)) {
-            this.router.navigate(['/pret-wz-element-financement']);
+            this.router.navigate(['/pret-wz-result']);
         }
     }
 }

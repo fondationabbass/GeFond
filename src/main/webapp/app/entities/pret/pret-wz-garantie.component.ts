@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Echeance } from '../echeance';
 import { Pret } from './pret.model';
-import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
+import { JhiAlertService } from 'ng-jhipster';
 import { PretWzFormDataService } from './pret-wz-form-data.service';
 import { Garantie } from '../garantie';
 
@@ -69,7 +68,7 @@ export class PretWzGarantieComponent implements OnInit {
 
     goToNext(garanties: Garantie[]) {
         if (this.save(garanties)) {
-            this.router.navigate(['/pret-wz-result']);
+            this.router.navigate(['/pret-wz-echeance']);
         }
     }
 }

@@ -1,0 +1,13 @@
+<pret-wz-navbar></pret-wz-navbar>
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <form name="editForm" role="form" novalidate #editForm="ngForm">
+            <div class="form-group text-center">
+                <button (click)="create()" [disabled]="editForm.form.invalid" class="btn btn-info">
+                    <span jhiTranslate="entity.action.next">Next</span>&nbsp;
+                    <span class="fa fa-arrow-right"></span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

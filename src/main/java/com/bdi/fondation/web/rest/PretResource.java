@@ -7,6 +7,7 @@ import com.bdi.fondation.service.PretService;
 import com.bdi.fondation.web.rest.errors.BadRequestAlertException;
 import com.bdi.fondation.web.rest.util.HeaderUtil;
 import com.bdi.fondation.web.rest.util.PaginationUtil;
+import com.bdi.fondation.service.dto.PretAggregate;
 import com.bdi.fondation.service.dto.PretCriteria;
 import com.bdi.fondation.service.PretQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -61,6 +62,16 @@ public class PretResource {
             throw new BadRequestAlertException("A new pret cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Pret result = pretService.save(pret);
+        return ResponseEntity.created(new URI("/api/prets/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+    @PostMapping("/prets/aggregate")
+    @Timed
+    public ResponseEntity<Pret> createFullPret(@Valid @RequestBody PretAggregate aggregate) throws URISyntaxException {
+        log.debug("REST request to save Full Pret : {}", aggregate);
+        
+        Pret result = pretService.save(aggregate);
         return ResponseEntity.created(new URI("/api/prets/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);

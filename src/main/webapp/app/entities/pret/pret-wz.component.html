@@ -23,9 +23,23 @@
                     </div>
                 </div>
                 <div class='col-xs-12 col-sm-6'>
-                    <div class="form-group">
-                        <label class="form-control-label" jhiTranslate="geFondApp.candidat.nom" for="field_clientId">Id client</label>
-                        <input type="text" class="form-control" name="clientId" id="field_clientId" [(ngModel)]="pret.client.candidat.nom" [disabled]= "true"/>
+                    <div div class="alert alert-success" role="alert" [hidden]="!pret.client.id">
+                        <h4><span jhiTranslate="geFondApp.client.detail.title">Client</span> {{pret.client.code}}</h4>
+                        <hr>
+                        <dl class="row-md jh-entity-details">
+                            <dt><span jhiTranslate="geFondApp.candidat.nom">Nom</span></dt>
+                            <dd>
+                                <span>{{pret.client.candidat.nom}}</span>
+                            </dd>
+                            <dt><span jhiTranslate="geFondApp.candidat.prenom">Prenom</span></dt>
+                            <dd>
+                                <span>{{pret.client.candidat.prenom}}</span>
+                            </dd>
+                            <dt><span jhiTranslate="geFondApp.client.dateCreat">Date Creat</span></dt>
+                            <dd>
+                                <span>{{pret.client.dateCreat | date:'mediumDate'}}</span>
+                            </dd>
+                        </dl>
                     </div>
                 </div>
             </div>
@@ -86,16 +100,6 @@
                     </div>
                 </div>
                 <div class='col-xs-12 col-sm-3'>
-                    <!-- <div class="form-group">
-                <label class="form-control-label" jhiTranslate="geFondApp.pret.dateMisePlace" for="field_dateMisePlace">Date Mise Place</label>
-                <div class="input-group">
-                    <input id="field_dateMisePlace" type="text" class="form-control" name="dateMisePlace" ngbDatepicker  #dateMisePlaceDp="ngbDatepicker" [(ngModel)]="pret.dateMisePlace"
-                    />
-                    <span class="input-group-append">
-                        <button type="button" class="btn btn-secondary" (click)="dateMisePlaceDp.toggle()"><i class="fa fa-calendar"></i></button>
-                    </span>
-                </div>
-            </div> -->
                     <div class="form-group">
                         <label class="form-control-label" jhiTranslate="geFondApp.pret.datePremiereEcheance" for="field_datePremiereEcheance">Date Premiere Echeance</label>
                         <div class="input-group">
@@ -135,7 +139,7 @@
                 </div>
             </div>
             <div class="form-group text-center">
-                <button (click)="goToNext(editForm)" [disabled]="editForm.form.invalid || isSaving" class="btn btn-info">
+                <button (click)="goToNext(editForm)" [disabled]="editForm.form.invalid" class="btn btn-info">
                     <span jhiTranslate="entity.action.next">Next</span>&nbsp;
                     <span class="fa fa-arrow-right"></span>
                 </button>

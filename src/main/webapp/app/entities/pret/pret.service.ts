@@ -7,6 +7,7 @@ import { JhiDateUtils } from 'ng-jhipster';
 
 import { Pret } from './pret.model';
 import { createRequestOption } from '../../shared';
+import { PretWzFormData } from './pret-wz-form-data.model';
 
 export type EntityResponseType = HttpResponse<Pret>;
 
@@ -20,6 +21,11 @@ export class PretService {
     create(pret: Pret): Observable<EntityResponseType> {
         const copy = this.convert(pret);
         return this.http.post<Pret>(this.resourceUrl, copy, { observe: 'response' })
+            .map((res: EntityResponseType) => this.convertResponse(res));
+    }
+    createWz(pretWz: PretWzFormData): Observable<EntityResponseType> {
+        const copy = this.convert(pretWz.pret);
+        return this.http.post<Pret>(this.resourceUrl+'/aggregate', copy, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
