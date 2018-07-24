@@ -75,7 +75,7 @@ export class EcheanceService {
     /**
      * Convert a Echeance to a JSON which can be sent to the server.
      */
-    private convert(echeance: Echeance): Echeance {
+    convert(echeance: Echeance): Echeance {
         const copy: Echeance = Object.assign({}, echeance);
         copy.dateTombe = this.dateUtils
             .convertLocalDateToServer(echeance.dateTombe);

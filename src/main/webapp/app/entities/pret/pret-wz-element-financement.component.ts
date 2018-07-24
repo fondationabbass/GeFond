@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Pret } from './pret.model';
-import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
+import { JhiAlertService } from 'ng-jhipster';
 import { PretWzFormDataService } from './pret-wz-form-data.service';
 import { ElementFinancement } from '../element-financement';
 
@@ -12,30 +11,31 @@ import { ElementFinancement } from '../element-financement';
 })
 
 export class PretWzElementFinancementComponent implements OnInit {
-    formDataService: PretWzFormDataService;
+    title: string = "Débloquage des montants / Elements de financement";
     elementFinancements: ElementFinancement[];
-    pret: Pret;
+    elementFinancement: ElementFinancement;
+    unblockPret: boolean = true;
+    validatePret:boolean = false;
 
-    constructor(private router: Router, 
+    constructor(private router: Router,
         private jhiAlertService: JhiAlertService,
-        formDataService: PretWzFormDataService) {
-        this.formDataService = formDataService;
+        private formDataService: PretWzFormDataService) {
     }
 
     ngOnInit() {
-        this.pret = this.formDataService.getPret();
         this.elementFinancements = this.formDataService.getElementFinancements();
-        if(this.elementFinancements.length===0){
-            let ele: ElementFinancement = new ElementFinancement();
-            ele.pret = this.pret;
-            ele.type = "Cash";
-            ele.dateFinancement = this.pret.dateMisePlace;
-            ele.montant = this.pret.montAaccord;
-            ele.id=0;
-            this.elementFinancements.push(ele);
-            this.formDataService.setElementFinancements(this.elementFinancements);
+        this.elementFinancement = {};
+    }
+    empty(): boolean {
+        return this.elementFinancements.length === 0;
+    }
+    add() {
+        const e = this.elementFinancement;
+        if(e.montant + this.montantDebloque() > this.formDataService.getPret().montAaccord){
+            this.jhiAlertService.warning("La somme des montants débloqués est supérieur au plafond du pret", null, null);
+            return;
         }
-        console.log(this.elementFinancements);
+        this.elementFinancements.push(e);
     }
     trackId(index: number, item: ElementFinancement) {
         return item.id;
@@ -43,25 +43,34 @@ export class PretWzElementFinancementComponent implements OnInit {
     removeElementFinancement(item: ElementFinancement) {
         this.elementFinancements.splice(this.elementFinancements.indexOf(item), 1);
     }
+    updateElementFinancement(item: ElementFinancement) {
+        this.elementFinancement = item;
+        this.elementFinancements.splice(this.elementFinancements.indexOf(item), 1);
+
+    }
     save(elements: ElementFinancement[]): boolean {
-        let montant: number = 0;
-        this.elementFinancements.forEach(function (item) {
-            montant += item.montant;
-        });
-        console.log(montant);
-        if (montant < this.pret.montAaccord){
-            this.jhiAlertService.error("La somme des montants des elements de financement est inférieur au montant du pret",null,null);
-            return false;
+        let montant: number = this.montantDebloque();
+        if (montant > 0) {
+            this.formDataService.getPret().montDebloq = montant;
+            this.formDataService.getPret().dateDernierDebloq = new Date();
+            if (montant < this.formDataService.getPret().montAaccord) {
+                this.jhiAlertService.warning("La somme des montants débloqués est inférieur au plafond du pret", null, null);
+            }
         }
-            
         this.formDataService.setElementFinancements(elements);
         return true;
     }
 
+    private montantDebloque() {
+        let montant: number = 0;
+        this.elementFinancements.forEach(function (item) {
+            montant += item.montant;
+        });
+        return montant;
+    }
+
     goToPrevious(elements: ElementFinancement[]) {
         if (this.save(elements)) {
-            // Navigate to the personal page
-            console.log(this.formDataService.getFormData());
             this.router.navigate(['/pret-wz']);
         }
     }

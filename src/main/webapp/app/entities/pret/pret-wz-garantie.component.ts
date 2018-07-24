@@ -12,14 +12,12 @@ import { Garantie } from '../garantie';
 })
 
 export class PretWzGarantieComponent implements OnInit {
-    formDataService: PretWzFormDataService;
     garanties: Garantie[];
     pret: Pret;
 
     constructor(private router: Router,
         private jhiAlertService: JhiAlertService,
-        formDataService: PretWzFormDataService) {
-        this.formDataService = formDataService;
+        private formDataService: PretWzFormDataService) {
     }
 
     ngOnInit() {

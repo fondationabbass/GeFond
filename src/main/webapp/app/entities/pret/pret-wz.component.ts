@@ -6,6 +6,7 @@ import { Client, ClientService } from '../client';
 import { PretWzFormDataService } from './pret-wz-form-data.service';
 import { Pret } from './pret.model';
 import { ParametrageService } from '../parametrage/parametrage.service';
+import { Principal } from '../../shared';
 
 @Component({
     selector: 'pret-wz'
@@ -21,6 +22,7 @@ export class PretWzComponent implements OnInit {
     constructor(private router: Router,
         private formDataService: PretWzFormDataService,
         private parametrageService: ParametrageService,
+        private principal: Principal,
         private clientService: ClientService) {
     }
 
@@ -50,6 +52,8 @@ export class PretWzComponent implements OnInit {
         );
     }
     save(form: any): boolean {
+        this.pret.dateMisePlace = dateToNgb(new Date());
+        this.pret.userInitial = this.principal.getLogin();
         this.formDataService.setPret(this.pret);
         return true;
     }

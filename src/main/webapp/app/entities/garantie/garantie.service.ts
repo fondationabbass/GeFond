@@ -73,7 +73,7 @@ export class GarantieService {
     /**
      * Convert a Garantie to a JSON which can be sent to the server.
      */
-    private convert(garantie: Garantie): Garantie {
+    convert(garantie: Garantie): Garantie {
         const copy: Garantie = Object.assign({}, garantie);
         copy.dateDepot = this.dateUtils
             .convertLocalDateToServer(garantie.dateDepot);

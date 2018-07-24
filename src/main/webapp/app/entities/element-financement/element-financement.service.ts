@@ -71,7 +71,7 @@ export class ElementFinancementService {
     /**
      * Convert a ElementFinancement to a JSON which can be sent to the server.
      */
-    private convert(elementFinancement: ElementFinancement): ElementFinancement {
+    convert(elementFinancement: ElementFinancement): ElementFinancement {
         const copy: ElementFinancement = Object.assign({}, elementFinancement);
         copy.dateFinancement = this.dateUtils
             .convertLocalDateToServer(elementFinancement.dateFinancement);

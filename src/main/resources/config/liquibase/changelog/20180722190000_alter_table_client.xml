@@ -9,8 +9,7 @@
     <changeSet id="201807051900000-1" author="khaled">
         
 		<sql>
-		alter table client add column code varchar(255) not null;
-		update client set code = 'default';
+		alter table client add column code varchar(255);
 		</sql>     
     </changeSet>
 </databaseChangeLog>

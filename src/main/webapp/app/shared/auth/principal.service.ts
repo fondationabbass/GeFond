@@ -95,4 +95,7 @@ export class Principal {
     getImageUrl(): String {
         return this.isIdentityResolved() ? this.userIdentity.imageUrl : null;
     }
+    getLogin(): string {
+        return this.isIdentityResolved() ? this.userIdentity.login : null;
+    }
 }
