@@ -21,6 +21,7 @@ export class PretWzComponent implements OnInit {
     periodTypes: PeriodType[];
     periodType: PeriodType;
     form: any;
+    clientError:boolean = false;
 
     constructor(private router: Router,
         private formDataService: PretWzFormDataService,
@@ -52,13 +53,16 @@ export class PretWzComponent implements OnInit {
             (res: HttpResponse<Client[]>) => {
                 if (res.body.length > 0) {
                     this.pret.client = res.body.pop();
+                    this.clientError=false;
                 }
                 else {
+                    this.clientError=true;
                     this.pret.client = {};
                     this.pret.client.candidat = {};
                 }
             }
         );
+        if(code==="") this.clientError=false;
     }
     save(form: any): boolean {
         this.pret.dateMisePlace = dateToNgb(new Date());
