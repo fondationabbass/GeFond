@@ -1,14 +1,253 @@
 <pret-wz-navbar></pret-wz-navbar>
 <div class="row justify-content-center">
     <div class="col-md-10">
+        <div class="row">
+            <h2>{{title}}</h2>
+        </div>
+        <hr>
+        <div class="row">
             <jhi-alert></jhi-alert>
-        <form name="editForm" role="form" novalidate #editForm="ngForm">
-            <div class="form-group text-center">
-                <button (click)="create()" [disabled]="editForm.form.invalid" class="btn btn-info">
-                    <span jhiTranslate="entity.action.next">Next</span>&nbsp;
-                    <span class="fa fa-arrow-right"></span>
-                </button>
+        </div>
+        <div class="row">
+            <div class='col-xs-12 col-sm-4'>
+                <div class="card">
+                    <h5 class="card-header">Détail du prêt:</h5>
+                    <div class="card-body">
+                        <dl class="row-md jh-entity-details">
+                            <dt>
+                                <span jhiTranslate="geFondApp.pret.typPret">Typ Pret</span>
+                            </dt>
+                            <dd>
+                                <span>{{pret.typPret}}</span>
+                            </dd>
+                            <dt>
+                                <span jhiTranslate="geFondApp.pret.montAaccord">Mont Aaccord</span>
+                            </dt>
+                            <dd>
+                                <span>{{pret.montAaccord}}</span>
+                            </dd>
+                            <dt>
+                                <span jhiTranslate="geFondApp.pret.montDebloq">Mont Debloq</span>
+                            </dt>
+                            <dd>
+                                <span>{{pret.montDebloq}}</span>
+                            </dd>
+                            <dt>
+                                <span jhiTranslate="geFondApp.pret.nbrEcheance">Nbr Echeance</span>
+                            </dt>
+                            <dd>
+                                <span>{{pret.nbrEcheance}}</span>
+                            </dd>
+                            <dt>
+                                <span jhiTranslate="geFondApp.pret.periodicite">Periodicite</span>
+                            </dt>
+                            <dd>
+                                <span>{{pret.periodicite}}</span>
+                            </dd>
+                            <dt>
+                                <span jhiTranslate="geFondApp.pret.dateMisePlace">Date Mise Place</span>
+                            </dt>
+                            <dd>
+                                <span>{{pret.dateMisePlace | date:'mediumDate'}}</span>
+                            </dd>
+                            <dt>
+                                <span jhiTranslate="geFondApp.pret.datePremiereEcheance">Date Premiere Echeance</span>
+                            </dt>
+                            <dd>
+                                <span>{{pret.datePremiereEcheance | date:'mediumDate'}}</span>
+                            </dd>
+                            <dt>
+                                <span jhiTranslate="geFondApp.pret.dateDerniereEcheance">Date Derniere Echeance</span>
+                            </dt>
+                            <dd>
+                                <span>{{pret.dateDerniereEcheance | date:'mediumDate'}}</span>
+                            </dd>
+                            <dt>
+                                <span jhiTranslate="geFondApp.pret.dateDernierDebloq">Date Dernier Debloq</span>
+                            </dt>
+                            <dd>
+                                <span>{{pret.dateDernierDebloq | date:'mediumDate'}}</span>
+                            </dd>
+                            <dt>
+                                <span jhiTranslate="geFondApp.pret.etat">Etat</span>
+                            </dt>
+                            <dd>
+                                <span>{{pret.etat}}</span>
+                            </dd>
+                            <dt>
+                                <span jhiTranslate="geFondApp.pret.encours">Encours</span>
+                            </dt>
+                            <dd>
+                                <span>{{pret.encours}}</span>
+                            </dd>
+                            <dt>
+                                <span jhiTranslate="geFondApp.pret.userInitial">User Initial</span>
+                            </dt>
+                            <dd>
+                                <span>{{pret.userInitial}}</span>
+                            </dd>
+                            <dt>
+                                <span jhiTranslate="geFondApp.pret.userDecideur">User Decideur</span>
+                            </dt>
+                            <dd>
+                                <span>{{pret.userDecideur}}</span>
+                            </dd>
+                            <dt>
+                                <span jhiTranslate="geFondApp.pret.userDebloq">User Debloq</span>
+                            </dt>
+                            <dd>
+                                <span>{{pret.userDebloq}}</span>
+                            </dd>
+                            <dt>
+                                <span jhiTranslate="geFondApp.pret.client">Client</span>
+                            </dt>
+                            <dd>
+                                <div *ngIf="pret.client">
+                                    <a [routerLink]="['/client', pret.client?.id]">{{pret.client?.code}}</a>
+                                </div>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
             </div>
-        </form>
+            <div class='col-xs-12 col-sm-8'>
+                <div class="row" *ngIf="elementFinancements" [hidden]="emptyEf()">
+                    <div class="card-block">
+                        <h5 class="card-header">Les débloquages:</h5>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <span jhiTranslate="geFondApp.elementFinancement.type">Type</span>
+                                            </th>
+                                            <th>
+                                                <span jhiTranslate="geFondApp.elementFinancement.montant">Montant</span>
+                                            </th>
+                                            <th>
+                                                <span jhiTranslate="geFondApp.elementFinancement.dateFinancement">Date Financement</span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let elementFinancement of elementFinancements ;trackBy: trackId">
+                                            <td>{{elementFinancement.type}}</td>
+                                            <td>{{elementFinancement.montant}}</td>
+                                            <td>{{elementFinancement.dateFinancement | date:'mediumDate'}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row"  *ngIf="garanties" [hidden]="emptyG()">
+                    <div class="card-block">
+                        <h5 class="card-header">Les garanties:</h5>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <span jhiTranslate="geFondApp.garantie.typeGar">Type Gar</span>
+                                            </th>
+                                            <th>
+                                                <span jhiTranslate="geFondApp.garantie.montantEvalue">Montant Evalue</span>
+                                            </th>
+                                            <th>
+                                                <span jhiTranslate="geFondApp.garantie.montantAfect">Montant Afect</span>
+                                            </th>
+                                            <th>
+                                                <span jhiTranslate="geFondApp.garantie.dateDepot">Date Depot</span>
+                                            </th>
+                                            <th>
+                                                <span jhiTranslate="geFondApp.garantie.numDocument">Num Document</span>
+                                            </th>
+                                            <th>
+                                                <span jhiTranslate="geFondApp.garantie.etat">Etat</span>
+                                            </th>
+                                            <th>
+                                                <span jhiTranslate="geFondApp.garantie.dateRetrait">Date Retrait</span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let garantie of garanties ;trackBy: trackId">
+                                            <td>{{garantie.typeGar}}</td>
+                                            <td>{{garantie.montantEvalue}}</td>
+                                            <td>{{garantie.montantAfect}}</td>
+                                            <td>{{garantie.dateDepot | date:'mediumDate'}}</td>
+                                            <td>{{garantie.numDocument}}</td>
+                                            <td>{{garantie.etat}}</td>
+                                            <td>{{garantie.dateRetrait | date:'mediumDate'}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="echeances" [hidden]="emptyE()">
+                    <div class="card-block">
+                        <h5 class="card-header">L'échéancier:</h5>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
+                                            <th jhiSortBy="dateTombe">
+                                                <span jhiTranslate="geFondApp.echeance.dateTombe">Date Tombe</span>
+                                                <span class="fa fa-sort"></span>
+                                            </th>
+                                            <th jhiSortBy="montant">
+                                                <span jhiTranslate="geFondApp.echeance.montant">Montant</span>
+                                                <span class="fa fa-sort"></span>
+                                            </th>
+                                            <th jhiSortBy="etatEcheance">
+                                                <span jhiTranslate="geFondApp.echeance.etatEcheance">Etat Echeance</span>
+                                                <span class="fa fa-sort"></span>
+                                            </th>
+                                            <th jhiSortBy="datePayement">
+                                                <span jhiTranslate="geFondApp.echeance.datePayement">Date Payement</span>
+                                                <span class="fa fa-sort"></span>
+                                            </th>
+                                            <th jhiSortBy="dateRetrait">
+                                                <span jhiTranslate="geFondApp.echeance.dateRetrait">Date Retrait</span>
+                                                <span class="fa fa-sort"></span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let echeance of echeances ;trackBy: trackId">
+                                            <td>{{echeance.dateTombe | date:'mediumDate'}}</td>
+                                            <td>{{echeance.montant}}</td>
+                                            <td>{{echeance.etatEcheance}}</td>
+                                            <td>{{echeance.datePayement | date:'mediumDate'}}</td>
+                                            <td>{{echeance.dateRetrait | date:'mediumDate'}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group text-center">
+            <button (click)="goToPrevious()" class="btn btn-info">
+                <span class="fa fa-arrow-left"></span>&nbsp;
+                <span jhiTranslate="entity.action.precedent">Back</span>
+            </button>
+            <button type="button" class="btn btn-secondary" (click)="clear()">
+                    <span class="fa fa-ban"></span>&nbsp;
+                    <span jhiTranslate="entity.action.cancel">Cancel</span>
+            </button>
+            <button (click)="goToNext()" class="btn btn-primary">
+                <span class="fa fa-check"></span>&nbsp;
+                <span>Créer le prêt</span>
+            </button>
+        </div>
     </div>
 </div>

@@ -5,6 +5,7 @@ import { SERVER_API_URL } from '../../app.constants';
 
 import { Parametrage } from './parametrage.model';
 import { createRequestOption } from '../../shared';
+import { PeriodType } from '../echeance';
 
 export type EntityResponseType = HttpResponse<Parametrage>;
 
@@ -39,6 +40,15 @@ export class ParametrageService {
     }
     pretTypes(req?: any): Observable<HttpResponse<string[]>> {
         return this.http.get<string[]>(`${this.resourceUrl}/pretTypes`, { observe: 'response'});
+    }
+    financementTypes(req?: any): Observable<HttpResponse<string[]>> {
+        return this.http.get<string[]>(`${this.resourceUrl}/financementTypes`, { observe: 'response'});
+    }
+    garantiesTypes(req?: any): Observable<HttpResponse<string[]>> {
+        return this.http.get<string[]>(`${this.resourceUrl}/garantieTypes`, { observe: 'response'});
+    }
+    periodTypes(req?: any): Observable<HttpResponse<PeriodType[]>> {
+        return this.http.get<PeriodType[]>(`${this.resourceUrl}/periodTypes`, { observe: 'response'});
     }
 
     delete(id: number): Observable<HttpResponse<any>> {

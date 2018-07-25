@@ -24,12 +24,12 @@ export class PretWzFormDataService {
     getPret(): Pret {
         return this.formData.pret;
     }
-
+    getData():PretWzFormData {
+        return this.formData;
+    }
     setPret(data: Pret) {
-        // Update the Personal data only when the Personal Form had been validated successfully
         this.isPretFormValid = true;
         this.formData.pret = data;
-        // Validate Personal Step in Workflow
         this.workflowService.validateStep(PRET_WZ_STEPS.pret);
     }
 
@@ -67,10 +67,8 @@ export class PretWzFormDataService {
     }
 
     resetFormData(): PretWzFormData {
-        // Reset the workflow
         this.workflowService.resetSteps();
-        // Return the form data after all this.* members had been reset
-        //this.formData.clear();
+        this.formData=new PretWzFormData();
         this.isPretFormValid = this.isEcheanceFormValid = this.isElementFinancementFormValid = this.isGarantieFormValid = false;
         return this.formData;
     }

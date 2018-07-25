@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { JhiAlertService } from 'ng-jhipster';
 import { PretWzFormDataService } from './pret-wz-form-data.service';
 import { ElementFinancement } from '../element-financement';
+import { ngbToDate } from '../../shared/model/format-utils';
+import { ParametrageService } from '../parametrage/parametrage.service';
+import { PeriodType } from '../echeance';
 
 
 @Component({
@@ -14,17 +18,28 @@ export class PretWzElementFinancementComponent implements OnInit {
     title: string = "Débloquage des montants / Elements de financement";
     elementFinancements: ElementFinancement[];
     elementFinancement: ElementFinancement;
-    unblockPret: boolean = true;
-    validatePret:boolean = false;
+    unblockPret: boolean;
+    validatePret:boolean;
+    financementTypes: string[];
+    periodType: PeriodType;
 
     constructor(private router: Router,
         private jhiAlertService: JhiAlertService,
-        private formDataService: PretWzFormDataService) {
+        private formDataService: PretWzFormDataService,
+        private parametrageService : ParametrageService) {
     }
 
     ngOnInit() {
         this.elementFinancements = this.formDataService.getElementFinancements();
+        this.unblockPret = this.formDataService.getData().unblockPret;
+        this.validatePret = this.formDataService.getData().validatePret;
         this.elementFinancement = {};
+        this.periodType=this.formDataService.getData().periodType;
+        this.parametrageService.financementTypes().subscribe(
+            (res: HttpResponse<string[]>) => {
+                this.financementTypes = res.body;
+            }
+        );
     }
     empty(): boolean {
         return this.elementFinancements.length === 0;
@@ -32,10 +47,12 @@ export class PretWzElementFinancementComponent implements OnInit {
     add() {
         const e = this.elementFinancement;
         if(e.montant + this.montantDebloque() > this.formDataService.getPret().montAaccord){
-            this.jhiAlertService.warning("La somme des montants débloqués est supérieur au plafond du pret", null, null);
+            this.jhiAlertService.error("La somme des montants débloqués est supérieur au plafond du pret", null, null);
             return;
         }
+        e.dateFinancement = ngbToDate(e.dateFinancement);
         this.elementFinancements.push(e);
+        this.elementFinancement = {};
     }
     trackId(index: number, item: ElementFinancement) {
         return item.id;
@@ -58,6 +75,8 @@ export class PretWzElementFinancementComponent implements OnInit {
             }
         }
         this.formDataService.setElementFinancements(elements);
+        this.formDataService.getData().unblockPret=this.unblockPret;
+        this.formDataService.getData().validatePret=this.validatePret;
         return true;
     }
 

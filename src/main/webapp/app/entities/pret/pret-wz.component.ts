@@ -7,6 +7,7 @@ import { PretWzFormDataService } from './pret-wz-form-data.service';
 import { Pret } from './pret.model';
 import { ParametrageService } from '../parametrage/parametrage.service';
 import { Principal } from '../../shared';
+import { PeriodType } from '../echeance';
 
 @Component({
     selector: 'pret-wz'
@@ -17,6 +18,8 @@ export class PretWzComponent implements OnInit {
     title = 'Please tell us about yourself.';
     pret: Pret;
     pretTypes: string[];
+    periodTypes: PeriodType[];
+    periodType: PeriodType;
     form: any;
 
     constructor(private router: Router,
@@ -32,9 +35,15 @@ export class PretWzComponent implements OnInit {
             this.pret.client = {};
             this.pret.client.candidat = {};
         }
+        this.periodType=this.formDataService.getData().periodType;
         this.parametrageService.pretTypes().subscribe(
             (res: HttpResponse<string[]>) => {
                 this.pretTypes = res.body;
+            }
+        ); 
+        this.parametrageService.periodTypes().subscribe(
+            (res: HttpResponse<PeriodType[]>) => {
+                this.periodTypes = res.body;
             }
         );
     }
@@ -55,6 +64,7 @@ export class PretWzComponent implements OnInit {
         this.pret.dateMisePlace = dateToNgb(new Date());
         this.pret.userInitial = this.principal.getLogin();
         this.formDataService.setPret(this.pret);
+        this.formDataService.getData().periodType=this.periodType;
         return true;
     }
 
@@ -64,20 +74,18 @@ export class PretWzComponent implements OnInit {
         }
     }
     computeEndDate(event: any) {
-        if (!this.pret.periodicite || !this.pret.datePremiereEcheance || !this.pret.nbrEcheance)
+        if (!this.periodType || !this.periodType.label || !this.pret.datePremiereEcheance || !this.pret.nbrEcheance)
             return;
-        let period: string = this.pret.periodicite;
-        let coeff: number = this.coeff(period);
+        this.pret.periodicite = this.periodType.label;
+        
+        let type: string = this.periodType.type;
+        let coeff: number = this.periodType.coeff;
         let startDate: Date = ngbToDate(this.pret.datePremiereEcheance);
         let nbrPeriod: number = this.pret.nbrEcheance;
-        startDate.setMonth(startDate.getMonth() + coeff * nbrPeriod);
+        if(type==="year")
+            startDate.setFullYear(startDate.getFullYear() + coeff * nbrPeriod);
+        if(type==="month")
+            startDate.setMonth(startDate.getMonth() + coeff * nbrPeriod);
         this.pret.dateDerniereEcheance = dateToNgb(startDate);
-    }
-    private coeff(period: string): number {
-        if (period === "Trimestriel")
-            return 3;
-        if (period === "Bimensuel")
-            return 2;
-        return 1
     }
 }

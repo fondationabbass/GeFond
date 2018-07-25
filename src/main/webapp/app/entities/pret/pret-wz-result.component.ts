@@ -1,10 +1,14 @@
 import { Component, OnInit, Input }   from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { PretWzFormData } from './pret-wz-form-data.model';
 import { PretWzFormDataService } from './pret-wz-form-data.service';
 import { PretService } from './pret.service';
 import { Pret } from './pret.model';
+import { Garantie } from '../garantie';
+import { Echeance } from '../echeance';
+import { ElementFinancement } from '../element-financement';
 
 
 @Component ({
@@ -13,23 +17,47 @@ import { Pret } from './pret.model';
 })
 
 export class PretWzResultComponent implements OnInit {
-    title = 'Thanks for staying tuned!';
+    title = 'Vous arrivez à la fin!';
     @Input() formData: PretWzFormData;
     isFormValid: boolean = false;
+    pret: Pret;
+    garanties:Garantie[];
+    elementFinancements: ElementFinancement[];
+    echeances:Echeance[];
     
     constructor(private formDataService: PretWzFormDataService,
         private jhiAlertService: JhiAlertService,
         private pretService: PretService,
+        private router: Router,
         private eventManager: JhiEventManager) {
     }
 
     ngOnInit() {
         this.formData = this.formDataService.getFormData();
         this.isFormValid = this.formDataService.isFormValid();
-        console.log('Result feature loaded!');
+        this.pret=this.formData.pret;
+        this.garanties=this.formData.garanties;
+        this.elementFinancements=this.formData.elementFinancements;
+        this.echeances=this.formData.echeances;
     }
-
-    create() {
+    emptyEf(): boolean {
+        return this.elementFinancements.length === 0;
+    }
+    emptyG(): boolean {
+        return this.garanties.length === 0;
+    }
+    emptyE(): boolean {
+        return this.echeances.length === 0;
+    }
+    goToPrevious() {
+        this.router.navigate(['/pret-wz-echeance']);
+    }
+    clear(){
+        this.formData = this.formDataService.resetFormData();
+        this.isFormValid = false;
+        this.router.navigate(['/pret-wz']);
+    }
+    goToNext() {
         this.pretService.createWz(this.formData).subscribe(
             (res: HttpResponse<Pret>) => {
                 if (res.body.id > 0) {
@@ -41,6 +69,7 @@ export class PretWzResultComponent implements OnInit {
         );
         this.formData = this.formDataService.resetFormData();
         this.isFormValid = false;
+        this.router.navigate(['/pret']);
     }
     private onError(error: any) {
         this.jhiAlertService.error(error.message, null, null);

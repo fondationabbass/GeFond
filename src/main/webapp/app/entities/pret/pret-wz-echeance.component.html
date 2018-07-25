@@ -2,65 +2,139 @@
 <div class="row justify-content-center">
     <div class="col-md-10">
         <div class="row">
+            <h2>{{title}}</h2>
+        </div>
+        <hr>
+        <div class="row">
             <jhi-alert></jhi-alert>
-            <div class="table-responsive" *ngIf="echeances">
-                <table class="table table-striped">
-                    <thead>
-                        <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
-                            <th jhiSortBy="dateTombe">
-                                <span jhiTranslate="geFondApp.echeance.dateTombe">Date Tombe</span>
-                                <span class="fa fa-sort"></span>
-                            </th>
-                            <th jhiSortBy="montant">
-                                <span jhiTranslate="geFondApp.echeance.montant">Montant</span>
-                                <span class="fa fa-sort"></span>
-                            </th>
-                            <th jhiSortBy="etatEcheance">
-                                <span jhiTranslate="geFondApp.echeance.etatEcheance">Etat Echeance</span>
-                                <span class="fa fa-sort"></span>
-                            </th>
-                            <th jhiSortBy="datePayement">
-                                <span jhiTranslate="geFondApp.echeance.datePayement">Date Payement</span>
-                                <span class="fa fa-sort"></span>
-                            </th>
-                            <th jhiSortBy="dateRetrait">
-                                <span jhiTranslate="geFondApp.echeance.dateRetrait">Date Retrait</span>
-                                <span class="fa fa-sort"></span>
-                            </th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let echeance of echeances ;trackBy: trackId">
-                            <td>{{echeance.dateTombe  | date:'mediumDate'}}</td>
-                            <td>{{echeance.montant}}</td>
-                            <td>{{echeance.etatEcheance}}</td>
-                            <td>{{echeance.datePayement}}</td>
-                            <td>{{echeance.dateRetrait}}</td>
-                            <td class="text-right">
-                                <div class="btn-group flex-btn-group-container">
-                                    <button type="submit" [routerLink]="['/', { outlets: { popup: 'echeance/'+ echeances.indexOf(echeance) + '/edit-new'} }]" replaceUrl="true" queryParamsHandling="merge"
-                                        class="btn btn-primary btn-sm">
-                                        <span class="fa fa-pencil"></span>
-                                        <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                                    </button>
-                                    <button (click)="removeEcheance(echeance)" class="btn btn-danger btn-sm">
-                                        <span class="fa fa-remove"></span>
-                                        <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+        </div>
+        <div class="row">
+            <div class='col-xs-12 col-sm-12'>
+                <div class="bd-callout bd-callout-info" *ngIf="!validatePret">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-control" name="validatePret" id="field_validatePret" [(ngModel)]="validatePret" />
+                        <label class="form-control-label" for="field_type">Cochez ici si vous avez debloqué tout le pret et souhaitez générer l'échéancier...</label>
+                    </div>
+                </div>
             </div>
-
+        </div>
+        <div class="row" [hidden]="!validatePret">
+            <div class='col-xs-12 col-sm-4'>
+                <form name="editForm" role="form" novalidate (ngSubmit)="add()" #editForm="ngForm">
+                    <div class="card border-info mb-3" style="max-width: 18rem;">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="geFondApp.echeance.dateTombe" for="field_dateTombe">Date Tombe</label>
+                                <div class="input-group">
+                                    <input id="field_dateTombe" type="text" class="form-control" name="dateTombe" ngbDatepicker #dateTombeDp="ngbDatepicker"
+                                        [(ngModel)]="echeance.dateTombe" />
+                                    <span class="input-group-append">
+                                        <button type="button" class="btn btn-secondary" (click)="dateTombeDp.toggle()">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="geFondApp.echeance.montant" for="field_montant">Montant</label>
+                                <input type="number" class="form-control" name="montant" id="field_montant" [(ngModel)]="echeance.montant" required/>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="geFondApp.echeance.etatEcheance" for="field_etatEcheance">Etat Echeance</label>
+                                <input type="text" class="form-control" name="etatEcheance" id="field_etatEcheance" [(ngModel)]="echeance.etatEcheance" required/>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="geFondApp.echeance.datePayement" for="field_datePayement">Date Payement</label>
+                                <div class="input-group">
+                                    <input id="field_datePayement" type="text" class="form-control" name="datePayement" ngbDatepicker #datePayementDp="ngbDatepicker"
+                                        [(ngModel)]="echeance.datePayement"/>
+                                    <span class="input-group-append">
+                                        <button type="button" class="btn btn-secondary" (click)="datePayementDp.toggle()">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="geFondApp.echeance.dateRetrait" for="field_dateRetrait">Date Retrait</label>
+                                <div class="input-group">
+                                    <input id="field_dateRetrait" type="text" class="form-control" name="dateRetrait" ngbDatepicker #dateRetraitDp="ngbDatepicker"
+                                        [(ngModel)]="echeance.dateRetrait" />
+                                    <span class="input-group-append">
+                                        <button type="button" class="btn btn-secondary" (click)="dateRetraitDp.toggle()">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div>
+                                <button type="submit" [disabled]="editForm.form.invalid" class="btn btn-primary">
+                                    <span class="fa fa-plus"></span>&nbsp;
+                                    <span>Ajouter un échéance</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class='col-xs-12 col-sm-8'>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
+                                <th jhiSortBy="dateTombe">
+                                    <span jhiTranslate="geFondApp.echeance.dateTombe">Date Tombe</span>
+                                    <span class="fa fa-sort"></span>
+                                </th>
+                                <th jhiSortBy="montant">
+                                    <span jhiTranslate="geFondApp.echeance.montant">Montant</span>
+                                    <span class="fa fa-sort"></span>
+                                </th>
+                                <th jhiSortBy="etatEcheance">
+                                    <span jhiTranslate="geFondApp.echeance.etatEcheance">Etat Echeance</span>
+                                    <span class="fa fa-sort"></span>
+                                </th>
+                                <th jhiSortBy="datePayement">
+                                    <span jhiTranslate="geFondApp.echeance.datePayement">Date Payement</span>
+                                    <span class="fa fa-sort"></span>
+                                </th>
+                                <th jhiSortBy="dateRetrait">
+                                    <span jhiTranslate="geFondApp.echeance.dateRetrait">Date Retrait</span>
+                                    <span class="fa fa-sort"></span>
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let echeance of echeances ;trackBy: trackId">
+                                <td>{{echeance.dateTombe | date:'mediumDate'}}</td>
+                                <td>{{echeance.montant}}</td>
+                                <td>{{echeance.etatEcheance}}</td>
+                                <td>{{echeance.datePayement}}</td>
+                                <td>{{echeance.dateRetrait}}</td>
+                                <td class="text-right">
+                                    <div class="btn-group flex-btn-group-container">
+                                        <button type="submit" (click)="updateEcheance(echeance)"
+                                            replaceUrl="true" queryParamsHandling="merge" class="btn btn-primary btn-sm">
+                                            <span class="fa fa-pencil"></span>
+                                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                                        </button>
+                                        <button (click)="removeEcheance(echeance)" class="btn btn-danger btn-sm">
+                                            <span class="fa fa-remove"></span>
+                                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
         <div class="form-group text-center">
             <button (click)="goToPrevious(echeances)" class="btn btn-info">
                 <span class="fa fa-arrow-left"></span>&nbsp;
                 <span jhiTranslate="entity.action.precedent">Back</span>
-
             </button>
             <button (click)="goToNext(echeances)" class="btn btn-info">
                 <span jhiTranslate="entity.action.next">Next</span>&nbsp;

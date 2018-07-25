@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.bdi.fondation.domain.Parametrage;
 
 import com.bdi.fondation.repository.ParametrageRepository;
+import com.bdi.fondation.service.dto.PeriodType;
 import com.bdi.fondation.web.rest.errors.BadRequestAlertException;
 import com.bdi.fondation.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -26,7 +27,13 @@ import java.util.stream.Collectors;
 @RequestMapping("/api")
 public class ParametrageResource {
 
-    private final Logger log = LoggerFactory.getLogger(ParametrageResource.class);
+    private static final String TYPE_GARANTIE = "Type garantie";
+
+	private static final String TYPE_FINANCEMENT = "Type financement";
+
+	private static final String TYPE_PRET = "Type pret";
+
+	private final Logger log = LoggerFactory.getLogger(ParametrageResource.class);
 
     private static final String ENTITY_NAME = "parametrage";
 
@@ -94,9 +101,26 @@ public class ParametrageResource {
     @Timed
     public List<String> getPretTypes() {
         log.debug("REST request to get pret Types");
-        return parametrageRepository.findByCodeTypeParam("Type pret").stream().map(a -> a.getLibelle()).collect(Collectors.toList());
+        return parametrageRepository.findByCodeTypeParam(TYPE_PRET).stream().map(a -> a.getLibelle()).collect(Collectors.toList());
         }
-
+    @GetMapping("/parametrages/financementTypes")
+    @Timed
+    public List<String> getFinancementTypes() {
+    	log.debug("REST request to get financement Types");
+    	return parametrageRepository.findByCodeTypeParam(TYPE_FINANCEMENT).stream().map(a -> a.getLibelle()).collect(Collectors.toList());
+    }
+    @GetMapping("/parametrages/garantieTypes")
+    @Timed
+    public List<String> getGarantiesTypes() {
+    	log.debug("REST request to get garantie Types");
+    	return parametrageRepository.findByCodeTypeParam(TYPE_GARANTIE).stream().map(a -> a.getLibelle()).collect(Collectors.toList());
+    }
+    @GetMapping("/parametrages/periodTypes")
+    @Timed
+    public List<PeriodType> getPeriodTypes() {
+    	log.debug("REST request to get garantie Types");
+    	return parametrageRepository.findByCodeTypeParam("Type periode").stream().map(a -> new PeriodType(a)).collect(Collectors.toList());
+    }
     /**
      * GET  /parametrages/:id : get the "id" parametrage.
      *

@@ -9,58 +9,60 @@
             <jhi-alert></jhi-alert>
         </div>
         <div class="row">
-                <div class="alert alert-primary" role="alert">
-            <div class="form-group">
-                <label class="form-control-label" for="field_type">Souhaitez-vous débloquer des montants/ Ajouter des élements de financements?</label>
-                <input type="checkbox" class="form-control" name="unblockPret" id="field_unblockPret" [(ngModel)]="unblockPret"/>
-            </div></div>
+            <div class='col-xs-12 col-sm-6'>
+                <div class="bd-callout bd-callout-info">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-control" name="unblockPret" id="field_unblockPret" [(ngModel)]="unblockPret" />
+                        <label class="form-control-label" for="field_type">Cochez ici si vous souhaitez débloquer des montants/ Ajouter des élements de financements...</label>
+                    </div>
+                </div>
+            </div>
+            <div class='col-xs-12 col-sm-6'>
+                <div class="bd-callout bd-callout-info" [hidden]="!unblockPret || empty() ">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-control" name="validatePret" id="field_validatePret" [(ngModel)]="validatePret" />
+                        <label class="form-control-label" for="field_type">Cochez ici si vous avez debloqué tout le pret et souhaitez générer l'échéancier...</label>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="row" [hidden]="!unblockPret">        
+        <div class="row" [hidden]="!unblockPret">
             <div class='col-xs-12 col-sm-4'>
                 <form name="editForm" role="form" novalidate (ngSubmit)="add()" #editForm="ngForm">
-                    <div>
-                        <div class="form-group">
-                            <label class="form-control-label" jhiTranslate="geFondApp.elementFinancement.type" for="field_type">Type</label>
-                            <input type="text" class="form-control" name="type" id="field_type" [(ngModel)]="elementFinancement.type" required/>
-                            <div [hidden]="!(editForm.controls.type?.dirty && editForm.controls.type?.invalid)">
-                                <small class="form-text text-danger" [hidden]="!editForm.controls.type?.errors?.required" jhiTranslate="entity.validation.required">
-                                    This field is required.
-                                </small>
+                    <div class="card border-info mb-3" style="max-width: 18rem;">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="geFondApp.elementFinancement.montant" for="field_montant">Montant</label>
+                                <input type="number" class="form-control" name="montant" id="field_montant" [(ngModel)]="elementFinancement.montant" required/>
+
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="geFondApp.elementFinancement.type" for="field_type">Type</label>
+                                <select class="form-control" id="field_type" name="type" [(ngModel)]="elementFinancement.type" required>
+                                        <option [ngValue]="typeOption" *ngFor="let typeOption of financementTypes">{{typeOption}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="geFondApp.elementFinancement.dateFinancement" for="field_dateFinancement">Date Financement</label>
+                                <div class="input-group">
+                                    <input id="field_dateFinancement" type="text" class="form-control" name="dateFinancement" ngbDatepicker #dateFinancementDp="ngbDatepicker"
+                                        [(ngModel)]="elementFinancement.dateFinancement" />
+                                    <span class="input-group-append">
+                                        <button type="button" class="btn btn-secondary" (click)="dateFinancementDp.toggle()">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div>
+                                <button type="submit" [disabled]="editForm.form.invalid" class="btn btn-primary">
+                                    <span class="fa fa-plus"></span>&nbsp;
+                                    <span>Débloquer un montant</span>
+                                </button>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="form-control-label" jhiTranslate="geFondApp.elementFinancement.montant" for="field_montant">Montant</label>
-                            <input type="number" class="form-control" name="montant" id="field_montant" [(ngModel)]="elementFinancement.montant" required/>
-                            <div [hidden]="!(editForm.controls.montant?.dirty && editForm.controls.montant?.invalid)">
-                                <small class="form-text text-danger" [hidden]="!editForm.controls.montant?.errors?.required" jhiTranslate="entity.validation.required">
-                                    This field is required.
-                                </small>
-                                <small class="form-text text-danger" [hidden]="!editForm.controls.montant?.errors?.number" jhiTranslate="entity.validation.number">
-                                    This field should be a number.
-                                </small>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-control-label" jhiTranslate="geFondApp.elementFinancement.dateFinancement" for="field_dateFinancement">Date Financement</label>
-                            <div class="input-group">
-                                <input id="field_dateFinancement" type="text" class="form-control" name="dateFinancement" ngbDatepicker #dateFinancementDp="ngbDatepicker"
-                                    [(ngModel)]="elementFinancement.dateFinancement" />
-                                <span class="input-group-append">
-                                    <button type="button" class="btn btn-secondary" (click)="dateFinancementDp.toggle()">
-                                        <i class="fa fa-calendar"></i>
-                                    </button>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
-                            <span class="fa fa-plus"></span>&nbsp;
-                            <span>Débloquer un montant</span>
-                        </button>
                     </div>
                 </form>
-
             </div>
             <div class='col-xs-12 col-sm-8'>
                 <div class="table-responsive" *ngIf="elementFinancements" [hidden]="empty()">
@@ -86,8 +88,8 @@
                                 <td>{{elementFinancement.dateFinancement | date:'mediumDate'}}</td>
                                 <td class="text-right">
                                     <div class="btn-group flex-btn-group-container">
-                                        <button type="submit" (click)="updateElementFinancement(elementFinancement)"
-                                            replaceUrl="true" queryParamsHandling="merge" class="btn btn-primary btn-sm">
+                                        <button type="submit" (click)="updateElementFinancement(elementFinancement)" replaceUrl="true" queryParamsHandling="merge"
+                                            class="btn btn-primary btn-sm">
                                             <span class="fa fa-pencil"></span>
                                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                                         </button>

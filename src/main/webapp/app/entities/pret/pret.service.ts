@@ -95,13 +95,13 @@ export class PretService {
     private convert(pret: Pret): Pret {
         const copy: Pret = Object.assign({}, pret);
         copy.dateMisePlace = this.dateUtils
-            .convertLocalDateToServer(pret.dateMisePlace);
+            .convertLocalDateToServer(dateToNgb(pret.dateMisePlace));
         copy.datePremiereEcheance = this.dateUtils
-            .convertLocalDateToServer(pret.datePremiereEcheance);
+            .convertLocalDateToServer(dateToNgb(pret.datePremiereEcheance));
         copy.dateDerniereEcheance = this.dateUtils
-            .convertLocalDateToServer(pret.dateDerniereEcheance);
+            .convertLocalDateToServer(dateToNgb(pret.dateDerniereEcheance));
         copy.dateDernierDebloq = this.dateUtils
-            .convertLocalDateToServer(pret.dateDernierDebloq);
+            .convertLocalDateToServer(dateToNgb(pret.dateDernierDebloq));
         return copy;
     }
     private convertFull(form: PretWzFormData): PretWzFormData {
@@ -137,14 +137,14 @@ export class PretService {
         copy.dateDepot = this.dateUtils
             .convertLocalDateToServer(dateToNgb(garantie.dateDepot));
         copy.dateRetrait = this.dateUtils
-            .convertLocalDateToServer(garantie.dateRetrait);
+            .convertLocalDateToServer(dateToNgb(garantie.dateRetrait));
         copy.pret=null;
         return copy;
     }
     convertEf(elementFinancement: ElementFinancement): ElementFinancement {
         const copy: ElementFinancement = Object.assign({}, elementFinancement);
         copy.dateFinancement = this.dateUtils
-            .convertLocalDateToServer(elementFinancement.dateFinancement);
+            .convertLocalDateToServer(dateToNgb(elementFinancement.dateFinancement));
         copy.pret=null;
         return copy;
     }

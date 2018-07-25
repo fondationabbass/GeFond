@@ -2,58 +2,139 @@
 <div class="row justify-content-center">
     <div class="col-md-10">
         <div class="row">
+            <h2>{{title}}</h2>
+        </div>
+        <hr>
+        <div class="row">
             <jhi-alert></jhi-alert>
-            <div class="table-responsive" *ngIf="garanties">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                    <th><span jhiTranslate="geFondApp.garantie.typeGar">Type Gar</span></th>
-                    <th><span jhiTranslate="geFondApp.garantie.montantEvalue">Montant Evalue</span></th>
-                    <th><span jhiTranslate="geFondApp.garantie.montantAfect">Montant Afect</span></th>
-                    <th><span jhiTranslate="geFondApp.garantie.dateDepot">Date Depot</span></th>
-                    <th><span jhiTranslate="geFondApp.garantie.numDocument">Num Document</span></th>
-                    <th><span jhiTranslate="geFondApp.garantie.etat">Etat</span></th>
-                    <th><span jhiTranslate="geFondApp.garantie.dateRetrait">Date Retrait</span></th>
-                    <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr *ngFor="let garantie of garanties ;trackBy: trackId">
-                        <td>{{garantie.typeGar}}</td>
-                        <td>{{garantie.montantEvalue}}</td>
-                        <td>{{garantie.montantAfect}}</td>
-                        <td>{{garantie.dateDepot | date:'mediumDate'}}</td>
-                        <td>{{garantie.numDocument}}</td>
-                        <td>{{garantie.etat}}</td>
-                        <td>{{garantie.dateRetrait | date:'mediumDate'}}</td>
-                        <td class="text-right">
-                            <div class="btn-group flex-btn-group-container">
-                                <button type="submit"
-                                        [routerLink]="['/', { outlets: { popup: 'garantie/'+ garantie.id + '/edit'} }]"
-                                        replaceUrl="true"
-                                        queryParamsHandling="merge"
-                                        class="btn btn-primary btn-sm">
-                                    <span class="fa fa-pencil"></span>
-                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                                </button>
-                                <button type="submit"
-                                        (click)="removeGarantie(garantie)"
-                                        class="btn btn-danger btn-sm">
-                                    <span class="fa fa-remove"></span>
-                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+        </div>
+        <div class="row">
+            <div class='col-xs-12 col-sm-4'>
+                <form name="editForm" role="form" novalidate (ngSubmit)="add()" #editForm="ngForm">
+                    <div class="card border-info mb-3" style="max-width: 18rem;">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="geFondApp.garantie.montantEvalue" for="field_montantEvalue">Montant Evalue</label>
+                                <input type="number" class="form-control" name="montantEvalue" id="field_montantEvalue" [(ngModel)]="garantie.montantEvalue"
+                                    required/>
+                                
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="geFondApp.garantie.montantAfect" for="field_montantAfect">Montant Afect</label>
+                                <input type="number" class="form-control" name="montantAfect" id="field_montantAfect" [(ngModel)]="garantie.montantAfect"
+                                    required/>
+                            </div>
+                            <div class="form-group">
+                                    <label class="form-control-label" jhiTranslate="geFondApp.garantie.typeGar" for="field_typeGar">Type Gar</label>
+                                    <select class="form-control" id="field_typeGar" name="typeGar" [(ngModel)]="garantie.typeGar" required>
+                                            <option [ngValue]="typeOption" *ngFor="let typeOption of garantieTypes">{{typeOption}}</option>
+                                    </select>                                
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="geFondApp.garantie.dateDepot" for="field_dateDepot">Date Depot</label>
+                                <div class="input-group">
+                                    <input id="field_dateDepot" type="text" class="form-control" name="dateDepot" ngbDatepicker #dateDepotDp="ngbDatepicker"
+                                        [(ngModel)]="garantie.dateDepot" />
+                                    <span class="input-group-append">
+                                        <button type="button" class="btn btn-secondary" (click)="dateDepotDp.toggle()">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="geFondApp.garantie.numDocument" for="field_numDocument">Num Document</label>
+                                <input type="text" class="form-control" name="numDocument" id="field_numDocument" [(ngModel)]="garantie.numDocument" required/>
+                                
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="geFondApp.garantie.etat" for="field_etat">Etat</label>
+                                <input type="text" class="form-control" name="etat" id="field_etat" [(ngModel)]="garantie.etat" required/>
+                                
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="geFondApp.garantie.dateRetrait" for="field_dateRetrait">Date Retrait</label>
+                                <div class="input-group">
+                                    <input id="field_dateRetrait" type="text" class="form-control" name="dateRetrait" ngbDatepicker #dateRetraitDp="ngbDatepicker"
+                                        [(ngModel)]="garantie.dateRetrait" />
+                                    <span class="input-group-append">
+                                        <button type="button" class="btn btn-secondary" (click)="dateRetraitDp.toggle()">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div>
+                                <button type="submit" [disabled]="editForm.form.invalid" class="btn btn-primary">
+                                    <span class="fa fa-plus"></span>&nbsp;
+                                    <span>Saisir la garantie</span>
                                 </button>
                             </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class='col-xs-12 col-sm-8'>
+                <div class="table-responsive" *ngIf="garanties">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <span jhiTranslate="geFondApp.garantie.typeGar">Type Gar</span>
+                                </th>
+                                <th>
+                                    <span jhiTranslate="geFondApp.garantie.montantEvalue">Montant Evalue</span>
+                                </th>
+                                <th>
+                                    <span jhiTranslate="geFondApp.garantie.montantAfect">Montant Afect</span>
+                                </th>
+                                <th>
+                                    <span jhiTranslate="geFondApp.garantie.dateDepot">Date Depot</span>
+                                </th>
+                                <th>
+                                    <span jhiTranslate="geFondApp.garantie.numDocument">Num Document</span>
+                                </th>
+                                <th>
+                                    <span jhiTranslate="geFondApp.garantie.etat">Etat</span>
+                                </th>
+                                <th>
+                                    <span jhiTranslate="geFondApp.garantie.dateRetrait">Date Retrait</span>
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let garantie of garanties ;trackBy: trackId">
+                                <td>{{garantie.typeGar}}</td>
+                                <td>{{garantie.montantEvalue}}</td>
+                                <td>{{garantie.montantAfect}}</td>
+                                <td>{{garantie.dateDepot | date:'mediumDate'}}</td>
+                                <td>{{garantie.numDocument}}</td>
+                                <td>{{garantie.etat}}</td>
+                                <td>{{garantie.dateRetrait | date:'mediumDate'}}</td>
+                                <td class="text-right">
+                                    <div class="btn-group flex-btn-group-container">
+                                        <button type="submit" (click)="updateGarantie(garantie)"
+                                            class="btn btn-primary btn-sm">
+                                            <span class="fa fa-pencil"></span>
+                                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                                        </button>
+                                        <button type="submit" (click)="removeGarantie(garantie)" class="btn btn-danger btn-sm">
+                                            <span class="fa fa-remove"></span>
+                                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <div class="form-group text-center">
             <button (click)="goToPrevious(garanties)" class="btn btn-info">
                 <span class="fa fa-arrow-left"></span>&nbsp;
                 <span jhiTranslate="entity.action.precedent">Back</span>
-
             </button>
             <button (click)="goToNext(garanties)" class="btn btn-info">
                 <span jhiTranslate="entity.action.next">Next</span>&nbsp;

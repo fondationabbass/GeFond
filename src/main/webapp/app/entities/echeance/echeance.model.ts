@@ -13,3 +13,11 @@ export class Echeance implements BaseEntity {
     ) {
     }
 }
+export class PeriodType {
+    constructor(
+        public coeff?: number,
+        public type?: string,
+        public label?: string,
+    ) {
+    }
+}
