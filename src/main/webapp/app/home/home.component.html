@@ -1,23 +1,38 @@
 <div class="row">
     <div class="col-md-4">
-        <h3 jhiTranslate="home.lastThreeCandidats">Trois Candidats</h3>
-        <dl *ngFor="let candidat of candidats ;trackBy: trackCandidatId">
-            <dd><a [routerLink]="['/candidat', candidat.id ]" >{{candidat.nom}}</a></dd>
-        </dl>
+        <div class="card"  style="min-height: 13rem;">
+            <h3 class="card-header" jhiTranslate="home.lastThreeCandidats">Trois Candidats</h3>
+            <div class="card-body ">
+                <dl *ngFor="let candidat of candidats ;trackBy: trackCandidatId ">
+                    <dd>
+                        <a [routerLink]="[ '/candidat', candidat.id ] ">{{candidat.nom}}</a>
+                    </dd>
+                </dl>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h3 jhiTranslate="home.lastThreeClients">Trois Clients</h3>
-        <dl *ngFor="let client of clients ;trackBy: trackClientId">
-                <dd><a [routerLink]="['/client', client.id ]" >{{client?.candidat?.nom}}</a></dd>
-            </dl>
+    <div class="col-md-4 ">
+        <div class="card"  style="min-height: 13rem;">
+            <h3 class="card-header" jhiTranslate="home.lastThreeClients">Trois Clients</h3>
+            <div class="card-body ">
+                <dl *ngFor="let client of clients ;trackBy: trackClientId ">
+                    <dd>
+                        <a [routerLink]="[ '/client', client.id ] ">{{client?.candidat?.nom}}</a>
+                    </dd>
+                </dl>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4" >
-        <h3 jhiTranslate="home.lastThreePrets">Trois Prets</h3>
-        <dl *ngFor="let pret of prets ;trackBy: trackPretId">
-                <dd><a [routerLink]="['/pret', pret.id ]" >{{pret.id}}</a></dd>
-        </dl>
-       
+    <div class="col-md-4 ">
+        <div class="card"  style="min-height: 13rem;">
+            <h3 class="card-header" jhiTranslate="home.lastThreePrets">Trois Prets</h3>
+            <div class="card-body ">
+                <dl *ngFor="let pret of prets ;trackBy: trackPretId ">
+                    <dd>
+                        <a [routerLink]="[ '/pret', pret.id ] ">{{pret.id}}</a>
+                    </dd>
+                </dl>
+            </div>
+        </div>
     </div>
 </div>
-
-
