@@ -4,7 +4,7 @@
 
     <groupId>com.bdi.fondation</groupId>
     <artifactId>ge-fond</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>Ge Fond</name>
 
