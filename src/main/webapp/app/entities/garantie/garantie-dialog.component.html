@@ -14,14 +14,9 @@
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="geFondApp.garantie.typeGar" for="field_typeGar">Type Gar</label>
-            <input type="text" class="form-control" name="typeGar" id="field_typeGar"
-                [(ngModel)]="garantie.typeGar" required/>
-            <div [hidden]="!(editForm.controls.typeGar?.dirty && editForm.controls.typeGar?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.typeGar?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
-                </small>
-            </div>
+            <select class="form-control" id="field_typeGar" name="typeGar" [(ngModel)]="garantie.typeGar" required>
+                <option [ngValue]="typeOption" *ngFor="let typeOption of garantieTypes">{{typeOption}}</option>
+            </select>
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="geFondApp.garantie.montantEvalue" for="field_montantEvalue">Montant Evalue</label>

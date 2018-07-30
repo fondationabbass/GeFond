@@ -10,6 +10,7 @@ import { Garantie } from './garantie.model';
 import { GarantiePopupService } from './garantie-popup.service';
 import { GarantieService } from './garantie.service';
 import { Pret, PretService } from '../pret';
+import { ParametrageService } from '../parametrage/parametrage.service';
 
 @Component({
     selector: 'jhi-garantie-dialog',
@@ -23,12 +24,14 @@ export class GarantieDialogComponent implements OnInit {
     prets: Pret[];
     dateDepotDp: any;
     dateRetraitDp: any;
+    garantieTypes: string[];
 
     constructor(
         public activeModal: NgbActiveModal,
         private jhiAlertService: JhiAlertService,
         private garantieService: GarantieService,
         private pretService: PretService,
+        private parametrageService: ParametrageService,
         private eventManager: JhiEventManager
     ) {
     }
@@ -37,6 +40,9 @@ export class GarantieDialogComponent implements OnInit {
         this.isSaving = false;
         this.pretService.query()
             .subscribe((res: HttpResponse<Pret[]>) => { this.prets = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+        this.parametrageService.garantiesTypes().subscribe((resp: HttpResponse<string[]>) => {
+            this.garantieTypes = resp.body;
+        });
     }
 
     clear() {
@@ -60,7 +66,7 @@ export class GarantieDialogComponent implements OnInit {
     }
 
     private onSaveSuccess(result: Garantie) {
-        this.eventManager.broadcast({ name: 'garantieListModification', content: 'OK'});
+        this.eventManager.broadcast({ name: 'garantieListModification', content: 'OK' });
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -89,11 +95,11 @@ export class GarantiePopupComponent implements OnInit, OnDestroy {
     constructor(
         private route: ActivatedRoute,
         private garantiePopupService: GarantiePopupService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.garantiePopupService
                     .open(GarantieDialogComponent as Component, params['id']);
             } else {

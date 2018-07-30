@@ -9,6 +9,7 @@ import { PretService } from './pret.service';
 import { Garantie, GarantieService } from '../garantie';
 import { ElementFinancement, ElementFinancementService } from '../element-financement';
 import { Echeance, EcheanceService } from '../echeance';
+import { Mouvement, MouvementService } from '../mouvement';
 
 @Component({
     selector: 'jhi-pret-detail',
@@ -22,6 +23,8 @@ export class PretDetailComponent implements OnInit, OnDestroy {
     garanties:Garantie[];
     elementFinancements: ElementFinancement[];
     echeances:Echeance[];
+    mouvements:Mouvement[];
+
     private subscription: Subscription;
     private eventSubscriber: Subscription;
 
@@ -31,6 +34,7 @@ export class PretDetailComponent implements OnInit, OnDestroy {
         private echeanceService: EcheanceService,
         private efService: ElementFinancementService,
         private garantieService: GarantieService,
+        private mouvmentService: MouvementService,
         private route: ActivatedRoute
     ) {
     }
@@ -50,6 +54,9 @@ export class PretDetailComponent implements OnInit, OnDestroy {
     emptyE(): boolean {
         return this.echeances.length === 0;
     }
+    emptyM(): boolean {
+        return this.mouvements.length === 0;
+    }
     load(id) {
         this.pretService.find(id)
             .subscribe((pretResponse: HttpResponse<Pret>) => {
@@ -63,6 +70,9 @@ export class PretDetailComponent implements OnInit, OnDestroy {
         });
         this.echeanceService.query({ "pret.id.equals": id }).subscribe((pretResponse: HttpResponse<Echeance[]>) => {
             this.echeances = pretResponse.body;
+        });
+        this.mouvmentService.query({ "pret.id.equals": id }).subscribe((pretResponse: HttpResponse<Mouvement[]>) => {
+            this.mouvements = pretResponse.body;
         });
     }
     previousState() {

@@ -14,14 +14,9 @@
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="geFondApp.elementFinancement.type" for="field_type">Type</label>
-            <input type="text" class="form-control" name="type" id="field_type"
-                [(ngModel)]="elementFinancement.type" required/>
-            <div [hidden]="!(editForm.controls.type?.dirty && editForm.controls.type?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.type?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
-                </small>
-            </div>
+            <select class="form-control" id="field_type" name="type" [(ngModel)]="elementFinancement.type" required>
+                    <option [ngValue]="typeOption" *ngFor="let typeOption of financementTypes">{{typeOption}}</option>
+            </select>
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="geFondApp.elementFinancement.montant" for="field_montant">Montant</label>

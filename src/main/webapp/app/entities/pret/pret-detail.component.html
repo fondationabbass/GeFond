@@ -151,10 +151,15 @@
         <div class='col-xs-12 col-sm-8'>
             <div class="row" *ngIf="elementFinancements" [hidden]="emptyEf()">
                 <div class="card" style="min-width: 100%;">
-                    <h5 class="card-header">Les débloquages:</h5>
-                    <div class="card-body">
+                    <h5 class="card-header" (click)="debloquageCollapsed = !debloquageCollapsed" [attr.aria-expanded]="!debloquageCollapsed"
+                        aria-controls="debloquage-div">
+                        <span [hidden]="!debloquageCollapsed" class="fa fa-plus-square" aria-hidden="true"></span>
+                        <span [hidden]="debloquageCollapsed" class="fa fa-minus-square" aria-hidden="true"></span>
+                        <span>Les débloquages:</span>
+                    </h5>
+                    <div class="card-body" id="debloquage-div" [ngbCollapse]="debloquageCollapsed">
                         <h2>
-                            <button class="btn btn-primary float-right jh-create-entity create-element-financement" [routerLink]="['/', { outlets: { popup: 'element-financement/'+ pret.id + '/edit'} }]">
+                            <button class="btn btn-primary float-right jh-create-entity create-element-financement" [routerLink]="['/', { outlets: { popup: ['element-financement-new'] } }]">
                                 <span class="fa fa-plus"></span>
                                 <span jhiTranslate="geFondApp.elementFinancement.home.createLabel">
                                     Create new Element Financement
@@ -205,20 +210,25 @@
                             </table>
                         </div>
                     </div>
+
                 </div>
             </div>
             <div class="row" *ngIf="garanties" [hidden]="emptyG()">
                 <div class="card" style="min-width: 100%;">
-                    <h5 class="card-header">Les garanties:</h5>
-                    <div class="card-body">
-                            <h2>
-                                    <button class="btn btn-primary float-right jh-create-entity create-garantie" [routerLink]="['/', { outlets: { popup: ['garantie-new'] } }]">
-                                        <span class="fa fa-plus"></span>
-                                        <span  jhiTranslate="geFondApp.garantie.home.createLabel">
-                                        Create new Garantie
-                                        </span>
-                                    </button>
-                                </h2>
+                    <h5 class="card-header" (click)="garantieCollapsed = !garantieCollapsed" [attr.aria-expanded]="!garantieCollapsed" aria-controls="garantie-div">
+                        <span [hidden]="!garantieCollapsed" class="fa fa-plus-square" aria-hidden="true"></span>
+                        <span [hidden]="garantieCollapsed" class="fa fa-minus-square" aria-hidden="true"></span>
+                        <span>Les garanties:</span>
+                    </h5>
+                    <div class="card-body" id="garantie-div" [ngbCollapse]="garantieCollapsed">
+                        <h2>
+                            <button class="btn btn-primary float-right jh-create-entity create-garantie" [routerLink]="['/', { outlets: { popup: ['garantie-new'] } }]">
+                                <span class="fa fa-plus"></span>
+                                <span jhiTranslate="geFondApp.garantie.home.createLabel">
+                                    Create new Garantie
+                                </span>
+                            </button>
+                        </h2>
                         <div class="table-responsive" *ngIf="garanties">
                             <table class="table table-striped">
                                 <thead>
@@ -283,8 +293,13 @@
             </div>
             <div class="row" *ngIf="echeances" [hidden]="emptyE()">
                 <div class="card" style="min-width: 100%;">
-                    <h5 class="card-header">L'échéancier:</h5>
-                    <div class="card-body">
+                    <h5 class="card-header" (click)="echeancierCollapsed = !echeancierCollapsed" [attr.aria-expanded]="!echeancierCollapsed"
+                        aria-controls="echeancier-div">
+                        <span [hidden]="!echeancierCollapsed" class="fa fa-plus-square" aria-hidden="true"></span>
+                        <span [hidden]="echeancierCollapsed" class="fa fa-minus-square" aria-hidden="true"></span>
+                        <span>Les garanties:</span>
+                    </h5>
+                    <div class="card-body" id="echeancier-div" [ngbCollapse]="echeancierCollapsed">
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
@@ -323,6 +338,85 @@
                             </table>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="mouvements" [hidden]="emptyM()">
+                <div class="card" style="min-width: 100%;">
+                    <h5 class="card-header" (click)="mouvementCollapsed = !mouvementCollapsed" [attr.aria-expanded]="!mouvementCollapsed" aria-controls="mouvement-div">
+                        <span [hidden]="!mouvementCollapsed" class="fa fa-plus-square" aria-hidden="true"></span>
+                        <span [hidden]="mouvementCollapsed" class="fa fa-minus-square" aria-hidden="true"></span>
+                        <span>Les mouvements:</span>
+                    </h5>
+                    <div class="card-body" id="mouvement-div" [ngbCollapse]="mouvementCollapsed">
+                        <h2>
+                            <button class="btn btn-primary float-right jh-create-entity create-mouvement" [routerLink]="['/', { outlets: { popup: ['mouvement-new'] } }]">
+                                <span class="fa fa-plus"></span>
+                                <span jhiTranslate="geFondApp.mouvement.home.createLabel">
+                                    Create new Mouvement
+                                </span>
+                            </button>
+                        </h2>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <span jhiTranslate="geFondApp.mouvement.dateMvt">Date Mvt</span>
+                                        </th>
+                                        <th>
+                                            <span jhiTranslate="geFondApp.mouvement.lib">Lib</span>
+                                        </th>
+                                        <th>
+                                            <span jhiTranslate="geFondApp.mouvement.montant">Montant</span>
+                                        </th>
+                                        <th>
+                                            <span jhiTranslate="geFondApp.mouvement.sens">Sens</span>
+                                        </th>
+                                        <th>
+                                            <span jhiTranslate="geFondApp.mouvement.etat">Etat</span>
+                                        </th>
+                                        <th>
+                                            <span jhiTranslate="geFondApp.mouvement.compte">Compte</span>
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let mouvement of mouvements ;trackBy: trackId">
+                                        <td>{{mouvement.dateMvt | date:'mediumDate'}}</td>
+                                        <td>{{mouvement.lib}}</td>
+                                        <td>{{mouvement.montant}}</td>
+                                        <td>{{mouvement.sens}}</td>
+                                        <td>{{mouvement.etat}}</td>
+                                        <td>
+                                            <div *ngIf="mouvement.compte">
+                                                <a [routerLink]="['../../compte', mouvement.compte?.id ]">{{mouvement.compte?.id}}</a>
+                                            </div>
+                                        </td>
+                                        <td class="text-right">
+                                            <div class="btn-group flex-btn-group-container">
+                                                <button type="submit" [routerLink]="['../mouvement', mouvement.id ]" class="btn btn-info btn-sm">
+                                                    <span class="fa fa-eye"></span>
+                                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                                                </button>
+                                                <button type="submit" [routerLink]="['/', { outlets: { popup: 'mouvement/'+ mouvement.id + '/edit'} }]" replaceUrl="true"
+                                                    queryParamsHandling="merge" class="btn btn-primary btn-sm">
+                                                    <span class="fa fa-pencil"></span>
+                                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                                                </button>
+                                                <button type="submit" [routerLink]="['/', { outlets: { popup: 'mouvement/'+ mouvement.id + '/delete'} }]" replaceUrl="true"
+                                                    queryParamsHandling="merge" class="btn btn-danger btn-sm">
+                                                    <span class="fa fa-remove"></span>
+                                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

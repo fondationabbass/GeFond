@@ -10,6 +10,7 @@ import { ElementFinancement } from './element-financement.model';
 import { ElementFinancementPopupService } from './element-financement-popup.service';
 import { ElementFinancementService } from './element-financement.service';
 import { Pret, PretService } from '../pret';
+import { ParametrageService } from '../parametrage/parametrage.service';
 
 @Component({
     selector: 'jhi-element-financement-dialog',
@@ -22,12 +23,14 @@ export class ElementFinancementDialogComponent implements OnInit {
 
     prets: Pret[];
     dateFinancementDp: any;
+    financementTypes: string[];
 
     constructor(
         public activeModal: NgbActiveModal,
         private jhiAlertService: JhiAlertService,
         private elementFinancementService: ElementFinancementService,
         private pretService: PretService,
+        private parametrageService: ParametrageService,
         private eventManager: JhiEventManager
     ) {
     }
@@ -36,7 +39,10 @@ export class ElementFinancementDialogComponent implements OnInit {
         this.isSaving = false;
         this.pretService.query()
             .subscribe((res: HttpResponse<Pret[]>) => { this.prets = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
-    }
+        this.parametrageService.financementTypes().subscribe((resp: HttpResponse<string[]>) => {
+                this.financementTypes = resp.body;
+            });
+        }
 
     clear() {
         this.activeModal.dismiss('cancel');
