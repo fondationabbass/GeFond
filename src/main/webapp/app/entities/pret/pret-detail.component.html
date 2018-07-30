@@ -1,84 +1,330 @@
-
 <div *ngIf="pret">
-    <h2><span jhiTranslate="geFondApp.pret.detail.title">Pret</span> {{pret.id}}</h2>
+    <div class="row">
+        <div class='col-xs-12 col-sm-12'>
+            <h2>{{title}}</h2>
+        </div>
+    </div>
     <hr>
-    <jhi-alert-error></jhi-alert-error>
-    <dl class="row-md jh-entity-details">
-        <dt><span jhiTranslate="geFondApp.pret.typPret">Typ Pret</span></dt>
-        <dd>
-            <span>{{pret.typPret}}</span>
-        </dd>
-        <dt><span jhiTranslate="geFondApp.pret.montAaccord">Mont Aaccord</span></dt>
-        <dd>
-            <span>{{pret.montAaccord}}</span>
-        </dd>
-        <dt><span jhiTranslate="geFondApp.pret.montDebloq">Mont Debloq</span></dt>
-        <dd>
-            <span>{{pret.montDebloq}}</span>
-        </dd>
-        <dt><span jhiTranslate="geFondApp.pret.nbrEcheance">Nbr Echeance</span></dt>
-        <dd>
-            <span>{{pret.nbrEcheance}}</span>
-        </dd>
-        <dt><span jhiTranslate="geFondApp.pret.periodicite">Periodicite</span></dt>
-        <dd>
-            <span>{{pret.periodicite}}</span>
-        </dd>
-        <dt><span jhiTranslate="geFondApp.pret.dateMisePlace">Date Mise Place</span></dt>
-        <dd>
-            <span>{{pret.dateMisePlace | date:'mediumDate'}}</span>
-        </dd>
-        <dt><span jhiTranslate="geFondApp.pret.datePremiereEcheance">Date Premiere Echeance</span></dt>
-        <dd>
-            <span>{{pret.datePremiereEcheance | date:'mediumDate'}}</span>
-        </dd>
-        <dt><span jhiTranslate="geFondApp.pret.dateDerniereEcheance">Date Derniere Echeance</span></dt>
-        <dd>
-            <span>{{pret.dateDerniereEcheance | date:'mediumDate'}}</span>
-        </dd>
-        <dt><span jhiTranslate="geFondApp.pret.dateDernierDebloq">Date Dernier Debloq</span></dt>
-        <dd>
-            <span>{{pret.dateDernierDebloq | date:'mediumDate'}}</span>
-        </dd>
-        <dt><span jhiTranslate="geFondApp.pret.etat">Etat</span></dt>
-        <dd>
-            <span>{{pret.etat}}</span>
-        </dd>
-        <dt><span jhiTranslate="geFondApp.pret.encours">Encours</span></dt>
-        <dd>
-            <span>{{pret.encours}}</span>
-        </dd>
-        <dt><span jhiTranslate="geFondApp.pret.userInitial">User Initial</span></dt>
-        <dd>
-            <span>{{pret.userInitial}}</span>
-        </dd>
-        <dt><span jhiTranslate="geFondApp.pret.userDecideur">User Decideur</span></dt>
-        <dd>
-            <span>{{pret.userDecideur}}</span>
-        </dd>
-        <dt><span jhiTranslate="geFondApp.pret.userDebloq">User Debloq</span></dt>
-        <dd>
-            <span>{{pret.userDebloq}}</span>
-        </dd>
-        <dt><span jhiTranslate="geFondApp.pret.client">Client</span></dt>
-        <dd>
-            <div *ngIf="pret.client">
-                <a [routerLink]="['/client', pret.client?.id]">{{pret.client?.id}}</a>
+    <div class="row">
+        <div class='col-xs-12 col-sm-12'>
+            <jhi-alert></jhi-alert>
+        </div>
+    </div>
+    <div class="row">
+        <div class='col-xs-12 col-sm-4'>
+            <div class="card">
+                <h5 class="card-header">Bénéficiaire:</h5>
+                <div class="card-body">
+                    <dl class="row-md jh-entity-details">
+                        <dt>
+                            <span jhiTranslate="geFondApp.candidat.nom">Nom</span>
+                        </dt>
+                        <dd>
+                            <span>{{pret.client.candidat.nom}}</span>
+                        </dd>
+                        <dt>
+                            <span jhiTranslate="geFondApp.candidat.prenom">Prenom</span>
+                        </dt>
+                        <dd>
+                            <span>{{pret.client.candidat.prenom}}</span>
+                        </dd>
+                        <dt>
+                            <span jhiTranslate="geFondApp.client.dateCreat">Date Creat</span>
+                        </dt>
+                        <dd>
+                            <span>{{pret.client.dateCreat | date:'mediumDate'}}</span>
+                        </dd>
+                    </dl>
+                </div>
             </div>
-        </dd>
-    </dl>
-
-    <button type="submit"
-            (click)="previousState()"
-            class="btn btn-info">
-        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-    </button>
-
-    <button type="button"
-            [routerLink]="['/', { outlets: { popup: 'pret/'+ pret.id + '/edit'} }]"
-            replaceUrl="true"
-            queryParamsHandling="merge"
-            class="btn btn-primary">
-        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-    </button>
+            <div class="card">
+                <h5 class="card-header">Détail du prêt:</h5>
+                <div class="card-body">
+                    <dl class="row-md jh-entity-details">
+                        <dt>
+                            <span jhiTranslate="geFondApp.pret.typPret">Typ Pret</span>
+                        </dt>
+                        <dd>
+                            <span>{{pret.typPret}}</span>
+                        </dd>
+                        <dt>
+                            <span jhiTranslate="geFondApp.pret.montAaccord">Mont Aaccord</span>
+                        </dt>
+                        <dd>
+                            <span>{{pret.montAaccord}}</span>
+                        </dd>
+                        <dt>
+                            <span jhiTranslate="geFondApp.pret.montDebloq">Mont Debloq</span>
+                        </dt>
+                        <dd>
+                            <span>{{pret.montDebloq}}</span>
+                        </dd>
+                        <dt>
+                            <span jhiTranslate="geFondApp.pret.nbrEcheance">Nbr Echeance</span>
+                        </dt>
+                        <dd>
+                            <span>{{pret.nbrEcheance}}</span>
+                        </dd>
+                        <dt>
+                            <span jhiTranslate="geFondApp.pret.periodicite">Periodicite</span>
+                        </dt>
+                        <dd>
+                            <span>{{pret.periodicite}}</span>
+                        </dd>
+                        <dt>
+                            <span jhiTranslate="geFondApp.pret.dateMisePlace">Date Mise Place</span>
+                        </dt>
+                        <dd>
+                            <span>{{pret.dateMisePlace | date:'mediumDate'}}</span>
+                        </dd>
+                        <dt>
+                            <span jhiTranslate="geFondApp.pret.datePremiereEcheance">Date Premiere Echeance</span>
+                        </dt>
+                        <dd>
+                            <span>{{pret.datePremiereEcheance | date:'mediumDate'}}</span>
+                        </dd>
+                        <dt>
+                            <span jhiTranslate="geFondApp.pret.dateDerniereEcheance">Date Derniere Echeance</span>
+                        </dt>
+                        <dd>
+                            <span>{{pret.dateDerniereEcheance | date:'mediumDate'}}</span>
+                        </dd>
+                        <dt>
+                            <span jhiTranslate="geFondApp.pret.dateDernierDebloq">Date Dernier Debloq</span>
+                        </dt>
+                        <dd>
+                            <span>{{pret.dateDernierDebloq | date:'mediumDate'}}</span>
+                        </dd>
+                        <dt>
+                            <span jhiTranslate="geFondApp.pret.etat">Etat</span>
+                        </dt>
+                        <dd>
+                            <span>{{pret.etat}}</span>
+                        </dd>
+                        <dt>
+                            <span jhiTranslate="geFondApp.pret.encours">Encours</span>
+                        </dt>
+                        <dd>
+                            <span>{{pret.encours}}</span>
+                        </dd>
+                        <dt>
+                            <span jhiTranslate="geFondApp.pret.userInitial">User Initial</span>
+                        </dt>
+                        <dd>
+                            <span>{{pret.userInitial}}</span>
+                        </dd>
+                        <dt>
+                            <span jhiTranslate="geFondApp.pret.userDecideur">User Decideur</span>
+                        </dt>
+                        <dd>
+                            <span>{{pret.userDecideur}}</span>
+                        </dd>
+                        <dt>
+                            <span jhiTranslate="geFondApp.pret.userDebloq">User Debloq</span>
+                        </dt>
+                        <dd>
+                            <span>{{pret.userDebloq}}</span>
+                        </dd>
+                        <dt>
+                            <span jhiTranslate="geFondApp.pret.client">Client</span>
+                        </dt>
+                        <dd>
+                            <div *ngIf="pret.client">
+                                <a [routerLink]="['/client', pret.client?.id]">{{pret.client?.id}}</a>
+                            </div>
+                        </dd>
+                    </dl>
+                    <div class="form-group text-center">
+                        <button type="submit" (click)="previousState()" class="btn btn-info">
+                            <span class="fa fa-arrow-left"></span>&nbsp;
+                            <span jhiTranslate="entity.action.back"> Back</span>
+                        </button>
+                        <button type="button" [routerLink]="['/', { outlets: { popup: 'pret/'+ pret.id + '/edit'} }]" replaceUrl="true" queryParamsHandling="merge"
+                            class="btn btn-primary">
+                            <span class="fa fa-pencil"></span>&nbsp;
+                            <span jhiTranslate="entity.action.edit"> Edit</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class='col-xs-12 col-sm-8'>
+            <div class="row" *ngIf="elementFinancements" [hidden]="emptyEf()">
+                <div class="card" style="min-width: 100%;">
+                    <h5 class="card-header">Les débloquages:</h5>
+                    <div class="card-body">
+                        <h2>
+                            <button class="btn btn-primary float-right jh-create-entity create-element-financement" [routerLink]="['/', { outlets: { popup: 'element-financement/'+ pret.id + '/edit'} }]">
+                                <span class="fa fa-plus"></span>
+                                <span jhiTranslate="geFondApp.elementFinancement.home.createLabel">
+                                    Create new Element Financement
+                                </span>
+                            </button>
+                        </h2>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <span jhiTranslate="geFondApp.elementFinancement.type">Type</span>
+                                        </th>
+                                        <th>
+                                            <span jhiTranslate="geFondApp.elementFinancement.montant">Montant</span>
+                                        </th>
+                                        <th>
+                                            <span jhiTranslate="geFondApp.elementFinancement.dateFinancement">Date Financement</span>
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let elementFinancement of elementFinancements ;trackBy: trackId">
+                                        <td>{{elementFinancement.type}}</td>
+                                        <td>{{elementFinancement.montant}}</td>
+                                        <td>{{elementFinancement.dateFinancement | date:'mediumDate'}}</td>
+                                        <td class="text-right">
+                                            <div class="btn-group flex-btn-group-container">
+                                                <button type="submit" [routerLink]="['../../element-financement', elementFinancement.id ]" class="btn btn-info btn-sm">
+                                                    <span class="fa fa-eye"></span>
+                                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                                                </button>
+                                                <button type="submit" [routerLink]="['/', { outlets: { popup: 'element-financement/'+ elementFinancement.id + '/edit'} }]"
+                                                    replaceUrl="true" queryParamsHandling="merge" class="btn btn-primary btn-sm">
+                                                    <span class="fa fa-pencil"></span>
+                                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                                                </button>
+                                                <button type="submit" [routerLink]="['/', { outlets: { popup: 'element-financement/'+ elementFinancement.id + '/delete'} }]"
+                                                    replaceUrl="true" queryParamsHandling="merge" class="btn btn-danger btn-sm">
+                                                    <span class="fa fa-remove"></span>
+                                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="garanties" [hidden]="emptyG()">
+                <div class="card" style="min-width: 100%;">
+                    <h5 class="card-header">Les garanties:</h5>
+                    <div class="card-body">
+                            <h2>
+                                    <button class="btn btn-primary float-right jh-create-entity create-garantie" [routerLink]="['/', { outlets: { popup: ['garantie-new'] } }]">
+                                        <span class="fa fa-plus"></span>
+                                        <span  jhiTranslate="geFondApp.garantie.home.createLabel">
+                                        Create new Garantie
+                                        </span>
+                                    </button>
+                                </h2>
+                        <div class="table-responsive" *ngIf="garanties">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <span jhiTranslate="geFondApp.garantie.typeGar">Type Gar</span>
+                                        </th>
+                                        <th>
+                                            <span jhiTranslate="geFondApp.garantie.montantEvalue">Montant Evalue</span>
+                                        </th>
+                                        <th>
+                                            <span jhiTranslate="geFondApp.garantie.montantAfect">Montant Afect</span>
+                                        </th>
+                                        <th>
+                                            <span jhiTranslate="geFondApp.garantie.dateDepot">Date Depot</span>
+                                        </th>
+                                        <th>
+                                            <span jhiTranslate="geFondApp.garantie.numDocument">Num Document</span>
+                                        </th>
+                                        <th>
+                                            <span jhiTranslate="geFondApp.garantie.etat">Etat</span>
+                                        </th>
+                                        <th>
+                                            <span jhiTranslate="geFondApp.garantie.dateRetrait">Date Retrait</span>
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let garantie of garanties ;trackBy: trackId">
+                                        <td>{{garantie.typeGar}}</td>
+                                        <td>{{garantie.montantEvalue}}</td>
+                                        <td>{{garantie.montantAfect}}</td>
+                                        <td>{{garantie.dateDepot | date:'mediumDate'}}</td>
+                                        <td>{{garantie.numDocument}}</td>
+                                        <td>{{garantie.etat}}</td>
+                                        <td>{{garantie.dateRetrait | date:'mediumDate'}}</td>
+                                        <td class="text-right">
+                                            <div class="btn-group flex-btn-group-container">
+                                                <button type="submit" [routerLink]="['../../garantie', garantie.id ]" class="btn btn-info btn-sm">
+                                                    <span class="fa fa-eye"></span>
+                                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                                                </button>
+                                                <button type="submit" [routerLink]="['/', { outlets: { popup: 'garantie/'+ garantie.id + '/edit'} }]" replaceUrl="true" queryParamsHandling="merge"
+                                                    class="btn btn-primary btn-sm">
+                                                    <span class="fa fa-pencil"></span>
+                                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                                                </button>
+                                                <button type="submit" [routerLink]="['/', { outlets: { popup: 'garantie/'+ garantie.id + '/delete'} }]" replaceUrl="true"
+                                                    queryParamsHandling="merge" class="btn btn-danger btn-sm">
+                                                    <span class="fa fa-remove"></span>
+                                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="echeances" [hidden]="emptyE()">
+                <div class="card" style="min-width: 100%;">
+                    <h5 class="card-header">L'échéancier:</h5>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <span jhiTranslate="geFondApp.echeance.dateTombe">Date Tombe</span>
+                                            <span class="fa fa-sort"></span>
+                                        </th>
+                                        <th>
+                                            <span jhiTranslate="geFondApp.echeance.montant">Montant</span>
+                                            <span class="fa fa-sort"></span>
+                                        </th>
+                                        <th>
+                                            <span jhiTranslate="geFondApp.echeance.etatEcheance">Etat Echeance</span>
+                                            <span class="fa fa-sort"></span>
+                                        </th>
+                                        <th>
+                                            <span jhiTranslate="geFondApp.echeance.datePayement">Date Payement</span>
+                                            <span class="fa fa-sort"></span>
+                                        </th>
+                                        <th>
+                                            <span jhiTranslate="geFondApp.echeance.dateRetrait">Date Retrait</span>
+                                            <span class="fa fa-sort"></span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let echeance of echeances ;trackBy: trackId">
+                                        <td>{{echeance.dateTombe | date:'mediumDate'}}</td>
+                                        <td>{{echeance.montant}}</td>
+                                        <td>{{echeance.etatEcheance}}</td>
+                                        <td>{{echeance.datePayement | date:'mediumDate'}}</td>
+                                        <td>{{echeance.dateRetrait | date:'mediumDate'}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

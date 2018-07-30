@@ -3,15 +3,15 @@
     "geFondApp": {
         "pret" : {
             "home": {
-                "title": "Prets",
-                "createLabel": "Créer un nouveau Pret",
-                "createOrEditLabel": "Créer ou éditer un Pret"
+                "title": "Prêts",
+                "createLabel": "Créer un nouveau prêt",
+                "createOrEditLabel": "Créer ou éditer un prêt"
             },
-            "created": "Un nouveau Pret a été créé avec l'identifiant {{ param }}",
-            "updated": "Le Pret avec l'identifiant {{ param }} a été mis à jour",
-            "deleted": "Le Pret avec l'identifiant {{ param }} a été supprimé",
+            "created": "Un nouveau prêt a été créé avec l'identifiant {{ param }}",
+            "updated": "Le prêt avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le prêt avec l'identifiant {{ param }} a été supprimé",
             "delete": {
-                "question": "Etes-vous certain de vouloir supprimer le Pret {{ id }} ?"
+                "question": "Etes-vous certain de vouloir supprimer le prêt {{ id }} ?"
             },
             "detail": {
                 "title": "Prêt"

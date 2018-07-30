@@ -4,7 +4,7 @@
         "garantie" : {
             "home": {
                 "title": "Garanties",
-                "createLabel": "Créer une nouvelle Garantie",
+                "createLabel": "Ajouter une garantie",
                 "createOrEditLabel": "Créer ou éditer une Garantie"
             },
             "created": "Une nouvelle Garantie a été créée avec l'identifiant {{ param }}",

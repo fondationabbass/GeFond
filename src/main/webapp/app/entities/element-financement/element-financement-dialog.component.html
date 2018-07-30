@@ -48,14 +48,6 @@
                 </span>
             </div>
         </div>
-
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="geFondApp.elementFinancement.pret" for="field_pret">Pret</label>
-            <select class="form-control" id="field_pret" name="pret" [(ngModel)]="elementFinancement.pret" >
-                <option [ngValue]="null"></option>
-                <option [ngValue]="pretOption.id === elementFinancement.pret?.id ? elementFinancement.pret : pretOption" *ngFor="let pretOption of prets; trackBy: trackPretById">{{pretOption.id}}</option>
-            </select>
-        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">

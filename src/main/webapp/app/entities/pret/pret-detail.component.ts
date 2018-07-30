@@ -6,20 +6,31 @@ import { JhiEventManager } from 'ng-jhipster';
 
 import { Pret } from './pret.model';
 import { PretService } from './pret.service';
+import { Garantie, GarantieService } from '../garantie';
+import { ElementFinancement, ElementFinancementService } from '../element-financement';
+import { Echeance, EcheanceService } from '../echeance';
 
 @Component({
     selector: 'jhi-pret-detail',
     templateUrl: './pret-detail.component.html'
 })
 export class PretDetailComponent implements OnInit, OnDestroy {
-
+    title: string = "Détail d'un pret : ";
+    events: string[] = ['pretListModification','garantieListModification',
+                        'echeanceListModification','elementFinancementListModification'];
     pret: Pret;
+    garanties:Garantie[];
+    elementFinancements: ElementFinancement[];
+    echeances:Echeance[];
     private subscription: Subscription;
     private eventSubscriber: Subscription;
 
     constructor(
         private eventManager: JhiEventManager,
         private pretService: PretService,
+        private echeanceService: EcheanceService,
+        private efService: ElementFinancementService,
+        private garantieService: GarantieService,
         private route: ActivatedRoute
     ) {
     }
@@ -30,12 +41,29 @@ export class PretDetailComponent implements OnInit, OnDestroy {
         });
         this.registerChangeInPrets();
     }
-
+    emptyEf(): boolean {
+        return this.elementFinancements.length === 0;
+    }
+    emptyG(): boolean {
+        return this.garanties.length === 0;
+    }
+    emptyE(): boolean {
+        return this.echeances.length === 0;
+    }
     load(id) {
         this.pretService.find(id)
             .subscribe((pretResponse: HttpResponse<Pret>) => {
                 this.pret = pretResponse.body;
             });
+        this.efService.query({ "pret.id.equals": id }).subscribe((pretResponse: HttpResponse<ElementFinancement[]>) => {
+            this.elementFinancements = pretResponse.body;
+        });
+        this.garantieService.query({ "pret.id.equals": id }).subscribe((pretResponse: HttpResponse<Garantie[]>) => {
+            this.garanties = pretResponse.body;
+        });
+        this.echeanceService.query({ "pret.id.equals": id }).subscribe((pretResponse: HttpResponse<Echeance[]>) => {
+            this.echeances = pretResponse.body;
+        });
     }
     previousState() {
         window.history.back();
@@ -47,9 +75,11 @@ export class PretDetailComponent implements OnInit, OnDestroy {
     }
 
     registerChangeInPrets() {
-        this.eventSubscriber = this.eventManager.subscribe(
-            'pretListModification',
-            (response) => this.load(this.pret.id)
-        );
+        this.events.forEach(element => {
+            this.eventSubscriber = this.eventManager.subscribe(
+                element,
+                (response) => this.load(this.pret.id)
+            );
+        });
     }
 }

@@ -14,6 +14,7 @@ import {
     elementFinancementRoute,
     elementFinancementPopupRoute,
 } from './';
+import { PretService } from '../pret';
 
 const ENTITY_STATES = [
     ...elementFinancementRoute,
@@ -43,6 +44,7 @@ const ENTITY_STATES = [
     providers: [
         ElementFinancementService,
         ElementFinancementPopupService,
+        PretService
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

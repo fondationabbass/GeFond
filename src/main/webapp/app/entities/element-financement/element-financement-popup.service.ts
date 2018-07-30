@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { HttpResponse } from '@angular/common/http';
 import { ElementFinancement } from './element-financement.model';
-import { ElementFinancementService } from './element-financement.service';
+import {PretService, Pret} from '../pret';
 
 @Injectable()
 export class ElementFinancementPopupService {
@@ -12,7 +12,7 @@ export class ElementFinancementPopupService {
     constructor(
         private modalService: NgbModal,
         private router: Router,
-        private elementFinancementService: ElementFinancementService
+        private pretService: PretService
 
     ) {
         this.ngbModalRef = null;
@@ -26,16 +26,10 @@ export class ElementFinancementPopupService {
             }
 
             if (id) {
-                this.elementFinancementService.find(id)
-                    .subscribe((elementFinancementResponse: HttpResponse<ElementFinancement>) => {
-                        const elementFinancement: ElementFinancement = elementFinancementResponse.body;
-                        if (elementFinancement.dateFinancement) {
-                            elementFinancement.dateFinancement = {
-                                year: elementFinancement.dateFinancement.getFullYear(),
-                                month: elementFinancement.dateFinancement.getMonth() + 1,
-                                day: elementFinancement.dateFinancement.getDate()
-                            };
-                        }
+                this.pretService.find(id)
+                    .subscribe((resp: HttpResponse<Pret>) => {
+                        const elementFinancement: ElementFinancement = new ElementFinancement();
+                        elementFinancement.pret = resp.body;
                         this.ngbModalRef = this.elementFinancementModalRef(component, elementFinancement);
                         resolve(this.ngbModalRef);
                     });
