@@ -11,6 +11,6 @@ import org.springframework.data.jpa.repository.*;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface EcheanceRepository extends JpaRepository<Echeance, Long> {
+public interface EcheanceRepository extends JpaRepository<Echeance, Long>, JpaSpecificationExecutor<Echeance> {
 
 }

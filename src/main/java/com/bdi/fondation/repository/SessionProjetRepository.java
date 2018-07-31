@@ -11,6 +11,6 @@ import org.springframework.data.jpa.repository.*;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface SessionProjetRepository extends JpaRepository<SessionProjet, Long> {
+public interface SessionProjetRepository extends JpaRepository<SessionProjet, Long>, JpaSpecificationExecutor<SessionProjet> {
 
 }

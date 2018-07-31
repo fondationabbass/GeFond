@@ -11,6 +11,6 @@ import org.springframework.data.jpa.repository.*;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface ChapitreRepository extends JpaRepository<Chapitre, Long> {
+public interface ChapitreRepository extends JpaRepository<Chapitre, Long>, JpaSpecificationExecutor<Chapitre> {
 
 }

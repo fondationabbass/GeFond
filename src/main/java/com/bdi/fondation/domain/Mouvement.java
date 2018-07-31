@@ -48,6 +48,9 @@ public class Mouvement implements Serializable {
     @ManyToOne
     private Compte compte;
 
+    @ManyToOne
+    private Pret pret;
+
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "mouvement_echeance",
@@ -140,6 +143,19 @@ public class Mouvement implements Serializable {
 
     public void setCompte(Compte compte) {
         this.compte = compte;
+    }
+
+    public Pret getPret() {
+        return pret;
+    }
+
+    public Mouvement pret(Pret pret) {
+        this.pret = pret;
+        return this;
+    }
+
+    public void setPret(Pret pret) {
+        this.pret = pret;
     }
 
     public Set<Echeance> getEcheances() {

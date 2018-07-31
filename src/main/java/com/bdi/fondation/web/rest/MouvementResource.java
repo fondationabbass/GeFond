@@ -2,11 +2,12 @@ package com.bdi.fondation.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.bdi.fondation.domain.Mouvement;
-
-import com.bdi.fondation.repository.MouvementRepository;
+import com.bdi.fondation.service.MouvementService;
 import com.bdi.fondation.web.rest.errors.BadRequestAlertException;
 import com.bdi.fondation.web.rest.util.HeaderUtil;
 import com.bdi.fondation.web.rest.util.PaginationUtil;
+import com.bdi.fondation.service.dto.MouvementCriteria;
+import com.bdi.fondation.service.MouvementQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,10 +36,13 @@ public class MouvementResource {
 
     private static final String ENTITY_NAME = "mouvement";
 
-    private final MouvementRepository mouvementRepository;
+    private final MouvementService mouvementService;
 
-    public MouvementResource(MouvementRepository mouvementRepository) {
-        this.mouvementRepository = mouvementRepository;
+    private final MouvementQueryService mouvementQueryService;
+
+    public MouvementResource(MouvementService mouvementService, MouvementQueryService mouvementQueryService) {
+        this.mouvementService = mouvementService;
+        this.mouvementQueryService = mouvementQueryService;
     }
 
     /**
@@ -55,7 +59,7 @@ public class MouvementResource {
         if (mouvement.getId() != null) {
             throw new BadRequestAlertException("A new mouvement cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Mouvement result = mouvementRepository.save(mouvement);
+        Mouvement result = mouvementService.save(mouvement);
         return ResponseEntity.created(new URI("/api/mouvements/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -77,7 +81,7 @@ public class MouvementResource {
         if (mouvement.getId() == null) {
             return createMouvement(mouvement);
         }
-        Mouvement result = mouvementRepository.save(mouvement);
+        Mouvement result = mouvementService.save(mouvement);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, mouvement.getId().toString()))
             .body(result);
@@ -87,13 +91,14 @@ public class MouvementResource {
      * GET  /mouvements : get all the mouvements.
      *
      * @param pageable the pagination information
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of mouvements in body
      */
     @GetMapping("/mouvements")
     @Timed
-    public ResponseEntity<List<Mouvement>> getAllMouvements(Pageable pageable) {
-        log.debug("REST request to get a page of Mouvements");
-        Page<Mouvement> page = mouvementRepository.findAll(pageable);
+    public ResponseEntity<List<Mouvement>> getAllMouvements(MouvementCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get Mouvements by criteria: {}", criteria);
+        Page<Mouvement> page = mouvementQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/mouvements");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -108,7 +113,7 @@ public class MouvementResource {
     @Timed
     public ResponseEntity<Mouvement> getMouvement(@PathVariable Long id) {
         log.debug("REST request to get Mouvement : {}", id);
-        Mouvement mouvement = mouvementRepository.findOneWithEagerRelationships(id);
+        Mouvement mouvement = mouvementService.findOne(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(mouvement));
     }
 
@@ -122,7 +127,7 @@ public class MouvementResource {
     @Timed
     public ResponseEntity<Void> deleteMouvement(@PathVariable Long id) {
         log.debug("REST request to delete Mouvement : {}", id);
-        mouvementRepository.delete(id);
+        mouvementService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }

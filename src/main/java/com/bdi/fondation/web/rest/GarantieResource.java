@@ -2,10 +2,11 @@ package com.bdi.fondation.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.bdi.fondation.domain.Garantie;
-
-import com.bdi.fondation.repository.GarantieRepository;
+import com.bdi.fondation.service.GarantieService;
 import com.bdi.fondation.web.rest.errors.BadRequestAlertException;
 import com.bdi.fondation.web.rest.util.HeaderUtil;
+import com.bdi.fondation.service.dto.GarantieCriteria;
+import com.bdi.fondation.service.GarantieQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,10 +31,13 @@ public class GarantieResource {
 
     private static final String ENTITY_NAME = "garantie";
 
-    private final GarantieRepository garantieRepository;
+    private final GarantieService garantieService;
 
-    public GarantieResource(GarantieRepository garantieRepository) {
-        this.garantieRepository = garantieRepository;
+    private final GarantieQueryService garantieQueryService;
+
+    public GarantieResource(GarantieService garantieService, GarantieQueryService garantieQueryService) {
+        this.garantieService = garantieService;
+        this.garantieQueryService = garantieQueryService;
     }
 
     /**
@@ -50,7 +54,7 @@ public class GarantieResource {
         if (garantie.getId() != null) {
             throw new BadRequestAlertException("A new garantie cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Garantie result = garantieRepository.save(garantie);
+        Garantie result = garantieService.save(garantie);
         return ResponseEntity.created(new URI("/api/garanties/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -72,7 +76,7 @@ public class GarantieResource {
         if (garantie.getId() == null) {
             return createGarantie(garantie);
         }
-        Garantie result = garantieRepository.save(garantie);
+        Garantie result = garantieService.save(garantie);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, garantie.getId().toString()))
             .body(result);
@@ -81,14 +85,16 @@ public class GarantieResource {
     /**
      * GET  /garanties : get all the garanties.
      *
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of garanties in body
      */
     @GetMapping("/garanties")
     @Timed
-    public List<Garantie> getAllGaranties() {
-        log.debug("REST request to get all Garanties");
-        return garantieRepository.findAll();
-        }
+    public ResponseEntity<List<Garantie>> getAllGaranties(GarantieCriteria criteria) {
+        log.debug("REST request to get Garanties by criteria: {}", criteria);
+        List<Garantie> entityList = garantieQueryService.findByCriteria(criteria);
+        return ResponseEntity.ok().body(entityList);
+    }
 
     /**
      * GET  /garanties/:id : get the "id" garantie.
@@ -100,7 +106,7 @@ public class GarantieResource {
     @Timed
     public ResponseEntity<Garantie> getGarantie(@PathVariable Long id) {
         log.debug("REST request to get Garantie : {}", id);
-        Garantie garantie = garantieRepository.findOne(id);
+        Garantie garantie = garantieService.findOne(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(garantie));
     }
 
@@ -114,7 +120,7 @@ public class GarantieResource {
     @Timed
     public ResponseEntity<Void> deleteGarantie(@PathVariable Long id) {
         log.debug("REST request to delete Garantie : {}", id);
-        garantieRepository.delete(id);
+        garantieService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }

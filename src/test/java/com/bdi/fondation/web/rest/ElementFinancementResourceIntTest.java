@@ -3,8 +3,12 @@ package com.bdi.fondation.web.rest;
 import com.bdi.fondation.GeFondApp;
 
 import com.bdi.fondation.domain.ElementFinancement;
+import com.bdi.fondation.domain.Pret;
 import com.bdi.fondation.repository.ElementFinancementRepository;
+import com.bdi.fondation.service.ElementFinancementService;
 import com.bdi.fondation.web.rest.errors.ExceptionTranslator;
+import com.bdi.fondation.service.dto.ElementFinancementCriteria;
+import com.bdi.fondation.service.ElementFinancementQueryService;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -53,6 +57,12 @@ public class ElementFinancementResourceIntTest {
     private ElementFinancementRepository elementFinancementRepository;
 
     @Autowired
+    private ElementFinancementService elementFinancementService;
+
+    @Autowired
+    private ElementFinancementQueryService elementFinancementQueryService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -71,7 +81,7 @@ public class ElementFinancementResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ElementFinancementResource elementFinancementResource = new ElementFinancementResource(elementFinancementRepository);
+        final ElementFinancementResource elementFinancementResource = new ElementFinancementResource(elementFinancementService, elementFinancementQueryService);
         this.restElementFinancementMockMvc = MockMvcBuilders.standaloneSetup(elementFinancementResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -207,6 +217,193 @@ public class ElementFinancementResourceIntTest {
 
     @Test
     @Transactional
+    public void getAllElementFinancementsByTypeIsEqualToSomething() throws Exception {
+        // Initialize the database
+        elementFinancementRepository.saveAndFlush(elementFinancement);
+
+        // Get all the elementFinancementList where type equals to DEFAULT_TYPE
+        defaultElementFinancementShouldBeFound("type.equals=" + DEFAULT_TYPE);
+
+        // Get all the elementFinancementList where type equals to UPDATED_TYPE
+        defaultElementFinancementShouldNotBeFound("type.equals=" + UPDATED_TYPE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllElementFinancementsByTypeIsInShouldWork() throws Exception {
+        // Initialize the database
+        elementFinancementRepository.saveAndFlush(elementFinancement);
+
+        // Get all the elementFinancementList where type in DEFAULT_TYPE or UPDATED_TYPE
+        defaultElementFinancementShouldBeFound("type.in=" + DEFAULT_TYPE + "," + UPDATED_TYPE);
+
+        // Get all the elementFinancementList where type equals to UPDATED_TYPE
+        defaultElementFinancementShouldNotBeFound("type.in=" + UPDATED_TYPE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllElementFinancementsByTypeIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        elementFinancementRepository.saveAndFlush(elementFinancement);
+
+        // Get all the elementFinancementList where type is not null
+        defaultElementFinancementShouldBeFound("type.specified=true");
+
+        // Get all the elementFinancementList where type is null
+        defaultElementFinancementShouldNotBeFound("type.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllElementFinancementsByMontantIsEqualToSomething() throws Exception {
+        // Initialize the database
+        elementFinancementRepository.saveAndFlush(elementFinancement);
+
+        // Get all the elementFinancementList where montant equals to DEFAULT_MONTANT
+        defaultElementFinancementShouldBeFound("montant.equals=" + DEFAULT_MONTANT);
+
+        // Get all the elementFinancementList where montant equals to UPDATED_MONTANT
+        defaultElementFinancementShouldNotBeFound("montant.equals=" + UPDATED_MONTANT);
+    }
+
+    @Test
+    @Transactional
+    public void getAllElementFinancementsByMontantIsInShouldWork() throws Exception {
+        // Initialize the database
+        elementFinancementRepository.saveAndFlush(elementFinancement);
+
+        // Get all the elementFinancementList where montant in DEFAULT_MONTANT or UPDATED_MONTANT
+        defaultElementFinancementShouldBeFound("montant.in=" + DEFAULT_MONTANT + "," + UPDATED_MONTANT);
+
+        // Get all the elementFinancementList where montant equals to UPDATED_MONTANT
+        defaultElementFinancementShouldNotBeFound("montant.in=" + UPDATED_MONTANT);
+    }
+
+    @Test
+    @Transactional
+    public void getAllElementFinancementsByMontantIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        elementFinancementRepository.saveAndFlush(elementFinancement);
+
+        // Get all the elementFinancementList where montant is not null
+        defaultElementFinancementShouldBeFound("montant.specified=true");
+
+        // Get all the elementFinancementList where montant is null
+        defaultElementFinancementShouldNotBeFound("montant.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllElementFinancementsByDateFinancementIsEqualToSomething() throws Exception {
+        // Initialize the database
+        elementFinancementRepository.saveAndFlush(elementFinancement);
+
+        // Get all the elementFinancementList where dateFinancement equals to DEFAULT_DATE_FINANCEMENT
+        defaultElementFinancementShouldBeFound("dateFinancement.equals=" + DEFAULT_DATE_FINANCEMENT);
+
+        // Get all the elementFinancementList where dateFinancement equals to UPDATED_DATE_FINANCEMENT
+        defaultElementFinancementShouldNotBeFound("dateFinancement.equals=" + UPDATED_DATE_FINANCEMENT);
+    }
+
+    @Test
+    @Transactional
+    public void getAllElementFinancementsByDateFinancementIsInShouldWork() throws Exception {
+        // Initialize the database
+        elementFinancementRepository.saveAndFlush(elementFinancement);
+
+        // Get all the elementFinancementList where dateFinancement in DEFAULT_DATE_FINANCEMENT or UPDATED_DATE_FINANCEMENT
+        defaultElementFinancementShouldBeFound("dateFinancement.in=" + DEFAULT_DATE_FINANCEMENT + "," + UPDATED_DATE_FINANCEMENT);
+
+        // Get all the elementFinancementList where dateFinancement equals to UPDATED_DATE_FINANCEMENT
+        defaultElementFinancementShouldNotBeFound("dateFinancement.in=" + UPDATED_DATE_FINANCEMENT);
+    }
+
+    @Test
+    @Transactional
+    public void getAllElementFinancementsByDateFinancementIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        elementFinancementRepository.saveAndFlush(elementFinancement);
+
+        // Get all the elementFinancementList where dateFinancement is not null
+        defaultElementFinancementShouldBeFound("dateFinancement.specified=true");
+
+        // Get all the elementFinancementList where dateFinancement is null
+        defaultElementFinancementShouldNotBeFound("dateFinancement.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllElementFinancementsByDateFinancementIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        elementFinancementRepository.saveAndFlush(elementFinancement);
+
+        // Get all the elementFinancementList where dateFinancement greater than or equals to DEFAULT_DATE_FINANCEMENT
+        defaultElementFinancementShouldBeFound("dateFinancement.greaterOrEqualThan=" + DEFAULT_DATE_FINANCEMENT);
+
+        // Get all the elementFinancementList where dateFinancement greater than or equals to UPDATED_DATE_FINANCEMENT
+        defaultElementFinancementShouldNotBeFound("dateFinancement.greaterOrEqualThan=" + UPDATED_DATE_FINANCEMENT);
+    }
+
+    @Test
+    @Transactional
+    public void getAllElementFinancementsByDateFinancementIsLessThanSomething() throws Exception {
+        // Initialize the database
+        elementFinancementRepository.saveAndFlush(elementFinancement);
+
+        // Get all the elementFinancementList where dateFinancement less than or equals to DEFAULT_DATE_FINANCEMENT
+        defaultElementFinancementShouldNotBeFound("dateFinancement.lessThan=" + DEFAULT_DATE_FINANCEMENT);
+
+        // Get all the elementFinancementList where dateFinancement less than or equals to UPDATED_DATE_FINANCEMENT
+        defaultElementFinancementShouldBeFound("dateFinancement.lessThan=" + UPDATED_DATE_FINANCEMENT);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllElementFinancementsByPretIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Pret pret = PretResourceIntTest.createEntity(em);
+        em.persist(pret);
+        em.flush();
+        elementFinancement.setPret(pret);
+        elementFinancementRepository.saveAndFlush(elementFinancement);
+        Long pretId = pret.getId();
+
+        // Get all the elementFinancementList where pret equals to pretId
+        defaultElementFinancementShouldBeFound("pretId.equals=" + pretId);
+
+        // Get all the elementFinancementList where pret equals to pretId + 1
+        defaultElementFinancementShouldNotBeFound("pretId.equals=" + (pretId + 1));
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is returned
+     */
+    private void defaultElementFinancementShouldBeFound(String filter) throws Exception {
+        restElementFinancementMockMvc.perform(get("/api/element-financements?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(elementFinancement.getId().intValue())))
+            .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
+            .andExpect(jsonPath("$.[*].montant").value(hasItem(DEFAULT_MONTANT.doubleValue())))
+            .andExpect(jsonPath("$.[*].dateFinancement").value(hasItem(DEFAULT_DATE_FINANCEMENT.toString())));
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is not returned
+     */
+    private void defaultElementFinancementShouldNotBeFound(String filter) throws Exception {
+        restElementFinancementMockMvc.perform(get("/api/element-financements?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$").isArray())
+            .andExpect(jsonPath("$").isEmpty());
+    }
+
+
+    @Test
+    @Transactional
     public void getNonExistingElementFinancement() throws Exception {
         // Get the elementFinancement
         restElementFinancementMockMvc.perform(get("/api/element-financements/{id}", Long.MAX_VALUE))
@@ -217,7 +414,8 @@ public class ElementFinancementResourceIntTest {
     @Transactional
     public void updateElementFinancement() throws Exception {
         // Initialize the database
-        elementFinancementRepository.saveAndFlush(elementFinancement);
+        elementFinancementService.save(elementFinancement);
+
         int databaseSizeBeforeUpdate = elementFinancementRepository.findAll().size();
 
         // Update the elementFinancement
@@ -265,7 +463,8 @@ public class ElementFinancementResourceIntTest {
     @Transactional
     public void deleteElementFinancement() throws Exception {
         // Initialize the database
-        elementFinancementRepository.saveAndFlush(elementFinancement);
+        elementFinancementService.save(elementFinancement);
+
         int databaseSizeBeforeDelete = elementFinancementRepository.findAll().size();
 
         // Get the elementFinancement

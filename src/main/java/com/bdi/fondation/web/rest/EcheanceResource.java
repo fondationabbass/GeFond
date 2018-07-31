@@ -2,11 +2,12 @@ package com.bdi.fondation.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.bdi.fondation.domain.Echeance;
-
-import com.bdi.fondation.repository.EcheanceRepository;
+import com.bdi.fondation.service.EcheanceService;
 import com.bdi.fondation.web.rest.errors.BadRequestAlertException;
 import com.bdi.fondation.web.rest.util.HeaderUtil;
 import com.bdi.fondation.web.rest.util.PaginationUtil;
+import com.bdi.fondation.service.dto.EcheanceCriteria;
+import com.bdi.fondation.service.EcheanceQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,10 +36,13 @@ public class EcheanceResource {
 
     private static final String ENTITY_NAME = "echeance";
 
-    private final EcheanceRepository echeanceRepository;
+    private final EcheanceService echeanceService;
 
-    public EcheanceResource(EcheanceRepository echeanceRepository) {
-        this.echeanceRepository = echeanceRepository;
+    private final EcheanceQueryService echeanceQueryService;
+
+    public EcheanceResource(EcheanceService echeanceService, EcheanceQueryService echeanceQueryService) {
+        this.echeanceService = echeanceService;
+        this.echeanceQueryService = echeanceQueryService;
     }
 
     /**
@@ -55,7 +59,7 @@ public class EcheanceResource {
         if (echeance.getId() != null) {
             throw new BadRequestAlertException("A new echeance cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Echeance result = echeanceRepository.save(echeance);
+        Echeance result = echeanceService.save(echeance);
         return ResponseEntity.created(new URI("/api/echeances/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -77,7 +81,7 @@ public class EcheanceResource {
         if (echeance.getId() == null) {
             return createEcheance(echeance);
         }
-        Echeance result = echeanceRepository.save(echeance);
+        Echeance result = echeanceService.save(echeance);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, echeance.getId().toString()))
             .body(result);
@@ -87,13 +91,14 @@ public class EcheanceResource {
      * GET  /echeances : get all the echeances.
      *
      * @param pageable the pagination information
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of echeances in body
      */
     @GetMapping("/echeances")
     @Timed
-    public ResponseEntity<List<Echeance>> getAllEcheances(Pageable pageable) {
-        log.debug("REST request to get a page of Echeances");
-        Page<Echeance> page = echeanceRepository.findAll(pageable);
+    public ResponseEntity<List<Echeance>> getAllEcheances(EcheanceCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get Echeances by criteria: {}", criteria);
+        Page<Echeance> page = echeanceQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/echeances");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -108,7 +113,7 @@ public class EcheanceResource {
     @Timed
     public ResponseEntity<Echeance> getEcheance(@PathVariable Long id) {
         log.debug("REST request to get Echeance : {}", id);
-        Echeance echeance = echeanceRepository.findOne(id);
+        Echeance echeance = echeanceService.findOne(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(echeance));
     }
 
@@ -122,7 +127,7 @@ public class EcheanceResource {
     @Timed
     public ResponseEntity<Void> deleteEcheance(@PathVariable Long id) {
         log.debug("REST request to delete Echeance : {}", id);
-        echeanceRepository.delete(id);
+        echeanceService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }

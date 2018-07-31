@@ -2,11 +2,11 @@ package com.bdi.fondation.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.bdi.fondation.domain.Parametrage;
-
-import com.bdi.fondation.repository.ParametrageRepository;
-import com.bdi.fondation.service.dto.PeriodType;
+import com.bdi.fondation.service.ParametrageService;
 import com.bdi.fondation.web.rest.errors.BadRequestAlertException;
 import com.bdi.fondation.web.rest.util.HeaderUtil;
+import com.bdi.fondation.service.dto.ParametrageCriteria;
+import com.bdi.fondation.service.ParametrageQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +18,6 @@ import java.net.URISyntaxException;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * REST controller for managing Parametrage.
@@ -27,20 +26,17 @@ import java.util.stream.Collectors;
 @RequestMapping("/api")
 public class ParametrageResource {
 
-    private static final String TYPE_GARANTIE = "Type garantie";
-
-	private static final String TYPE_FINANCEMENT = "Type financement";
-
-	private static final String TYPE_PRET = "Type pret";
-
-	private final Logger log = LoggerFactory.getLogger(ParametrageResource.class);
+    private final Logger log = LoggerFactory.getLogger(ParametrageResource.class);
 
     private static final String ENTITY_NAME = "parametrage";
 
-    private final ParametrageRepository parametrageRepository;
+    private final ParametrageService parametrageService;
 
-    public ParametrageResource(ParametrageRepository parametrageRepository) {
-        this.parametrageRepository = parametrageRepository;
+    private final ParametrageQueryService parametrageQueryService;
+
+    public ParametrageResource(ParametrageService parametrageService, ParametrageQueryService parametrageQueryService) {
+        this.parametrageService = parametrageService;
+        this.parametrageQueryService = parametrageQueryService;
     }
 
     /**
@@ -57,7 +53,7 @@ public class ParametrageResource {
         if (parametrage.getId() != null) {
             throw new BadRequestAlertException("A new parametrage cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Parametrage result = parametrageRepository.save(parametrage);
+        Parametrage result = parametrageService.save(parametrage);
         return ResponseEntity.created(new URI("/api/parametrages/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -79,7 +75,7 @@ public class ParametrageResource {
         if (parametrage.getId() == null) {
             return createParametrage(parametrage);
         }
-        Parametrage result = parametrageRepository.save(parametrage);
+        Parametrage result = parametrageService.save(parametrage);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, parametrage.getId().toString()))
             .body(result);
@@ -88,39 +84,17 @@ public class ParametrageResource {
     /**
      * GET  /parametrages : get all the parametrages.
      *
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of parametrages in body
      */
     @GetMapping("/parametrages")
     @Timed
-    public List<Parametrage> getAllParametrages() {
-        log.debug("REST request to get all Parametrages");
-        return parametrageRepository.findAll();
-        }
-    
-    @GetMapping("/parametrages/pretTypes")
-    @Timed
-    public List<String> getPretTypes() {
-        log.debug("REST request to get pret Types");
-        return parametrageRepository.findByCodeTypeParam(TYPE_PRET).stream().map(a -> a.getLibelle()).collect(Collectors.toList());
-        }
-    @GetMapping("/parametrages/financementTypes")
-    @Timed
-    public List<String> getFinancementTypes() {
-    	log.debug("REST request to get financement Types");
-    	return parametrageRepository.findByCodeTypeParam(TYPE_FINANCEMENT).stream().map(a -> a.getLibelle()).collect(Collectors.toList());
+    public ResponseEntity<List<Parametrage>> getAllParametrages(ParametrageCriteria criteria) {
+        log.debug("REST request to get Parametrages by criteria: {}", criteria);
+        List<Parametrage> entityList = parametrageQueryService.findByCriteria(criteria);
+        return ResponseEntity.ok().body(entityList);
     }
-    @GetMapping("/parametrages/garantieTypes")
-    @Timed
-    public List<String> getGarantiesTypes() {
-    	log.debug("REST request to get garantie Types");
-    	return parametrageRepository.findByCodeTypeParam(TYPE_GARANTIE).stream().map(a -> a.getLibelle()).collect(Collectors.toList());
-    }
-    @GetMapping("/parametrages/periodTypes")
-    @Timed
-    public List<PeriodType> getPeriodTypes() {
-    	log.debug("REST request to get garantie Types");
-    	return parametrageRepository.findByCodeTypeParam("Type periode").stream().map(a -> new PeriodType(a)).collect(Collectors.toList());
-    }
+
     /**
      * GET  /parametrages/:id : get the "id" parametrage.
      *
@@ -131,7 +105,7 @@ public class ParametrageResource {
     @Timed
     public ResponseEntity<Parametrage> getParametrage(@PathVariable Long id) {
         log.debug("REST request to get Parametrage : {}", id);
-        Parametrage parametrage = parametrageRepository.findOne(id);
+        Parametrage parametrage = parametrageService.findOne(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(parametrage));
     }
 
@@ -145,7 +119,7 @@ public class ParametrageResource {
     @Timed
     public ResponseEntity<Void> deleteParametrage(@PathVariable Long id) {
         log.debug("REST request to delete Parametrage : {}", id);
-        parametrageRepository.delete(id);
+        parametrageService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }

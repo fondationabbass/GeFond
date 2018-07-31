@@ -11,6 +11,6 @@ import org.springframework.data.jpa.repository.*;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface EntretienRepository extends JpaRepository<Entretien, Long> {
+public interface EntretienRepository extends JpaRepository<Entretien, Long>, JpaSpecificationExecutor<Entretien> {
 
 }

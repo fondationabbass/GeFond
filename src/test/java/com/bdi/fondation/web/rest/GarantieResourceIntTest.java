@@ -3,8 +3,12 @@ package com.bdi.fondation.web.rest;
 import com.bdi.fondation.GeFondApp;
 
 import com.bdi.fondation.domain.Garantie;
+import com.bdi.fondation.domain.Pret;
 import com.bdi.fondation.repository.GarantieRepository;
+import com.bdi.fondation.service.GarantieService;
 import com.bdi.fondation.web.rest.errors.ExceptionTranslator;
+import com.bdi.fondation.service.dto.GarantieCriteria;
+import com.bdi.fondation.service.GarantieQueryService;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -65,6 +69,12 @@ public class GarantieResourceIntTest {
     private GarantieRepository garantieRepository;
 
     @Autowired
+    private GarantieService garantieService;
+
+    @Autowired
+    private GarantieQueryService garantieQueryService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -83,7 +93,7 @@ public class GarantieResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final GarantieResource garantieResource = new GarantieResource(garantieRepository);
+        final GarantieResource garantieResource = new GarantieResource(garantieService, garantieQueryService);
         this.restGarantieMockMvc = MockMvcBuilders.standaloneSetup(garantieResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -289,6 +299,380 @@ public class GarantieResourceIntTest {
 
     @Test
     @Transactional
+    public void getAllGarantiesByTypeGarIsEqualToSomething() throws Exception {
+        // Initialize the database
+        garantieRepository.saveAndFlush(garantie);
+
+        // Get all the garantieList where typeGar equals to DEFAULT_TYPE_GAR
+        defaultGarantieShouldBeFound("typeGar.equals=" + DEFAULT_TYPE_GAR);
+
+        // Get all the garantieList where typeGar equals to UPDATED_TYPE_GAR
+        defaultGarantieShouldNotBeFound("typeGar.equals=" + UPDATED_TYPE_GAR);
+    }
+
+    @Test
+    @Transactional
+    public void getAllGarantiesByTypeGarIsInShouldWork() throws Exception {
+        // Initialize the database
+        garantieRepository.saveAndFlush(garantie);
+
+        // Get all the garantieList where typeGar in DEFAULT_TYPE_GAR or UPDATED_TYPE_GAR
+        defaultGarantieShouldBeFound("typeGar.in=" + DEFAULT_TYPE_GAR + "," + UPDATED_TYPE_GAR);
+
+        // Get all the garantieList where typeGar equals to UPDATED_TYPE_GAR
+        defaultGarantieShouldNotBeFound("typeGar.in=" + UPDATED_TYPE_GAR);
+    }
+
+    @Test
+    @Transactional
+    public void getAllGarantiesByTypeGarIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        garantieRepository.saveAndFlush(garantie);
+
+        // Get all the garantieList where typeGar is not null
+        defaultGarantieShouldBeFound("typeGar.specified=true");
+
+        // Get all the garantieList where typeGar is null
+        defaultGarantieShouldNotBeFound("typeGar.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllGarantiesByMontantEvalueIsEqualToSomething() throws Exception {
+        // Initialize the database
+        garantieRepository.saveAndFlush(garantie);
+
+        // Get all the garantieList where montantEvalue equals to DEFAULT_MONTANT_EVALUE
+        defaultGarantieShouldBeFound("montantEvalue.equals=" + DEFAULT_MONTANT_EVALUE);
+
+        // Get all the garantieList where montantEvalue equals to UPDATED_MONTANT_EVALUE
+        defaultGarantieShouldNotBeFound("montantEvalue.equals=" + UPDATED_MONTANT_EVALUE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllGarantiesByMontantEvalueIsInShouldWork() throws Exception {
+        // Initialize the database
+        garantieRepository.saveAndFlush(garantie);
+
+        // Get all the garantieList where montantEvalue in DEFAULT_MONTANT_EVALUE or UPDATED_MONTANT_EVALUE
+        defaultGarantieShouldBeFound("montantEvalue.in=" + DEFAULT_MONTANT_EVALUE + "," + UPDATED_MONTANT_EVALUE);
+
+        // Get all the garantieList where montantEvalue equals to UPDATED_MONTANT_EVALUE
+        defaultGarantieShouldNotBeFound("montantEvalue.in=" + UPDATED_MONTANT_EVALUE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllGarantiesByMontantEvalueIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        garantieRepository.saveAndFlush(garantie);
+
+        // Get all the garantieList where montantEvalue is not null
+        defaultGarantieShouldBeFound("montantEvalue.specified=true");
+
+        // Get all the garantieList where montantEvalue is null
+        defaultGarantieShouldNotBeFound("montantEvalue.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllGarantiesByMontantAfectIsEqualToSomething() throws Exception {
+        // Initialize the database
+        garantieRepository.saveAndFlush(garantie);
+
+        // Get all the garantieList where montantAfect equals to DEFAULT_MONTANT_AFECT
+        defaultGarantieShouldBeFound("montantAfect.equals=" + DEFAULT_MONTANT_AFECT);
+
+        // Get all the garantieList where montantAfect equals to UPDATED_MONTANT_AFECT
+        defaultGarantieShouldNotBeFound("montantAfect.equals=" + UPDATED_MONTANT_AFECT);
+    }
+
+    @Test
+    @Transactional
+    public void getAllGarantiesByMontantAfectIsInShouldWork() throws Exception {
+        // Initialize the database
+        garantieRepository.saveAndFlush(garantie);
+
+        // Get all the garantieList where montantAfect in DEFAULT_MONTANT_AFECT or UPDATED_MONTANT_AFECT
+        defaultGarantieShouldBeFound("montantAfect.in=" + DEFAULT_MONTANT_AFECT + "," + UPDATED_MONTANT_AFECT);
+
+        // Get all the garantieList where montantAfect equals to UPDATED_MONTANT_AFECT
+        defaultGarantieShouldNotBeFound("montantAfect.in=" + UPDATED_MONTANT_AFECT);
+    }
+
+    @Test
+    @Transactional
+    public void getAllGarantiesByMontantAfectIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        garantieRepository.saveAndFlush(garantie);
+
+        // Get all the garantieList where montantAfect is not null
+        defaultGarantieShouldBeFound("montantAfect.specified=true");
+
+        // Get all the garantieList where montantAfect is null
+        defaultGarantieShouldNotBeFound("montantAfect.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllGarantiesByDateDepotIsEqualToSomething() throws Exception {
+        // Initialize the database
+        garantieRepository.saveAndFlush(garantie);
+
+        // Get all the garantieList where dateDepot equals to DEFAULT_DATE_DEPOT
+        defaultGarantieShouldBeFound("dateDepot.equals=" + DEFAULT_DATE_DEPOT);
+
+        // Get all the garantieList where dateDepot equals to UPDATED_DATE_DEPOT
+        defaultGarantieShouldNotBeFound("dateDepot.equals=" + UPDATED_DATE_DEPOT);
+    }
+
+    @Test
+    @Transactional
+    public void getAllGarantiesByDateDepotIsInShouldWork() throws Exception {
+        // Initialize the database
+        garantieRepository.saveAndFlush(garantie);
+
+        // Get all the garantieList where dateDepot in DEFAULT_DATE_DEPOT or UPDATED_DATE_DEPOT
+        defaultGarantieShouldBeFound("dateDepot.in=" + DEFAULT_DATE_DEPOT + "," + UPDATED_DATE_DEPOT);
+
+        // Get all the garantieList where dateDepot equals to UPDATED_DATE_DEPOT
+        defaultGarantieShouldNotBeFound("dateDepot.in=" + UPDATED_DATE_DEPOT);
+    }
+
+    @Test
+    @Transactional
+    public void getAllGarantiesByDateDepotIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        garantieRepository.saveAndFlush(garantie);
+
+        // Get all the garantieList where dateDepot is not null
+        defaultGarantieShouldBeFound("dateDepot.specified=true");
+
+        // Get all the garantieList where dateDepot is null
+        defaultGarantieShouldNotBeFound("dateDepot.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllGarantiesByDateDepotIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        garantieRepository.saveAndFlush(garantie);
+
+        // Get all the garantieList where dateDepot greater than or equals to DEFAULT_DATE_DEPOT
+        defaultGarantieShouldBeFound("dateDepot.greaterOrEqualThan=" + DEFAULT_DATE_DEPOT);
+
+        // Get all the garantieList where dateDepot greater than or equals to UPDATED_DATE_DEPOT
+        defaultGarantieShouldNotBeFound("dateDepot.greaterOrEqualThan=" + UPDATED_DATE_DEPOT);
+    }
+
+    @Test
+    @Transactional
+    public void getAllGarantiesByDateDepotIsLessThanSomething() throws Exception {
+        // Initialize the database
+        garantieRepository.saveAndFlush(garantie);
+
+        // Get all the garantieList where dateDepot less than or equals to DEFAULT_DATE_DEPOT
+        defaultGarantieShouldNotBeFound("dateDepot.lessThan=" + DEFAULT_DATE_DEPOT);
+
+        // Get all the garantieList where dateDepot less than or equals to UPDATED_DATE_DEPOT
+        defaultGarantieShouldBeFound("dateDepot.lessThan=" + UPDATED_DATE_DEPOT);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllGarantiesByNumDocumentIsEqualToSomething() throws Exception {
+        // Initialize the database
+        garantieRepository.saveAndFlush(garantie);
+
+        // Get all the garantieList where numDocument equals to DEFAULT_NUM_DOCUMENT
+        defaultGarantieShouldBeFound("numDocument.equals=" + DEFAULT_NUM_DOCUMENT);
+
+        // Get all the garantieList where numDocument equals to UPDATED_NUM_DOCUMENT
+        defaultGarantieShouldNotBeFound("numDocument.equals=" + UPDATED_NUM_DOCUMENT);
+    }
+
+    @Test
+    @Transactional
+    public void getAllGarantiesByNumDocumentIsInShouldWork() throws Exception {
+        // Initialize the database
+        garantieRepository.saveAndFlush(garantie);
+
+        // Get all the garantieList where numDocument in DEFAULT_NUM_DOCUMENT or UPDATED_NUM_DOCUMENT
+        defaultGarantieShouldBeFound("numDocument.in=" + DEFAULT_NUM_DOCUMENT + "," + UPDATED_NUM_DOCUMENT);
+
+        // Get all the garantieList where numDocument equals to UPDATED_NUM_DOCUMENT
+        defaultGarantieShouldNotBeFound("numDocument.in=" + UPDATED_NUM_DOCUMENT);
+    }
+
+    @Test
+    @Transactional
+    public void getAllGarantiesByNumDocumentIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        garantieRepository.saveAndFlush(garantie);
+
+        // Get all the garantieList where numDocument is not null
+        defaultGarantieShouldBeFound("numDocument.specified=true");
+
+        // Get all the garantieList where numDocument is null
+        defaultGarantieShouldNotBeFound("numDocument.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllGarantiesByEtatIsEqualToSomething() throws Exception {
+        // Initialize the database
+        garantieRepository.saveAndFlush(garantie);
+
+        // Get all the garantieList where etat equals to DEFAULT_ETAT
+        defaultGarantieShouldBeFound("etat.equals=" + DEFAULT_ETAT);
+
+        // Get all the garantieList where etat equals to UPDATED_ETAT
+        defaultGarantieShouldNotBeFound("etat.equals=" + UPDATED_ETAT);
+    }
+
+    @Test
+    @Transactional
+    public void getAllGarantiesByEtatIsInShouldWork() throws Exception {
+        // Initialize the database
+        garantieRepository.saveAndFlush(garantie);
+
+        // Get all the garantieList where etat in DEFAULT_ETAT or UPDATED_ETAT
+        defaultGarantieShouldBeFound("etat.in=" + DEFAULT_ETAT + "," + UPDATED_ETAT);
+
+        // Get all the garantieList where etat equals to UPDATED_ETAT
+        defaultGarantieShouldNotBeFound("etat.in=" + UPDATED_ETAT);
+    }
+
+    @Test
+    @Transactional
+    public void getAllGarantiesByEtatIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        garantieRepository.saveAndFlush(garantie);
+
+        // Get all the garantieList where etat is not null
+        defaultGarantieShouldBeFound("etat.specified=true");
+
+        // Get all the garantieList where etat is null
+        defaultGarantieShouldNotBeFound("etat.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllGarantiesByDateRetraitIsEqualToSomething() throws Exception {
+        // Initialize the database
+        garantieRepository.saveAndFlush(garantie);
+
+        // Get all the garantieList where dateRetrait equals to DEFAULT_DATE_RETRAIT
+        defaultGarantieShouldBeFound("dateRetrait.equals=" + DEFAULT_DATE_RETRAIT);
+
+        // Get all the garantieList where dateRetrait equals to UPDATED_DATE_RETRAIT
+        defaultGarantieShouldNotBeFound("dateRetrait.equals=" + UPDATED_DATE_RETRAIT);
+    }
+
+    @Test
+    @Transactional
+    public void getAllGarantiesByDateRetraitIsInShouldWork() throws Exception {
+        // Initialize the database
+        garantieRepository.saveAndFlush(garantie);
+
+        // Get all the garantieList where dateRetrait in DEFAULT_DATE_RETRAIT or UPDATED_DATE_RETRAIT
+        defaultGarantieShouldBeFound("dateRetrait.in=" + DEFAULT_DATE_RETRAIT + "," + UPDATED_DATE_RETRAIT);
+
+        // Get all the garantieList where dateRetrait equals to UPDATED_DATE_RETRAIT
+        defaultGarantieShouldNotBeFound("dateRetrait.in=" + UPDATED_DATE_RETRAIT);
+    }
+
+    @Test
+    @Transactional
+    public void getAllGarantiesByDateRetraitIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        garantieRepository.saveAndFlush(garantie);
+
+        // Get all the garantieList where dateRetrait is not null
+        defaultGarantieShouldBeFound("dateRetrait.specified=true");
+
+        // Get all the garantieList where dateRetrait is null
+        defaultGarantieShouldNotBeFound("dateRetrait.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllGarantiesByDateRetraitIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        garantieRepository.saveAndFlush(garantie);
+
+        // Get all the garantieList where dateRetrait greater than or equals to DEFAULT_DATE_RETRAIT
+        defaultGarantieShouldBeFound("dateRetrait.greaterOrEqualThan=" + DEFAULT_DATE_RETRAIT);
+
+        // Get all the garantieList where dateRetrait greater than or equals to UPDATED_DATE_RETRAIT
+        defaultGarantieShouldNotBeFound("dateRetrait.greaterOrEqualThan=" + UPDATED_DATE_RETRAIT);
+    }
+
+    @Test
+    @Transactional
+    public void getAllGarantiesByDateRetraitIsLessThanSomething() throws Exception {
+        // Initialize the database
+        garantieRepository.saveAndFlush(garantie);
+
+        // Get all the garantieList where dateRetrait less than or equals to DEFAULT_DATE_RETRAIT
+        defaultGarantieShouldNotBeFound("dateRetrait.lessThan=" + DEFAULT_DATE_RETRAIT);
+
+        // Get all the garantieList where dateRetrait less than or equals to UPDATED_DATE_RETRAIT
+        defaultGarantieShouldBeFound("dateRetrait.lessThan=" + UPDATED_DATE_RETRAIT);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllGarantiesByPretIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Pret pret = PretResourceIntTest.createEntity(em);
+        em.persist(pret);
+        em.flush();
+        garantie.setPret(pret);
+        garantieRepository.saveAndFlush(garantie);
+        Long pretId = pret.getId();
+
+        // Get all the garantieList where pret equals to pretId
+        defaultGarantieShouldBeFound("pretId.equals=" + pretId);
+
+        // Get all the garantieList where pret equals to pretId + 1
+        defaultGarantieShouldNotBeFound("pretId.equals=" + (pretId + 1));
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is returned
+     */
+    private void defaultGarantieShouldBeFound(String filter) throws Exception {
+        restGarantieMockMvc.perform(get("/api/garanties?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(garantie.getId().intValue())))
+            .andExpect(jsonPath("$.[*].typeGar").value(hasItem(DEFAULT_TYPE_GAR.toString())))
+            .andExpect(jsonPath("$.[*].montantEvalue").value(hasItem(DEFAULT_MONTANT_EVALUE.doubleValue())))
+            .andExpect(jsonPath("$.[*].montantAfect").value(hasItem(DEFAULT_MONTANT_AFECT.doubleValue())))
+            .andExpect(jsonPath("$.[*].dateDepot").value(hasItem(DEFAULT_DATE_DEPOT.toString())))
+            .andExpect(jsonPath("$.[*].numDocument").value(hasItem(DEFAULT_NUM_DOCUMENT.toString())))
+            .andExpect(jsonPath("$.[*].etat").value(hasItem(DEFAULT_ETAT.toString())))
+            .andExpect(jsonPath("$.[*].dateRetrait").value(hasItem(DEFAULT_DATE_RETRAIT.toString())));
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is not returned
+     */
+    private void defaultGarantieShouldNotBeFound(String filter) throws Exception {
+        restGarantieMockMvc.perform(get("/api/garanties?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$").isArray())
+            .andExpect(jsonPath("$").isEmpty());
+    }
+
+
+    @Test
+    @Transactional
     public void getNonExistingGarantie() throws Exception {
         // Get the garantie
         restGarantieMockMvc.perform(get("/api/garanties/{id}", Long.MAX_VALUE))
@@ -299,7 +683,8 @@ public class GarantieResourceIntTest {
     @Transactional
     public void updateGarantie() throws Exception {
         // Initialize the database
-        garantieRepository.saveAndFlush(garantie);
+        garantieService.save(garantie);
+
         int databaseSizeBeforeUpdate = garantieRepository.findAll().size();
 
         // Update the garantie
@@ -355,7 +740,8 @@ public class GarantieResourceIntTest {
     @Transactional
     public void deleteGarantie() throws Exception {
         // Initialize the database
-        garantieRepository.saveAndFlush(garantie);
+        garantieService.save(garantie);
+
         int databaseSizeBeforeDelete = garantieRepository.findAll().size();
 
         // Get the garantie

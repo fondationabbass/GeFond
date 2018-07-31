@@ -4,7 +4,10 @@ import com.bdi.fondation.GeFondApp;
 
 import com.bdi.fondation.domain.Chapitre;
 import com.bdi.fondation.repository.ChapitreRepository;
+import com.bdi.fondation.service.ChapitreService;
 import com.bdi.fondation.web.rest.errors.ExceptionTranslator;
+import com.bdi.fondation.service.dto.ChapitreCriteria;
+import com.bdi.fondation.service.ChapitreQueryService;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -48,6 +51,12 @@ public class ChapitreResourceIntTest {
     private ChapitreRepository chapitreRepository;
 
     @Autowired
+    private ChapitreService chapitreService;
+
+    @Autowired
+    private ChapitreQueryService chapitreQueryService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -66,7 +75,7 @@ public class ChapitreResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ChapitreResource chapitreResource = new ChapitreResource(chapitreRepository);
+        final ChapitreResource chapitreResource = new ChapitreResource(chapitreService, chapitreQueryService);
         this.restChapitreMockMvc = MockMvcBuilders.standaloneSetup(chapitreResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -162,6 +171,107 @@ public class ChapitreResourceIntTest {
 
     @Test
     @Transactional
+    public void getAllChapitresByLibChapitreIsEqualToSomething() throws Exception {
+        // Initialize the database
+        chapitreRepository.saveAndFlush(chapitre);
+
+        // Get all the chapitreList where libChapitre equals to DEFAULT_LIB_CHAPITRE
+        defaultChapitreShouldBeFound("libChapitre.equals=" + DEFAULT_LIB_CHAPITRE);
+
+        // Get all the chapitreList where libChapitre equals to UPDATED_LIB_CHAPITRE
+        defaultChapitreShouldNotBeFound("libChapitre.equals=" + UPDATED_LIB_CHAPITRE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllChapitresByLibChapitreIsInShouldWork() throws Exception {
+        // Initialize the database
+        chapitreRepository.saveAndFlush(chapitre);
+
+        // Get all the chapitreList where libChapitre in DEFAULT_LIB_CHAPITRE or UPDATED_LIB_CHAPITRE
+        defaultChapitreShouldBeFound("libChapitre.in=" + DEFAULT_LIB_CHAPITRE + "," + UPDATED_LIB_CHAPITRE);
+
+        // Get all the chapitreList where libChapitre equals to UPDATED_LIB_CHAPITRE
+        defaultChapitreShouldNotBeFound("libChapitre.in=" + UPDATED_LIB_CHAPITRE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllChapitresByLibChapitreIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        chapitreRepository.saveAndFlush(chapitre);
+
+        // Get all the chapitreList where libChapitre is not null
+        defaultChapitreShouldBeFound("libChapitre.specified=true");
+
+        // Get all the chapitreList where libChapitre is null
+        defaultChapitreShouldNotBeFound("libChapitre.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllChapitresByCategorieCompteIsEqualToSomething() throws Exception {
+        // Initialize the database
+        chapitreRepository.saveAndFlush(chapitre);
+
+        // Get all the chapitreList where categorieCompte equals to DEFAULT_CATEGORIE_COMPTE
+        defaultChapitreShouldBeFound("categorieCompte.equals=" + DEFAULT_CATEGORIE_COMPTE);
+
+        // Get all the chapitreList where categorieCompte equals to UPDATED_CATEGORIE_COMPTE
+        defaultChapitreShouldNotBeFound("categorieCompte.equals=" + UPDATED_CATEGORIE_COMPTE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllChapitresByCategorieCompteIsInShouldWork() throws Exception {
+        // Initialize the database
+        chapitreRepository.saveAndFlush(chapitre);
+
+        // Get all the chapitreList where categorieCompte in DEFAULT_CATEGORIE_COMPTE or UPDATED_CATEGORIE_COMPTE
+        defaultChapitreShouldBeFound("categorieCompte.in=" + DEFAULT_CATEGORIE_COMPTE + "," + UPDATED_CATEGORIE_COMPTE);
+
+        // Get all the chapitreList where categorieCompte equals to UPDATED_CATEGORIE_COMPTE
+        defaultChapitreShouldNotBeFound("categorieCompte.in=" + UPDATED_CATEGORIE_COMPTE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllChapitresByCategorieCompteIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        chapitreRepository.saveAndFlush(chapitre);
+
+        // Get all the chapitreList where categorieCompte is not null
+        defaultChapitreShouldBeFound("categorieCompte.specified=true");
+
+        // Get all the chapitreList where categorieCompte is null
+        defaultChapitreShouldNotBeFound("categorieCompte.specified=false");
+    }
+    /**
+     * Executes the search, and checks that the default entity is returned
+     */
+    private void defaultChapitreShouldBeFound(String filter) throws Exception {
+        restChapitreMockMvc.perform(get("/api/chapitres?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(chapitre.getId().intValue())))
+            .andExpect(jsonPath("$.[*].libChapitre").value(hasItem(DEFAULT_LIB_CHAPITRE.toString())))
+            .andExpect(jsonPath("$.[*].categorieCompte").value(hasItem(DEFAULT_CATEGORIE_COMPTE.toString())));
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is not returned
+     */
+    private void defaultChapitreShouldNotBeFound(String filter) throws Exception {
+        restChapitreMockMvc.perform(get("/api/chapitres?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$").isArray())
+            .andExpect(jsonPath("$").isEmpty());
+    }
+
+
+    @Test
+    @Transactional
     public void getNonExistingChapitre() throws Exception {
         // Get the chapitre
         restChapitreMockMvc.perform(get("/api/chapitres/{id}", Long.MAX_VALUE))
@@ -172,7 +282,8 @@ public class ChapitreResourceIntTest {
     @Transactional
     public void updateChapitre() throws Exception {
         // Initialize the database
-        chapitreRepository.saveAndFlush(chapitre);
+        chapitreService.save(chapitre);
+
         int databaseSizeBeforeUpdate = chapitreRepository.findAll().size();
 
         // Update the chapitre
@@ -218,7 +329,8 @@ public class ChapitreResourceIntTest {
     @Transactional
     public void deleteChapitre() throws Exception {
         // Initialize the database
-        chapitreRepository.saveAndFlush(chapitre);
+        chapitreService.save(chapitre);
+
         int databaseSizeBeforeDelete = chapitreRepository.findAll().size();
 
         // Get the chapitre

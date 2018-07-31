@@ -2,10 +2,11 @@ package com.bdi.fondation.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.bdi.fondation.domain.Document;
-
-import com.bdi.fondation.repository.DocumentRepository;
+import com.bdi.fondation.service.DocumentService;
 import com.bdi.fondation.web.rest.errors.BadRequestAlertException;
 import com.bdi.fondation.web.rest.util.HeaderUtil;
+import com.bdi.fondation.service.dto.DocumentCriteria;
+import com.bdi.fondation.service.DocumentQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,10 +31,13 @@ public class DocumentResource {
 
     private static final String ENTITY_NAME = "document";
 
-    private final DocumentRepository documentRepository;
+    private final DocumentService documentService;
 
-    public DocumentResource(DocumentRepository documentRepository) {
-        this.documentRepository = documentRepository;
+    private final DocumentQueryService documentQueryService;
+
+    public DocumentResource(DocumentService documentService, DocumentQueryService documentQueryService) {
+        this.documentService = documentService;
+        this.documentQueryService = documentQueryService;
     }
 
     /**
@@ -50,7 +54,7 @@ public class DocumentResource {
         if (document.getId() != null) {
             throw new BadRequestAlertException("A new document cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Document result = documentRepository.save(document);
+        Document result = documentService.save(document);
         return ResponseEntity.created(new URI("/api/documents/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -72,7 +76,7 @@ public class DocumentResource {
         if (document.getId() == null) {
             return createDocument(document);
         }
-        Document result = documentRepository.save(document);
+        Document result = documentService.save(document);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, document.getId().toString()))
             .body(result);
@@ -81,14 +85,16 @@ public class DocumentResource {
     /**
      * GET  /documents : get all the documents.
      *
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of documents in body
      */
     @GetMapping("/documents")
     @Timed
-    public List<Document> getAllDocuments() {
-        log.debug("REST request to get all Documents");
-        return documentRepository.findAll();
-        }
+    public ResponseEntity<List<Document>> getAllDocuments(DocumentCriteria criteria) {
+        log.debug("REST request to get Documents by criteria: {}", criteria);
+        List<Document> entityList = documentQueryService.findByCriteria(criteria);
+        return ResponseEntity.ok().body(entityList);
+    }
 
     /**
      * GET  /documents/:id : get the "id" document.
@@ -100,7 +106,7 @@ public class DocumentResource {
     @Timed
     public ResponseEntity<Document> getDocument(@PathVariable Long id) {
         log.debug("REST request to get Document : {}", id);
-        Document document = documentRepository.findOne(id);
+        Document document = documentService.findOne(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(document));
     }
 
@@ -114,7 +120,7 @@ public class DocumentResource {
     @Timed
     public ResponseEntity<Void> deleteDocument(@PathVariable Long id) {
         log.debug("REST request to delete Document : {}", id);
-        documentRepository.delete(id);
+        documentService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }

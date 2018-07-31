@@ -12,7 +12,7 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface MouvementRepository extends JpaRepository<Mouvement, Long> {
+public interface MouvementRepository extends JpaRepository<Mouvement, Long>, JpaSpecificationExecutor<Mouvement> {
     @Query("select distinct mouvement from Mouvement mouvement left join fetch mouvement.echeances")
     List<Mouvement> findAllWithEagerRelationships();
 

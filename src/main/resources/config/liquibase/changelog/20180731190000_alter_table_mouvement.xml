@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="201807311900000-1" author="khaled">
+        
+		<sql>
+		alter table mouvement add column pret_id bigint;
+		</sql>
+		 <addForeignKeyConstraint baseColumnNames="pret_id"
+                                 baseTableName="mouvement"
+                                 constraintName="fk_mouvement_pret_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="pret"/>     
+    </changeSet>
+</databaseChangeLog>

@@ -3,8 +3,12 @@ package com.bdi.fondation.web.rest;
 import com.bdi.fondation.GeFondApp;
 
 import com.bdi.fondation.domain.Entretien;
+import com.bdi.fondation.domain.Candidature;
 import com.bdi.fondation.repository.EntretienRepository;
+import com.bdi.fondation.service.EntretienService;
 import com.bdi.fondation.web.rest.errors.ExceptionTranslator;
+import com.bdi.fondation.service.dto.EntretienCriteria;
+import com.bdi.fondation.service.EntretienQueryService;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -59,6 +63,12 @@ public class EntretienResourceIntTest {
     private EntretienRepository entretienRepository;
 
     @Autowired
+    private EntretienService entretienService;
+
+    @Autowired
+    private EntretienQueryService entretienQueryService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -77,7 +87,7 @@ public class EntretienResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final EntretienResource entretienResource = new EntretienResource(entretienRepository);
+        final EntretienResource entretienResource = new EntretienResource(entretienService, entretienQueryService);
         this.restEntretienMockMvc = MockMvcBuilders.standaloneSetup(entretienResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -257,6 +267,273 @@ public class EntretienResourceIntTest {
 
     @Test
     @Transactional
+    public void getAllEntretiensByCadreIsEqualToSomething() throws Exception {
+        // Initialize the database
+        entretienRepository.saveAndFlush(entretien);
+
+        // Get all the entretienList where cadre equals to DEFAULT_CADRE
+        defaultEntretienShouldBeFound("cadre.equals=" + DEFAULT_CADRE);
+
+        // Get all the entretienList where cadre equals to UPDATED_CADRE
+        defaultEntretienShouldNotBeFound("cadre.equals=" + UPDATED_CADRE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllEntretiensByCadreIsInShouldWork() throws Exception {
+        // Initialize the database
+        entretienRepository.saveAndFlush(entretien);
+
+        // Get all the entretienList where cadre in DEFAULT_CADRE or UPDATED_CADRE
+        defaultEntretienShouldBeFound("cadre.in=" + DEFAULT_CADRE + "," + UPDATED_CADRE);
+
+        // Get all the entretienList where cadre equals to UPDATED_CADRE
+        defaultEntretienShouldNotBeFound("cadre.in=" + UPDATED_CADRE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllEntretiensByCadreIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        entretienRepository.saveAndFlush(entretien);
+
+        // Get all the entretienList where cadre is not null
+        defaultEntretienShouldBeFound("cadre.specified=true");
+
+        // Get all the entretienList where cadre is null
+        defaultEntretienShouldNotBeFound("cadre.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllEntretiensByResultatIsEqualToSomething() throws Exception {
+        // Initialize the database
+        entretienRepository.saveAndFlush(entretien);
+
+        // Get all the entretienList where resultat equals to DEFAULT_RESULTAT
+        defaultEntretienShouldBeFound("resultat.equals=" + DEFAULT_RESULTAT);
+
+        // Get all the entretienList where resultat equals to UPDATED_RESULTAT
+        defaultEntretienShouldNotBeFound("resultat.equals=" + UPDATED_RESULTAT);
+    }
+
+    @Test
+    @Transactional
+    public void getAllEntretiensByResultatIsInShouldWork() throws Exception {
+        // Initialize the database
+        entretienRepository.saveAndFlush(entretien);
+
+        // Get all the entretienList where resultat in DEFAULT_RESULTAT or UPDATED_RESULTAT
+        defaultEntretienShouldBeFound("resultat.in=" + DEFAULT_RESULTAT + "," + UPDATED_RESULTAT);
+
+        // Get all the entretienList where resultat equals to UPDATED_RESULTAT
+        defaultEntretienShouldNotBeFound("resultat.in=" + UPDATED_RESULTAT);
+    }
+
+    @Test
+    @Transactional
+    public void getAllEntretiensByResultatIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        entretienRepository.saveAndFlush(entretien);
+
+        // Get all the entretienList where resultat is not null
+        defaultEntretienShouldBeFound("resultat.specified=true");
+
+        // Get all the entretienList where resultat is null
+        defaultEntretienShouldNotBeFound("resultat.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllEntretiensByInterlocuteurIsEqualToSomething() throws Exception {
+        // Initialize the database
+        entretienRepository.saveAndFlush(entretien);
+
+        // Get all the entretienList where interlocuteur equals to DEFAULT_INTERLOCUTEUR
+        defaultEntretienShouldBeFound("interlocuteur.equals=" + DEFAULT_INTERLOCUTEUR);
+
+        // Get all the entretienList where interlocuteur equals to UPDATED_INTERLOCUTEUR
+        defaultEntretienShouldNotBeFound("interlocuteur.equals=" + UPDATED_INTERLOCUTEUR);
+    }
+
+    @Test
+    @Transactional
+    public void getAllEntretiensByInterlocuteurIsInShouldWork() throws Exception {
+        // Initialize the database
+        entretienRepository.saveAndFlush(entretien);
+
+        // Get all the entretienList where interlocuteur in DEFAULT_INTERLOCUTEUR or UPDATED_INTERLOCUTEUR
+        defaultEntretienShouldBeFound("interlocuteur.in=" + DEFAULT_INTERLOCUTEUR + "," + UPDATED_INTERLOCUTEUR);
+
+        // Get all the entretienList where interlocuteur equals to UPDATED_INTERLOCUTEUR
+        defaultEntretienShouldNotBeFound("interlocuteur.in=" + UPDATED_INTERLOCUTEUR);
+    }
+
+    @Test
+    @Transactional
+    public void getAllEntretiensByInterlocuteurIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        entretienRepository.saveAndFlush(entretien);
+
+        // Get all the entretienList where interlocuteur is not null
+        defaultEntretienShouldBeFound("interlocuteur.specified=true");
+
+        // Get all the entretienList where interlocuteur is null
+        defaultEntretienShouldNotBeFound("interlocuteur.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllEntretiensByEtatIsEqualToSomething() throws Exception {
+        // Initialize the database
+        entretienRepository.saveAndFlush(entretien);
+
+        // Get all the entretienList where etat equals to DEFAULT_ETAT
+        defaultEntretienShouldBeFound("etat.equals=" + DEFAULT_ETAT);
+
+        // Get all the entretienList where etat equals to UPDATED_ETAT
+        defaultEntretienShouldNotBeFound("etat.equals=" + UPDATED_ETAT);
+    }
+
+    @Test
+    @Transactional
+    public void getAllEntretiensByEtatIsInShouldWork() throws Exception {
+        // Initialize the database
+        entretienRepository.saveAndFlush(entretien);
+
+        // Get all the entretienList where etat in DEFAULT_ETAT or UPDATED_ETAT
+        defaultEntretienShouldBeFound("etat.in=" + DEFAULT_ETAT + "," + UPDATED_ETAT);
+
+        // Get all the entretienList where etat equals to UPDATED_ETAT
+        defaultEntretienShouldNotBeFound("etat.in=" + UPDATED_ETAT);
+    }
+
+    @Test
+    @Transactional
+    public void getAllEntretiensByEtatIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        entretienRepository.saveAndFlush(entretien);
+
+        // Get all the entretienList where etat is not null
+        defaultEntretienShouldBeFound("etat.specified=true");
+
+        // Get all the entretienList where etat is null
+        defaultEntretienShouldNotBeFound("etat.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllEntretiensByDateEntretienIsEqualToSomething() throws Exception {
+        // Initialize the database
+        entretienRepository.saveAndFlush(entretien);
+
+        // Get all the entretienList where dateEntretien equals to DEFAULT_DATE_ENTRETIEN
+        defaultEntretienShouldBeFound("dateEntretien.equals=" + DEFAULT_DATE_ENTRETIEN);
+
+        // Get all the entretienList where dateEntretien equals to UPDATED_DATE_ENTRETIEN
+        defaultEntretienShouldNotBeFound("dateEntretien.equals=" + UPDATED_DATE_ENTRETIEN);
+    }
+
+    @Test
+    @Transactional
+    public void getAllEntretiensByDateEntretienIsInShouldWork() throws Exception {
+        // Initialize the database
+        entretienRepository.saveAndFlush(entretien);
+
+        // Get all the entretienList where dateEntretien in DEFAULT_DATE_ENTRETIEN or UPDATED_DATE_ENTRETIEN
+        defaultEntretienShouldBeFound("dateEntretien.in=" + DEFAULT_DATE_ENTRETIEN + "," + UPDATED_DATE_ENTRETIEN);
+
+        // Get all the entretienList where dateEntretien equals to UPDATED_DATE_ENTRETIEN
+        defaultEntretienShouldNotBeFound("dateEntretien.in=" + UPDATED_DATE_ENTRETIEN);
+    }
+
+    @Test
+    @Transactional
+    public void getAllEntretiensByDateEntretienIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        entretienRepository.saveAndFlush(entretien);
+
+        // Get all the entretienList where dateEntretien is not null
+        defaultEntretienShouldBeFound("dateEntretien.specified=true");
+
+        // Get all the entretienList where dateEntretien is null
+        defaultEntretienShouldNotBeFound("dateEntretien.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllEntretiensByDateEntretienIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        entretienRepository.saveAndFlush(entretien);
+
+        // Get all the entretienList where dateEntretien greater than or equals to DEFAULT_DATE_ENTRETIEN
+        defaultEntretienShouldBeFound("dateEntretien.greaterOrEqualThan=" + DEFAULT_DATE_ENTRETIEN);
+
+        // Get all the entretienList where dateEntretien greater than or equals to UPDATED_DATE_ENTRETIEN
+        defaultEntretienShouldNotBeFound("dateEntretien.greaterOrEqualThan=" + UPDATED_DATE_ENTRETIEN);
+    }
+
+    @Test
+    @Transactional
+    public void getAllEntretiensByDateEntretienIsLessThanSomething() throws Exception {
+        // Initialize the database
+        entretienRepository.saveAndFlush(entretien);
+
+        // Get all the entretienList where dateEntretien less than or equals to DEFAULT_DATE_ENTRETIEN
+        defaultEntretienShouldNotBeFound("dateEntretien.lessThan=" + DEFAULT_DATE_ENTRETIEN);
+
+        // Get all the entretienList where dateEntretien less than or equals to UPDATED_DATE_ENTRETIEN
+        defaultEntretienShouldBeFound("dateEntretien.lessThan=" + UPDATED_DATE_ENTRETIEN);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllEntretiensByCandidatureIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Candidature candidature = CandidatureResourceIntTest.createEntity(em);
+        em.persist(candidature);
+        em.flush();
+        entretien.setCandidature(candidature);
+        entretienRepository.saveAndFlush(entretien);
+        Long candidatureId = candidature.getId();
+
+        // Get all the entretienList where candidature equals to candidatureId
+        defaultEntretienShouldBeFound("candidatureId.equals=" + candidatureId);
+
+        // Get all the entretienList where candidature equals to candidatureId + 1
+        defaultEntretienShouldNotBeFound("candidatureId.equals=" + (candidatureId + 1));
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is returned
+     */
+    private void defaultEntretienShouldBeFound(String filter) throws Exception {
+        restEntretienMockMvc.perform(get("/api/entretiens?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(entretien.getId().intValue())))
+            .andExpect(jsonPath("$.[*].cadre").value(hasItem(DEFAULT_CADRE.toString())))
+            .andExpect(jsonPath("$.[*].resultat").value(hasItem(DEFAULT_RESULTAT.toString())))
+            .andExpect(jsonPath("$.[*].interlocuteur").value(hasItem(DEFAULT_INTERLOCUTEUR.toString())))
+            .andExpect(jsonPath("$.[*].etat").value(hasItem(DEFAULT_ETAT.toString())))
+            .andExpect(jsonPath("$.[*].dateEntretien").value(hasItem(DEFAULT_DATE_ENTRETIEN.toString())));
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is not returned
+     */
+    private void defaultEntretienShouldNotBeFound(String filter) throws Exception {
+        restEntretienMockMvc.perform(get("/api/entretiens?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$").isArray())
+            .andExpect(jsonPath("$").isEmpty());
+    }
+
+
+    @Test
+    @Transactional
     public void getNonExistingEntretien() throws Exception {
         // Get the entretien
         restEntretienMockMvc.perform(get("/api/entretiens/{id}", Long.MAX_VALUE))
@@ -267,7 +544,8 @@ public class EntretienResourceIntTest {
     @Transactional
     public void updateEntretien() throws Exception {
         // Initialize the database
-        entretienRepository.saveAndFlush(entretien);
+        entretienService.save(entretien);
+
         int databaseSizeBeforeUpdate = entretienRepository.findAll().size();
 
         // Update the entretien
@@ -319,7 +597,8 @@ public class EntretienResourceIntTest {
     @Transactional
     public void deleteEntretien() throws Exception {
         // Initialize the database
-        entretienRepository.saveAndFlush(entretien);
+        entretienService.save(entretien);
+
         int databaseSizeBeforeDelete = entretienRepository.findAll().size();
 
         // Get the entretien

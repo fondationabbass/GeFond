@@ -2,10 +2,11 @@ package com.bdi.fondation.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.bdi.fondation.domain.Chapitre;
-
-import com.bdi.fondation.repository.ChapitreRepository;
+import com.bdi.fondation.service.ChapitreService;
 import com.bdi.fondation.web.rest.errors.BadRequestAlertException;
 import com.bdi.fondation.web.rest.util.HeaderUtil;
+import com.bdi.fondation.service.dto.ChapitreCriteria;
+import com.bdi.fondation.service.ChapitreQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,10 +30,13 @@ public class ChapitreResource {
 
     private static final String ENTITY_NAME = "chapitre";
 
-    private final ChapitreRepository chapitreRepository;
+    private final ChapitreService chapitreService;
 
-    public ChapitreResource(ChapitreRepository chapitreRepository) {
-        this.chapitreRepository = chapitreRepository;
+    private final ChapitreQueryService chapitreQueryService;
+
+    public ChapitreResource(ChapitreService chapitreService, ChapitreQueryService chapitreQueryService) {
+        this.chapitreService = chapitreService;
+        this.chapitreQueryService = chapitreQueryService;
     }
 
     /**
@@ -49,7 +53,7 @@ public class ChapitreResource {
         if (chapitre.getId() != null) {
             throw new BadRequestAlertException("A new chapitre cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Chapitre result = chapitreRepository.save(chapitre);
+        Chapitre result = chapitreService.save(chapitre);
         return ResponseEntity.created(new URI("/api/chapitres/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -71,7 +75,7 @@ public class ChapitreResource {
         if (chapitre.getId() == null) {
             return createChapitre(chapitre);
         }
-        Chapitre result = chapitreRepository.save(chapitre);
+        Chapitre result = chapitreService.save(chapitre);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, chapitre.getId().toString()))
             .body(result);
@@ -80,14 +84,16 @@ public class ChapitreResource {
     /**
      * GET  /chapitres : get all the chapitres.
      *
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of chapitres in body
      */
     @GetMapping("/chapitres")
     @Timed
-    public List<Chapitre> getAllChapitres() {
-        log.debug("REST request to get all Chapitres");
-        return chapitreRepository.findAll();
-        }
+    public ResponseEntity<List<Chapitre>> getAllChapitres(ChapitreCriteria criteria) {
+        log.debug("REST request to get Chapitres by criteria: {}", criteria);
+        List<Chapitre> entityList = chapitreQueryService.findByCriteria(criteria);
+        return ResponseEntity.ok().body(entityList);
+    }
 
     /**
      * GET  /chapitres/:id : get the "id" chapitre.
@@ -99,7 +105,7 @@ public class ChapitreResource {
     @Timed
     public ResponseEntity<Chapitre> getChapitre(@PathVariable Long id) {
         log.debug("REST request to get Chapitre : {}", id);
-        Chapitre chapitre = chapitreRepository.findOne(id);
+        Chapitre chapitre = chapitreService.findOne(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(chapitre));
     }
 
@@ -113,7 +119,7 @@ public class ChapitreResource {
     @Timed
     public ResponseEntity<Void> deleteChapitre(@PathVariable Long id) {
         log.debug("REST request to delete Chapitre : {}", id);
-        chapitreRepository.delete(id);
+        chapitreService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }

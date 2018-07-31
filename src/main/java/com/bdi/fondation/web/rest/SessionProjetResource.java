@@ -2,10 +2,11 @@ package com.bdi.fondation.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.bdi.fondation.domain.SessionProjet;
-
-import com.bdi.fondation.repository.SessionProjetRepository;
+import com.bdi.fondation.service.SessionProjetService;
 import com.bdi.fondation.web.rest.errors.BadRequestAlertException;
 import com.bdi.fondation.web.rest.util.HeaderUtil;
+import com.bdi.fondation.service.dto.SessionProjetCriteria;
+import com.bdi.fondation.service.SessionProjetQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.time.LocalDate;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -30,10 +31,13 @@ public class SessionProjetResource {
 
     private static final String ENTITY_NAME = "sessionProjet";
 
-    private final SessionProjetRepository sessionProjetRepository;
+    private final SessionProjetService sessionProjetService;
 
-    public SessionProjetResource(SessionProjetRepository sessionProjetRepository) {
-        this.sessionProjetRepository = sessionProjetRepository;
+    private final SessionProjetQueryService sessionProjetQueryService;
+
+    public SessionProjetResource(SessionProjetService sessionProjetService, SessionProjetQueryService sessionProjetQueryService) {
+        this.sessionProjetService = sessionProjetService;
+        this.sessionProjetQueryService = sessionProjetQueryService;
     }
 
     /**
@@ -50,7 +54,7 @@ public class SessionProjetResource {
         if (sessionProjet.getId() != null) {
             throw new BadRequestAlertException("A new sessionProjet cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        SessionProjet result = sessionProjetRepository.save(sessionProjet.dateCreat(LocalDate.now()));
+        SessionProjet result = sessionProjetService.save(sessionProjet);
         return ResponseEntity.created(new URI("/api/session-projets/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -72,7 +76,7 @@ public class SessionProjetResource {
         if (sessionProjet.getId() == null) {
             return createSessionProjet(sessionProjet);
         }
-        SessionProjet result = sessionProjetRepository.save(sessionProjet);
+        SessionProjet result = sessionProjetService.save(sessionProjet);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, sessionProjet.getId().toString()))
             .body(result);
@@ -81,14 +85,16 @@ public class SessionProjetResource {
     /**
      * GET  /session-projets : get all the sessionProjets.
      *
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of sessionProjets in body
      */
     @GetMapping("/session-projets")
     @Timed
-    public List<SessionProjet> getAllSessionProjets() {
-        log.debug("REST request to get all SessionProjets");
-        return sessionProjetRepository.findAll();
-        }
+    public ResponseEntity<List<SessionProjet>> getAllSessionProjets(SessionProjetCriteria criteria) {
+        log.debug("REST request to get SessionProjets by criteria: {}", criteria);
+        List<SessionProjet> entityList = sessionProjetQueryService.findByCriteria(criteria);
+        return ResponseEntity.ok().body(entityList);
+    }
 
     /**
      * GET  /session-projets/:id : get the "id" sessionProjet.
@@ -100,7 +106,7 @@ public class SessionProjetResource {
     @Timed
     public ResponseEntity<SessionProjet> getSessionProjet(@PathVariable Long id) {
         log.debug("REST request to get SessionProjet : {}", id);
-        SessionProjet sessionProjet = sessionProjetRepository.findOne(id);
+        SessionProjet sessionProjet = sessionProjetService.findOne(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(sessionProjet));
     }
 
@@ -114,7 +120,7 @@ public class SessionProjetResource {
     @Timed
     public ResponseEntity<Void> deleteSessionProjet(@PathVariable Long id) {
         log.debug("REST request to delete SessionProjet : {}", id);
-        sessionProjetRepository.delete(id);
+        sessionProjetService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }

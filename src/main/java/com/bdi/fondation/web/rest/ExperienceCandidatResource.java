@@ -2,10 +2,11 @@ package com.bdi.fondation.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.bdi.fondation.domain.ExperienceCandidat;
-
-import com.bdi.fondation.repository.ExperienceCandidatRepository;
+import com.bdi.fondation.service.ExperienceCandidatService;
 import com.bdi.fondation.web.rest.errors.BadRequestAlertException;
 import com.bdi.fondation.web.rest.util.HeaderUtil;
+import com.bdi.fondation.service.dto.ExperienceCandidatCriteria;
+import com.bdi.fondation.service.ExperienceCandidatQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,10 +31,13 @@ public class ExperienceCandidatResource {
 
     private static final String ENTITY_NAME = "experienceCandidat";
 
-    private final ExperienceCandidatRepository experienceCandidatRepository;
+    private final ExperienceCandidatService experienceCandidatService;
 
-    public ExperienceCandidatResource(ExperienceCandidatRepository experienceCandidatRepository) {
-        this.experienceCandidatRepository = experienceCandidatRepository;
+    private final ExperienceCandidatQueryService experienceCandidatQueryService;
+
+    public ExperienceCandidatResource(ExperienceCandidatService experienceCandidatService, ExperienceCandidatQueryService experienceCandidatQueryService) {
+        this.experienceCandidatService = experienceCandidatService;
+        this.experienceCandidatQueryService = experienceCandidatQueryService;
     }
 
     /**
@@ -50,7 +54,7 @@ public class ExperienceCandidatResource {
         if (experienceCandidat.getId() != null) {
             throw new BadRequestAlertException("A new experienceCandidat cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        ExperienceCandidat result = experienceCandidatRepository.save(experienceCandidat);
+        ExperienceCandidat result = experienceCandidatService.save(experienceCandidat);
         return ResponseEntity.created(new URI("/api/experience-candidats/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -72,7 +76,7 @@ public class ExperienceCandidatResource {
         if (experienceCandidat.getId() == null) {
             return createExperienceCandidat(experienceCandidat);
         }
-        ExperienceCandidat result = experienceCandidatRepository.save(experienceCandidat);
+        ExperienceCandidat result = experienceCandidatService.save(experienceCandidat);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, experienceCandidat.getId().toString()))
             .body(result);
@@ -81,14 +85,16 @@ public class ExperienceCandidatResource {
     /**
      * GET  /experience-candidats : get all the experienceCandidats.
      *
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of experienceCandidats in body
      */
     @GetMapping("/experience-candidats")
     @Timed
-    public List<ExperienceCandidat> getAllExperienceCandidats() {
-        log.debug("REST request to get all ExperienceCandidats");
-        return experienceCandidatRepository.findAll();
-        }
+    public ResponseEntity<List<ExperienceCandidat>> getAllExperienceCandidats(ExperienceCandidatCriteria criteria) {
+        log.debug("REST request to get ExperienceCandidats by criteria: {}", criteria);
+        List<ExperienceCandidat> entityList = experienceCandidatQueryService.findByCriteria(criteria);
+        return ResponseEntity.ok().body(entityList);
+    }
 
     /**
      * GET  /experience-candidats/:id : get the "id" experienceCandidat.
@@ -100,7 +106,7 @@ public class ExperienceCandidatResource {
     @Timed
     public ResponseEntity<ExperienceCandidat> getExperienceCandidat(@PathVariable Long id) {
         log.debug("REST request to get ExperienceCandidat : {}", id);
-        ExperienceCandidat experienceCandidat = experienceCandidatRepository.findOne(id);
+        ExperienceCandidat experienceCandidat = experienceCandidatService.findOne(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(experienceCandidat));
     }
 
@@ -114,7 +120,7 @@ public class ExperienceCandidatResource {
     @Timed
     public ResponseEntity<Void> deleteExperienceCandidat(@PathVariable Long id) {
         log.debug("REST request to delete ExperienceCandidat : {}", id);
-        experienceCandidatRepository.delete(id);
+        experienceCandidatService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }

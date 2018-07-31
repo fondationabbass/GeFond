@@ -11,6 +11,6 @@ import org.springframework.data.jpa.repository.*;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface ElementFinancementRepository extends JpaRepository<ElementFinancement, Long> {
+public interface ElementFinancementRepository extends JpaRepository<ElementFinancement, Long>, JpaSpecificationExecutor<ElementFinancement> {
 
 }

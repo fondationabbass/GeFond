@@ -2,10 +2,11 @@ package com.bdi.fondation.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.bdi.fondation.domain.Visite;
-
-import com.bdi.fondation.repository.VisiteRepository;
+import com.bdi.fondation.service.VisiteService;
 import com.bdi.fondation.web.rest.errors.BadRequestAlertException;
 import com.bdi.fondation.web.rest.util.HeaderUtil;
+import com.bdi.fondation.service.dto.VisiteCriteria;
+import com.bdi.fondation.service.VisiteQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,10 +31,13 @@ public class VisiteResource {
 
     private static final String ENTITY_NAME = "visite";
 
-    private final VisiteRepository visiteRepository;
+    private final VisiteService visiteService;
 
-    public VisiteResource(VisiteRepository visiteRepository) {
-        this.visiteRepository = visiteRepository;
+    private final VisiteQueryService visiteQueryService;
+
+    public VisiteResource(VisiteService visiteService, VisiteQueryService visiteQueryService) {
+        this.visiteService = visiteService;
+        this.visiteQueryService = visiteQueryService;
     }
 
     /**
@@ -50,7 +54,7 @@ public class VisiteResource {
         if (visite.getId() != null) {
             throw new BadRequestAlertException("A new visite cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Visite result = visiteRepository.save(visite);
+        Visite result = visiteService.save(visite);
         return ResponseEntity.created(new URI("/api/visites/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -72,7 +76,7 @@ public class VisiteResource {
         if (visite.getId() == null) {
             return createVisite(visite);
         }
-        Visite result = visiteRepository.save(visite);
+        Visite result = visiteService.save(visite);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, visite.getId().toString()))
             .body(result);
@@ -81,14 +85,16 @@ public class VisiteResource {
     /**
      * GET  /visites : get all the visites.
      *
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of visites in body
      */
     @GetMapping("/visites")
     @Timed
-    public List<Visite> getAllVisites() {
-        log.debug("REST request to get all Visites");
-        return visiteRepository.findAll();
-        }
+    public ResponseEntity<List<Visite>> getAllVisites(VisiteCriteria criteria) {
+        log.debug("REST request to get Visites by criteria: {}", criteria);
+        List<Visite> entityList = visiteQueryService.findByCriteria(criteria);
+        return ResponseEntity.ok().body(entityList);
+    }
 
     /**
      * GET  /visites/:id : get the "id" visite.
@@ -100,7 +106,7 @@ public class VisiteResource {
     @Timed
     public ResponseEntity<Visite> getVisite(@PathVariable Long id) {
         log.debug("REST request to get Visite : {}", id);
-        Visite visite = visiteRepository.findOne(id);
+        Visite visite = visiteService.findOne(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(visite));
     }
 
@@ -114,7 +120,7 @@ public class VisiteResource {
     @Timed
     public ResponseEntity<Void> deleteVisite(@PathVariable Long id) {
         log.debug("REST request to delete Visite : {}", id);
-        visiteRepository.delete(id);
+        visiteService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }

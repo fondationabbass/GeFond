@@ -2,10 +2,11 @@ package com.bdi.fondation.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.bdi.fondation.domain.ElementFinancement;
-
-import com.bdi.fondation.repository.ElementFinancementRepository;
+import com.bdi.fondation.service.ElementFinancementService;
 import com.bdi.fondation.web.rest.errors.BadRequestAlertException;
 import com.bdi.fondation.web.rest.util.HeaderUtil;
+import com.bdi.fondation.service.dto.ElementFinancementCriteria;
+import com.bdi.fondation.service.ElementFinancementQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,10 +31,13 @@ public class ElementFinancementResource {
 
     private static final String ENTITY_NAME = "elementFinancement";
 
-    private final ElementFinancementRepository elementFinancementRepository;
+    private final ElementFinancementService elementFinancementService;
 
-    public ElementFinancementResource(ElementFinancementRepository elementFinancementRepository) {
-        this.elementFinancementRepository = elementFinancementRepository;
+    private final ElementFinancementQueryService elementFinancementQueryService;
+
+    public ElementFinancementResource(ElementFinancementService elementFinancementService, ElementFinancementQueryService elementFinancementQueryService) {
+        this.elementFinancementService = elementFinancementService;
+        this.elementFinancementQueryService = elementFinancementQueryService;
     }
 
     /**
@@ -50,7 +54,7 @@ public class ElementFinancementResource {
         if (elementFinancement.getId() != null) {
             throw new BadRequestAlertException("A new elementFinancement cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        ElementFinancement result = elementFinancementRepository.save(elementFinancement);
+        ElementFinancement result = elementFinancementService.save(elementFinancement);
         return ResponseEntity.created(new URI("/api/element-financements/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -72,7 +76,7 @@ public class ElementFinancementResource {
         if (elementFinancement.getId() == null) {
             return createElementFinancement(elementFinancement);
         }
-        ElementFinancement result = elementFinancementRepository.save(elementFinancement);
+        ElementFinancement result = elementFinancementService.save(elementFinancement);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, elementFinancement.getId().toString()))
             .body(result);
@@ -81,14 +85,16 @@ public class ElementFinancementResource {
     /**
      * GET  /element-financements : get all the elementFinancements.
      *
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of elementFinancements in body
      */
     @GetMapping("/element-financements")
     @Timed
-    public List<ElementFinancement> getAllElementFinancements() {
-        log.debug("REST request to get all ElementFinancements");
-        return elementFinancementRepository.findAll();
-        }
+    public ResponseEntity<List<ElementFinancement>> getAllElementFinancements(ElementFinancementCriteria criteria) {
+        log.debug("REST request to get ElementFinancements by criteria: {}", criteria);
+        List<ElementFinancement> entityList = elementFinancementQueryService.findByCriteria(criteria);
+        return ResponseEntity.ok().body(entityList);
+    }
 
     /**
      * GET  /element-financements/:id : get the "id" elementFinancement.
@@ -100,7 +106,7 @@ public class ElementFinancementResource {
     @Timed
     public ResponseEntity<ElementFinancement> getElementFinancement(@PathVariable Long id) {
         log.debug("REST request to get ElementFinancement : {}", id);
-        ElementFinancement elementFinancement = elementFinancementRepository.findOne(id);
+        ElementFinancement elementFinancement = elementFinancementService.findOne(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(elementFinancement));
     }
 
@@ -114,7 +120,7 @@ public class ElementFinancementResource {
     @Timed
     public ResponseEntity<Void> deleteElementFinancement(@PathVariable Long id) {
         log.debug("REST request to delete ElementFinancement : {}", id);
-        elementFinancementRepository.delete(id);
+        elementFinancementService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }

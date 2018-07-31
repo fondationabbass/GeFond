@@ -11,6 +11,6 @@ import org.springframework.data.jpa.repository.*;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface GarantieRepository extends JpaRepository<Garantie, Long> {
+public interface GarantieRepository extends JpaRepository<Garantie, Long>, JpaSpecificationExecutor<Garantie> {
 
 }
