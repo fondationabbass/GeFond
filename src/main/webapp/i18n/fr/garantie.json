@@ -17,13 +17,13 @@
                 "title": "Garantie"
             },
             "typeGar": "Type Garantie",
-            "montantEvalue": "Montant Evalue",
-            "montantAfect": "Montant Afecte",
-            "dateDepot": "Date Depot",
-            "numDocument": "Numero Document",
+            "montantEvalue": "Montant évalué",
+            "montantAfect": "Montant affecté",
+            "dateDepot": "Date de Dépôt",
+            "numDocument": "Numéro Document",
             "etat": "Etat",
-            "dateRetrait": "Date Retrait",
-            "pret": "Pret"
+            "dateRetrait": "Date de retrait",
+            "pret": "Prêt"
         }
     }
 }

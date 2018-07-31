@@ -14,6 +14,7 @@ import {
     garantieRoute,
     garantiePopupRoute,
 } from './';
+import { PretService } from '../pret';
 
 const ENTITY_STATES = [
     ...garantieRoute,
@@ -43,6 +44,7 @@ const ENTITY_STATES = [
     providers: [
         GarantieService,
         GarantiePopupService,
+        PretService,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

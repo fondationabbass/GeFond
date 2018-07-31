@@ -4,6 +4,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { HttpResponse } from '@angular/common/http';
 import { Garantie } from './garantie.model';
 import { GarantieService } from './garantie.service';
+import { PretService, Pret } from '../pret';
 
 @Injectable()
 export class GarantiePopupService {
@@ -12,7 +13,8 @@ export class GarantiePopupService {
     constructor(
         private modalService: NgbModal,
         private router: Router,
-        private garantieService: GarantieService
+        private garantieService: GarantieService,
+        private pretService:PretService
 
     ) {
         this.ngbModalRef = null;
@@ -26,23 +28,10 @@ export class GarantiePopupService {
             }
 
             if (id) {
-                this.garantieService.find(id)
-                    .subscribe((garantieResponse: HttpResponse<Garantie>) => {
-                        const garantie: Garantie = garantieResponse.body;
-                        if (garantie.dateDepot) {
-                            garantie.dateDepot = {
-                                year: garantie.dateDepot.getFullYear(),
-                                month: garantie.dateDepot.getMonth() + 1,
-                                day: garantie.dateDepot.getDate()
-                            };
-                        }
-                        if (garantie.dateRetrait) {
-                            garantie.dateRetrait = {
-                                year: garantie.dateRetrait.getFullYear(),
-                                month: garantie.dateRetrait.getMonth() + 1,
-                                day: garantie.dateRetrait.getDate()
-                            };
-                        }
+                this.pretService.find(id)
+                    .subscribe((resp: HttpResponse<Pret>) => {
+                        const garantie: Garantie = new Garantie();
+                        garantie.pret = resp.body;
                         this.ngbModalRef = this.garantieModalRef(component, garantie);
                         resolve(this.ngbModalRef);
                     });

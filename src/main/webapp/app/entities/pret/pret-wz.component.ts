@@ -67,6 +67,7 @@ export class PretWzComponent implements OnInit {
     save(form: any): boolean {
         this.pret.dateMisePlace = dateToNgb(new Date());
         this.pret.userInitial = this.principal.getLogin();
+        this.pret.etat = 'En attente';
         this.formDataService.setPret(this.pret);
         this.formDataService.getData().periodType=this.periodType;
         return true;

@@ -70,6 +70,7 @@ export class PretWzElementFinancementComponent implements OnInit {
         if (montant > 0) {
             this.formDataService.getPret().montDebloq = montant;
             this.formDataService.getPret().dateDernierDebloq = new Date();
+            this.formDataService.getPret().etat = 'Mis en place';
             if (montant < this.formDataService.getPret().montAaccord) {
                 this.jhiAlertService.warning("La somme des montants débloqués est inférieur au plafond du pret", null, null);
             }

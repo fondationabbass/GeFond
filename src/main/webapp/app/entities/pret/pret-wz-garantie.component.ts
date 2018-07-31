@@ -75,12 +75,13 @@ export class PretWzGarantieComponent implements OnInit {
         this.garanties.forEach(function (item) {
             montant += item.montantAfect;
         });
-        console.log(montant);
         if (montant < this.pret.montDebloq) {
             this.jhiAlertService.error("La somme des montants des garanties est inférieur au montant du pret", null, null);
             return false;
         }
-
+        this.garanties.forEach(function (item) {
+            item.etat= 'validé';
+        });
         this.formDataService.setGaranties(garanties);
         return true;
     }

@@ -55,6 +55,7 @@ export class GarantieDialogComponent implements OnInit {
             this.subscribeToSaveResponse(
                 this.garantieService.update(this.garantie));
         } else {
+            this.garantie.etat = 'Validé';
             this.subscribeToSaveResponse(
                 this.garantieService.create(this.garantie));
         }
