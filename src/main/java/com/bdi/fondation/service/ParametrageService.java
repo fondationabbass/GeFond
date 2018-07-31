@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -67,4 +68,8 @@ public class ParametrageService {
         log.debug("Request to delete Parametrage : {}", id);
         parametrageRepository.delete(id);
     }
+    @Transactional(readOnly = true)
+	public List<Parametrage> findByCodeTypeParam(String typePret) {
+		return parametrageRepository.findByCodeTypeParam(typePret);
+	}
 }
