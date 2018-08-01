@@ -3,7 +3,7 @@
     "geFondApp": {
         "client" : {
             "home": {
-                "title": "Clients",
+                "title": "Bénéficiaires",
                 "createLabel": "Créer un nouveau Client",
                 "createOrEditLabel": "Créer ou éditer un Client"
             },
@@ -14,7 +14,7 @@
                 "question": "Etes-vous certain de vouloir supprimer le Client {{ nom }} ?"
             },
             "detail": {
-                "title": "Client"
+                "title": "Bénéficiare"
             },
             "code":"Code",
             "dateCreat": "Date Creation",

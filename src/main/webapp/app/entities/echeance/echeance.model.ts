@@ -5,6 +5,7 @@ export class Echeance implements BaseEntity {
         public id?: number,
         public dateTombe?: any,
         public montant?: number,
+        public montantPaye?: number,
         public etatEcheance?: string,
         public datePayement?: any,
         public dateRetrait?: any,

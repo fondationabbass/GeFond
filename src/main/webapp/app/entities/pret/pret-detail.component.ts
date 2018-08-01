@@ -18,7 +18,7 @@ import { Mouvement, MouvementService } from '../mouvement';
 export class PretDetailComponent implements OnInit, OnDestroy {
     title: string = "Détail d'un pret : ";
     events: string[] = ['pretListModification','garantieListModification',
-                        'echeanceListModification','elementFinancementListModification'];
+                        'echeanceListModification','elementFinancementListModification','mouvementListModification'];
     pret: Pret;
     garanties:Garantie[];
     elementFinancements: ElementFinancement[];
@@ -62,16 +62,16 @@ export class PretDetailComponent implements OnInit, OnDestroy {
             .subscribe((pretResponse: HttpResponse<Pret>) => {
                 this.pret = pretResponse.body;
             });
-        this.efService.query({ "pret.id.equals": id }).subscribe((pretResponse: HttpResponse<ElementFinancement[]>) => {
+        this.efService.query({ "pretId.equals": id }).subscribe((pretResponse: HttpResponse<ElementFinancement[]>) => {
             this.elementFinancements = pretResponse.body;
         });
-        this.garantieService.query({ "pret.id.equals": id }).subscribe((pretResponse: HttpResponse<Garantie[]>) => {
+        this.garantieService.query({ "pretId.equals": id }).subscribe((pretResponse: HttpResponse<Garantie[]>) => {
             this.garanties = pretResponse.body;
         });
-        this.echeanceService.query({ "pret.id.equals": id }).subscribe((pretResponse: HttpResponse<Echeance[]>) => {
+        this.echeanceService.query({ "pretId.equals": id }).subscribe((pretResponse: HttpResponse<Echeance[]>) => {
             this.echeances = pretResponse.body;
         });
-        this.mouvmentService.query({ "pret.id.equals": id }).subscribe((pretResponse: HttpResponse<Mouvement[]>) => {
+        this.mouvmentService.query({ "pretId.equals": id , "lib.equals":"Rembourement"}).subscribe((pretResponse: HttpResponse<Mouvement[]>) => {
             this.mouvements = pretResponse.body;
         });
     }

@@ -4,6 +4,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { HttpResponse } from '@angular/common/http';
 import { Mouvement } from './mouvement.model';
 import { MouvementService } from './mouvement.service';
+import { PretService, Pret } from '../pret';
 
 @Injectable()
 export class MouvementPopupService {
@@ -12,6 +13,7 @@ export class MouvementPopupService {
     constructor(
         private modalService: NgbModal,
         private router: Router,
+        private pretService: PretService,
         private mouvementService: MouvementService
 
     ) {
@@ -26,16 +28,13 @@ export class MouvementPopupService {
             }
 
             if (id) {
-                this.mouvementService.find(id)
-                    .subscribe((mouvementResponse: HttpResponse<Mouvement>) => {
-                        const mouvement: Mouvement = mouvementResponse.body;
-                        if (mouvement.dateMvt) {
-                            mouvement.dateMvt = {
-                                year: mouvement.dateMvt.getFullYear(),
-                                month: mouvement.dateMvt.getMonth() + 1,
-                                day: mouvement.dateMvt.getDate()
-                            };
-                        }
+                this.pretService.find(id)
+                    .subscribe((resp: HttpResponse<Pret>) => {
+                        const mouvement: Mouvement = new Mouvement();
+                        mouvement.pret = resp.body;
+                        mouvement.lib='Rembourement';
+                        mouvement.sens='+';
+                        
                         this.ngbModalRef = this.mouvementModalRef(component, mouvement);
                         resolve(this.ngbModalRef);
                     });

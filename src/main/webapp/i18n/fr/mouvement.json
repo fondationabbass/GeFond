@@ -17,9 +17,10 @@
                 "title": "Mouvement"
             },
             "dateMvt": "Date Mouvement",
-            "lib": "Libelle",
+            "lib": "Libellé",
             "montant": "Montant",
             "sens": "Sens",
+            "pret": "Prêt",
             "etat": "Etat",
             "compte": "Compte",
             "echeance": "Echeance"

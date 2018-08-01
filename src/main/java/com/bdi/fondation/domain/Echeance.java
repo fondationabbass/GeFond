@@ -34,6 +34,9 @@ public class Echeance implements Serializable {
     @NotNull
     @Column(name = "montant", nullable = false)
     private Double montant;
+    
+    @Column(name = "montant_paye")
+    private Double montantPaye;
 
     @Column(name = "etat_echeance")
     private String etatEcheance;
@@ -163,9 +166,18 @@ public class Echeance implements Serializable {
     public void setMouvements(Set<Mouvement> mouvements) {
         this.mouvements = mouvements;
     }
+    
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
-    @Override
+    public Double getMontantPaye() {
+		return montantPaye;
+	}
+
+	public void setMontantPaye(Double montantPaye) {
+		this.montantPaye = montantPaye;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

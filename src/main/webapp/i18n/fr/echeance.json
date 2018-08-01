@@ -18,6 +18,7 @@
             },
             "dateTombe": "Date de tombée",
             "montant": "Montant",
+            "montantPaye": "Déjà payé",
             "etatEcheance": "Etat",
             "datePayement": "Date de payement",
             "dateRetrait": "Date de retrait",

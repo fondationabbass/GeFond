@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.github.jhipster.service.QueryService;
+import io.github.jhipster.service.filter.LocalDateFilter;
+import io.github.jhipster.service.filter.LongFilter;
 
 import com.bdi.fondation.domain.Echeance;
 import com.bdi.fondation.domain.*; // for static metamodels
@@ -48,6 +50,17 @@ public class EcheanceQueryService extends QueryService<Echeance> {
         log.debug("find by criteria : {}", criteria);
         final Specifications<Echeance> specification = createSpecification(criteria);
         return echeanceRepository.findAll(specification);
+    }
+    @Transactional(readOnly = true)
+    public List<Echeance> findNotPayedByPretId(long pretId) {
+    	EcheanceCriteria criteria = new EcheanceCriteria();
+		LongFilter longFilter = new LongFilter();
+		longFilter.setEquals(pretId);
+		criteria.setPretId(longFilter);
+		LocalDateFilter datePayement = new LocalDateFilter();
+		datePayement.setSpecified(false);
+		criteria.setDatePayement(datePayement );
+    	return findByCriteria(criteria);
     }
 
     /**

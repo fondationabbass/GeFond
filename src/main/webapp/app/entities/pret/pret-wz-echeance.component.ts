@@ -46,6 +46,7 @@ export class PretWzEcheanceComponent implements OnInit {
             e.etatEcheance = "En cours";
             e.id = i;
             e.pret = this.pret;
+            e.montantPaye=0;
             const copy: Date = new Date(startDate.getTime());
             if(this.periodType.type==="month")
                 copy.setMonth(startDate.getMonth() + this.periodType.coeff * i);

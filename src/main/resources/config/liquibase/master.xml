@@ -39,5 +39,7 @@
     <include file="config/liquibase/changelog/20180706190000_alter_table_echeance.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180722190000_alter_table_client.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180731190000_alter_table_mouvement.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180731200000_alter_table_echeance.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180801200000_alter_table_pret.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -25,22 +26,18 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class PretService {
 
+	public static final String MIS_EN_PLACE = "Mis en place";
     private final Logger log = LoggerFactory.getLogger(PretService.class);
 
-    private final PretRepository pretRepository;
-    private final EcheanceRepository echeanceRepository;
-    private final GarantieRepository garantieRepository;
-    private final ElementFinancementRepository elementFinancementRepository;
-
-   
-
-	public PretService(PretRepository pretRepository, EcheanceRepository echeanceRepository,
-			GarantieRepository garantieRepository, ElementFinancementRepository elementFinancementRepository) {
-		this.pretRepository = pretRepository;
-		this.echeanceRepository = echeanceRepository;
-		this.garantieRepository = garantieRepository;
-		this.elementFinancementRepository = elementFinancementRepository;
-	}
+    @Autowired
+    private PretRepository pretRepository;
+    @Autowired
+    private EcheanceService echeanceService;
+    @Autowired
+    private GarantieService garantieService;
+    @Autowired
+    private ElementFinancementService elementFinancementService;
+	
 	/**
      * Save a pret.
      *
@@ -49,33 +46,16 @@ public class PretService {
      */
     public Pret save(Pret pret) {
         log.debug("Request to save Pret : {}", pret);
-        Pret result = pretRepository.save(pret);
-//        List<Echeance> echeances = new ArrayList<>();
-//        for (int i = 0; i < pret.getNbrEcheance(); i++) {
-//			Echeance echeance = new Echeance();
-//			echeance.setEtatEcheance("En cours");
-//			echeance.setDateTombe(computeDate(pret.getDatePremiereEcheance(), pret.getPeriodicite(), i));
-//			echeance.setMontant(pret.getMontAaccord() / pret.getNbrEcheance());
-//			
-//			
-//			echeance.setPret(result);
-//			echeances.add(echeance);
-//		}
-//        echeanceRepository.save(echeances);
-		return result;
+        return pretRepository.save(pret);
     }
     public Pret save(PretAggregate aggregate) {
     	log.debug("Request to save full Pret : {}", aggregate);
-    	Pret result = pretRepository.save(aggregate.getPret());
-    	elementFinancementRepository.save(Arrays.stream(aggregate.getElementFinancements()).map(a -> a.pret(result)).collect(Collectors.toList()));
-    	garantieRepository.save(Arrays.stream(aggregate.getGaranties()).map(a -> a.pret(result)).collect(Collectors.toList()));
-    	echeanceRepository.save(Arrays.stream(aggregate.getEcheances()).map(a -> a.pret(result)).collect(Collectors.toList()));
+    	Pret result = pretRepository.save(aggregate.getPret().montDebloq(0.0).encours(0.0));
+    	garantieService.save(Arrays.stream(aggregate.getGaranties()).map(a -> a.pret(result)).collect(Collectors.toList()));
+    	echeanceService.save(Arrays.stream(aggregate.getEcheances()).map(a -> a.pret(result).montant(0.0)).collect(Collectors.toList()));
+    	elementFinancementService.save(Arrays.stream(aggregate.getElementFinancements()).map(a -> a.pret(result)).collect(Collectors.toList()));
     	return result;
 	}
-//
-//    private LocalDate computeDate(LocalDate reference, String periodicite, int i) {
-//    	return reference.plus(i, ChronoUnit.MONTHS);
-//	}
 
 	/**
      * Get all the prets.

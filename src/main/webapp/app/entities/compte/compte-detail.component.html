@@ -1,54 +1,158 @@
-
 <div *ngIf="compte">
-    <h2><span jhiTranslate="geFondApp.compte.detail.title">Compte</span> {{compte.id}}</h2>
+    <div class="row">
+        <div class='col-xs-12 col-sm-12'>
+            <h2>{{title}}</h2>
+        </div>
+    </div>
     <hr>
-    <jhi-alert-error></jhi-alert-error>
-    <dl class="row-md jh-entity-details">
-        <dt><span jhiTranslate="geFondApp.compte.intituleCompte">Intitule Compte</span></dt>
-        <dd>
-            <span>{{compte.intituleCompte}}</span>
-        </dd>
-        <dt><span jhiTranslate="geFondApp.compte.dateOuverture">Date Ouverture</span></dt>
-        <dd>
-            <span>{{compte.dateOuverture | date:'mediumDate'}}</span>
-        </dd>
-        <dt><span jhiTranslate="geFondApp.compte.solde">Solde</span></dt>
-        <dd>
-            <span>{{compte.solde}}</span>
-        </dd>
-        <dt><span jhiTranslate="geFondApp.compte.dateDernierCredit">Date Dernier Credit</span></dt>
-        <dd>
-            <span>{{compte.dateDernierCredit | date:'mediumDate'}}</span>
-        </dd>
-        <dt><span jhiTranslate="geFondApp.compte.dateDernierDebit">Date Dernier Debit</span></dt>
-        <dd>
-            <span>{{compte.dateDernierDebit | date:'mediumDate'}}</span>
-        </dd>
-        <dt><span jhiTranslate="geFondApp.compte.client">Client</span></dt>
-        <dd>
-            <div *ngIf="compte.client">
-                <a [routerLink]="['/client', compte.client?.id]">{{compte.client?.id}}</a>
+    <div class="row">
+        <div class='col-xs-12 col-sm-12'>
+            <jhi-alert></jhi-alert>
+        </div>
+    </div>
+    <div class="row">
+        <div class='col-xs-12 col-sm-4'>
+            <div class="card">
+                <h5 class="card-header">Bénéficiaire:</h5>
+                <div class="card-body">
+                    <dl class="row-md jh-entity-details">
+                        <dt>
+                            <span jhiTranslate="geFondApp.candidat.nom">Nom</span>
+                        </dt>
+                        <dd>
+                            <span>{{compte.client.candidat.nom}}</span>
+                        </dd>
+                        <dt>
+                            <span jhiTranslate="geFondApp.candidat.prenom">Prenom</span>
+                        </dt>
+                        <dd>
+                            <span>{{compte.client.candidat.prenom}}</span>
+                        </dd>
+                        <dt>
+                            <span jhiTranslate="geFondApp.client.dateCreat">Date Creat</span>
+                        </dt>
+                        <dd>
+                            <span>{{compte.client.dateCreat | date:'mediumDate'}}</span>
+                        </dd>
+                    </dl>
+                </div>
             </div>
-        </dd>
-        <dt><span jhiTranslate="geFondApp.compte.chapitre">Chapitre</span></dt>
-        <dd>
-            <div *ngIf="compte.chapitre">
-                <a [routerLink]="['/chapitre', compte.chapitre?.id]">{{compte.chapitre?.id}}</a>
+            <div class="card">
+                <h5 class="card-header">Détail du compte:</h5>
+                <div class="card-body">
+                    <dl class="row-md jh-entity-details">
+                        <dt>
+                            <span jhiTranslate="geFondApp.compte.intituleCompte">Intitule Compte</span>
+                        </dt>
+                        <dd>
+                            <span>{{compte.intituleCompte}}</span>
+                        </dd>
+                        <dt>
+                            <span jhiTranslate="geFondApp.compte.dateOuverture">Date Ouverture</span>
+                        </dt>
+                        <dd>
+                            <span>{{compte.dateOuverture | date:'mediumDate'}}</span>
+                        </dd>
+                        <dt>
+                            <span jhiTranslate="geFondApp.compte.solde">Solde</span>
+                        </dt>
+                        <dd>
+                            <span>{{compte.solde}}</span>
+                        </dd>
+                        <dt>
+                            <span jhiTranslate="geFondApp.compte.dateDernierCredit">Date Dernier Credit</span>
+                        </dt>
+                        <dd>
+                            <span>{{compte.dateDernierCredit | date:'mediumDate'}}</span>
+                        </dd>
+                        <dt>
+                            <span jhiTranslate="geFondApp.compte.dateDernierDebit">Date Dernier Debit</span>
+                        </dt>
+                        <dd>
+                            <span>{{compte.dateDernierDebit | date:'mediumDate'}}</span>
+                        </dd>
+                        <dt>
+                            <span jhiTranslate="geFondApp.compte.client">Client</span>
+                        </dt>
+                        <dd>
+                            <div *ngIf="compte.client">
+                                <a [routerLink]="['/client', compte.client?.id]">{{compte.client?.id}}</a>
+                            </div>
+                        </dd>
+                        <dt>
+                            <span jhiTranslate="geFondApp.compte.chapitre">Chapitre</span>
+                        </dt>
+                        <dd>
+                            <div *ngIf="compte.chapitre">
+                                <a [routerLink]="['/chapitre', compte.chapitre?.id]">{{compte.chapitre?.id}}</a>
+                            </div>
+                        </dd>
+                    </dl>
+                    <div class="form-group text-center">
+                        <button type="submit" (click)="previousState()" class="btn btn-info">
+                            <span class="fa fa-arrow-left"></span>&nbsp;
+                            <span jhiTranslate="entity.action.back"> Back</span>
+                        </button>
+
+                        <button type="button" [routerLink]="['/', { outlets: { popup: 'compte/'+ compte.id + '/edit'} }]" replaceUrl="true" queryParamsHandling="merge"
+                            class="btn btn-primary">
+                            <span class="fa fa-pencil"></span>&nbsp;
+                            <span jhiTranslate="entity.action.edit"> Edit</span>
+                        </button>
+                    </div>
+                </div>
             </div>
-        </dd>
-    </dl>
+        </div>
+        <div class='col-xs-12 col-sm-8'>
+            <div class="row">
+                <div class="card" style="min-width: 100%;">
+                    <h5 class="card-header"><span>Les mouvements:</span>
+                    </h5>
+                    <div class="card-body">
+                        <div class="table-responsive" *ngIf="mouvements" [hidden]="emptyM()">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <span jhiTranslate="geFondApp.mouvement.dateMvt">Date Mvt</span>
+                                        </th>
+                                        <th>
+                                            <span jhiTranslate="geFondApp.mouvement.lib">Lib</span>
+                                        </th>
+                                        <th>
+                                            <span jhiTranslate="geFondApp.mouvement.montant">Montant</span>
+                                        </th>
+                                        <th>
+                                            <span jhiTranslate="geFondApp.mouvement.sens">Sens</span>
+                                        </th>
+                                        <th>
+                                            <span jhiTranslate="geFondApp.mouvement.etat">Etat</span>
+                                        </th>
+                                        <th>
+                                            <span jhiTranslate="geFondApp.mouvement.pret">Pret</span>
+                                        </th>
+                                        </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let mouvement of mouvements ;trackBy: trackId">
+                                        <td>{{mouvement.dateMvt | date:'mediumDate'}}</td>
+                                        <td>{{mouvement.lib}}</td>
+                                        <td [ngStyle]="{'color':mouvement.montant >=0 ? 'green' : 'red' }">{{mouvement.montant}}</td>
+                                        <td>{{mouvement.sens}}</td>
+                                        <td>{{mouvement.etat}}</td>
+                                        <td>
+                                            <div *ngIf="mouvement.pret">
+                                                <a [routerLink]="['../../pret', mouvement.compte?.id ]">{{mouvement.pret?.id}}</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
 
-    <button type="submit"
-            (click)="previousState()"
-            class="btn btn-info">
-        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-    </button>
-
-    <button type="button"
-            [routerLink]="['/', { outlets: { popup: 'compte/'+ compte.id + '/edit'} }]"
-            replaceUrl="true"
-            queryParamsHandling="merge"
-            class="btn btn-primary">
-        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

@@ -1,5 +1,6 @@
 package com.bdi.fondation.service;
 
+import com.bdi.fondation.domain.ElementFinancement;
 import com.bdi.fondation.domain.Garantie;
 import com.bdi.fondation.repository.GarantieRepository;
 import org.slf4j.Logger;
@@ -7,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,6 +36,13 @@ public class GarantieService {
         log.debug("Request to save Garantie : {}", garantie);
         return garantieRepository.save(garantie);
     }
+    public Iterable<Garantie> save(Iterable<Garantie> items) {
+		List<Garantie> result = new ArrayList<>();
+		for (Garantie item : items) {
+			result.add(save(item));
+		}
+		return result;
+	}
 
     /**
      * Get all the garanties.

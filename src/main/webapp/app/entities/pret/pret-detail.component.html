@@ -149,7 +149,7 @@
             </div>
         </div>
         <div class='col-xs-12 col-sm-8'>
-            <div class="row" *ngIf="elementFinancements" [hidden]="emptyEf()">
+            <div class="row">
                 <div class="card" style="min-width: 100%;">
                     <h5 class="card-header" (click)="debloquageCollapsed = !debloquageCollapsed" [attr.aria-expanded]="!debloquageCollapsed"
                         aria-controls="debloquage-div">
@@ -159,14 +159,14 @@
                     </h5>
                     <div class="card-body" id="debloquage-div" [ngbCollapse]="debloquageCollapsed">
                         <h2>
-                            <button class="btn btn-primary float-right jh-create-entity create-element-financement" [routerLink]="['/', { outlets: { popup: ['element-financement-new'] } }]">
+                            <button class="btn btn-primary float-right jh-create-entity create-element-financement" [routerLink]="['/', { outlets: { popup: 'element-financement/'+ pret.id + '/edit'} }]">
                                 <span class="fa fa-plus"></span>
                                 <span jhiTranslate="geFondApp.elementFinancement.home.createLabel">
                                     Create new Element Financement
                                 </span>
                             </button>
                         </h2>
-                        <div class="table-responsive">
+                        <div class="table-responsive" *ngIf="elementFinancements" [hidden]="emptyEf()">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
@@ -213,7 +213,7 @@
 
                 </div>
             </div>
-            <div class="row" *ngIf="garanties" [hidden]="emptyG()">
+            <div class="row">
                 <div class="card" style="min-width: 100%;">
                     <h5 class="card-header" (click)="garantieCollapsed = !garantieCollapsed" [attr.aria-expanded]="!garantieCollapsed" aria-controls="garantie-div">
                         <span [hidden]="!garantieCollapsed" class="fa fa-plus-square" aria-hidden="true"></span>
@@ -229,7 +229,7 @@
                                 </span>
                             </button>
                         </h2>
-                        <div class="table-responsive" *ngIf="garanties">
+                        <div class="table-responsive" *ngIf="garanties" [hidden]="emptyG()">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
@@ -313,6 +313,10 @@
                                             <span class="fa fa-sort"></span>
                                         </th>
                                         <th>
+                                            <span jhiTranslate="geFondApp.echeance.montantPaye">Déjà payé</span>
+                                            <span class="fa fa-sort"></span>
+                                        </th>
+                                        <th>
                                             <span jhiTranslate="geFondApp.echeance.etatEcheance">Etat Echeance</span>
                                             <span class="fa fa-sort"></span>
                                         </th>
@@ -330,6 +334,7 @@
                                     <tr *ngFor="let echeance of echeances ;trackBy: trackId">
                                         <td>{{echeance.dateTombe | date:'mediumDate'}}</td>
                                         <td>{{echeance.montant}}</td>
+                                        <td>{{echeance.montantPaye}}</td>
                                         <td>{{echeance.etatEcheance}}</td>
                                         <td>{{echeance.datePayement | date:'mediumDate'}}</td>
                                         <td>{{echeance.dateRetrait | date:'mediumDate'}}</td>
@@ -340,7 +345,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row" *ngIf="mouvements" [hidden]="emptyM()">
+            <div class="row">
                 <div class="card" style="min-width: 100%;">
                     <h5 class="card-header" (click)="mouvementCollapsed = !mouvementCollapsed" [attr.aria-expanded]="!mouvementCollapsed" aria-controls="mouvement-div">
                         <span [hidden]="!mouvementCollapsed" class="fa fa-plus-square" aria-hidden="true"></span>
@@ -349,14 +354,14 @@
                     </h5>
                     <div class="card-body" id="mouvement-div" [ngbCollapse]="mouvementCollapsed">
                         <h2>
-                            <button class="btn btn-primary float-right jh-create-entity create-mouvement" [routerLink]="['/', { outlets: { popup: ['mouvement-new'] } }]">
+                            <button class="btn btn-primary float-right jh-create-entity create-mouvement" [routerLink]="['/', { outlets: { popup: 'mouvement/'+ pret.id + '/edit'} }]">
                                 <span class="fa fa-plus"></span>
-                                <span jhiTranslate="geFondApp.mouvement.home.createLabel">
-                                    Create new Mouvement
+                                <span>
+                                    Saisir un remboursement
                                 </span>
                             </button>
                         </h2>
-                        <div class="table-responsive">
+                        <div class="table-responsive" *ngIf="mouvements" [hidden]="emptyM()">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>

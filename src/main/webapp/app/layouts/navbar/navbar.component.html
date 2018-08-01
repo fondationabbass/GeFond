@@ -83,25 +83,23 @@
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu">
                     <span>
                         <i class="fa fa-money" aria-hidden="true"></i>
-                        <span jhiTranslate="global.menu.entities.prets">
-                            Prets
-                        </span>
+                        <span>Financements</span>
                     </span>
                 </a>
                 <ul class="dropdown-menu" ngbDropdownMenu>
                     <li>
                         <a class="dropdown-item" routerLink="client" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <i class="fa fa-fw fa-user-plus" aria-hidden="true"></i>
                             <span jhiTranslate="global.menu.entities.client">Client</span>
                         </a>
                     </li>
                     <li>
                         <a class="dropdown-item" routerLink="pret" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <i class="fa fa-fw fa fa-money" aria-hidden="true"></i>
                             <span jhiTranslate="global.menu.entities.pret">Pret</span>
                         </a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a class="dropdown-item" routerLink="element-financement" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
                             <span jhiTranslate="global.menu.entities.elementFinancement">Element Financement</span>
@@ -118,25 +116,25 @@
                             <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
                             <span jhiTranslate="global.menu.entities.echeance">Echeance</span>
                         </a>
-                    </li>
+                    </li> -->
                     <li>
                         <a class="dropdown-item" routerLink="compte" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <i class="fa fa-fw fa-bank" aria-hidden="true"></i>
                             <span jhiTranslate="global.menu.entities.compte">Compte</span>
                         </a>
                     </li>
                     <li>
                         <a class="dropdown-item" routerLink="chapitre" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <i class="fa fa-fw fa-book" aria-hidden="true"></i>
                             <span jhiTranslate="global.menu.entities.chapitre">Chapitre</span>
                         </a>
                     </li>
-                    <li>
+                   <!--  <li>
                         <a class="dropdown-item" routerLink="mouvement" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
                             <span jhiTranslate="global.menu.entities.mouvement">Mouvement</span>
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
             </li>
             <li *jhiHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">

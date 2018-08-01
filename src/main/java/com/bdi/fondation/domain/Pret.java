@@ -55,8 +55,7 @@ public class Pret implements Serializable {
     @Column(name = "date_derniere_echeance", nullable = false)
     private LocalDate dateDerniereEcheance;
 
-    @NotNull
-    @Column(name = "date_dernier_debloq", nullable = false)
+    @Column(name = "date_dernier_debloq")
     private LocalDate dateDernierDebloq;
 
     @Column(name = "etat")
