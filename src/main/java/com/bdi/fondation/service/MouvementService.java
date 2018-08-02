@@ -18,6 +18,7 @@ import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -38,23 +39,19 @@ public class MouvementService {
 	public static final String REMBOURSEMENT = "Rembourement";
     private final Logger log = LoggerFactory.getLogger(MouvementService.class);
 
-    private final MouvementRepository mouvementRepository;
-    private final CompteQueryService compteQueryService;
-    private final CompteService compteService;
-    private final PretService pretService;
-    private final EcheanceQueryService echeanceQueryService;
-    private final EcheanceService echeanceService;
+    @Autowired
+    private MouvementRepository mouvementRepository;
+    @Autowired
+    private CompteQueryService compteQueryService;
+    @Autowired
+    private CompteService compteService;
+    @Autowired
+    private PretService pretService;
+    @Autowired
+    private EcheanceQueryService echeanceQueryService;
+    @Autowired
+    private EcheanceService echeanceService;
 
-	public MouvementService(MouvementRepository mouvementRepository, CompteQueryService compteQueryService,
-			CompteService compteService, PretService pretService, EcheanceQueryService echeanceQueryService,
-			EcheanceService echeanceService) {
-		this.mouvementRepository = mouvementRepository;
-		this.compteQueryService = compteQueryService;
-		this.compteService = compteService;
-		this.pretService = pretService;
-		this.echeanceQueryService = echeanceQueryService;
-		this.echeanceService = echeanceService;
-	}
 
 	/**
      * Save a mouvement.

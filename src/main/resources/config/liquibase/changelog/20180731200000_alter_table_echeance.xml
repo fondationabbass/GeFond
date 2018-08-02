@@ -8,7 +8,7 @@
 
     <changeSet id="201807312000000-1" author="khaled">
 		<sql>
-		alter table echeance add column montant_paye double;
+		alter table echeance add column montant_paye numeric(8);
 		</sql>
     </changeSet>
 </databaseChangeLog>
