@@ -7,6 +7,8 @@ import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 import { Client } from './client.model';
 import { ClientService } from './client.service';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
+import { PretWzFormDataService } from '../pret/pret-wz-form-data.service';
+import { Pret } from '../pret';
 
 @Component({
     selector: 'jhi-client',
@@ -36,6 +38,7 @@ currentAccount: any;
         private principal: Principal,
         private activatedRoute: ActivatedRoute,
         private router: Router,
+        private formDataService: PretWzFormDataService,
         private eventManager: JhiEventManager
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
@@ -95,6 +98,14 @@ currentAccount: any;
 
     trackId(index: number, item: Client) {
         return item.id;
+    }
+    pret(item: Client) {
+        this.formDataService.resetFormData();
+        let pret: Pret = new Pret;
+        pret.client=item;
+        this.formDataService.setPret(pret);
+        this.router.navigate(['/pret-wz']);
+
     }
     registerChangeInClients() {
         this.eventSubscriber = this.eventManager.subscribe('clientListModification', (response) => this.loadAll());

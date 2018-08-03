@@ -15,6 +15,7 @@ import {
     clientPopupRoute,
     ClientResolvePagingParams,
 } from './';
+import { PretWzFormDataService } from '../pret/pret-wz-form-data.service';
 
 const ENTITY_STATES = [
     ...clientRoute,
@@ -45,6 +46,7 @@ const ENTITY_STATES = [
         ClientService,
         ClientPopupService,
         ClientResolvePagingParams,
+        PretWzFormDataService
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

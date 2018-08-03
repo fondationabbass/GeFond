@@ -114,37 +114,37 @@
                                 <thead>
                                     <tr>
                                         <th>
+                                            <span jhiTranslate="geFondApp.mouvement.pret">Pret</span>
+                                        </th>
+                                        <th>
                                             <span jhiTranslate="geFondApp.mouvement.dateMvt">Date Mvt</span>
                                         </th>
                                         <th>
                                             <span jhiTranslate="geFondApp.mouvement.lib">Lib</span>
                                         </th>
                                         <th>
-                                            <span jhiTranslate="geFondApp.mouvement.montant">Montant</span>
+                                            <span jhiTranslate="geFondApp.mouvement.etat">Etat</span>
                                         </th>
                                         <th>
                                             <span jhiTranslate="geFondApp.mouvement.sens">Sens</span>
                                         </th>
-                                        <th>
-                                            <span jhiTranslate="geFondApp.mouvement.etat">Etat</span>
-                                        </th>
-                                        <th>
-                                            <span jhiTranslate="geFondApp.mouvement.pret">Pret</span>
+                                        <th style="text-align: right;">
+                                            <span jhiTranslate="geFondApp.mouvement.montant">Montant</span>
                                         </th>
                                         </tr>
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let mouvement of mouvements ;trackBy: trackId">
-                                        <td>{{mouvement.dateMvt | date:'mediumDate'}}</td>
-                                        <td>{{mouvement.lib}}</td>
-                                        <td [ngStyle]="{'color':mouvement.montant >=0 ? 'green' : 'red' }">{{mouvement.montant}}</td>
-                                        <td>{{mouvement.sens}}</td>
-                                        <td>{{mouvement.etat}}</td>
                                         <td>
                                             <div *ngIf="mouvement.pret">
                                                 <a [routerLink]="['../../pret', mouvement.pret?.id ]">{{mouvement.pret?.id}}</a>
                                             </div>
                                         </td>
+                                        <td>{{mouvement.dateMvt | date:'mediumDate'}}</td>
+                                        <td>{{mouvement.lib}}</td>
+                                        <td>{{mouvement.etat}}</td>
+                                        <td>{{mouvement.sens}}</td>
+                                        <td style="text-align: right;" [ngStyle]="{'color':mouvement.montant >=0 ? 'green' : 'red' }">{{mouvement.montant}}</td>
                                     </tr>
                                 </tbody>
                             </table>
