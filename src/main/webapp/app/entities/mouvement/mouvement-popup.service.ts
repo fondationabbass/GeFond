@@ -5,6 +5,7 @@ import { HttpResponse } from '@angular/common/http';
 import { Mouvement } from './mouvement.model';
 import { MouvementService } from './mouvement.service';
 import { PretService, Pret } from '../pret';
+import { dateToNgb } from '../../shared/model/format-utils';
 
 @Injectable()
 export class MouvementPopupService {
@@ -34,7 +35,7 @@ export class MouvementPopupService {
                         mouvement.pret = resp.body;
                         mouvement.lib='Rembourement';
                         mouvement.sens='+';
-                        
+                        mouvement.dateMvt = dateToNgb(new Date());
                         this.ngbModalRef = this.mouvementModalRef(component, mouvement);
                         resolve(this.ngbModalRef);
                     });

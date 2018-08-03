@@ -15,11 +15,9 @@ import { PeriodType } from '../echeance';
 })
 
 export class PretWzElementFinancementComponent implements OnInit {
-    title: string = "Débloquage des montants / Elements de financement";
+    title: string = "Débloquage des montants";
     elementFinancements: ElementFinancement[];
     elementFinancement: ElementFinancement;
-    unblockPret: boolean;
-    validatePret:boolean;
     financementTypes: string[];
     periodType: PeriodType;
 
@@ -31,8 +29,6 @@ export class PretWzElementFinancementComponent implements OnInit {
 
     ngOnInit() {
         this.elementFinancements = this.formDataService.getElementFinancements();
-        this.unblockPret = this.formDataService.getData().unblockPret;
-        this.validatePret = this.formDataService.getData().validatePret;
         this.elementFinancement = {};
         this.periodType=this.formDataService.getData().periodType;
         this.parametrageService.financementTypes().subscribe(
@@ -76,8 +72,6 @@ export class PretWzElementFinancementComponent implements OnInit {
             }
         }
         this.formDataService.setElementFinancements(elements);
-        this.formDataService.getData().unblockPret=this.unblockPret;
-        this.formDataService.getData().validatePret=this.validatePret;
         return true;
     }
 

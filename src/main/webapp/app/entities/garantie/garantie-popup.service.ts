@@ -5,6 +5,7 @@ import { HttpResponse } from '@angular/common/http';
 import { Garantie } from './garantie.model';
 import { GarantieService } from './garantie.service';
 import { PretService, Pret } from '../pret';
+import { dateToNgb } from '../../shared/model/format-utils';
 
 @Injectable()
 export class GarantiePopupService {
@@ -32,6 +33,7 @@ export class GarantiePopupService {
                     .subscribe((resp: HttpResponse<Pret>) => {
                         const garantie: Garantie = new Garantie();
                         garantie.pret = resp.body;
+                        garantie.dateDepot = dateToNgb(new Date());
                         this.ngbModalRef = this.garantieModalRef(component, garantie);
                         resolve(this.ngbModalRef);
                     });

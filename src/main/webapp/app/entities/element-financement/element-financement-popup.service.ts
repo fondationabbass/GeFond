@@ -4,6 +4,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { HttpResponse } from '@angular/common/http';
 import { ElementFinancement } from './element-financement.model';
 import {PretService, Pret} from '../pret';
+import { dateToNgb } from '../../shared/model/format-utils';
 
 @Injectable()
 export class ElementFinancementPopupService {
@@ -30,6 +31,7 @@ export class ElementFinancementPopupService {
                     .subscribe((resp: HttpResponse<Pret>) => {
                         const elementFinancement: ElementFinancement = new ElementFinancement();
                         elementFinancement.pret = resp.body;
+                        elementFinancement.dateFinancement=dateToNgb(new Date());
                         this.ngbModalRef = this.elementFinancementModalRef(component, elementFinancement);
                         resolve(this.ngbModalRef);
                     });

@@ -30,7 +30,7 @@
             "userInitial": "User Initial",
             "userDecideur":"User Décideur",
             "userDebloq":"User Debloqueur",
-            "client": "Client"
+            "client": "Bénéficiaire"
         }
     }
 }

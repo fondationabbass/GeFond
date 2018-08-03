@@ -34,6 +34,18 @@ public class GarantieService {
      */
     public Garantie save(Garantie garantie) {
         log.debug("Request to save Garantie : {}", garantie);
+        StringBuilder sb = new StringBuilder();
+        if(garantie.getMontantEvalue() < garantie.getMontantAfect()){
+        	sb.append("Le montant affecté est supérieur au montant évalué.\n");
+        }
+        if(garantie.getPret().getEncours() < garantie.getMontantAfect()){
+        	sb.append("Le montant affecté est supérieur à l'encours du prêt");
+        }
+        
+        if(sb.length() > 0){
+        	throw new IllegalStateException(sb.toString());
+        }
+        
         return garantieRepository.save(garantie);
     }
     public Iterable<Garantie> save(Iterable<Garantie> items) {

@@ -16,7 +16,6 @@ export class PretWzEcheanceComponent implements OnInit {
     title = "L'échéancier du prêt:";
     echeances: Echeance[];
     echeance: Echeance;
-    validatePret: boolean;
     pret: Pret;
     periodType:PeriodType;
 
@@ -35,11 +34,12 @@ export class PretWzEcheanceComponent implements OnInit {
     ngOnInit() {
         this.pret = this.formDataService.getPret();
         this.echeances = [];
-        this.validatePret = this.formDataService.getData().validatePret;
         this.echeance = {};
         this.periodType = this.formDataService.getData().periodType;
         
         const startDate: Date = ngbToDate(this.pret.datePremiereEcheance);
+        if(!this.pret.montDebloq)
+            this.pret.montDebloq=0;
         for (var i: number = 0; i < this.pret.nbrEcheance; i++) {
             let e = new Echeance();
             e.montant = this.pret.montDebloq / this.pret.nbrEcheance;

@@ -51,9 +51,9 @@ public class PretService {
     public Pret save(PretAggregate aggregate) {
     	log.debug("Request to save full Pret : {}", aggregate);
     	Pret result = pretRepository.save(aggregate.getPret().montDebloq(0.0).encours(0.0));
-    	garantieService.save(Arrays.stream(aggregate.getGaranties()).map(a -> a.pret(result)).collect(Collectors.toList()));
     	echeanceService.save(Arrays.stream(aggregate.getEcheances()).map(a -> a.pret(result).montant(0.0)).collect(Collectors.toList()));
     	elementFinancementService.save(Arrays.stream(aggregate.getElementFinancements()).map(a -> a.pret(result)).collect(Collectors.toList()));
+    	garantieService.save(Arrays.stream(aggregate.getGaranties()).map(a -> a.pret(result)).collect(Collectors.toList()));
     	return result;
 	}
 

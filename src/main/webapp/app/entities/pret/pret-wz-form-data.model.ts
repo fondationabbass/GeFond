@@ -9,6 +9,4 @@ export class PretWzFormData {
     echeances : Echeance[]=[];
     garanties: Garantie[]=[];
     elementFinancements: ElementFinancement[]=[];
-    unblockPret: boolean = false;
-    validatePret: boolean = false;
 }

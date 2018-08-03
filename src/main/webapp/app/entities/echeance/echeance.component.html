@@ -1,37 +1,135 @@
-<div>
-    <h2>
-        <span jhiTranslate="geFondApp.echeance.home.title">Echeances</span>
-        <button class="btn btn-primary float-right jh-create-entity create-echeance" [routerLink]="['/', { outlets: { popup: ['echeance-new'] } }]">
-            <span class="fa fa-plus"></span>
-            <span  jhiTranslate="geFondApp.echeance.home.createLabel">
-            Create new Echeance
-            </span>
-        </button>
-    </h2>
-    <jhi-alert></jhi-alert>
-    <div class="row">
+<div class="row">
+    <div class='col-xs-12 col-sm-12'>
+        <h2>Suivi des échéanciers:</h2>
     </div>
-    <br/>
+</div>
+<hr>
+<div class="row" *ngIf="impayes && impayes.length">
+    <div class="card" style="min-width: 100%;">
+        <h5 class="card-header text-danger" (click)="impayesCollapsed = !impayesCollapsed" [attr.aria-expanded]="!impayesCollapsed"
+            aria-controls="impayes-div">
+            <span [hidden]="!impayesCollapsed" class="fa fa-plus-square" aria-hidden="true"></span>
+            <span [hidden]="impayesCollapsed" class="fa fa-minus-square" aria-hidden="true"></span>
+            <span>Les échéances impayées:</span>
+        </h5>
+        <div class="card-body" id="impayes-div" [ngbCollapse]="impayesCollapsed">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                        <th jhiSortBy="dateTombe"><span jhiTranslate="geFondApp.echeance.dateTombe">Date Tombe</span> <span class="fa fa-sort"></span></th>
+                        <th jhiSortBy="montant"><span jhiTranslate="geFondApp.echeance.montant">Montant</span> <span class="fa fa-sort"></span></th>
+                        <th jhiSortBy="montantPaye"><span jhiTranslate="geFondApp.echeance.montantPaye">Montan payét</span> <span class="fa fa-sort"></span></th>
+                        <th jhiSortBy="etatEcheance"><span jhiTranslate="geFondApp.echeance.etatEcheance">Etat Echeance</span> <span class="fa fa-sort"></span></th>
+                        <th jhiSortBy="datePayement"><span jhiTranslate="geFondApp.echeance.datePayement">Date Payement</span> <span class="fa fa-sort"></span></th>
+                        <th jhiSortBy="dateRetrait"><span jhiTranslate="geFondApp.echeance.dateRetrait">Date Retrait</span> <span class="fa fa-sort"></span></th>
+                        <th jhiSortBy="pret.id"><span jhiTranslate="geFondApp.echeance.pret">Pret</span> <span class="fa fa-sort"></span></th>
+                        <th jhiSortBy="pret.client.candidat.nom"><span jhiTranslate="geFondApp.pret.client">Bénéficiaire</span> <span class="fa fa-sort"></span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let echeance of impayes ;trackBy: trackId">
+                            <td>{{echeance.dateTombe | date:'mediumDate'}}</td>
+                            <td>{{echeance.montant}}</td>
+                            <td>{{echeance.montantPaye}}</td>
+                            <td><span class="badge badge-danger">{{echeance.etatEcheance}}</span></td>
+                            <td>{{echeance.datePayement | date:'mediumDate'}}</td>
+                            <td>{{echeance.dateRetrait | date:'mediumDate'}}</td>
+                            <td>
+                                <div *ngIf="echeance.pret">
+                                    <a [routerLink]="['../pret', echeance.pret?.id ]" >{{echeance.pret?.id}}</a>
+                                </div>
+                            </td>
+                            <td>
+                                <div *ngIf="echeance.pret">
+                                    <a [routerLink]="['../client', echeance.pret?.client?.id ]">{{echeance.pret?.client?.candidat.nom+' '+echeance.pret?.client?.candidat.prenom}}</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="futures && futures.length">
+    <div class="card" style="min-width: 100%;">
+        <h5 class="card-header text-info" (click)="futuresCollapsed = !futuresCollapsed" [attr.aria-expanded]="!futuresCollapsed"
+            aria-controls="futures-div">
+            <span [hidden]="!futuresCollapsed" class="fa fa-plus-square" aria-hidden="true"></span>
+            <span [hidden]="futuresCollapsed" class="fa fa-minus-square" aria-hidden="true"></span>
+            <span>Les échéances futures:</span>
+        </h5>
+        <div class="card-body" id="futures-div" [ngbCollapse]="futuresCollapsed">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                        <th jhiSortBy="dateTombe"><span jhiTranslate="geFondApp.echeance.dateTombe">Date Tombe</span> <span class="fa fa-sort"></span></th>
+                        <th jhiSortBy="montant"><span jhiTranslate="geFondApp.echeance.montant">Montant</span> <span class="fa fa-sort"></span></th>
+                        <th jhiSortBy="montantPaye"><span jhiTranslate="geFondApp.echeance.montantPaye">Montan payét</span> <span class="fa fa-sort"></span></th>
+                        <th jhiSortBy="etatEcheance"><span jhiTranslate="geFondApp.echeance.etatEcheance">Etat Echeance</span> <span class="fa fa-sort"></span></th>
+                        <th jhiSortBy="datePayement"><span jhiTranslate="geFondApp.echeance.datePayement">Date Payement</span> <span class="fa fa-sort"></span></th>
+                        <th jhiSortBy="dateRetrait"><span jhiTranslate="geFondApp.echeance.dateRetrait">Date Retrait</span> <span class="fa fa-sort"></span></th>
+                        <th jhiSortBy="pret.id"><span jhiTranslate="geFondApp.echeance.pret">Pret</span> <span class="fa fa-sort"></span></th>
+                        <th jhiSortBy="pret.client.candidat.nom"><span jhiTranslate="geFondApp.pret.client">Bénéficiaire</span> <span class="fa fa-sort"></span></th>    
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let echeance of futures ;trackBy: trackId">
+                            <td>{{echeance.dateTombe | date:'mediumDate'}}</td>
+                            <td>{{echeance.montant}}</td>
+                            <td>{{echeance.montantPaye}}</td>
+                            <td><span class="badge badge-info">{{echeance.etatEcheance}}</span></td>
+                            <td>{{echeance.datePayement | date:'mediumDate'}}</td>
+                            <td>{{echeance.dateRetrait | date:'mediumDate'}}</td>
+                            <td>
+                                <div *ngIf="echeance.pret">
+                                    <a [routerLink]="['../pret', echeance.pret?.id ]" >{{echeance.pret?.id}}</a>
+                                </div>
+                            </td>
+                            <td>
+                                <div *ngIf="echeance.pret">
+                                    <a [routerLink]="['../client', echeance.pret?.client?.id ]">{{echeance.pret?.client?.candidat.nom+' '+echeance.pret?.client?.candidat.prenom}}</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="echeances && echeances.length">
+    <div class="card" style="min-width: 100%;">
+        <h5 class="card-header text-success" (click)="echeancierCollapsed = !echeancierCollapsed" [attr.aria-expanded]="!echeancierCollapsed"
+            aria-controls="echeancier-div">
+            <span [hidden]="!echeancierCollapsed" class="fa fa-plus-square" aria-hidden="true"></span>
+            <span [hidden]="echeancierCollapsed" class="fa fa-minus-square" aria-hidden="true"></span>
+            <span>Les échéances déjà payées:</span>
+        </h5>
+        <div class="card-body" id="echeancier-div" [ngbCollapse]="echeancierCollapsed">
+            
     <div class="table-responsive" *ngIf="echeances">
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="dateTombe"><span jhiTranslate="geFondApp.echeance.dateTombe">Date Tombe</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="montant"><span jhiTranslate="geFondApp.echeance.montant">Montant</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="montantPaye"><span jhiTranslate="geFondApp.echeance.montantPaye">Montan payét</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="etatEcheance"><span jhiTranslate="geFondApp.echeance.etatEcheance">Etat Echeance</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="datePayement"><span jhiTranslate="geFondApp.echeance.datePayement">Date Payement</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="dateRetrait"><span jhiTranslate="geFondApp.echeance.dateRetrait">Date Retrait</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="pret.id"><span jhiTranslate="geFondApp.echeance.pret">Pret</span> <span class="fa fa-sort"></span></th>
-            <th></th>
-            </tr>
+            <th jhiSortBy="pret.client.candidat.nom"><span jhiTranslate="geFondApp.pret.client">Bénéficiaire</span> <span class="fa fa-sort"></span></th>
+        </tr>
             </thead>
             <tbody>
             <tr *ngFor="let echeance of echeances ;trackBy: trackId">
-                <td><a [routerLink]="['../echeance', echeance.id ]">{{echeance.id}}</a></td>
                 <td>{{echeance.dateTombe | date:'mediumDate'}}</td>
                 <td>{{echeance.montant}}</td>
-                <td>{{echeance.etatEcheance}}</td>
+                <td>{{echeance.montantPaye}}</td>
+                <td><span class="badge badge-success">{{echeance.etatEcheance}}</span></td>
                 <td>{{echeance.datePayement | date:'mediumDate'}}</td>
                 <td>{{echeance.dateRetrait | date:'mediumDate'}}</td>
                 <td>
@@ -39,42 +137,23 @@
                         <a [routerLink]="['../pret', echeance.pret?.id ]" >{{echeance.pret?.id}}</a>
                     </div>
                 </td>
-                <td class="text-right">
-                    <div class="btn-group flex-btn-group-container">
-                        <button type="submit"
-                                [routerLink]="['../echeance', echeance.id ]"
-                                class="btn btn-info btn-sm">
-                            <span class="fa fa-eye"></span>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'echeance/'+ echeance.id + '/edit'} }]"
-                                replaceUrl="true"
-                                queryParamsHandling="merge"
-                                class="btn btn-primary btn-sm">
-                            <span class="fa fa-pencil"></span>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'echeance/'+ echeance.id + '/delete'} }]"
-                                replaceUrl="true"
-                                queryParamsHandling="merge"
-                                class="btn btn-danger btn-sm">
-                            <span class="fa fa-remove"></span>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                        </button>
+                <td>
+                    <div *ngIf="echeance.pret">
+                        <a [routerLink]="['../client', echeance.pret?.client?.id ]">{{echeance.pret?.client?.candidat.nom+' '+echeance.pret?.client?.candidat.prenom}}</a>
                     </div>
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
-    <div *ngIf="echeances && echeances.length">
+    <!-- <div *ngIf="echeances && echeances.length">
         <div class="row justify-content-center">
             <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>
         <div class="row justify-content-center">
             <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
         </div>
-    </div>
+    </div> -->
+</div>
+</div>
 </div>

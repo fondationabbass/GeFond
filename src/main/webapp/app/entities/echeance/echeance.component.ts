@@ -7,7 +7,8 @@ import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 import { Echeance } from './echeance.model';
 import { EcheanceService } from './echeance.service';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
-import { PretWzFormDataService } from '../pret/pret-wz-form-data.service';
+import { JhiDateUtils } from 'ng-jhipster';
+import { dateToNgb } from '../../shared/model/format-utils';
 
 @Component({
     selector: 'jhi-echeance',
@@ -17,6 +18,8 @@ export class EcheanceComponent implements OnInit, OnDestroy {
 
 currentAccount: any;
     echeances: Echeance[];
+    impayes: Echeance[];
+    futures: Echeance[];
     error: any;
     success: any;
     eventSubscriber: Subscription;
@@ -24,6 +27,12 @@ currentAccount: any;
     links: any;
     totalItems: any;
     queryCount: any;
+    linksImpayes: any;
+    totalItemsImpayes: any;
+    queryCountImpayes: any;
+    linksFutures: any;
+    totalItemsFutures: any;
+    queryCountFutures: any;
     itemsPerPage: any;
     page: any;
     predicate: any;
@@ -37,7 +46,7 @@ currentAccount: any;
         private principal: Principal,
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private formDataService: PretWzFormDataService,
+        private dateUtils: JhiDateUtils,
         private eventManager: JhiEventManager
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
@@ -48,17 +57,38 @@ currentAccount: any;
             this.predicate = data.pagingParams.predicate;
         });
     }
-
     loadAll() {
-        if(this.formDataService.getEcheances()){
-            this.echeances=this.formDataService.getEcheances();
-            return;
-        }
         this.echeanceService.query({
-            page: this.page - 1,
-            size: this.itemsPerPage,
-            sort: this.sort()}).subscribe(
+            //page: this.page - 1,
+            "datePayement.specified": true
+        //    ,
+        //    size: this.itemsPerPage,
+        //    sort: this.sort()
+        }).subscribe(
                 (res: HttpResponse<Echeance[]>) => this.onSuccess(res.body, res.headers),
+                (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        
+        this.echeanceService.query({
+            "datePayement.specified": false,
+            "dateTombe.lessThan": this.dateUtils.convertLocalDateToServer(dateToNgb(new Date()))
+            //,
+            //page: this.page - 1,
+            //size: this.itemsPerPage,
+            //sort: this.sort()
+        }).subscribe(
+                (res: HttpResponse<Echeance[]>) => this.onSuccessImpayes(res.body, res.headers),
+                (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.echeanceService.query({
+            "datePayement.specified": false,
+            "dateTombe.greaterOrEqualThan": this.dateUtils.convertLocalDateToServer(dateToNgb(new Date()))
+            //,
+            //page: this.page - 1,
+            //size: this.itemsPerPage,
+            //sort: this.sort()
+        }).subscribe(
+                (res: HttpResponse<Echeance[]>) => this.onSuccessFutures(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)
         );
     }
@@ -121,6 +151,21 @@ currentAccount: any;
         // this.page = pagingParams.page;
         this.echeances = data;
     }
+    private onSuccessImpayes(data, headers) {
+        this.linksImpayes = this.parseLinks.parse(headers.get('link'));
+        this.totalItemsImpayes = headers.get('X-Total-Count');
+        this.queryCountImpayes = this.totalItems;
+        // this.page = pagingParams.page;
+        this.impayes = data;
+    }
+    private onSuccessFutures(data, headers) {
+        this.linksFutures = this.parseLinks.parse(headers.get('link'));
+        this.totalItemsFutures = headers.get('X-Total-Count');
+        this.queryCountFutures = this.totalItems;
+        // this.page = pagingParams.page;
+        this.futures = data;
+    }
+
     private onError(error) {
         this.jhiAlertService.error(error.message, null, null);
     }
