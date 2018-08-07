@@ -40,6 +40,10 @@ public class CompteCriteria implements Serializable {
 
     private LongFilter clientId;
 
+    private LongFilter pretId;
+
+    private LongFilter userId;
+
     private LongFilter chapitreId;
 
     public CompteCriteria() {
@@ -101,6 +105,22 @@ public class CompteCriteria implements Serializable {
         this.clientId = clientId;
     }
 
+    public LongFilter getPretId() {
+        return pretId;
+    }
+
+    public void setPretId(LongFilter pretId) {
+        this.pretId = pretId;
+    }
+
+    public LongFilter getUserId() {
+        return userId;
+    }
+
+    public void setUserId(LongFilter userId) {
+        this.userId = userId;
+    }
+
     public LongFilter getChapitreId() {
         return chapitreId;
     }
@@ -119,6 +139,8 @@ public class CompteCriteria implements Serializable {
                 (dateDernierCredit != null ? "dateDernierCredit=" + dateDernierCredit + ", " : "") +
                 (dateDernierDebit != null ? "dateDernierDebit=" + dateDernierDebit + ", " : "") +
                 (clientId != null ? "clientId=" + clientId + ", " : "") +
+                (pretId != null ? "pretId=" + pretId + ", " : "") +
+                (userId != null ? "userId=" + userId + ", " : "") +
                 (chapitreId != null ? "chapitreId=" + chapitreId + ", " : "") +
             "}";
     }

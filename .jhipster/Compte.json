@@ -6,6 +6,18 @@
             "relationshipName": "client",
             "otherEntityName": "client",
             "otherEntityField": "id"
+        }, 
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "pret",
+            "otherEntityName": "pret",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "otherEntityField": "id"
         },
         {
             "relationshipType": "many-to-one",

@@ -1,5 +1,6 @@
 package com.bdi.fondation.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -46,6 +47,12 @@ public class Compte implements Serializable {
 
     @ManyToOne
     private Client client;
+
+    @ManyToOne
+    private Pret pret;
+
+    @ManyToOne
+    private User user;
 
     @ManyToOne
     private Chapitre chapitre;
@@ -135,6 +142,32 @@ public class Compte implements Serializable {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public Pret getPret() {
+        return pret;
+    }
+
+    public Compte pret(Pret pret) {
+        this.pret = pret;
+        return this;
+    }
+
+    public void setPret(Pret pret) {
+        this.pret = pret;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Compte user(User user) {
+        this.user = user;
+        return this;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Chapitre getChapitre() {

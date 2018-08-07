@@ -1,5 +1,6 @@
 package com.bdi.fondation.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -49,13 +50,16 @@ public class Mouvement implements Serializable {
     private Compte compte;
 
     @ManyToOne
+    private Compte compteDestinataire;
+
+    @ManyToOne
     private Pret pret;
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "mouvement_echeance",
-               joinColumns = @JoinColumn(name="mouvements_id", referencedColumnName="id"),
-               inverseJoinColumns = @JoinColumn(name="echeances_id", referencedColumnName="id"))
+               joinColumns = @JoinColumn(name = "mouvements_id", referencedColumnName = "id"),
+               inverseJoinColumns = @JoinColumn(name = "echeances_id", referencedColumnName = "id"))
     private Set<Echeance> echeances = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -143,6 +147,19 @@ public class Mouvement implements Serializable {
 
     public void setCompte(Compte compte) {
         this.compte = compte;
+    }
+
+    public Compte getCompteDestinataire() {
+        return compteDestinataire;
+    }
+
+    public Mouvement compteDestinataire(Compte compte) {
+        this.compteDestinataire = compte;
+        return this;
+    }
+
+    public void setCompteDestinataire(Compte compte) {
+        this.compteDestinataire = compte;
     }
 
     public Pret getPret() {

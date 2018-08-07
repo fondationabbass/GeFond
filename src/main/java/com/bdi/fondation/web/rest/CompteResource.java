@@ -79,7 +79,7 @@ public class CompteResource {
     public ResponseEntity<Compte> updateCompte(@Valid @RequestBody Compte compte) throws URISyntaxException {
         log.debug("REST request to update Compte : {}", compte);
         if (compte.getId() == null) {
-            return createCompte(compte);
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         Compte result = compteService.save(compte);
         return ResponseEntity.ok()

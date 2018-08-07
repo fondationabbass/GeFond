@@ -1,12 +1,12 @@
 package com.bdi.fondation.service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +21,7 @@ import com.bdi.fondation.service.dto.CompteCriteria;
 
 /**
  * Service for executing complex queries for Compte entities in the database.
- * The main input is a {@link CompteCriteria} which get's converted to {@link Specifications},
+ * The main input is a {@link CompteCriteria} which gets converted to {@link Specification},
  * in a way that all the filters must apply.
  * It returns a {@link List} of {@link Compte} or a {@link Page} of {@link Compte} which fulfills the criteria.
  */
@@ -30,7 +30,6 @@ import com.bdi.fondation.service.dto.CompteCriteria;
 public class CompteQueryService extends QueryService<Compte> {
 
     private final Logger log = LoggerFactory.getLogger(CompteQueryService.class);
-
 
     private final CompteRepository compteRepository;
 
@@ -46,7 +45,7 @@ public class CompteQueryService extends QueryService<Compte> {
     @Transactional(readOnly = true)
     public List<Compte> findByCriteria(CompteCriteria criteria) {
         log.debug("find by criteria : {}", criteria);
-        final Specifications<Compte> specification = createSpecification(criteria);
+        final Specification<Compte> specification = createSpecification(criteria);
         return compteRepository.findAll(specification);
     }
 
@@ -59,14 +58,14 @@ public class CompteQueryService extends QueryService<Compte> {
     @Transactional(readOnly = true)
     public Page<Compte> findByCriteria(CompteCriteria criteria, Pageable page) {
         log.debug("find by criteria : {}, page: {}", criteria, page);
-        final Specifications<Compte> specification = createSpecification(criteria);
+        final Specification<Compte> specification = createSpecification(criteria);
         return compteRepository.findAll(specification, page);
     }
 
     /**
-     * Function to convert CompteCriteria to a {@link Specifications}
+     * Function to convert CompteCriteria to a {@link Specification}
      */
-    private Specifications<Compte> createSpecification(CompteCriteria criteria) {
+    private Specification<Compte> createSpecification(CompteCriteria criteria) {
         Specifications<Compte> specification = Specifications.where(null);
         if (criteria != null) {
             if (criteria.getId() != null) {
@@ -89,6 +88,12 @@ public class CompteQueryService extends QueryService<Compte> {
             }
             if (criteria.getClientId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getClientId(), Compte_.client, Client_.id));
+            }
+            if (criteria.getPretId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getPretId(), Compte_.pret, Pret_.id));
+            }
+            if (criteria.getUserId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getUserId(), Compte_.user, User_.id));
             }
             if (criteria.getChapitreId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getChapitreId(), Compte_.chapitre, Chapitre_.id));

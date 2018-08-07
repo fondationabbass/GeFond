@@ -1,12 +1,12 @@
 package com.bdi.fondation.service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +21,7 @@ import com.bdi.fondation.service.dto.MouvementCriteria;
 
 /**
  * Service for executing complex queries for Mouvement entities in the database.
- * The main input is a {@link MouvementCriteria} which get's converted to {@link Specifications},
+ * The main input is a {@link MouvementCriteria} which gets converted to {@link Specification},
  * in a way that all the filters must apply.
  * It returns a {@link List} of {@link Mouvement} or a {@link Page} of {@link Mouvement} which fulfills the criteria.
  */
@@ -30,7 +30,6 @@ import com.bdi.fondation.service.dto.MouvementCriteria;
 public class MouvementQueryService extends QueryService<Mouvement> {
 
     private final Logger log = LoggerFactory.getLogger(MouvementQueryService.class);
-
 
     private final MouvementRepository mouvementRepository;
 
@@ -46,7 +45,7 @@ public class MouvementQueryService extends QueryService<Mouvement> {
     @Transactional(readOnly = true)
     public List<Mouvement> findByCriteria(MouvementCriteria criteria) {
         log.debug("find by criteria : {}", criteria);
-        final Specifications<Mouvement> specification = createSpecification(criteria);
+        final Specification<Mouvement> specification = createSpecification(criteria);
         return mouvementRepository.findAll(specification);
     }
 
@@ -59,14 +58,14 @@ public class MouvementQueryService extends QueryService<Mouvement> {
     @Transactional(readOnly = true)
     public Page<Mouvement> findByCriteria(MouvementCriteria criteria, Pageable page) {
         log.debug("find by criteria : {}, page: {}", criteria, page);
-        final Specifications<Mouvement> specification = createSpecification(criteria);
+        final Specification<Mouvement> specification = createSpecification(criteria);
         return mouvementRepository.findAll(specification, page);
     }
 
     /**
-     * Function to convert MouvementCriteria to a {@link Specifications}
+     * Function to convert MouvementCriteria to a {@link Specification}
      */
-    private Specifications<Mouvement> createSpecification(MouvementCriteria criteria) {
+    private Specification<Mouvement> createSpecification(MouvementCriteria criteria) {
         Specifications<Mouvement> specification = Specifications.where(null);
         if (criteria != null) {
             if (criteria.getId() != null) {
@@ -89,6 +88,9 @@ public class MouvementQueryService extends QueryService<Mouvement> {
             }
             if (criteria.getCompteId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getCompteId(), Mouvement_.compte, Compte_.id));
+            }
+            if (criteria.getCompteDestinataireId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getCompteDestinataireId(), Mouvement_.compteDestinataire, Compte_.id));
             }
             if (criteria.getPretId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getPretId(), Mouvement_.pret, Pret_.id));

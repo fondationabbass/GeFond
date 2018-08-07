@@ -79,7 +79,7 @@ public class MouvementResource {
     public ResponseEntity<Mouvement> updateMouvement(@Valid @RequestBody Mouvement mouvement) throws URISyntaxException {
         log.debug("REST request to update Mouvement : {}", mouvement);
         if (mouvement.getId() == null) {
-            return createMouvement(mouvement);
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         Mouvement result = mouvementService.save(mouvement);
         return ResponseEntity.ok()
@@ -113,8 +113,8 @@ public class MouvementResource {
     @Timed
     public ResponseEntity<Mouvement> getMouvement(@PathVariable Long id) {
         log.debug("REST request to get Mouvement : {}", id);
-        Mouvement mouvement = mouvementService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(mouvement));
+        Optional<Mouvement> mouvement = mouvementService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(mouvement);
     }
 
     /**

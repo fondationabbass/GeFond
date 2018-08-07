@@ -86,6 +86,18 @@ public class CandidatureResource {
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, candidature.getId().toString()))
             .body(result);
     }
+    @PutMapping("/candidature/validate")
+    @Timed
+    public ResponseEntity<Candidature> validateCandidature(@Valid @RequestBody Candidature candidature) throws URISyntaxException {
+    	log.debug("REST request to validate Candidature : {}", candidature);
+    	if (candidature.getId() == null) {
+    		return createCandidature(candidature);
+    	}
+    	Candidature result = candidatureService.validate(candidature);
+    	return ResponseEntity.ok()
+    			.headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, candidature.getId().toString()))
+    			.body(result);
+    }
 
     /**
      * GET  /candidatures : get all the candidatures.

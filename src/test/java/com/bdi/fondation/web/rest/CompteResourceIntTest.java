@@ -4,6 +4,8 @@ import com.bdi.fondation.GeFondApp;
 
 import com.bdi.fondation.domain.Compte;
 import com.bdi.fondation.domain.Client;
+import com.bdi.fondation.domain.Pret;
+import com.bdi.fondation.domain.User;
 import com.bdi.fondation.domain.Chapitre;
 import com.bdi.fondation.repository.CompteRepository;
 import com.bdi.fondation.service.CompteService;
@@ -29,6 +31,7 @@ import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
+
 
 import static com.bdi.fondation.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -62,6 +65,8 @@ public class CompteResourceIntTest {
 
     @Autowired
     private CompteRepository compteRepository;
+
+    
 
     @Autowired
     private CompteService compteService;
@@ -247,6 +252,7 @@ public class CompteResourceIntTest {
             .andExpect(jsonPath("$.[*].dateDernierCredit").value(hasItem(DEFAULT_DATE_DERNIER_CREDIT.toString())))
             .andExpect(jsonPath("$.[*].dateDernierDebit").value(hasItem(DEFAULT_DATE_DERNIER_DEBIT.toString())));
     }
+    
 
     @Test
     @Transactional
@@ -563,6 +569,44 @@ public class CompteResourceIntTest {
 
     @Test
     @Transactional
+    public void getAllComptesByPretIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Pret pret = PretResourceIntTest.createEntity(em);
+        em.persist(pret);
+        em.flush();
+        compte.setPret(pret);
+        compteRepository.saveAndFlush(compte);
+        Long pretId = pret.getId();
+
+        // Get all the compteList where pret equals to pretId
+        defaultCompteShouldBeFound("pretId.equals=" + pretId);
+
+        // Get all the compteList where pret equals to pretId + 1
+        defaultCompteShouldNotBeFound("pretId.equals=" + (pretId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllComptesByUserIsEqualToSomething() throws Exception {
+        // Initialize the database
+        User user = UserResourceIntTest.createEntity(em);
+        em.persist(user);
+        em.flush();
+        compte.setUser(user);
+        compteRepository.saveAndFlush(compte);
+        Long userId = user.getId();
+
+        // Get all the compteList where user equals to userId
+        defaultCompteShouldBeFound("userId.equals=" + userId);
+
+        // Get all the compteList where user equals to userId + 1
+        defaultCompteShouldNotBeFound("userId.equals=" + (userId + 1));
+    }
+
+
+    @Test
+    @Transactional
     public void getAllComptesByChapitreIsEqualToSomething() throws Exception {
         // Initialize the database
         Chapitre chapitre = ChapitreResourceIntTest.createEntity(em);
@@ -604,7 +648,6 @@ public class CompteResourceIntTest {
             .andExpect(jsonPath("$").isArray())
             .andExpect(jsonPath("$").isEmpty());
     }
-
 
     @Test
     @Transactional
@@ -660,11 +703,11 @@ public class CompteResourceIntTest {
         restCompteMockMvc.perform(put("/api/comptes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(compte)))
-            .andExpect(status().isCreated());
+            .andExpect(status().isBadRequest());
 
         // Validate the Compte in the database
         List<Compte> compteList = compteRepository.findAll();
-        assertThat(compteList).hasSize(databaseSizeBeforeUpdate + 1);
+        assertThat(compteList).hasSize(databaseSizeBeforeUpdate);
     }
 
     @Test

@@ -9,6 +9,12 @@
         },
         {
             "relationshipType": "many-to-one",
+            "relationshipName": "compteDestinataire",
+            "otherEntityName": "compte",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
             "relationshipName": "pret",
             "otherEntityName": "pret",
             "otherEntityField": "id"

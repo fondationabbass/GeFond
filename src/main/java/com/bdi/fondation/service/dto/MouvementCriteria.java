@@ -40,6 +40,8 @@ public class MouvementCriteria implements Serializable {
 
     private LongFilter compteId;
 
+    private LongFilter compteDestinataireId;
+
     private LongFilter pretId;
 
     private LongFilter echeanceId;
@@ -103,6 +105,14 @@ public class MouvementCriteria implements Serializable {
         this.compteId = compteId;
     }
 
+    public LongFilter getCompteDestinataireId() {
+        return compteDestinataireId;
+    }
+
+    public void setCompteDestinataireId(LongFilter compteDestinataireId) {
+        this.compteDestinataireId = compteDestinataireId;
+    }
+
     public LongFilter getPretId() {
         return pretId;
     }
@@ -129,6 +139,7 @@ public class MouvementCriteria implements Serializable {
                 (sens != null ? "sens=" + sens + ", " : "") +
                 (etat != null ? "etat=" + etat + ", " : "") +
                 (compteId != null ? "compteId=" + compteId + ", " : "") +
+                (compteDestinataireId != null ? "compteDestinataireId=" + compteDestinataireId + ", " : "") +
                 (pretId != null ? "pretId=" + pretId + ", " : "") +
                 (echeanceId != null ? "echeanceId=" + echeanceId + ", " : "") +
             "}";
