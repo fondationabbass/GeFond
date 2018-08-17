@@ -11,10 +11,7 @@
     "fields": [
         {
             "fieldName": "lieuVisite",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldType": "String"
         },
         {
             "fieldName": "dateVisite",
@@ -25,17 +22,11 @@
         },
         {
             "fieldName": "persRencontre",
-            "fieldType": "Integer",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldType": "Integer"
         },
         {
             "fieldName": "cadreVisite",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldType": "String"
         },
         {
             "fieldName": "etatLieu",
@@ -55,10 +46,7 @@
         },
         {
             "fieldName": "rapport",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldType": "String"
         }
     ],
     "changelogDate": "20180610192821",

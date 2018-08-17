@@ -4,7 +4,7 @@ import com.bdi.fondation.GeFondApp;
 
 import com.bdi.fondation.domain.Echeance;
 import com.bdi.fondation.domain.Pret;
-import com.bdi.fondation.domain.Mouvement;
+import com.bdi.fondation.domain.Operation;
 import com.bdi.fondation.repository.EcheanceRepository;
 import com.bdi.fondation.service.EcheanceService;
 import com.bdi.fondation.web.rest.errors.ExceptionTranslator;
@@ -50,6 +50,9 @@ public class EcheanceResourceIntTest {
 
     private static final Double DEFAULT_MONTANT = 1D;
     private static final Double UPDATED_MONTANT = 2D;
+
+    private static final Double DEFAULT_MONTANT_PAYE = 1D;
+    private static final Double UPDATED_MONTANT_PAYE = 2D;
 
     private static final String DEFAULT_ETAT_ECHEANCE = "AAAAAAAAAA";
     private static final String UPDATED_ETAT_ECHEANCE = "BBBBBBBBBB";
@@ -106,6 +109,7 @@ public class EcheanceResourceIntTest {
         Echeance echeance = new Echeance()
             .dateTombe(DEFAULT_DATE_TOMBE)
             .montant(DEFAULT_MONTANT)
+            .montantPaye(DEFAULT_MONTANT_PAYE)
             .etatEcheance(DEFAULT_ETAT_ECHEANCE)
             .datePayement(DEFAULT_DATE_PAYEMENT)
             .dateRetrait(DEFAULT_DATE_RETRAIT);
@@ -134,6 +138,7 @@ public class EcheanceResourceIntTest {
         Echeance testEcheance = echeanceList.get(echeanceList.size() - 1);
         assertThat(testEcheance.getDateTombe()).isEqualTo(DEFAULT_DATE_TOMBE);
         assertThat(testEcheance.getMontant()).isEqualTo(DEFAULT_MONTANT);
+        assertThat(testEcheance.getMontantPaye()).isEqualTo(DEFAULT_MONTANT_PAYE);
         assertThat(testEcheance.getEtatEcheance()).isEqualTo(DEFAULT_ETAT_ECHEANCE);
         assertThat(testEcheance.getDatePayement()).isEqualTo(DEFAULT_DATE_PAYEMENT);
         assertThat(testEcheance.getDateRetrait()).isEqualTo(DEFAULT_DATE_RETRAIT);
@@ -225,6 +230,7 @@ public class EcheanceResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(echeance.getId().intValue())))
             .andExpect(jsonPath("$.[*].dateTombe").value(hasItem(DEFAULT_DATE_TOMBE.toString())))
             .andExpect(jsonPath("$.[*].montant").value(hasItem(DEFAULT_MONTANT.doubleValue())))
+            .andExpect(jsonPath("$.[*].montantPaye").value(hasItem(DEFAULT_MONTANT_PAYE.doubleValue())))
             .andExpect(jsonPath("$.[*].etatEcheance").value(hasItem(DEFAULT_ETAT_ECHEANCE.toString())))
             .andExpect(jsonPath("$.[*].datePayement").value(hasItem(DEFAULT_DATE_PAYEMENT.toString())))
             .andExpect(jsonPath("$.[*].dateRetrait").value(hasItem(DEFAULT_DATE_RETRAIT.toString())));
@@ -243,6 +249,7 @@ public class EcheanceResourceIntTest {
             .andExpect(jsonPath("$.id").value(echeance.getId().intValue()))
             .andExpect(jsonPath("$.dateTombe").value(DEFAULT_DATE_TOMBE.toString()))
             .andExpect(jsonPath("$.montant").value(DEFAULT_MONTANT.doubleValue()))
+            .andExpect(jsonPath("$.montantPaye").value(DEFAULT_MONTANT_PAYE.doubleValue()))
             .andExpect(jsonPath("$.etatEcheance").value(DEFAULT_ETAT_ECHEANCE.toString()))
             .andExpect(jsonPath("$.datePayement").value(DEFAULT_DATE_PAYEMENT.toString()))
             .andExpect(jsonPath("$.dateRetrait").value(DEFAULT_DATE_RETRAIT.toString()));
@@ -351,6 +358,45 @@ public class EcheanceResourceIntTest {
 
         // Get all the echeanceList where montant is null
         defaultEcheanceShouldNotBeFound("montant.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllEcheancesByMontantPayeIsEqualToSomething() throws Exception {
+        // Initialize the database
+        echeanceRepository.saveAndFlush(echeance);
+
+        // Get all the echeanceList where montantPaye equals to DEFAULT_MONTANT_PAYE
+        defaultEcheanceShouldBeFound("montantPaye.equals=" + DEFAULT_MONTANT_PAYE);
+
+        // Get all the echeanceList where montantPaye equals to UPDATED_MONTANT_PAYE
+        defaultEcheanceShouldNotBeFound("montantPaye.equals=" + UPDATED_MONTANT_PAYE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllEcheancesByMontantPayeIsInShouldWork() throws Exception {
+        // Initialize the database
+        echeanceRepository.saveAndFlush(echeance);
+
+        // Get all the echeanceList where montantPaye in DEFAULT_MONTANT_PAYE or UPDATED_MONTANT_PAYE
+        defaultEcheanceShouldBeFound("montantPaye.in=" + DEFAULT_MONTANT_PAYE + "," + UPDATED_MONTANT_PAYE);
+
+        // Get all the echeanceList where montantPaye equals to UPDATED_MONTANT_PAYE
+        defaultEcheanceShouldNotBeFound("montantPaye.in=" + UPDATED_MONTANT_PAYE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllEcheancesByMontantPayeIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        echeanceRepository.saveAndFlush(echeance);
+
+        // Get all the echeanceList where montantPaye is not null
+        defaultEcheanceShouldBeFound("montantPaye.specified=true");
+
+        // Get all the echeanceList where montantPaye is null
+        defaultEcheanceShouldNotBeFound("montantPaye.specified=false");
     }
 
     @Test
@@ -545,20 +591,20 @@ public class EcheanceResourceIntTest {
 
     @Test
     @Transactional
-    public void getAllEcheancesByMouvementIsEqualToSomething() throws Exception {
+    public void getAllEcheancesByOperationIsEqualToSomething() throws Exception {
         // Initialize the database
-        Mouvement mouvement = MouvementResourceIntTest.createEntity(em);
-        em.persist(mouvement);
+        Operation operation = OperationResourceIntTest.createEntity(em);
+        em.persist(operation);
         em.flush();
-        echeance.addMouvement(mouvement);
+        echeance.addOperation(operation);
         echeanceRepository.saveAndFlush(echeance);
-        Long mouvementId = mouvement.getId();
+        Long operationId = operation.getId();
 
-        // Get all the echeanceList where mouvement equals to mouvementId
-        defaultEcheanceShouldBeFound("mouvementId.equals=" + mouvementId);
+        // Get all the echeanceList where operation equals to operationId
+        defaultEcheanceShouldBeFound("operationId.equals=" + operationId);
 
-        // Get all the echeanceList where mouvement equals to mouvementId + 1
-        defaultEcheanceShouldNotBeFound("mouvementId.equals=" + (mouvementId + 1));
+        // Get all the echeanceList where operation equals to operationId + 1
+        defaultEcheanceShouldNotBeFound("operationId.equals=" + (operationId + 1));
     }
 
     /**
@@ -571,6 +617,7 @@ public class EcheanceResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(echeance.getId().intValue())))
             .andExpect(jsonPath("$.[*].dateTombe").value(hasItem(DEFAULT_DATE_TOMBE.toString())))
             .andExpect(jsonPath("$.[*].montant").value(hasItem(DEFAULT_MONTANT.doubleValue())))
+            .andExpect(jsonPath("$.[*].montantPaye").value(hasItem(DEFAULT_MONTANT_PAYE.doubleValue())))
             .andExpect(jsonPath("$.[*].etatEcheance").value(hasItem(DEFAULT_ETAT_ECHEANCE.toString())))
             .andExpect(jsonPath("$.[*].datePayement").value(hasItem(DEFAULT_DATE_PAYEMENT.toString())))
             .andExpect(jsonPath("$.[*].dateRetrait").value(hasItem(DEFAULT_DATE_RETRAIT.toString())));
@@ -611,6 +658,7 @@ public class EcheanceResourceIntTest {
         updatedEcheance
             .dateTombe(UPDATED_DATE_TOMBE)
             .montant(UPDATED_MONTANT)
+            .montantPaye(UPDATED_MONTANT_PAYE)
             .etatEcheance(UPDATED_ETAT_ECHEANCE)
             .datePayement(UPDATED_DATE_PAYEMENT)
             .dateRetrait(UPDATED_DATE_RETRAIT);
@@ -626,6 +674,7 @@ public class EcheanceResourceIntTest {
         Echeance testEcheance = echeanceList.get(echeanceList.size() - 1);
         assertThat(testEcheance.getDateTombe()).isEqualTo(UPDATED_DATE_TOMBE);
         assertThat(testEcheance.getMontant()).isEqualTo(UPDATED_MONTANT);
+        assertThat(testEcheance.getMontantPaye()).isEqualTo(UPDATED_MONTANT_PAYE);
         assertThat(testEcheance.getEtatEcheance()).isEqualTo(UPDATED_ETAT_ECHEANCE);
         assertThat(testEcheance.getDatePayement()).isEqualTo(UPDATED_DATE_PAYEMENT);
         assertThat(testEcheance.getDateRetrait()).isEqualTo(UPDATED_DATE_RETRAIT);

@@ -9,8 +9,8 @@
         },
         {
             "relationshipType": "many-to-many",
-            "relationshipName": "mouvement",
-            "otherEntityName": "mouvement",
+            "relationshipName": "operation",
+            "otherEntityName": "operation",
             "ownerSide": false,
             "otherEntityRelationshipName": "echeance"
         }
@@ -28,18 +28,16 @@
             ]
         },
         {
+            "fieldName": "montantPaye",
+            "fieldType": "Double"
+        },
+        {
             "fieldName": "etatEcheance",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldType": "String"
         },
         {
             "fieldName": "datePayement",
-            "fieldType": "LocalDate",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldType": "LocalDate"
         },
         {
             "fieldName": "dateRetrait",

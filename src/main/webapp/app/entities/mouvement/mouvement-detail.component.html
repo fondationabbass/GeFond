@@ -30,11 +30,11 @@
                 <a [routerLink]="['/compte', mouvement.compte?.id]">{{mouvement.compte?.id}}</a>
             </div>
         </dd>
-        <dt><span jhiTranslate="geFondApp.mouvement.echeance">Echeance</span></dt>
+        <dt><span jhiTranslate="geFondApp.mouvement.operation">Operation</span></dt>
         <dd>
-            <span *ngFor="let echeance of mouvement.echeances; let last = last">
-                <a [routerLink]="['/echeance', echeance?.id ]">{{echeance.id}}</a>{{last ? '' : ', '}}
-            </span>
+            <div *ngIf="mouvement.operation">
+                <a [routerLink]="['/operation', mouvement.operation?.id]">{{mouvement.operation?.id}}</a>
+            </div>
         </dd>
     </dl>
 

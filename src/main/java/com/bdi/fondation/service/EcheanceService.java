@@ -1,9 +1,5 @@
 package com.bdi.fondation.service;
 
-import com.bdi.fondation.domain.Echeance;
-import com.bdi.fondation.domain.Garantie;
-import com.bdi.fondation.repository.EcheanceRepository;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +9,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.bdi.fondation.domain.Echeance;
+import com.bdi.fondation.repository.EcheanceRepository;
 
 
 /**
@@ -36,17 +35,18 @@ public class EcheanceService {
      * @param echeance the entity to save
      * @return the persisted entity
      */
+    public Iterable<Echeance> save(Iterable<Echeance> items) {
+        List<Echeance> result = new ArrayList<>();
+        for (Echeance item : items) {
+            result.add(save(item));
+        }
+        return result;
+    }
     public Echeance save(Echeance echeance) {
         log.debug("Request to save Echeance : {}", echeance);
         return echeanceRepository.save(echeance);
     }
-    public Iterable<Echeance> save(Iterable<Echeance> items) {
-		List<Echeance> result = new ArrayList<>();
-		for (Echeance item : items) {
-			result.add(save(item));
-		}
-		return result;
-	}
+
     /**
      * Get all the echeances.
      *

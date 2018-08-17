@@ -15,7 +15,6 @@ import {
     mouvementPopupRoute,
     MouvementResolvePagingParams,
 } from './';
-import { PretService } from '../pret';
 
 const ENTITY_STATES = [
     ...mouvementRoute,
@@ -45,7 +44,6 @@ const ENTITY_STATES = [
     providers: [
         MouvementService,
         MouvementPopupService,
-        PretService,
         MouvementResolvePagingParams,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

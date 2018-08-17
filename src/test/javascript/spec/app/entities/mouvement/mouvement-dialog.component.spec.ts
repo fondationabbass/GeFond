@@ -10,7 +10,7 @@ import { MouvementDialogComponent } from '../../../../../../main/webapp/app/enti
 import { MouvementService } from '../../../../../../main/webapp/app/entities/mouvement/mouvement.service';
 import { Mouvement } from '../../../../../../main/webapp/app/entities/mouvement/mouvement.model';
 import { CompteService } from '../../../../../../main/webapp/app/entities/compte';
-import { EcheanceService } from '../../../../../../main/webapp/app/entities/echeance';
+import { OperationService } from '../../../../../../main/webapp/app/entities/operation';
 
 describe('Component Tests', () => {
 
@@ -27,7 +27,7 @@ describe('Component Tests', () => {
                 declarations: [MouvementDialogComponent],
                 providers: [
                     CompteService,
-                    EcheanceService,
+                    OperationService,
                     MouvementService
                 ]
             })

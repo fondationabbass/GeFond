@@ -1,0 +1,24 @@
+
+{
+    "geFondApp": {
+        "caisse" : {
+            "home": {
+                "title": "Caisses",
+                "createLabel": "Créer un nouveau Caisse",
+                "createOrEditLabel": "Créer ou éditer un Caisse"
+            },
+            "created": "Un nouveau Caisse a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Caisse avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Caisse avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Caisse {{ id }} ?"
+            },
+            "detail": {
+                "title": "Caisse"
+            },
+            "intituleCaisse": "Intitule Caisse",
+            "dateOuverture": "Date Ouverture",
+            "user": "User"
+        }
+    }
+}

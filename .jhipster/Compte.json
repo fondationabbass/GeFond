@@ -15,8 +15,8 @@
         },
         {
             "relationshipType": "many-to-one",
-            "relationshipName": "user",
-            "otherEntityName": "user",
+            "relationshipName": "caisse",
+            "otherEntityName": "caisse",
             "otherEntityField": "id"
         },
         {
@@ -35,32 +35,27 @@
             ]
         },
         {
+            "fieldName": "numCompte",
+            "fieldType": "String"
+        },
+        {
             "fieldName": "dateOuverture",
             "fieldType": "LocalDate"
         },
         {
             "fieldName": "solde",
-            "fieldType": "Double",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldType": "Double"
         },
         {
             "fieldName": "dateDernierCredit",
-            "fieldType": "LocalDate",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldType": "LocalDate"
         },
         {
             "fieldName": "dateDernierDebit",
-            "fieldType": "LocalDate",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldType": "LocalDate"
         }
     ],
-    "changelogDate": "20180610192828",
+    "changelogDate": "20180816192828",
     "entityTableName": "compte",
     "dto": "no",
     "pagination": "pagination",

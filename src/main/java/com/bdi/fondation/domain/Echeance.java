@@ -34,14 +34,16 @@ public class Echeance implements Serializable {
     @NotNull
     @Column(name = "montant", nullable = false)
     private Double montant;
-    
+
     @Column(name = "montant_paye")
     private Double montantPaye;
 
-    @Column(name = "etat_echeance")
+    @NotNull
+    @Column(name = "etat_echeance", nullable = false)
     private String etatEcheance;
 
-    @Column(name = "date_payement")
+    @NotNull
+    @Column(name = "date_payement", nullable = false)
     private LocalDate datePayement;
 
     @Column(name = "date_retrait")
@@ -53,7 +55,7 @@ public class Echeance implements Serializable {
     @ManyToMany(mappedBy = "echeances")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Mouvement> mouvements = new HashSet<>();
+    private Set<Operation> operations = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -88,6 +90,19 @@ public class Echeance implements Serializable {
 
     public void setMontant(Double montant) {
         this.montant = montant;
+    }
+
+    public Double getMontantPaye() {
+        return montantPaye;
+    }
+
+    public Echeance montantPaye(Double montantPaye) {
+        this.montantPaye = montantPaye;
+        return this;
+    }
+
+    public void setMontantPaye(Double montantPaye) {
+        this.montantPaye = montantPaye;
     }
 
     public String getEtatEcheance() {
@@ -142,42 +157,33 @@ public class Echeance implements Serializable {
         this.pret = pret;
     }
 
-    public Set<Mouvement> getMouvements() {
-        return mouvements;
+    public Set<Operation> getOperations() {
+        return operations;
     }
 
-    public Echeance mouvements(Set<Mouvement> mouvements) {
-        this.mouvements = mouvements;
+    public Echeance operations(Set<Operation> operations) {
+        this.operations = operations;
         return this;
     }
 
-    public Echeance addMouvement(Mouvement mouvement) {
-        this.mouvements.add(mouvement);
-        mouvement.getEcheances().add(this);
+    public Echeance addOperation(Operation operation) {
+        this.operations.add(operation);
+        operation.getEcheances().add(this);
         return this;
     }
 
-    public Echeance removeMouvement(Mouvement mouvement) {
-        this.mouvements.remove(mouvement);
-        mouvement.getEcheances().remove(this);
+    public Echeance removeOperation(Operation operation) {
+        this.operations.remove(operation);
+        operation.getEcheances().remove(this);
         return this;
     }
 
-    public void setMouvements(Set<Mouvement> mouvements) {
-        this.mouvements = mouvements;
+    public void setOperations(Set<Operation> operations) {
+        this.operations = operations;
     }
-    
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
-    public Double getMontantPaye() {
-		return montantPaye;
-	}
-
-	public void setMontantPaye(Double montantPaye) {
-		this.montantPaye = montantPaye;
-	}
-
-	@Override
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -203,6 +209,7 @@ public class Echeance implements Serializable {
             "id=" + getId() +
             ", dateTombe='" + getDateTombe() + "'" +
             ", montant=" + getMontant() +
+            ", montantPaye=" + getMontantPaye() +
             ", etatEcheance='" + getEtatEcheance() + "'" +
             ", datePayement='" + getDatePayement() + "'" +
             ", dateRetrait='" + getDateRetrait() + "'" +

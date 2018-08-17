@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity Operation.
+    -->
+    <changeSet id="20180610192832-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="compte_origin_id"
+                                 baseTableName="operation"
+                                 constraintName="fk_operation_compte_origin_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="compte"/>
+
+        <addForeignKeyConstraint baseColumnNames="compte_destinataire_id"
+                                 baseTableName="operation"
+                                 constraintName="fk_operation_compte_destinataire_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="compte"/>
+
+        <addForeignKeyConstraint baseColumnNames="pret_id"
+                                 baseTableName="operation"
+                                 constraintName="fk_operation_pret_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="pret"/>
+
+        <addForeignKeyConstraint baseColumnNames="caisse_id"
+                                 baseTableName="operation"
+                                 constraintName="fk_operation_caisse_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="caisse"/>
+
+        <addForeignKeyConstraint baseColumnNames="operations_id"
+                                 baseTableName="operation_echeance"
+                                 constraintName="fk_operation_echeance_operations_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="operation"/>
+        <addForeignKeyConstraint baseColumnNames="echeances_id"
+                                 baseTableName="operation_echeance"
+                                 constraintName="fk_operation_echeance_echeances_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="echeance"/>
+        
+    </changeSet>
+</databaseChangeLog>

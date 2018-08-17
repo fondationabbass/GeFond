@@ -9,23 +9,9 @@
         },
         {
             "relationshipType": "many-to-one",
-            "relationshipName": "compteDestinataire",
-            "otherEntityName": "compte",
+            "relationshipName": "operation",
+            "otherEntityName": "operation",
             "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "relationshipName": "pret",
-            "otherEntityName": "pret",
-            "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "many-to-many",
-            "otherEntityRelationshipName": "mouvement",
-            "relationshipName": "echeance",
-            "otherEntityName": "echeance",
-            "otherEntityField": "id",
-            "ownerSide": true
         }
     ],
     "fields": [
@@ -59,7 +45,7 @@
             "fieldType": "String"
         }
     ],
-    "changelogDate": "20180610192832",
+    "changelogDate": "20180816192832",
     "entityTableName": "mouvement",
     "dto": "no",
     "pagination": "pagination",

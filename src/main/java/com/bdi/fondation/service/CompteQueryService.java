@@ -6,22 +6,27 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import io.github.jhipster.service.QueryService;
-
+// for static metamodels
+import com.bdi.fondation.domain.Caisse_;
+import com.bdi.fondation.domain.Chapitre_;
+import com.bdi.fondation.domain.Client_;
 import com.bdi.fondation.domain.Compte;
-import com.bdi.fondation.domain.*; // for static metamodels
+import com.bdi.fondation.domain.Compte_;
+import com.bdi.fondation.domain.Pret_;
 import com.bdi.fondation.repository.CompteRepository;
 import com.bdi.fondation.service.dto.CompteCriteria;
+
+import io.github.jhipster.service.QueryService;
+import io.github.jhipster.service.filter.LongFilter;
 
 
 /**
  * Service for executing complex queries for Compte entities in the database.
- * The main input is a {@link CompteCriteria} which gets converted to {@link Specification},
+ * The main input is a {@link CompteCriteria} which get's converted to {@link Specifications},
  * in a way that all the filters must apply.
  * It returns a {@link List} of {@link Compte} or a {@link Page} of {@link Compte} which fulfills the criteria.
  */
@@ -30,6 +35,7 @@ import com.bdi.fondation.service.dto.CompteCriteria;
 public class CompteQueryService extends QueryService<Compte> {
 
     private final Logger log = LoggerFactory.getLogger(CompteQueryService.class);
+
 
     private final CompteRepository compteRepository;
 
@@ -45,7 +51,7 @@ public class CompteQueryService extends QueryService<Compte> {
     @Transactional(readOnly = true)
     public List<Compte> findByCriteria(CompteCriteria criteria) {
         log.debug("find by criteria : {}", criteria);
-        final Specification<Compte> specification = createSpecification(criteria);
+        final Specifications<Compte> specification = createSpecification(criteria);
         return compteRepository.findAll(specification);
     }
 
@@ -58,14 +64,14 @@ public class CompteQueryService extends QueryService<Compte> {
     @Transactional(readOnly = true)
     public Page<Compte> findByCriteria(CompteCriteria criteria, Pageable page) {
         log.debug("find by criteria : {}, page: {}", criteria, page);
-        final Specification<Compte> specification = createSpecification(criteria);
+        final Specifications<Compte> specification = createSpecification(criteria);
         return compteRepository.findAll(specification, page);
     }
 
     /**
-     * Function to convert CompteCriteria to a {@link Specification}
+     * Function to convert CompteCriteria to a {@link Specifications}
      */
-    private Specification<Compte> createSpecification(CompteCriteria criteria) {
+    private Specifications<Compte> createSpecification(CompteCriteria criteria) {
         Specifications<Compte> specification = Specifications.where(null);
         if (criteria != null) {
             if (criteria.getId() != null) {
@@ -73,6 +79,9 @@ public class CompteQueryService extends QueryService<Compte> {
             }
             if (criteria.getIntituleCompte() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getIntituleCompte(), Compte_.intituleCompte));
+            }
+            if (criteria.getNumCompte() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getNumCompte(), Compte_.numCompte));
             }
             if (criteria.getDateOuverture() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getDateOuverture(), Compte_.dateOuverture));
@@ -92,14 +101,38 @@ public class CompteQueryService extends QueryService<Compte> {
             if (criteria.getPretId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getPretId(), Compte_.pret, Pret_.id));
             }
-            if (criteria.getUserId() != null) {
-                specification = specification.and(buildReferringEntitySpecification(criteria.getUserId(), Compte_.user, User_.id));
+            if (criteria.getCaisseId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getCaisseId(), Compte_.caisse, Caisse_.id));
             }
             if (criteria.getChapitreId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getChapitreId(), Compte_.chapitre, Chapitre_.id));
             }
         }
         return specification;
+    }
+    @Transactional(readOnly = true)
+    public Compte getCompteByPretId(Long pretId) {
+        CompteCriteria criteria = new CompteCriteria();
+        LongFilter pretFilter = new LongFilter();
+        pretFilter.setEquals(pretId);
+        criteria.setPretId(pretFilter);
+        List<Compte> list = findByCriteria(criteria);
+        if(list!=null && list.size()==1) {
+            return list.get(0);
+        }
+        throw new IllegalStateException("Trouvé "+list+" compte(s) par pret Id = "+pretId);
+    }
+
+    public Compte getCompteByCaisseId(Long caisseId) {
+        CompteCriteria criteria = new CompteCriteria();
+        LongFilter caissetFilter = new LongFilter();
+        caissetFilter.setEquals(caisseId);
+        criteria.setCaisseId(caissetFilter);
+        List<Compte> list = findByCriteria(criteria);
+        if(list!=null && list.size()==1) {
+            return list.get(0);
+        }
+        throw new IllegalStateException("Trouvé "+list+" compte(s) par caisse Id = "+caisseId);
     }
 
 }

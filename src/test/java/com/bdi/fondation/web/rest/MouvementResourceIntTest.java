@@ -4,9 +4,7 @@ import com.bdi.fondation.GeFondApp;
 
 import com.bdi.fondation.domain.Mouvement;
 import com.bdi.fondation.domain.Compte;
-import com.bdi.fondation.domain.Compte;
-import com.bdi.fondation.domain.Pret;
-import com.bdi.fondation.domain.Echeance;
+import com.bdi.fondation.domain.Operation;
 import com.bdi.fondation.repository.MouvementRepository;
 import com.bdi.fondation.service.MouvementService;
 import com.bdi.fondation.web.rest.errors.ExceptionTranslator;
@@ -16,12 +14,9 @@ import com.bdi.fondation.service.MouvementQueryService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -33,14 +28,11 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.List;
-
 
 import static com.bdi.fondation.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -70,11 +62,6 @@ public class MouvementResourceIntTest {
 
     @Autowired
     private MouvementRepository mouvementRepository;
-    @Mock
-    private MouvementRepository mouvementRepositoryMock;
-    
-    @Mock
-    private MouvementService mouvementServiceMock;
 
     @Autowired
     private MouvementService mouvementService;
@@ -241,37 +228,6 @@ public class MouvementResourceIntTest {
             .andExpect(jsonPath("$.[*].montant").value(hasItem(DEFAULT_MONTANT.doubleValue())))
             .andExpect(jsonPath("$.[*].sens").value(hasItem(DEFAULT_SENS.toString())))
             .andExpect(jsonPath("$.[*].etat").value(hasItem(DEFAULT_ETAT.toString())));
-    }
-    
-    public void getAllMouvementsWithEagerRelationshipsIsEnabled() throws Exception {
-        MouvementResource mouvementResource = new MouvementResource(mouvementServiceMock, mouvementQueryService);
-        when(mouvementServiceMock.findAll(any())).thenReturn(new PageImpl(new ArrayList<>()));
-
-        MockMvc restMouvementMockMvc = MockMvcBuilders.standaloneSetup(mouvementResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter).build();
-
-        restMouvementMockMvc.perform(get("/api/mouvements?eagerload=true"))
-        .andExpect(status().isOk());
-
-        verify(mouvementServiceMock, times(1)).findAll(any());
-    }
-
-    public void getAllMouvementsWithEagerRelationshipsIsNotEnabled() throws Exception {
-        MouvementResource mouvementResource = new MouvementResource(mouvementServiceMock, mouvementQueryService);
-            when(mouvementServiceMock.findAll(any())).thenReturn(new PageImpl(new ArrayList<>()));
-            MockMvc restMouvementMockMvc = MockMvcBuilders.standaloneSetup(mouvementResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter).build();
-
-        restMouvementMockMvc.perform(get("/api/mouvements?eagerload=true"))
-        .andExpect(status().isOk());
-
-            verify(mouvementServiceMock, times(1)).findAll(any());
     }
 
     @Test
@@ -535,58 +491,20 @@ public class MouvementResourceIntTest {
 
     @Test
     @Transactional
-    public void getAllMouvementsByCompteDestinataireIsEqualToSomething() throws Exception {
+    public void getAllMouvementsByOperationIsEqualToSomething() throws Exception {
         // Initialize the database
-        Compte compteDestinataire = CompteResourceIntTest.createEntity(em);
-        em.persist(compteDestinataire);
+        Operation operation = OperationResourceIntTest.createEntity(em);
+        em.persist(operation);
         em.flush();
-        mouvement.setCompteDestinataire(compteDestinataire);
+        mouvement.setOperation(operation);
         mouvementRepository.saveAndFlush(mouvement);
-        Long compteDestinataireId = compteDestinataire.getId();
+        Long operationId = operation.getId();
 
-        // Get all the mouvementList where compteDestinataire equals to compteDestinataireId
-        defaultMouvementShouldBeFound("compteDestinataireId.equals=" + compteDestinataireId);
+        // Get all the mouvementList where operation equals to operationId
+        defaultMouvementShouldBeFound("operationId.equals=" + operationId);
 
-        // Get all the mouvementList where compteDestinataire equals to compteDestinataireId + 1
-        defaultMouvementShouldNotBeFound("compteDestinataireId.equals=" + (compteDestinataireId + 1));
-    }
-
-
-    @Test
-    @Transactional
-    public void getAllMouvementsByPretIsEqualToSomething() throws Exception {
-        // Initialize the database
-        Pret pret = PretResourceIntTest.createEntity(em);
-        em.persist(pret);
-        em.flush();
-        mouvement.setPret(pret);
-        mouvementRepository.saveAndFlush(mouvement);
-        Long pretId = pret.getId();
-
-        // Get all the mouvementList where pret equals to pretId
-        defaultMouvementShouldBeFound("pretId.equals=" + pretId);
-
-        // Get all the mouvementList where pret equals to pretId + 1
-        defaultMouvementShouldNotBeFound("pretId.equals=" + (pretId + 1));
-    }
-
-
-    @Test
-    @Transactional
-    public void getAllMouvementsByEcheanceIsEqualToSomething() throws Exception {
-        // Initialize the database
-        Echeance echeance = EcheanceResourceIntTest.createEntity(em);
-        em.persist(echeance);
-        em.flush();
-        mouvement.addEcheance(echeance);
-        mouvementRepository.saveAndFlush(mouvement);
-        Long echeanceId = echeance.getId();
-
-        // Get all the mouvementList where echeance equals to echeanceId
-        defaultMouvementShouldBeFound("echeanceId.equals=" + echeanceId);
-
-        // Get all the mouvementList where echeance equals to echeanceId + 1
-        defaultMouvementShouldNotBeFound("echeanceId.equals=" + (echeanceId + 1));
+        // Get all the mouvementList where operation equals to operationId + 1
+        defaultMouvementShouldNotBeFound("operationId.equals=" + (operationId + 1));
     }
 
     /**
@@ -614,6 +532,7 @@ public class MouvementResourceIntTest {
             .andExpect(jsonPath("$").isArray())
             .andExpect(jsonPath("$").isEmpty());
     }
+
 
     @Test
     @Transactional
@@ -669,11 +588,11 @@ public class MouvementResourceIntTest {
         restMouvementMockMvc.perform(put("/api/mouvements")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(mouvement)))
-            .andExpect(status().isBadRequest());
+            .andExpect(status().isCreated());
 
         // Validate the Mouvement in the database
         List<Mouvement> mouvementList = mouvementRepository.findAll();
-        assertThat(mouvementList).hasSize(databaseSizeBeforeUpdate);
+        assertThat(mouvementList).hasSize(databaseSizeBeforeUpdate + 1);
     }
 
     @Test

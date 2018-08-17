@@ -1,19 +1,17 @@
 package com.bdi.fondation.service;
 
-import com.bdi.fondation.domain.Echeance;
-import com.bdi.fondation.domain.ElementFinancement;
-import com.bdi.fondation.domain.Mouvement;
-import com.bdi.fondation.domain.Pret;
-import com.bdi.fondation.repository.ElementFinancementRepository;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import com.bdi.fondation.domain.ElementFinancement;
+import com.bdi.fondation.domain.Operation;
+import com.bdi.fondation.repository.ElementFinancementRepository;
 
 /**
  * Service Implementation for managing ElementFinancement.
@@ -27,11 +25,7 @@ public class ElementFinancementService {
 	@Autowired
 	private ElementFinancementRepository elementFinancementRepository;
 	@Autowired
-	private PretService pretService;
-	@Autowired
-	private MouvementService mouvementService;
-	@Autowired
-	private EcheanceQueryService echeanceQueryService;
+	private OperationService operationService;
 
 	/**
 	 * Save a elementFinancement.
@@ -46,38 +40,16 @@ public class ElementFinancementService {
 		}
 		return result;
 	}
-	public ElementFinancement save(ElementFinancement elementFinancement) {
-		log.debug("Request to save ElementFinancement : {}", elementFinancement);
-		Double montant = elementFinancement.getMontant();
-		if(montant!=null && montant > 0) {
-			Pret pret = elementFinancement.getPret();
-			if(pret.getMontDebloq() + montant > pret.getMontAaccord())
-				throw new IllegalStateException("Le montant débloqué dépasse le plafond du pret.");
-			pret.setMontDebloq(pret.getMontDebloq() + montant);
-			pret.setDateDernierDebloq(LocalDate.now());
-			pret.setEtat(PretService.MIS_EN_PLACE);
-			pret.setEncours(pret.getEncours() + montant);
-			pretService.save(pret);
-			mouvementService.save(mouvementDeFinancement(elementFinancement));
-			List<Echeance> echeances = echeanceQueryService.findNotPayedByPretId(pret.getId());
-			if(echeances.size() > 0) {
-				double addOn = montant/echeances.size();
-				echeances.forEach(e->e.setMontant(e.getMontant() + addOn));
-			}
-		}
-		return elementFinancementRepository.save(elementFinancement);
-	}
 
-	private Mouvement mouvementDeFinancement(ElementFinancement elementFinancement) {
-		Mouvement mouvement = new Mouvement();
-		mouvement.setMontant(-1 * elementFinancement.getMontant());
-		mouvement.setPret(elementFinancement.getPret());
-		mouvement.setDateMvt(elementFinancement.getDateFinancement());
-		mouvement.setEtat(MouvementService.FAIT);
-		mouvement.setSens(MouvementService.MOINS);
-		mouvement.setLib(MouvementService.FINANCEMENT);
-		return mouvement;
-	}
+    public ElementFinancement save(ElementFinancement elementFinancement) {
+        log.debug("Request to save ElementFinancement : {}", elementFinancement);
+        ElementFinancement result = elementFinancementRepository.save(elementFinancement);
+        Operation operation = new Operation();
+        operation.pret(result.getPret()).montant(result.getMontant()).moyenPaiement(result.getType())
+                .dateOperation(result.getDateFinancement()).description("Débloquage numéro " + result.getId());
+        operationService.save(operation);
+        return result;
+    }
 
 	/**
 	 * Get all the elementFinancements.

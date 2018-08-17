@@ -1,0 +1,27 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "intituleCaisse",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dateOuverture",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "changelogDate": "20180610192828",
+    "entityTableName": "caisse",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true
+}

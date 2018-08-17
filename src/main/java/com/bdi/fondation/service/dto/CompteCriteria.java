@@ -30,6 +30,8 @@ public class CompteCriteria implements Serializable {
 
     private StringFilter intituleCompte;
 
+    private StringFilter numCompte;
+
     private LocalDateFilter dateOuverture;
 
     private DoubleFilter solde;
@@ -42,7 +44,7 @@ public class CompteCriteria implements Serializable {
 
     private LongFilter pretId;
 
-    private LongFilter userId;
+    private LongFilter caisseId;
 
     private LongFilter chapitreId;
 
@@ -63,6 +65,14 @@ public class CompteCriteria implements Serializable {
 
     public void setIntituleCompte(StringFilter intituleCompte) {
         this.intituleCompte = intituleCompte;
+    }
+
+    public StringFilter getNumCompte() {
+        return numCompte;
+    }
+
+    public void setNumCompte(StringFilter numCompte) {
+        this.numCompte = numCompte;
     }
 
     public LocalDateFilter getDateOuverture() {
@@ -113,12 +123,12 @@ public class CompteCriteria implements Serializable {
         this.pretId = pretId;
     }
 
-    public LongFilter getUserId() {
-        return userId;
+    public LongFilter getCaisseId() {
+        return caisseId;
     }
 
-    public void setUserId(LongFilter userId) {
-        this.userId = userId;
+    public void setCaisseId(LongFilter caisseId) {
+        this.caisseId = caisseId;
     }
 
     public LongFilter getChapitreId() {
@@ -134,13 +144,14 @@ public class CompteCriteria implements Serializable {
         return "CompteCriteria{" +
                 (id != null ? "id=" + id + ", " : "") +
                 (intituleCompte != null ? "intituleCompte=" + intituleCompte + ", " : "") +
+                (numCompte != null ? "numCompte=" + numCompte + ", " : "") +
                 (dateOuverture != null ? "dateOuverture=" + dateOuverture + ", " : "") +
                 (solde != null ? "solde=" + solde + ", " : "") +
                 (dateDernierCredit != null ? "dateDernierCredit=" + dateDernierCredit + ", " : "") +
                 (dateDernierDebit != null ? "dateDernierDebit=" + dateDernierDebit + ", " : "") +
                 (clientId != null ? "clientId=" + clientId + ", " : "") +
                 (pretId != null ? "pretId=" + pretId + ", " : "") +
-                (userId != null ? "userId=" + userId + ", " : "") +
+                (caisseId != null ? "caisseId=" + caisseId + ", " : "") +
                 (chapitreId != null ? "chapitreId=" + chapitreId + ", " : "") +
             "}";
     }

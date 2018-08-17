@@ -1,0 +1,115 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myOperationLabel" jhiTranslate="geFondApp.operation.home.createOrEditLabel">Create or edit a Operation</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!operation.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="operation.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.operation.dateOperation" for="field_dateOperation">Date Operation</label>
+            <div class="input-group">
+                <input id="field_dateOperation" type="text" class="form-control" name="dateOperation" ngbDatepicker  #dateOperationDp="ngbDatepicker" [(ngModel)]="operation.dateOperation"
+                />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="dateOperationDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.operation.typeOperation" for="field_typeOperation">Type Operation</label>
+            <input type="text" class="form-control" name="typeOperation" id="field_typeOperation"
+                [(ngModel)]="operation.typeOperation" required/>
+            <div [hidden]="!(editForm.controls.typeOperation?.dirty && editForm.controls.typeOperation?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.typeOperation?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.operation.montant" for="field_montant">Montant</label>
+            <input type="number" class="form-control" name="montant" id="field_montant"
+                [(ngModel)]="operation.montant" required/>
+            <div [hidden]="!(editForm.controls.montant?.dirty && editForm.controls.montant?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.montant?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.montant?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.operation.etat" for="field_etat">Etat</label>
+            <input type="text" class="form-control" name="etat" id="field_etat"
+                [(ngModel)]="operation.etat" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.operation.moyenPaiement" for="field_moyenPaiement">Moyen Paiement</label>
+            <input type="text" class="form-control" name="moyenPaiement" id="field_moyenPaiement"
+                [(ngModel)]="operation.moyenPaiement" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.operation.commentaire" for="field_commentaire">Commentaire</label>
+            <input type="text" class="form-control" name="commentaire" id="field_commentaire"
+                [(ngModel)]="operation.commentaire" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.operation.description" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                [(ngModel)]="operation.description" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.operation.compteOrigin" for="field_compteOrigin">Compte Origin</label>
+            <select class="form-control" id="field_compteOrigin" name="compteOrigin" [(ngModel)]="operation.compteOrigin" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="compteOption.id === operation.compteOrigin?.id ? operation.compteOrigin : compteOption" *ngFor="let compteOption of comptes; trackBy: trackCompteById">{{compteOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.operation.compteDestinataire" for="field_compteDestinataire">Compte Destinataire</label>
+            <select class="form-control" id="field_compteDestinataire" name="compteDestinataire" [(ngModel)]="operation.compteDestinataire" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="compteOption.id === operation.compteDestinataire?.id ? operation.compteDestinataire : compteOption" *ngFor="let compteOption of comptes; trackBy: trackCompteById">{{compteOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.operation.pret" for="field_pret">Pret</label>
+            <select class="form-control" id="field_pret" name="pret" [(ngModel)]="operation.pret" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="pretOption.id === operation.pret?.id ? operation.pret : pretOption" *ngFor="let pretOption of prets; trackBy: trackPretById">{{pretOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.operation.caisse" for="field_caisse">Caisse</label>
+            <select class="form-control" id="field_caisse" name="caisse" [(ngModel)]="operation.caisse" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="caisseOption.id === operation.caisse?.id ? operation.caisse : caisseOption" *ngFor="let caisseOption of caisses; trackBy: trackCaisseById">{{caisseOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label jhiTranslate="geFondApp.operation.echeance" for="field_echeance">Echeance</label>
+            <select class="form-control" id="field_echeance" multiple name="echeance" [(ngModel)]="operation.echeances">
+                <option [ngValue]="getSelected(operation.echeances, echeanceOption)" *ngFor="let echeanceOption of echeances; trackBy: trackEcheanceById">{{echeanceOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

@@ -33,8 +33,7 @@ import io.github.jhipster.service.filter.StringFilter;
 @Transactional
 public class PretService {
 
-	public static final String MIS_EN_PLACE = "Mis en place";
-    private final Logger log = LoggerFactory.getLogger(PretService.class);
+	private final Logger log = LoggerFactory.getLogger(PretService.class);
 
     @Autowired
     private PretRepository pretRepository;

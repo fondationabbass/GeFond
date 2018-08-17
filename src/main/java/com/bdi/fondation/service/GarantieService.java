@@ -1,15 +1,16 @@
 package com.bdi.fondation.service;
 
-import com.bdi.fondation.domain.ElementFinancement;
-import com.bdi.fondation.domain.Garantie;
-import com.bdi.fondation.repository.GarantieRepository;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.bdi.fondation.domain.Garantie;
+import com.bdi.fondation.repository.GarantieRepository;
+
 
 /**
  * Service Implementation for managing Garantie.
@@ -41,11 +42,11 @@ public class GarantieService {
         if(garantie.getPret().getEncours() < garantie.getMontantAfect()){
         	sb.append("Le montant affecté est supérieur à l'encours du prêt");
         }
-        
+
         if(sb.length() > 0){
         	throw new IllegalStateException(sb.toString());
         }
-        
+
         return garantieRepository.save(garantie);
     }
     public Iterable<Garantie> save(Iterable<Garantie> items) {

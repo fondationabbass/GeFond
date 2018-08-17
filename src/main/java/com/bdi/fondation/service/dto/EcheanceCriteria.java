@@ -32,6 +32,8 @@ public class EcheanceCriteria implements Serializable {
 
     private DoubleFilter montant;
 
+    private DoubleFilter montantPaye;
+
     private StringFilter etatEcheance;
 
     private LocalDateFilter datePayement;
@@ -40,7 +42,7 @@ public class EcheanceCriteria implements Serializable {
 
     private LongFilter pretId;
 
-    private LongFilter mouvementId;
+    private LongFilter operationId;
 
     public EcheanceCriteria() {
     }
@@ -67,6 +69,14 @@ public class EcheanceCriteria implements Serializable {
 
     public void setMontant(DoubleFilter montant) {
         this.montant = montant;
+    }
+
+    public DoubleFilter getMontantPaye() {
+        return montantPaye;
+    }
+
+    public void setMontantPaye(DoubleFilter montantPaye) {
+        this.montantPaye = montantPaye;
     }
 
     public StringFilter getEtatEcheance() {
@@ -101,12 +111,12 @@ public class EcheanceCriteria implements Serializable {
         this.pretId = pretId;
     }
 
-    public LongFilter getMouvementId() {
-        return mouvementId;
+    public LongFilter getOperationId() {
+        return operationId;
     }
 
-    public void setMouvementId(LongFilter mouvementId) {
-        this.mouvementId = mouvementId;
+    public void setOperationId(LongFilter operationId) {
+        this.operationId = operationId;
     }
 
     @Override
@@ -115,11 +125,12 @@ public class EcheanceCriteria implements Serializable {
                 (id != null ? "id=" + id + ", " : "") +
                 (dateTombe != null ? "dateTombe=" + dateTombe + ", " : "") +
                 (montant != null ? "montant=" + montant + ", " : "") +
+                (montantPaye != null ? "montantPaye=" + montantPaye + ", " : "") +
                 (etatEcheance != null ? "etatEcheance=" + etatEcheance + ", " : "") +
                 (datePayement != null ? "datePayement=" + datePayement + ", " : "") +
                 (dateRetrait != null ? "dateRetrait=" + dateRetrait + ", " : "") +
                 (pretId != null ? "pretId=" + pretId + ", " : "") +
-                (mouvementId != null ? "mouvementId=" + mouvementId + ", " : "") +
+                (operationId != null ? "operationId=" + operationId + ", " : "") +
             "}";
     }
 

@@ -1,0 +1,47 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myCaisseLabel" jhiTranslate="geFondApp.caisse.home.createOrEditLabel">Create or edit a Caisse</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!caisse.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="caisse.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.caisse.intituleCaisse" for="field_intituleCaisse">Intitule Caisse</label>
+            <input type="text" class="form-control" name="intituleCaisse" id="field_intituleCaisse"
+                [(ngModel)]="caisse.intituleCaisse" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.caisse.dateOuverture" for="field_dateOuverture">Date Ouverture</label>
+            <div class="input-group">
+                <input id="field_dateOuverture" type="text" class="form-control" name="dateOuverture" ngbDatepicker  #dateOuvertureDp="ngbDatepicker" [(ngModel)]="caisse.dateOuverture"
+                />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="dateOuvertureDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.caisse.user" for="field_user">User</label>
+            <select class="form-control" id="field_user" name="user" [(ngModel)]="caisse.user" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="userOption.id === caisse.user?.id ? caisse.user : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

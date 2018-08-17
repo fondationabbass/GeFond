@@ -91,6 +91,9 @@ public class EcheanceQueryService extends QueryService<Echeance> {
             if (criteria.getMontant() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getMontant(), Echeance_.montant));
             }
+            if (criteria.getMontantPaye() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getMontantPaye(), Echeance_.montantPaye));
+            }
             if (criteria.getEtatEcheance() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getEtatEcheance(), Echeance_.etatEcheance));
             }
@@ -103,8 +106,8 @@ public class EcheanceQueryService extends QueryService<Echeance> {
             if (criteria.getPretId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getPretId(), Echeance_.pret, Pret_.id));
             }
-            if (criteria.getMouvementId() != null) {
-                specification = specification.and(buildReferringEntitySpecification(criteria.getMouvementId(), Echeance_.mouvements, Mouvement_.id));
+            if (criteria.getOperationId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getOperationId(), Echeance_.operations, Operation_.id));
             }
         }
         return specification;

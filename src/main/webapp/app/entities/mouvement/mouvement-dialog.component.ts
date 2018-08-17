@@ -10,7 +10,7 @@ import { Mouvement } from './mouvement.model';
 import { MouvementPopupService } from './mouvement-popup.service';
 import { MouvementService } from './mouvement.service';
 import { Compte, CompteService } from '../compte';
-import { Echeance, EcheanceService } from '../echeance';
+import { Operation, OperationService } from '../operation';
 
 @Component({
     selector: 'jhi-mouvement-dialog',
@@ -23,7 +23,7 @@ export class MouvementDialogComponent implements OnInit {
 
     comptes: Compte[];
 
-    echeances: Echeance[];
+    operations: Operation[];
     dateMvtDp: any;
 
     constructor(
@@ -31,7 +31,7 @@ export class MouvementDialogComponent implements OnInit {
         private jhiAlertService: JhiAlertService,
         private mouvementService: MouvementService,
         private compteService: CompteService,
-        private echeanceService: EcheanceService,
+        private operationService: OperationService,
         private eventManager: JhiEventManager
     ) {
     }
@@ -40,8 +40,8 @@ export class MouvementDialogComponent implements OnInit {
         this.isSaving = false;
         this.compteService.query()
             .subscribe((res: HttpResponse<Compte[]>) => { this.comptes = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
-        this.echeanceService.query()
-            .subscribe((res: HttpResponse<Echeance[]>) => { this.echeances = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+        this.operationService.query()
+            .subscribe((res: HttpResponse<Operation[]>) => { this.operations = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     clear() {
@@ -82,19 +82,8 @@ export class MouvementDialogComponent implements OnInit {
         return item.id;
     }
 
-    trackEcheanceById(index: number, item: Echeance) {
+    trackOperationById(index: number, item: Operation) {
         return item.id;
-    }
-
-    getSelected(selectedVals: Array<any>, option: any) {
-        if (selectedVals) {
-            for (let i = 0; i < selectedVals.length; i++) {
-                if (option.id === selectedVals[i].id) {
-                    return selectedVals[i];
-                }
-            }
-        }
-        return option;
     }
 }
 

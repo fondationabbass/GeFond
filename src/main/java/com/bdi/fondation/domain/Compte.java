@@ -1,6 +1,5 @@
 package com.bdi.fondation.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -30,6 +29,9 @@ public class Compte implements Serializable {
     @Column(name = "intitule_compte", nullable = false)
     private String intituleCompte;
 
+    @Column(name = "num_compte")
+    private String numCompte;
+
     @Column(name = "date_ouverture")
     private LocalDate dateOuverture;
 
@@ -52,7 +54,7 @@ public class Compte implements Serializable {
     private Pret pret;
 
     @ManyToOne
-    private User user;
+    private Caisse caisse;
 
     @ManyToOne
     private Chapitre chapitre;
@@ -77,6 +79,19 @@ public class Compte implements Serializable {
 
     public void setIntituleCompte(String intituleCompte) {
         this.intituleCompte = intituleCompte;
+    }
+
+    public String getNumCompte() {
+        return numCompte;
+    }
+
+    public Compte numCompte(String numCompte) {
+        this.numCompte = numCompte;
+        return this;
+    }
+
+    public void setNumCompte(String numCompte) {
+        this.numCompte = numCompte;
     }
 
     public LocalDate getDateOuverture() {
@@ -157,17 +172,17 @@ public class Compte implements Serializable {
         this.pret = pret;
     }
 
-    public User getUser() {
-        return user;
+    public Caisse getCaisse() {
+        return caisse;
     }
 
-    public Compte user(User user) {
-        this.user = user;
+    public Compte caisse(Caisse caisse) {
+        this.caisse = caisse;
         return this;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCaisse(Caisse caisse) {
+        this.caisse = caisse;
     }
 
     public Chapitre getChapitre() {
@@ -209,6 +224,7 @@ public class Compte implements Serializable {
         return "Compte{" +
             "id=" + getId() +
             ", intituleCompte='" + getIntituleCompte() + "'" +
+            ", numCompte='" + getNumCompte() + "'" +
             ", dateOuverture='" + getDateOuverture() + "'" +
             ", solde=" + getSolde() +
             ", dateDernierCredit='" + getDateDernierCredit() + "'" +

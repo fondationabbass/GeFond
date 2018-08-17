@@ -17,6 +17,8 @@ import { GeFondEntretienModule } from './entretien/entretien.module';
 import { GeFondChapitreModule } from './chapitre/chapitre.module';
 import { GeFondMouvementModule } from './mouvement/mouvement.module';
 import { GeFondDocumentModule } from './document/document.module';
+import { GeFondCaisseModule } from './caisse/caisse.module';
+import { GeFondOperationModule } from './operation/operation.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -38,6 +40,8 @@ import { GeFondDocumentModule } from './document/document.module';
         GeFondChapitreModule,
         GeFondMouvementModule,
         GeFondDocumentModule,
+        GeFondCaisseModule,
+        GeFondOperationModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],

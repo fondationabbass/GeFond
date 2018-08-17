@@ -61,10 +61,7 @@
         },
         {
             "fieldName": "dateDernierDebloq",
-            "fieldType": "LocalDate",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldType": "LocalDate"
         },
         {
             "fieldName": "etat",

@@ -1,6 +1,5 @@
 package com.bdi.fondation.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -9,8 +8,6 @@ import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -50,17 +47,7 @@ public class Mouvement implements Serializable {
     private Compte compte;
 
     @ManyToOne
-    private Compte compteDestinataire;
-
-    @ManyToOne
-    private Pret pret;
-
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "mouvement_echeance",
-               joinColumns = @JoinColumn(name = "mouvements_id", referencedColumnName = "id"),
-               inverseJoinColumns = @JoinColumn(name = "echeances_id", referencedColumnName = "id"))
-    private Set<Echeance> echeances = new HashSet<>();
+    private Operation operation;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -149,55 +136,17 @@ public class Mouvement implements Serializable {
         this.compte = compte;
     }
 
-    public Compte getCompteDestinataire() {
-        return compteDestinataire;
+    public Operation getOperation() {
+        return operation;
     }
 
-    public Mouvement compteDestinataire(Compte compte) {
-        this.compteDestinataire = compte;
+    public Mouvement operation(Operation operation) {
+        this.operation = operation;
         return this;
     }
 
-    public void setCompteDestinataire(Compte compte) {
-        this.compteDestinataire = compte;
-    }
-
-    public Pret getPret() {
-        return pret;
-    }
-
-    public Mouvement pret(Pret pret) {
-        this.pret = pret;
-        return this;
-    }
-
-    public void setPret(Pret pret) {
-        this.pret = pret;
-    }
-
-    public Set<Echeance> getEcheances() {
-        return echeances;
-    }
-
-    public Mouvement echeances(Set<Echeance> echeances) {
-        this.echeances = echeances;
-        return this;
-    }
-
-    public Mouvement addEcheance(Echeance echeance) {
-        this.echeances.add(echeance);
-        echeance.getMouvements().add(this);
-        return this;
-    }
-
-    public Mouvement removeEcheance(Echeance echeance) {
-        this.echeances.remove(echeance);
-        echeance.getMouvements().remove(this);
-        return this;
-    }
-
-    public void setEcheances(Set<Echeance> echeances) {
-        this.echeances = echeances;
+    public void setOperation(Operation operation) {
+        this.operation = operation;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

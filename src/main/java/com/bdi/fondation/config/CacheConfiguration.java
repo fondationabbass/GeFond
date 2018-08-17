@@ -57,6 +57,10 @@ public class CacheConfiguration {
             cm.createCache(com.bdi.fondation.domain.Mouvement.class.getName(), jcacheConfiguration);
             cm.createCache(com.bdi.fondation.domain.Mouvement.class.getName() + ".echeances", jcacheConfiguration);
             cm.createCache(com.bdi.fondation.domain.Document.class.getName(), jcacheConfiguration);
+            cm.createCache(com.bdi.fondation.domain.Caisse.class.getName(), jcacheConfiguration);
+            cm.createCache(com.bdi.fondation.domain.Operation.class.getName(), jcacheConfiguration);
+            cm.createCache(com.bdi.fondation.domain.Operation.class.getName() + ".echeances", jcacheConfiguration);
+            cm.createCache(com.bdi.fondation.domain.Echeance.class.getName() + ".operations", jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

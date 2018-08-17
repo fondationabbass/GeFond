@@ -23,6 +23,7 @@
             <th jhiSortBy="sens"><span jhiTranslate="geFondApp.mouvement.sens">Sens</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="etat"><span jhiTranslate="geFondApp.mouvement.etat">Etat</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="compte.id"><span jhiTranslate="geFondApp.mouvement.compte">Compte</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="operation.id"><span jhiTranslate="geFondApp.mouvement.operation">Operation</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -37,6 +38,11 @@
                 <td>
                     <div *ngIf="mouvement.compte">
                         <a [routerLink]="['../compte', mouvement.compte?.id ]" >{{mouvement.compte?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="mouvement.operation">
+                        <a [routerLink]="['../operation', mouvement.operation?.id ]" >{{mouvement.operation?.id}}</a>
                     </div>
                 </td>
                 <td class="text-right">

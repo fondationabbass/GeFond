@@ -5,7 +5,7 @@ import com.bdi.fondation.GeFondApp;
 import com.bdi.fondation.domain.Compte;
 import com.bdi.fondation.domain.Client;
 import com.bdi.fondation.domain.Pret;
-import com.bdi.fondation.domain.User;
+import com.bdi.fondation.domain.Caisse;
 import com.bdi.fondation.domain.Chapitre;
 import com.bdi.fondation.repository.CompteRepository;
 import com.bdi.fondation.service.CompteService;
@@ -32,7 +32,6 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
 
-
 import static com.bdi.fondation.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
@@ -51,6 +50,9 @@ public class CompteResourceIntTest {
     private static final String DEFAULT_INTITULE_COMPTE = "AAAAAAAAAA";
     private static final String UPDATED_INTITULE_COMPTE = "BBBBBBBBBB";
 
+    private static final String DEFAULT_NUM_COMPTE = "AAAAAAAAAA";
+    private static final String UPDATED_NUM_COMPTE = "BBBBBBBBBB";
+
     private static final LocalDate DEFAULT_DATE_OUVERTURE = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_DATE_OUVERTURE = LocalDate.now(ZoneId.systemDefault());
 
@@ -65,8 +67,6 @@ public class CompteResourceIntTest {
 
     @Autowired
     private CompteRepository compteRepository;
-
-    
 
     @Autowired
     private CompteService compteService;
@@ -110,6 +110,7 @@ public class CompteResourceIntTest {
     public static Compte createEntity(EntityManager em) {
         Compte compte = new Compte()
             .intituleCompte(DEFAULT_INTITULE_COMPTE)
+            .numCompte(DEFAULT_NUM_COMPTE)
             .dateOuverture(DEFAULT_DATE_OUVERTURE)
             .solde(DEFAULT_SOLDE)
             .dateDernierCredit(DEFAULT_DATE_DERNIER_CREDIT)
@@ -138,6 +139,7 @@ public class CompteResourceIntTest {
         assertThat(compteList).hasSize(databaseSizeBeforeCreate + 1);
         Compte testCompte = compteList.get(compteList.size() - 1);
         assertThat(testCompte.getIntituleCompte()).isEqualTo(DEFAULT_INTITULE_COMPTE);
+        assertThat(testCompte.getNumCompte()).isEqualTo(DEFAULT_NUM_COMPTE);
         assertThat(testCompte.getDateOuverture()).isEqualTo(DEFAULT_DATE_OUVERTURE);
         assertThat(testCompte.getSolde()).isEqualTo(DEFAULT_SOLDE);
         assertThat(testCompte.getDateDernierCredit()).isEqualTo(DEFAULT_DATE_DERNIER_CREDIT);
@@ -247,12 +249,12 @@ public class CompteResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(compte.getId().intValue())))
             .andExpect(jsonPath("$.[*].intituleCompte").value(hasItem(DEFAULT_INTITULE_COMPTE.toString())))
+            .andExpect(jsonPath("$.[*].numCompte").value(hasItem(DEFAULT_NUM_COMPTE.toString())))
             .andExpect(jsonPath("$.[*].dateOuverture").value(hasItem(DEFAULT_DATE_OUVERTURE.toString())))
             .andExpect(jsonPath("$.[*].solde").value(hasItem(DEFAULT_SOLDE.doubleValue())))
             .andExpect(jsonPath("$.[*].dateDernierCredit").value(hasItem(DEFAULT_DATE_DERNIER_CREDIT.toString())))
             .andExpect(jsonPath("$.[*].dateDernierDebit").value(hasItem(DEFAULT_DATE_DERNIER_DEBIT.toString())));
     }
-    
 
     @Test
     @Transactional
@@ -266,6 +268,7 @@ public class CompteResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(compte.getId().intValue()))
             .andExpect(jsonPath("$.intituleCompte").value(DEFAULT_INTITULE_COMPTE.toString()))
+            .andExpect(jsonPath("$.numCompte").value(DEFAULT_NUM_COMPTE.toString()))
             .andExpect(jsonPath("$.dateOuverture").value(DEFAULT_DATE_OUVERTURE.toString()))
             .andExpect(jsonPath("$.solde").value(DEFAULT_SOLDE.doubleValue()))
             .andExpect(jsonPath("$.dateDernierCredit").value(DEFAULT_DATE_DERNIER_CREDIT.toString()))
@@ -309,6 +312,45 @@ public class CompteResourceIntTest {
 
         // Get all the compteList where intituleCompte is null
         defaultCompteShouldNotBeFound("intituleCompte.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllComptesByNumCompteIsEqualToSomething() throws Exception {
+        // Initialize the database
+        compteRepository.saveAndFlush(compte);
+
+        // Get all the compteList where numCompte equals to DEFAULT_NUM_COMPTE
+        defaultCompteShouldBeFound("numCompte.equals=" + DEFAULT_NUM_COMPTE);
+
+        // Get all the compteList where numCompte equals to UPDATED_NUM_COMPTE
+        defaultCompteShouldNotBeFound("numCompte.equals=" + UPDATED_NUM_COMPTE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllComptesByNumCompteIsInShouldWork() throws Exception {
+        // Initialize the database
+        compteRepository.saveAndFlush(compte);
+
+        // Get all the compteList where numCompte in DEFAULT_NUM_COMPTE or UPDATED_NUM_COMPTE
+        defaultCompteShouldBeFound("numCompte.in=" + DEFAULT_NUM_COMPTE + "," + UPDATED_NUM_COMPTE);
+
+        // Get all the compteList where numCompte equals to UPDATED_NUM_COMPTE
+        defaultCompteShouldNotBeFound("numCompte.in=" + UPDATED_NUM_COMPTE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllComptesByNumCompteIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        compteRepository.saveAndFlush(compte);
+
+        // Get all the compteList where numCompte is not null
+        defaultCompteShouldBeFound("numCompte.specified=true");
+
+        // Get all the compteList where numCompte is null
+        defaultCompteShouldNotBeFound("numCompte.specified=false");
     }
 
     @Test
@@ -588,20 +630,20 @@ public class CompteResourceIntTest {
 
     @Test
     @Transactional
-    public void getAllComptesByUserIsEqualToSomething() throws Exception {
+    public void getAllComptesByCaisseIsEqualToSomething() throws Exception {
         // Initialize the database
-        User user = UserResourceIntTest.createEntity(em);
-        em.persist(user);
+        Caisse caisse = CaisseResourceIntTest.createEntity(em);
+        em.persist(caisse);
         em.flush();
-        compte.setUser(user);
+        compte.setCaisse(caisse);
         compteRepository.saveAndFlush(compte);
-        Long userId = user.getId();
+        Long caisseId = caisse.getId();
 
-        // Get all the compteList where user equals to userId
-        defaultCompteShouldBeFound("userId.equals=" + userId);
+        // Get all the compteList where caisse equals to caisseId
+        defaultCompteShouldBeFound("caisseId.equals=" + caisseId);
 
-        // Get all the compteList where user equals to userId + 1
-        defaultCompteShouldNotBeFound("userId.equals=" + (userId + 1));
+        // Get all the compteList where caisse equals to caisseId + 1
+        defaultCompteShouldNotBeFound("caisseId.equals=" + (caisseId + 1));
     }
 
 
@@ -632,6 +674,7 @@ public class CompteResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(compte.getId().intValue())))
             .andExpect(jsonPath("$.[*].intituleCompte").value(hasItem(DEFAULT_INTITULE_COMPTE.toString())))
+            .andExpect(jsonPath("$.[*].numCompte").value(hasItem(DEFAULT_NUM_COMPTE.toString())))
             .andExpect(jsonPath("$.[*].dateOuverture").value(hasItem(DEFAULT_DATE_OUVERTURE.toString())))
             .andExpect(jsonPath("$.[*].solde").value(hasItem(DEFAULT_SOLDE.doubleValue())))
             .andExpect(jsonPath("$.[*].dateDernierCredit").value(hasItem(DEFAULT_DATE_DERNIER_CREDIT.toString())))
@@ -648,6 +691,7 @@ public class CompteResourceIntTest {
             .andExpect(jsonPath("$").isArray())
             .andExpect(jsonPath("$").isEmpty());
     }
+
 
     @Test
     @Transactional
@@ -671,6 +715,7 @@ public class CompteResourceIntTest {
         em.detach(updatedCompte);
         updatedCompte
             .intituleCompte(UPDATED_INTITULE_COMPTE)
+            .numCompte(UPDATED_NUM_COMPTE)
             .dateOuverture(UPDATED_DATE_OUVERTURE)
             .solde(UPDATED_SOLDE)
             .dateDernierCredit(UPDATED_DATE_DERNIER_CREDIT)
@@ -686,6 +731,7 @@ public class CompteResourceIntTest {
         assertThat(compteList).hasSize(databaseSizeBeforeUpdate);
         Compte testCompte = compteList.get(compteList.size() - 1);
         assertThat(testCompte.getIntituleCompte()).isEqualTo(UPDATED_INTITULE_COMPTE);
+        assertThat(testCompte.getNumCompte()).isEqualTo(UPDATED_NUM_COMPTE);
         assertThat(testCompte.getDateOuverture()).isEqualTo(UPDATED_DATE_OUVERTURE);
         assertThat(testCompte.getSolde()).isEqualTo(UPDATED_SOLDE);
         assertThat(testCompte.getDateDernierCredit()).isEqualTo(UPDATED_DATE_DERNIER_CREDIT);
@@ -703,11 +749,11 @@ public class CompteResourceIntTest {
         restCompteMockMvc.perform(put("/api/comptes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(compte)))
-            .andExpect(status().isBadRequest());
+            .andExpect(status().isCreated());
 
         // Validate the Compte in the database
         List<Compte> compteList = compteRepository.findAll();
-        assertThat(compteList).hasSize(databaseSizeBeforeUpdate);
+        assertThat(compteList).hasSize(databaseSizeBeforeUpdate + 1);
     }
 
     @Test

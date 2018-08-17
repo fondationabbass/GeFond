@@ -40,11 +40,7 @@ public class MouvementCriteria implements Serializable {
 
     private LongFilter compteId;
 
-    private LongFilter compteDestinataireId;
-
-    private LongFilter pretId;
-
-    private LongFilter echeanceId;
+    private LongFilter operationId;
 
     public MouvementCriteria() {
     }
@@ -105,28 +101,12 @@ public class MouvementCriteria implements Serializable {
         this.compteId = compteId;
     }
 
-    public LongFilter getCompteDestinataireId() {
-        return compteDestinataireId;
+    public LongFilter getOperationId() {
+        return operationId;
     }
 
-    public void setCompteDestinataireId(LongFilter compteDestinataireId) {
-        this.compteDestinataireId = compteDestinataireId;
-    }
-
-    public LongFilter getPretId() {
-        return pretId;
-    }
-
-    public void setPretId(LongFilter pretId) {
-        this.pretId = pretId;
-    }
-
-    public LongFilter getEcheanceId() {
-        return echeanceId;
-    }
-
-    public void setEcheanceId(LongFilter echeanceId) {
-        this.echeanceId = echeanceId;
+    public void setOperationId(LongFilter operationId) {
+        this.operationId = operationId;
     }
 
     @Override
@@ -139,9 +119,7 @@ public class MouvementCriteria implements Serializable {
                 (sens != null ? "sens=" + sens + ", " : "") +
                 (etat != null ? "etat=" + etat + ", " : "") +
                 (compteId != null ? "compteId=" + compteId + ", " : "") +
-                (compteDestinataireId != null ? "compteDestinataireId=" + compteDestinataireId + ", " : "") +
-                (pretId != null ? "pretId=" + pretId + ", " : "") +
-                (echeanceId != null ? "echeanceId=" + echeanceId + ", " : "") +
+                (operationId != null ? "operationId=" + operationId + ", " : "") +
             "}";
     }
 
