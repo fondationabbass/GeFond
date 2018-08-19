@@ -14,7 +14,7 @@ import {
     candidatureRoute,
     candidaturePopupRoute,
     CandidatureResolvePagingParams,
-} from './';
+} from '.';
 
 const ENTITY_STATES = [
     ...candidatureRoute,

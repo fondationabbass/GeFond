@@ -18,10 +18,14 @@
     -->
     <changeSet id="20180610192831-1" author="jhipster">
         <createTable tableName="chapitre">
-            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+            <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="lib_chapitre" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="numero" type="integer">
                 <constraints nullable="true" />
             </column>
 

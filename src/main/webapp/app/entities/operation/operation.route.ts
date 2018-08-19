@@ -7,6 +7,7 @@ import { OperationComponent } from './operation.component';
 import { OperationDetailComponent } from './operation-detail.component';
 import { OperationPopupComponent } from './operation-dialog.component';
 import { OperationDeletePopupComponent } from './operation-delete-dialog.component';
+import { OperationRemboursementPopupComponent } from './operation-remboursement.component';
 
 @Injectable()
 export class OperationResolvePagingParams implements Resolve<any> {
@@ -51,6 +52,16 @@ export const operationPopupRoute: Routes = [
     {
         path: 'operation-new',
         component: OperationPopupComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'geFondApp.operation.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
+    },
+    {
+        path: 'operation-remboursement/:pretId',
+        component: OperationRemboursementPopupComponent,
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'geFondApp.operation.home.title'

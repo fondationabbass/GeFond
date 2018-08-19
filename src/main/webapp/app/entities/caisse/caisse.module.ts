@@ -15,7 +15,7 @@ import {
     caisseRoute,
     caissePopupRoute,
     CaisseResolvePagingParams,
-} from './';
+} from '.';
 
 const ENTITY_STATES = [
     ...caisseRoute,

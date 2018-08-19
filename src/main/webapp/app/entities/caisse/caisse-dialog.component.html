@@ -32,7 +32,7 @@
             <label class="form-control-label" jhiTranslate="geFondApp.caisse.user" for="field_user">User</label>
             <select class="form-control" id="field_user" name="user" [(ngModel)]="caisse.user" >
                 <option [ngValue]="null"></option>
-                <option [ngValue]="userOption.id === caisse.user?.id ? caisse.user : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+                <option [ngValue]="userOption.id === caisse.user?.id ? caisse.user : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
             </select>
         </div>
     </div>

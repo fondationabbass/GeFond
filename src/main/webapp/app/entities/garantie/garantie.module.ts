@@ -13,7 +13,7 @@ import {
     GarantieDeleteDialogComponent,
     garantieRoute,
     garantiePopupRoute,
-} from './';
+} from '.';
 import { PretService } from '../pret';
 
 const ENTITY_STATES = [

@@ -7,6 +7,10 @@
             "fieldType": "String"
         },
         {
+            "fieldName": "numero",
+            "fieldType": "Integer"
+        },
+        {
             "fieldName": "categorieCompte",
             "fieldType": "String"
         }
@@ -14,7 +18,7 @@
     "changelogDate": "20180610192831",
     "entityTableName": "chapitre",
     "dto": "no",
-    "pagination": "no",
+    "pagination": "pagination",
     "service": "serviceClass",
     "jpaMetamodelFiltering": true
 }

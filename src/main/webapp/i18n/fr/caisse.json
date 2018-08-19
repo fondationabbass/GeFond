@@ -4,21 +4,21 @@
         "caisse" : {
             "home": {
                 "title": "Caisses",
-                "createLabel": "Créer un nouveau Caisse",
-                "createOrEditLabel": "Créer ou éditer un Caisse"
+                "createLabel": "Ajouter une nouvelle Caisse",
+                "createOrEditLabel": "Créer ou éditer une Caisse"
             },
-            "created": "Un nouveau Caisse a été créé avec l'identifiant {{ param }}",
-            "updated": "Le Caisse avec l'identifiant {{ param }} a été mis à jour",
-            "deleted": "Le Caisse avec l'identifiant {{ param }} a été supprimé",
+            "created": "Une nouvelle Caisse a été créée avec l'identifiant {{ param }}",
+            "updated": "La Caisse avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "La Caisse avec l'identifiant {{ param }} a été supprimé",
             "delete": {
-                "question": "Etes-vous certain de vouloir supprimer le Caisse {{ id }} ?"
+                "question": "Etes-vous certain de vouloir supprimer la Caisse {{ id }} ?"
             },
             "detail": {
                 "title": "Caisse"
             },
-            "intituleCaisse": "Intitule Caisse",
+            "intituleCaisse": "Intitulé Caisse",
             "dateOuverture": "Date Ouverture",
-            "user": "User"
+            "user": "Utilisateur"
         }
     }
 }

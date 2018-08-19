@@ -10,6 +10,8 @@ import { CompteDialogComponent } from '../../../../../../main/webapp/app/entitie
 import { CompteService } from '../../../../../../main/webapp/app/entities/compte/compte.service';
 import { Compte } from '../../../../../../main/webapp/app/entities/compte/compte.model';
 import { ClientService } from '../../../../../../main/webapp/app/entities/client';
+import { PretService } from '../../../../../../main/webapp/app/entities/pret';
+import { CaisseService } from '../../../../../../main/webapp/app/entities/caisse';
 import { ChapitreService } from '../../../../../../main/webapp/app/entities/chapitre';
 
 describe('Component Tests', () => {
@@ -27,6 +29,8 @@ describe('Component Tests', () => {
                 declarations: [CompteDialogComponent],
                 providers: [
                     ClientService,
+                    PretService,
+                    CaisseService,
                     ChapitreService,
                     CompteService
                 ]

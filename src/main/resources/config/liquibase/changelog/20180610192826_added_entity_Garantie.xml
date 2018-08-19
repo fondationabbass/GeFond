@@ -22,15 +22,15 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="type_gar" type="varchar(255)">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="montant_evalue" type="double">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="montant_afect" type="double">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="date_depot" type="date">
@@ -38,11 +38,11 @@
             </column>
 
             <column name="num_document" type="varchar(255)">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="etat" type="varchar(255)">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="date_retrait" type="date">

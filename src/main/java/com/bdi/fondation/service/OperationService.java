@@ -23,6 +23,7 @@ import com.bdi.fondation.domain.Mouvement;
 import com.bdi.fondation.domain.Operation;
 import com.bdi.fondation.domain.Pret;
 import com.bdi.fondation.repository.OperationRepository;
+import com.bdi.fondation.security.SecurityUtils;
 
 
 /**
@@ -80,7 +81,7 @@ public class OperationService {
             financementPret(pret, montant);
             ajusterEcheancier(montant, pret);
             Caisse caisse = caisseQueryService.getCurrentCaisse();
-            Compte destinataire = compteQueryService.getCompteByPretId(pret.getId());
+            Compte destinataire = pretService.getOrCreateCompte(pret);
             Compte origin = compteQueryService.getCompteByCaisseId(caisse.getId());
             operation.setCaisse(caisse);
             operation.setCompteOrigin(origin);
@@ -111,7 +112,8 @@ public class OperationService {
                     CompteMouvement.of(operation.getCompteDestinataire(),operation.getDescription())));
 
         }
-        return operationRepository.save(operation);
+        Operation result = operationRepository.save(operation);
+        return result;
     }
     private void remboursementPret(Pret pret, Double montant) {
         if(pret.getEncours() - montant < 0) {
@@ -135,13 +137,14 @@ public class OperationService {
         pret.setDateDernierDebloq(LocalDate.now());
         pret.setEtat(Constants.MIS_EN_PLACE);
         pret.setEncours(pret.getEncours() + montant);
+        pret.setUserDebloq(SecurityUtils.getCurrentUserLogin().get());
         pretService.save(pret);
     }
 
     private List<Mouvement>  mouvements(Operation operation, CompteMouvement credit, CompteMouvement debit) {
         List<Mouvement> mvts = new ArrayList<>();
-        mvts.add(credit(operation).compte(credit.compte).lib(credit.lib));
-        mvts.add(debit(operation).compte(debit.compte).lib(debit.lib));
+        mvts.add(credit(operation).operation(operation).compte(credit.compte).lib(credit.lib));
+        mvts.add(debit(operation).operation(operation).compte(debit.compte).lib(debit.lib));
         return mvts;
     }
     private Mouvement credit(Operation operation) {

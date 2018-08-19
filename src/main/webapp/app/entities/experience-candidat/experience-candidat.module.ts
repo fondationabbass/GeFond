@@ -13,7 +13,7 @@ import {
     ExperienceCandidatDeleteDialogComponent,
     experienceCandidatRoute,
     experienceCandidatPopupRoute,
-} from './';
+} from '.';
 
 const ENTITY_STATES = [
     ...experienceCandidatRoute,

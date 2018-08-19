@@ -17,7 +17,7 @@ import {
     PasswordResetFinishComponent,
     SettingsComponent,
     accountState
-} from './';
+} from '.';
 
 @NgModule({
     imports: [

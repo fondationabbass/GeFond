@@ -1,11 +1,9 @@
 package com.bdi.fondation.domain;
 
-import org.hibernate.annotations.Cache
-;
+import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -26,39 +24,31 @@ public class Client implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
+    @Column(name = "code")
+    private String code;
+
     @Column(name = "date_creat")
     private LocalDate dateCreat;
 
-    @NotNull
-    @Column(name = "lieu_resid", nullable = false)
+    @Column(name = "lieu_resid")
     private String lieuResid;
-    
-    @NotNull
-    @Column(name = "code", nullable = false)
-    private String code;
 
-    @NotNull
-    @Column(name = "type_resid", nullable = false)
+    @Column(name = "type_resid")
     private String typeResid;
 
-    @NotNull
-    @Column(name = "arrond_resid", nullable = false)
+    @Column(name = "arrond_resid")
     private String arrondResid;
 
-    @NotNull
-    @Column(name = "nom_personne_contact", nullable = false)
+    @Column(name = "nom_personne_contact")
     private String nomPersonneContact;
 
-    @NotNull
-    @Column(name = "tel_personne_contact", nullable = false)
+    @Column(name = "tel_personne_contact")
     private String telPersonneContact;
 
-    @NotNull
-    @Column(name = "adress_personne_contact", nullable = false)
+    @Column(name = "adress_personne_contact")
     private String adressPersonneContact;
 
-    @NotNull
-    @Column(name = "type_client", nullable = false)
+    @Column(name = "type_client")
     private String typeClient;
 
     @Column(name = "points_fidel")
@@ -78,6 +68,19 @@ public class Client implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public Client code(String code) {
+        this.code = code;
+        return this;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public LocalDate getDateCreat() {
@@ -239,15 +242,7 @@ public class Client implements Serializable {
         return Objects.equals(getId(), client.getId());
     }
 
-    public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
-
-	@Override
+    @Override
     public int hashCode() {
         return Objects.hashCode(getId());
     }

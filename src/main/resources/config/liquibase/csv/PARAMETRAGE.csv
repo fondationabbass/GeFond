@@ -1,0 +1,14 @@
+CODE_TYPE_PARAM;CODE_PARAM;LIBELLE;LIB_1;LIB_2;LIB_3;MNT_1;MNT_2;MNT_3
+Type pret;Pret;Cash;NULL;NULL;NULL;NULL;NULL;NULL
+Type pret;Pret;AGA;NULL;NULL;NULL;NULL;NULL;NULL
+Type financement;Type financement;Facture;NULL;NULL;NULL;NULL;NULL;NULL
+Type financement;Type financement;Cash;NULL;NULL;NULL;NULL;NULL;NULL
+Type garantie;garantie;Caution;NULL;NULL;NULL;NULL;NULL;NULL
+Type garantie;garantie;Immobilier;NULL;NULL;NULL;NULL;NULL;NULL
+Type periode;periode;Mensuel;month;1;NULL;NULL;NULL;NULL
+Type periode;periode;Bimensuel;month;2;NULL;NULL;NULL;NULL
+Type compte;Categorie Compte;Compte engagement AGR;10;NULL;NULL;NULL;NULL;NULL
+Type compte;Categorie Compte;Compte engagement Projet;15;NULL;NULL;NULL;NULL;NULL
+Type compte;Categorie Compte;Creance en soufrance;33;NULL;NULL;NULL;NULL;NULL
+Type compte;Categorie Compte;CREANCES DOUT. LITIGIEUSES ET CONTENT;34;NULL;NULL;NULL;NULL;NULL
+Type compte;Categorie Compte;Comptes internes;0;NULL;NULL;NULL;NULL;NULL

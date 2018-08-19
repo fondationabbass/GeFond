@@ -21,6 +21,7 @@
             "montant": "Montant",
             "sens": "Sens",
             "pret": "Prêt",
+            "operation": "Opération",
             "etat": "Etat",
             "compte": "Compte",
             "echeance": "Echeance"

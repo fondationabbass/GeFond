@@ -13,11 +13,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bdi.fondation.config.Constants;
 import com.bdi.fondation.domain.Chapitre;
 import com.bdi.fondation.domain.Compte;
 import com.bdi.fondation.domain.Pret;
 import com.bdi.fondation.repository.CompteRepository;
 import com.bdi.fondation.repository.PretRepository;
+import com.bdi.fondation.security.SecurityUtils;
 import com.bdi.fondation.service.dto.ChapitreCriteria;
 import com.bdi.fondation.service.dto.CompteCriteria;
 import com.bdi.fondation.service.dto.PretAggregate;
@@ -64,7 +66,7 @@ public class PretService {
     }
     public Pret save(PretAggregate aggregate) {
     	log.debug("Request to save full Pret : {}", aggregate);
-    	Pret result = pretRepository.save(aggregate.getPret().montDebloq(0.0).encours(0.0));
+    	Pret result = pretRepository.save(aggregate.getPret().montDebloq(0.0).encours(0.0).userInitial(SecurityUtils.getCurrentUserLogin().get()));
     	echeanceService.save(Arrays.stream(aggregate.getEcheances()).map(a -> a.pret(result).montant(0.0)).collect(Collectors.toList()));
     	elementFinancementService.save(Arrays.stream(aggregate.getElementFinancements()).map(a -> a.pret(result)).collect(Collectors.toList()));
     	garantieService.save(Arrays.stream(aggregate.getGaranties()).map(a -> a.pret(result)).collect(Collectors.toList()));
@@ -78,26 +80,32 @@ public class PretService {
 		List<Compte> comptes = compteQueryService.findByCriteria(criteria);
 		if(comptes != null && !comptes.isEmpty()) {
 			return comptes.get(0);
-		} 
+		}
 		Chapitre chapitre = getOrCreateChapitre(pret);
 		Compte compte = new Compte();
 		LocalDate now = LocalDate.now();
-		compte.pret(pret).client(pret.getClient()).chapitre(chapitre).intituleCompte("Engagement")
+		String numCompte = buildNumCompte(chapitre);
+        compte.numCompte(numCompte ).pret(pret).client(pret.getClient()).chapitre(chapitre).intituleCompte("Engagement").typeCompte("Client")
 			.dateOuverture(now).solde(0.0).dateDernierCredit(now).dateDernierDebit(now);
 		return  compteRepository.save(compte);
 	}
+    private String buildNumCompte(Chapitre chapitre) {
+        int compteur = compteQueryService.findByChapitre(chapitre.getId()).size()+1;
+		String numCompte = chapitre.getNumero()+"-"+compteur+"-"+chapitre.getCategorieCompte();
+        return numCompte;
+    }
 
 	public Chapitre getOrCreateChapitre(Pret pret) {
 		ChapitreCriteria chapitreCriteria = new ChapitreCriteria();
 		StringFilter libChapitre = new StringFilter();
-		libChapitre.setEquals(pret.getTypPret());
+		libChapitre.setEquals(Constants.AGR);
 		chapitreCriteria.setLibChapitre(libChapitre);
 		List<Chapitre> chapitres = chapitreQueryService.findByCriteria(chapitreCriteria);
 		if(chapitres!=null && !chapitres.isEmpty()) {
 			return chapitres.get(0);
 		}
 		Chapitre chapitre = new Chapitre();
-		chapitre.libChapitre(pret.getTypPret());
+		chapitre.libChapitre(Constants.AGR).categorieCompte(Constants.COMPTE_ENGAGEMENT_AGR).numero(200000);
 		return chapitreService.save(chapitre);
 	}
 

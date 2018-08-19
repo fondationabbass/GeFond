@@ -18,10 +18,12 @@ public final class Constants {
     public static final String FAIT = "Fait";
     public static final String MOINS = "-";
     public static final String FINANCEMENT = "Financement";
-    public static final String REMBOURSEMENT = "Rembourement";
+    public static final String REMBOURSEMENT = "Remboursement";
 
     // Comptes
-    public static final String CAISSE = "Caisse";
+    public static final String COMPTE_ENGAGEMENT_AGR="10";
+    public static final String COMPTE_ENGAGEMENT_PROJET="15";
+    public static final String AGR="CRÉDITS SAINS CLASSIQUES CT AGR";
 
     // Pret
     public static final String MIS_EN_PLACE = "Mis en place";

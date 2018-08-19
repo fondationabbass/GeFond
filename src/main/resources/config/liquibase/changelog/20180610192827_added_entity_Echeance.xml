@@ -29,12 +29,16 @@
                 <constraints nullable="false" />
             </column>
 
+            <column name="montant_paye" type="double">
+                <constraints nullable="true" />
+            </column>
+
             <column name="etat_echeance" type="varchar(255)">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="date_payement" type="date">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="date_retrait" type="date">

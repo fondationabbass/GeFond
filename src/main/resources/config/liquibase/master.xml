@@ -16,11 +16,9 @@
     <include file="config/liquibase/changelog/20180610192825_added_entity_ElementFinancement.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180610192826_added_entity_Garantie.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180610192827_added_entity_Echeance.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20180610192828_added_entity_Compte.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180610192829_added_entity_Parametrage.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180610192830_added_entity_Entretien.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180610192831_added_entity_Chapitre.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20180610192832_added_entity_Mouvement.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180610192833_added_entity_Document.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180610192828_added_entity_Caisse.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180610192832_added_entity_Operation.xml" relativeToChangelogFile="false"/>
@@ -36,20 +34,12 @@
     <include file="config/liquibase/changelog/20180610192825_added_entity_constraints_ElementFinancement.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180610192826_added_entity_constraints_Garantie.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180610192827_added_entity_constraints_Echeance.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20180610192828_added_entity_constraints_Compte.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180610192830_added_entity_constraints_Entretien.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20180610192832_added_entity_constraints_Mouvement.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180610192833_added_entity_constraints_Document.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20180706190000_alter_table_echeance.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20180722190000_alter_table_client.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20180731190000_alter_table_mouvement.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20180731200000_alter_table_echeance.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20180801200000_alter_table_pret.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20180805130000_lier_compter_user.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20180811130000_clean_mouvement.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180610192828_added_entity_constraints_Caisse.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180610192832_added_entity_constraints_Operation.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180816192828_added_entity_constraints_Compte.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180816192832_added_entity_constraints_Mouvement.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180816192832_load_data.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

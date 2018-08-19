@@ -13,7 +13,7 @@ import {
     ElementFinancementDeleteDialogComponent,
     elementFinancementRoute,
     elementFinancementPopupRoute,
-} from './';
+} from '.';
 import { PretService } from '../pret';
 
 const ENTITY_STATES = [

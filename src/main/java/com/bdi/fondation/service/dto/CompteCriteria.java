@@ -32,6 +32,8 @@ public class CompteCriteria implements Serializable {
 
     private StringFilter numCompte;
 
+    private StringFilter typeCompte;
+
     private LocalDateFilter dateOuverture;
 
     private DoubleFilter solde;
@@ -73,6 +75,14 @@ public class CompteCriteria implements Serializable {
 
     public void setNumCompte(StringFilter numCompte) {
         this.numCompte = numCompte;
+    }
+
+    public StringFilter getTypeCompte() {
+        return typeCompte;
+    }
+
+    public void setTypeCompte(StringFilter typeCompte) {
+        this.typeCompte = typeCompte;
     }
 
     public LocalDateFilter getDateOuverture() {
@@ -145,6 +155,7 @@ public class CompteCriteria implements Serializable {
                 (id != null ? "id=" + id + ", " : "") +
                 (intituleCompte != null ? "intituleCompte=" + intituleCompte + ", " : "") +
                 (numCompte != null ? "numCompte=" + numCompte + ", " : "") +
+                (typeCompte != null ? "typeCompte=" + typeCompte + ", " : "") +
                 (dateOuverture != null ? "dateOuverture=" + dateOuverture + ", " : "") +
                 (solde != null ? "solde=" + solde + ", " : "") +
                 (dateDernierCredit != null ? "dateDernierCredit=" + dateDernierCredit + ", " : "") +

@@ -18,6 +18,11 @@
                 [(ngModel)]="chapitre.libChapitre" />
         </div>
         <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.chapitre.numero" for="field_numero">Numero</label>
+            <input type="number" class="form-control" name="numero" id="field_numero"
+                [(ngModel)]="chapitre.numero" />
+        </div>
+        <div class="form-group">
             <label class="form-control-label" jhiTranslate="geFondApp.chapitre.categorieCompte" for="field_categorieCompte">Categorie Compte</label>
             <input type="text" class="form-control" name="categorieCompte" id="field_categorieCompte"
                 [(ngModel)]="chapitre.categorieCompte" />

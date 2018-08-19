@@ -10,7 +10,6 @@ import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-// for static metamodels
 import com.bdi.fondation.domain.Caisse_;
 import com.bdi.fondation.domain.Chapitre_;
 import com.bdi.fondation.domain.Client_;
@@ -83,6 +82,9 @@ public class CompteQueryService extends QueryService<Compte> {
             if (criteria.getNumCompte() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getNumCompte(), Compte_.numCompte));
             }
+            if (criteria.getTypeCompte() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getTypeCompte(), Compte_.typeCompte));
+            }
             if (criteria.getDateOuverture() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getDateOuverture(), Compte_.dateOuverture));
             }
@@ -120,7 +122,15 @@ public class CompteQueryService extends QueryService<Compte> {
         if(list!=null && list.size()==1) {
             return list.get(0);
         }
-        throw new IllegalStateException("Trouvé "+list+" compte(s) par pret Id = "+pretId);
+        throw new IllegalStateException("Trouvé "+list.size()+" compte(s) par pret Id = "+pretId);
+    }
+    @Transactional(readOnly = true)
+    public List<Compte> findByChapitre(Long chapitreId) {
+        CompteCriteria criteria = new CompteCriteria();
+        LongFilter chapitreFilter = new LongFilter();
+        chapitreFilter.setEquals(chapitreId);
+        criteria.setChapitreId(chapitreFilter);
+        return findByCriteria(criteria);
     }
 
     public Compte getCompteByCaisseId(Long caisseId) {
@@ -132,7 +142,7 @@ public class CompteQueryService extends QueryService<Compte> {
         if(list!=null && list.size()==1) {
             return list.get(0);
         }
-        throw new IllegalStateException("Trouvé "+list+" compte(s) par caisse Id = "+caisseId);
+        throw new IllegalStateException("Trouvé "+list.size()+" compte(s) par caisse Id = "+caisseId);
     }
 
 }

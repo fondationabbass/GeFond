@@ -270,27 +270,21 @@
                                     <tr>
                                         <th>
                                             <span jhiTranslate="geFondApp.echeance.dateTombe">Date Tombe</span>
-                                            <span class="fa fa-sort"></span>
                                         </th>
                                         <th>
                                             <span jhiTranslate="geFondApp.echeance.montant">Montant</span>
-                                            <span class="fa fa-sort"></span>
                                         </th>
                                         <th>
                                             <span jhiTranslate="geFondApp.echeance.montantPaye">Déjà payé</span>
-                                            <span class="fa fa-sort"></span>
                                         </th>
                                         <th>
                                             <span jhiTranslate="geFondApp.echeance.etatEcheance">Etat Echeance</span>
-                                            <span class="fa fa-sort"></span>
                                         </th>
                                         <th>
                                             <span jhiTranslate="geFondApp.echeance.datePayement">Date Payement</span>
-                                            <span class="fa fa-sort"></span>
                                         </th>
                                         <th>
                                             <span jhiTranslate="geFondApp.echeance.dateRetrait">Date Retrait</span>
-                                            <span class="fa fa-sort"></span>
                                         </th>
                                     </tr>
                                 </thead>
@@ -314,11 +308,11 @@
                     <h5 class="card-header" (click)="mouvementCollapsed = !mouvementCollapsed" [attr.aria-expanded]="!mouvementCollapsed" aria-controls="mouvement-div">
                         <span [hidden]="!mouvementCollapsed" class="fa fa-plus-square" aria-hidden="true"></span>
                         <span [hidden]="mouvementCollapsed" class="fa fa-minus-square" aria-hidden="true"></span>
-                        <span>Les mouvements:</span>
+                        <span>Les remboursements:</span>
                     </h5>
                     <div class="card-body" id="mouvement-div" [ngbCollapse]="mouvementCollapsed">
                         <h2>
-                            <button class="btn btn-primary float-right jh-create-entity create-mouvement" [routerLink]="['/', { outlets: { popup: 'mouvement/'+ pret.id + '/edit'} }]">
+                            <button class="btn btn-primary float-right jh-create-entity create-mouvement" [routerLink]="['/', { outlets: { popup: 'operation-remboursement/'+ pret.id} }]">
                                 <span class="fa fa-plus"></span>
                                 <span>
                                     Saisir un remboursement
@@ -331,35 +325,39 @@
                                 <thead>
                                     <tr>
                                         <th>
-                                            <span jhiTranslate="geFondApp.mouvement.dateMvt">Date Mvt</span>
+                                            <span jhiTranslate="geFondApp.operation.dateOperation">Date Operation</span>
                                         </th>
                                         <th>
-                                            <span jhiTranslate="geFondApp.mouvement.lib">Lib</span>
+                                            <span jhiTranslate="geFondApp.operation.montant">Montant</span>
                                         </th>
                                         <th>
-                                            <span jhiTranslate="geFondApp.mouvement.montant">Montant</span>
+                                            <span jhiTranslate="geFondApp.operation.etat">Etat</span>
                                         </th>
                                         <th>
-                                            <span jhiTranslate="geFondApp.mouvement.sens">Sens</span>
+                                            <span jhiTranslate="geFondApp.operation.moyenPaiement">Moyen Paiement</span>
                                         </th>
                                         <th>
-                                            <span jhiTranslate="geFondApp.mouvement.etat">Etat</span>
+                                            <span jhiTranslate="geFondApp.operation.commentaire">Commentaire</span>
                                         </th>
                                         <th>
-                                            <span jhiTranslate="geFondApp.mouvement.compte">Compte</span>
+                                            <span jhiTranslate="geFondApp.operation.description">Description</span>
+                                        </th>
+                                        <th>
+                                            <span jhiTranslate="geFondApp.operation.caisse">Caisse</span>
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let mouvement of mouvements ;trackBy: trackId">
-                                        <td>{{mouvement.dateMvt | date:'mediumDate'}}</td>
-                                        <td>{{mouvement.lib}}</td>
-                                        <td>{{mouvement.montant}}</td>
-                                        <td>{{mouvement.sens}}</td>
-                                        <td>{{mouvement.etat}}</td>
+                                    <tr *ngFor="let operation of mouvements ;trackBy: trackId">
+                                        <td>{{operation.dateOperation | date:'mediumDate'}}</td>
+                                        <td>{{operation.montant}}</td>
+                                        <td>{{operation.etat}}</td>
+                                        <td>{{operation.moyenPaiement}}</td>
+                                        <td>{{operation.commentaire}}</td>
+                                        <td>{{operation.description}}</td>
                                         <td>
-                                            <div *ngIf="mouvement.compte">
-                                                <a [routerLink]="['../../compte', mouvement.compte?.id ]">{{mouvement.compte?.id}}</a>
+                                            <div *ngIf="operation.caisse">
+                                                <a [routerLink]="['../../caisse', operation.caisse?.id ]">{{operation.caisse?.user.login}}</a>
                                             </div>
                                         </td>
                                     </tr>

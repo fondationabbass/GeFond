@@ -13,7 +13,7 @@ import {
     VisiteDeleteDialogComponent,
     visiteRoute,
     visitePopupRoute,
-} from './';
+} from '.';
 
 const ENTITY_STATES = [
     ...visiteRoute,

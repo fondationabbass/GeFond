@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bdi.fondation.config.Constants;
 import com.bdi.fondation.domain.ElementFinancement;
 import com.bdi.fondation.domain.Operation;
 import com.bdi.fondation.repository.ElementFinancementRepository;
@@ -45,7 +46,7 @@ public class ElementFinancementService {
         log.debug("Request to save ElementFinancement : {}", elementFinancement);
         ElementFinancement result = elementFinancementRepository.save(elementFinancement);
         Operation operation = new Operation();
-        operation.pret(result.getPret()).montant(result.getMontant()).moyenPaiement(result.getType())
+        operation.pret(result.getPret()).montant(result.getMontant()).typeOperation(Constants.FINANCEMENT).moyenPaiement(result.getType())
                 .dateOperation(result.getDateFinancement()).description("Débloquage numéro " + result.getId());
         operationService.save(operation);
         return result;

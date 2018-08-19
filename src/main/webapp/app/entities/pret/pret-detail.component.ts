@@ -9,7 +9,7 @@ import { PretService } from './pret.service';
 import { Garantie, GarantieService } from '../garantie';
 import { ElementFinancement, ElementFinancementService } from '../element-financement';
 import { Echeance, EcheanceService } from '../echeance';
-import { Mouvement, MouvementService } from '../mouvement';
+import { Operation, OperationService } from '../operation';
 
 @Component({
     selector: 'jhi-pret-detail',
@@ -18,12 +18,12 @@ import { Mouvement, MouvementService } from '../mouvement';
 export class PretDetailComponent implements OnInit, OnDestroy {
     title: string = "Détail d'un pret : ";
     events: string[] = ['pretListModification','garantieListModification',
-                        'echeanceListModification','elementFinancementListModification','mouvementListModification'];
+                        'echeanceListModification','elementFinancementListModification','operationListModification'];
     pret: Pret;
     garanties:Garantie[];
     elementFinancements: ElementFinancement[];
     echeances:Echeance[];
-    mouvements:Mouvement[];
+    mouvements:Operation[];
 
     private subscription: Subscription;
     private eventSubscriber: Subscription;
@@ -34,7 +34,7 @@ export class PretDetailComponent implements OnInit, OnDestroy {
         private echeanceService: EcheanceService,
         private efService: ElementFinancementService,
         private garantieService: GarantieService,
-        private mouvmentService: MouvementService,
+        private mouvmentService: OperationService,
         private route: ActivatedRoute
     ) {
     }
@@ -71,7 +71,7 @@ export class PretDetailComponent implements OnInit, OnDestroy {
         this.echeanceService.query({ "pretId.equals": id }).subscribe((pretResponse: HttpResponse<Echeance[]>) => {
             this.echeances = pretResponse.body;
         });
-        this.mouvmentService.query({ "pretId.equals": id , "lib.equals":"Rembourement"}).subscribe((pretResponse: HttpResponse<Mouvement[]>) => {
+        this.mouvmentService.query({ "pretId.equals": id , "typeOperation.equals":"Remboursement"}).subscribe((pretResponse: HttpResponse<Operation[]>) => {
             this.mouvements = pretResponse.body;
         });
     }

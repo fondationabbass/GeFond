@@ -14,7 +14,11 @@ import {
     operationRoute,
     operationPopupRoute,
     OperationResolvePagingParams,
-} from './';
+    OperationRemboursementPopupService,
+    OperationRemboursementPopupComponent,
+    OperationRemboursementDialogComponent
+} from '.';
+import { PretService } from '../pret';
 
 const ENTITY_STATES = [
     ...operationRoute,
@@ -32,19 +36,25 @@ const ENTITY_STATES = [
         OperationDialogComponent,
         OperationDeleteDialogComponent,
         OperationPopupComponent,
+        OperationRemboursementDialogComponent,
+        OperationRemboursementPopupComponent,
         OperationDeletePopupComponent,
     ],
     entryComponents: [
         OperationComponent,
         OperationDialogComponent,
         OperationPopupComponent,
+        OperationRemboursementDialogComponent,
+        OperationRemboursementPopupComponent,
         OperationDeleteDialogComponent,
         OperationDeletePopupComponent,
     ],
     providers: [
         OperationService,
         OperationPopupService,
+        OperationRemboursementPopupService,
         OperationResolvePagingParams,
+        PretService,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

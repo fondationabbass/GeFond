@@ -53,6 +53,9 @@ public class CompteResourceIntTest {
     private static final String DEFAULT_NUM_COMPTE = "AAAAAAAAAA";
     private static final String UPDATED_NUM_COMPTE = "BBBBBBBBBB";
 
+    private static final String DEFAULT_TYPE_COMPTE = "AAAAAAAAAA";
+    private static final String UPDATED_TYPE_COMPTE = "BBBBBBBBBB";
+
     private static final LocalDate DEFAULT_DATE_OUVERTURE = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_DATE_OUVERTURE = LocalDate.now(ZoneId.systemDefault());
 
@@ -111,6 +114,7 @@ public class CompteResourceIntTest {
         Compte compte = new Compte()
             .intituleCompte(DEFAULT_INTITULE_COMPTE)
             .numCompte(DEFAULT_NUM_COMPTE)
+            .typeCompte(DEFAULT_TYPE_COMPTE)
             .dateOuverture(DEFAULT_DATE_OUVERTURE)
             .solde(DEFAULT_SOLDE)
             .dateDernierCredit(DEFAULT_DATE_DERNIER_CREDIT)
@@ -140,6 +144,7 @@ public class CompteResourceIntTest {
         Compte testCompte = compteList.get(compteList.size() - 1);
         assertThat(testCompte.getIntituleCompte()).isEqualTo(DEFAULT_INTITULE_COMPTE);
         assertThat(testCompte.getNumCompte()).isEqualTo(DEFAULT_NUM_COMPTE);
+        assertThat(testCompte.getTypeCompte()).isEqualTo(DEFAULT_TYPE_COMPTE);
         assertThat(testCompte.getDateOuverture()).isEqualTo(DEFAULT_DATE_OUVERTURE);
         assertThat(testCompte.getSolde()).isEqualTo(DEFAULT_SOLDE);
         assertThat(testCompte.getDateDernierCredit()).isEqualTo(DEFAULT_DATE_DERNIER_CREDIT);
@@ -185,60 +190,6 @@ public class CompteResourceIntTest {
 
     @Test
     @Transactional
-    public void checkSoldeIsRequired() throws Exception {
-        int databaseSizeBeforeTest = compteRepository.findAll().size();
-        // set the field null
-        compte.setSolde(null);
-
-        // Create the Compte, which fails.
-
-        restCompteMockMvc.perform(post("/api/comptes")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(compte)))
-            .andExpect(status().isBadRequest());
-
-        List<Compte> compteList = compteRepository.findAll();
-        assertThat(compteList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkDateDernierCreditIsRequired() throws Exception {
-        int databaseSizeBeforeTest = compteRepository.findAll().size();
-        // set the field null
-        compte.setDateDernierCredit(null);
-
-        // Create the Compte, which fails.
-
-        restCompteMockMvc.perform(post("/api/comptes")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(compte)))
-            .andExpect(status().isBadRequest());
-
-        List<Compte> compteList = compteRepository.findAll();
-        assertThat(compteList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkDateDernierDebitIsRequired() throws Exception {
-        int databaseSizeBeforeTest = compteRepository.findAll().size();
-        // set the field null
-        compte.setDateDernierDebit(null);
-
-        // Create the Compte, which fails.
-
-        restCompteMockMvc.perform(post("/api/comptes")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(compte)))
-            .andExpect(status().isBadRequest());
-
-        List<Compte> compteList = compteRepository.findAll();
-        assertThat(compteList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void getAllComptes() throws Exception {
         // Initialize the database
         compteRepository.saveAndFlush(compte);
@@ -250,6 +201,7 @@ public class CompteResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(compte.getId().intValue())))
             .andExpect(jsonPath("$.[*].intituleCompte").value(hasItem(DEFAULT_INTITULE_COMPTE.toString())))
             .andExpect(jsonPath("$.[*].numCompte").value(hasItem(DEFAULT_NUM_COMPTE.toString())))
+            .andExpect(jsonPath("$.[*].typeCompte").value(hasItem(DEFAULT_TYPE_COMPTE.toString())))
             .andExpect(jsonPath("$.[*].dateOuverture").value(hasItem(DEFAULT_DATE_OUVERTURE.toString())))
             .andExpect(jsonPath("$.[*].solde").value(hasItem(DEFAULT_SOLDE.doubleValue())))
             .andExpect(jsonPath("$.[*].dateDernierCredit").value(hasItem(DEFAULT_DATE_DERNIER_CREDIT.toString())))
@@ -269,6 +221,7 @@ public class CompteResourceIntTest {
             .andExpect(jsonPath("$.id").value(compte.getId().intValue()))
             .andExpect(jsonPath("$.intituleCompte").value(DEFAULT_INTITULE_COMPTE.toString()))
             .andExpect(jsonPath("$.numCompte").value(DEFAULT_NUM_COMPTE.toString()))
+            .andExpect(jsonPath("$.typeCompte").value(DEFAULT_TYPE_COMPTE.toString()))
             .andExpect(jsonPath("$.dateOuverture").value(DEFAULT_DATE_OUVERTURE.toString()))
             .andExpect(jsonPath("$.solde").value(DEFAULT_SOLDE.doubleValue()))
             .andExpect(jsonPath("$.dateDernierCredit").value(DEFAULT_DATE_DERNIER_CREDIT.toString()))
@@ -351,6 +304,45 @@ public class CompteResourceIntTest {
 
         // Get all the compteList where numCompte is null
         defaultCompteShouldNotBeFound("numCompte.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllComptesByTypeCompteIsEqualToSomething() throws Exception {
+        // Initialize the database
+        compteRepository.saveAndFlush(compte);
+
+        // Get all the compteList where typeCompte equals to DEFAULT_TYPE_COMPTE
+        defaultCompteShouldBeFound("typeCompte.equals=" + DEFAULT_TYPE_COMPTE);
+
+        // Get all the compteList where typeCompte equals to UPDATED_TYPE_COMPTE
+        defaultCompteShouldNotBeFound("typeCompte.equals=" + UPDATED_TYPE_COMPTE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllComptesByTypeCompteIsInShouldWork() throws Exception {
+        // Initialize the database
+        compteRepository.saveAndFlush(compte);
+
+        // Get all the compteList where typeCompte in DEFAULT_TYPE_COMPTE or UPDATED_TYPE_COMPTE
+        defaultCompteShouldBeFound("typeCompte.in=" + DEFAULT_TYPE_COMPTE + "," + UPDATED_TYPE_COMPTE);
+
+        // Get all the compteList where typeCompte equals to UPDATED_TYPE_COMPTE
+        defaultCompteShouldNotBeFound("typeCompte.in=" + UPDATED_TYPE_COMPTE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllComptesByTypeCompteIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        compteRepository.saveAndFlush(compte);
+
+        // Get all the compteList where typeCompte is not null
+        defaultCompteShouldBeFound("typeCompte.specified=true");
+
+        // Get all the compteList where typeCompte is null
+        defaultCompteShouldNotBeFound("typeCompte.specified=false");
     }
 
     @Test
@@ -675,6 +667,7 @@ public class CompteResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(compte.getId().intValue())))
             .andExpect(jsonPath("$.[*].intituleCompte").value(hasItem(DEFAULT_INTITULE_COMPTE.toString())))
             .andExpect(jsonPath("$.[*].numCompte").value(hasItem(DEFAULT_NUM_COMPTE.toString())))
+            .andExpect(jsonPath("$.[*].typeCompte").value(hasItem(DEFAULT_TYPE_COMPTE.toString())))
             .andExpect(jsonPath("$.[*].dateOuverture").value(hasItem(DEFAULT_DATE_OUVERTURE.toString())))
             .andExpect(jsonPath("$.[*].solde").value(hasItem(DEFAULT_SOLDE.doubleValue())))
             .andExpect(jsonPath("$.[*].dateDernierCredit").value(hasItem(DEFAULT_DATE_DERNIER_CREDIT.toString())))
@@ -716,6 +709,7 @@ public class CompteResourceIntTest {
         updatedCompte
             .intituleCompte(UPDATED_INTITULE_COMPTE)
             .numCompte(UPDATED_NUM_COMPTE)
+            .typeCompte(UPDATED_TYPE_COMPTE)
             .dateOuverture(UPDATED_DATE_OUVERTURE)
             .solde(UPDATED_SOLDE)
             .dateDernierCredit(UPDATED_DATE_DERNIER_CREDIT)
@@ -732,6 +726,7 @@ public class CompteResourceIntTest {
         Compte testCompte = compteList.get(compteList.size() - 1);
         assertThat(testCompte.getIntituleCompte()).isEqualTo(UPDATED_INTITULE_COMPTE);
         assertThat(testCompte.getNumCompte()).isEqualTo(UPDATED_NUM_COMPTE);
+        assertThat(testCompte.getTypeCompte()).isEqualTo(UPDATED_TYPE_COMPTE);
         assertThat(testCompte.getDateOuverture()).isEqualTo(UPDATED_DATE_OUVERTURE);
         assertThat(testCompte.getSolde()).isEqualTo(UPDATED_SOLDE);
         assertThat(testCompte.getDateDernierCredit()).isEqualTo(UPDATED_DATE_DERNIER_CREDIT);

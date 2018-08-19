@@ -13,7 +13,7 @@ import {
     CandidatDeleteDialogComponent,
     candidatRoute,
     candidatPopupRoute,
-} from './';
+} from '.';
 
 const ENTITY_STATES = [
     ...candidatRoute,

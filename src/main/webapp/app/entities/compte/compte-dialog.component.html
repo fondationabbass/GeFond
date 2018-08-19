@@ -13,6 +13,29 @@
                    [(ngModel)]="compte.id" readonly />
         </div>
         <div class="form-group">
+                <label class="form-control-label" for="field_codeChapitre">Code chapitre</label>
+                <input type="number" class="form-control" name="codeChapitr" id="field_codeChapitr"
+                    [(ngModel)]="codeChapitr" (ngModelChange)="updateCodeNum($event)"/>
+            </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.compte.chapitre" for="field_chapitre">Chapitre</label>
+            <select class="form-control" id="field_chapitre" name="chapitre" [(ngModel)]="compte.chapitre" (ngModelChange)="updateNum($event)">
+                <option [ngValue]="chapitreOption.id === compte.chapitre?.id ? compte.chapitre : chapitreOption" *ngFor="let chapitreOption of chapitres; trackBy: trackChapitreById">{{chapitreOption.numero+" -- " + chapitreOption.libChapitre}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.compte.numCompte" for="field_numCompte">Num Compte</label>
+            <input type="text" class="form-control" name="numCompte" id="field_numCompte"
+                [(ngModel)]="compte.numCompte" readonly/>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.compte.caisse" for="field_caisse">Caisse</label>
+            <select class="form-control" id="field_caisse" name="caisse" [(ngModel)]="compte.caisse" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="caisseOption.id === compte.caisse?.id ? compte.caisse : caisseOption" *ngFor="let caisseOption of caisses; trackBy: trackCaisseById">{{caisseOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
             <label class="form-control-label" jhiTranslate="geFondApp.compte.intituleCompte" for="field_intituleCompte">Intitule Compte</label>
             <input type="text" class="form-control" name="intituleCompte" id="field_intituleCompte"
                 [(ngModel)]="compte.intituleCompte" required/>
@@ -24,6 +47,11 @@
             </div>
         </div>
         <div class="form-group">
+            <label class="form-control-label" jhiTranslate="geFondApp.compte.typeCompte" for="field_typeCompte">Type Compte</label>
+            <input type="text" class="form-control" name="typeCompte" id="field_typeCompte"
+                [(ngModel)]="compte.typeCompte" />
+        </div>
+        <div class="form-group">
             <label class="form-control-label" jhiTranslate="geFondApp.compte.dateOuverture" for="field_dateOuverture">Date Ouverture</label>
             <div class="input-group">
                 <input id="field_dateOuverture" type="text" class="form-control" name="dateOuverture" ngbDatepicker  #dateOuvertureDp="ngbDatepicker" [(ngModel)]="compte.dateOuverture"
@@ -32,68 +60,6 @@
                     <button type="button" class="btn btn-secondary" (click)="dateOuvertureDp.toggle()"><i class="fa fa-calendar"></i></button>
                 </span>
             </div>
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="geFondApp.compte.solde" for="field_solde">Solde</label>
-            <input type="number" class="form-control" name="solde" id="field_solde"
-                [(ngModel)]="compte.solde" required/>
-            <div [hidden]="!(editForm.controls.solde?.dirty && editForm.controls.solde?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.solde?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
-                </small>
-                <small class="form-text text-danger"
-                    [hidden]="!editForm.controls.solde?.errors?.number" jhiTranslate="entity.validation.number">
-                    This field should be a number.
-                </small>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="geFondApp.compte.dateDernierCredit" for="field_dateDernierCredit">Date Dernier Credit</label>
-            <div class="input-group">
-                <input id="field_dateDernierCredit" type="text" class="form-control" name="dateDernierCredit" ngbDatepicker  #dateDernierCreditDp="ngbDatepicker" [(ngModel)]="compte.dateDernierCredit"
-                required/>
-                <span class="input-group-append">
-                    <button type="button" class="btn btn-secondary" (click)="dateDernierCreditDp.toggle()"><i class="fa fa-calendar"></i></button>
-                </span>
-            </div>
-            <div [hidden]="!(editForm.controls.dateDernierCredit?.dirty && editForm.controls.dateDernierCredit?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.dateDernierCredit?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
-                </small>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="geFondApp.compte.dateDernierDebit" for="field_dateDernierDebit">Date Dernier Debit</label>
-            <div class="input-group">
-                <input id="field_dateDernierDebit" type="text" class="form-control" name="dateDernierDebit" ngbDatepicker  #dateDernierDebitDp="ngbDatepicker" [(ngModel)]="compte.dateDernierDebit"
-                required/>
-                <span class="input-group-append">
-                    <button type="button" class="btn btn-secondary" (click)="dateDernierDebitDp.toggle()"><i class="fa fa-calendar"></i></button>
-                </span>
-            </div>
-            <div [hidden]="!(editForm.controls.dateDernierDebit?.dirty && editForm.controls.dateDernierDebit?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.dateDernierDebit?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
-                </small>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="geFondApp.compte.client" for="field_client">Client</label>
-            <select class="form-control" id="field_client" name="client" [(ngModel)]="compte.client" >
-                <option [ngValue]="null"></option>
-                <option [ngValue]="clientOption.id === compte.client?.id ? compte.client : clientOption" *ngFor="let clientOption of clients; trackBy: trackClientById">{{clientOption.id}}</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="geFondApp.compte.chapitre" for="field_chapitre">Chapitre</label>
-            <select class="form-control" id="field_chapitre" name="chapitre" [(ngModel)]="compte.chapitre" >
-                <option [ngValue]="null"></option>
-                <option [ngValue]="chapitreOption.id === compte.chapitre?.id ? compte.chapitre : chapitreOption" *ngFor="let chapitreOption of chapitres; trackBy: trackChapitreById">{{chapitreOption.libChapitre}}</option>
-            </select>
         </div>
     </div>
     <div class="modal-footer">

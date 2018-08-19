@@ -1,17 +1,26 @@
 package com.bdi.fondation.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * A Echeance.
@@ -42,8 +51,7 @@ public class Echeance implements Serializable {
     @Column(name = "etat_echeance", nullable = false)
     private String etatEcheance;
 
-    @NotNull
-    @Column(name = "date_payement", nullable = false)
+    @Column(name = "date_payement")
     private LocalDate datePayement;
 
     @Column(name = "date_retrait")
@@ -167,13 +175,13 @@ public class Echeance implements Serializable {
     }
 
     public Echeance addOperation(Operation operation) {
-        this.operations.add(operation);
+        operations.add(operation);
         operation.getEcheances().add(this);
         return this;
     }
 
     public Echeance removeOperation(Operation operation) {
-        this.operations.remove(operation);
+        operations.remove(operation);
         operation.getEcheances().remove(this);
         return this;
     }

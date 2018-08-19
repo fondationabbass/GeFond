@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2" />
+    <property name="now" value="current_timestamp"
+        dbms="postgresql" />
+
+
+    <changeSet id="20180816192832" author="khaled">
+        <loadData encoding="UTF-8"
+            file="config/liquibase/csv/SESSION_PROJET.csv" separator=";"
+            tableName="SESSION_PROJET" />
+        <loadData encoding="UTF-8"
+            file="config/liquibase/csv/PARAMETRAGE.csv" separator=";"
+            tableName="PARAMETRAGE" />
+       <loadData encoding="UTF-8"
+            file="config/liquibase/csv/CHAPITRE.csv" separator=";"
+            tableName="CHAPITRE" />
+        <!--  <loadData encoding="UTF-8"
+            file="config/liquibase/csv/CAISSE.csv" separator=";"
+            tableName="CAISSE" />
+        <loadData encoding="UTF-8"
+            file="config/liquibase/csv/PROJET.csv" separator=";"
+            tableName="PROJET" />
+        <loadData encoding="UTF-8"
+            file="config/liquibase/csv/CANDIDAT.csv" separator=";"
+            tableName="CANDIDAT" />
+        <loadData encoding="UTF-8"
+            file="config/liquibase/csv/CANDIDATURE.csv" separator=";"
+            tableName="CANDIDATURE" />
+        <loadData encoding="UTF-8"
+            file="config/liquibase/csv/VISITE.csv" separator=";"
+            tableName="VISITE" />
+        <loadData encoding="UTF-8"
+            file="config/liquibase/csv/DOCUMENT.csv" separator=";"
+            tableName="DOCUMENT" />
+        <loadData encoding="UTF-8"
+            file="config/liquibase/csv/ENTRETIEN.csv" separator=";"
+            tableName="ENTRETIEN" />
+        <loadData encoding="UTF-8"
+            file="config/liquibase/csv/EXPERIENCE_CANDIDAT.csv"
+            separator=";" tableName="EXPERIENCE_CANDIDAT" />
+        <loadData encoding="UTF-8"
+            file="config/liquibase/csv/CLIENT.csv" separator=";"
+            tableName="CLIENT" />
+        <loadData encoding="UTF-8"
+            file="config/liquibase/csv/PRET.csv" separator=";"
+            tableName="PRET" />
+        <loadData encoding="UTF-8"
+            file="config/liquibase/csv/COMPTE.csv" separator=";"
+            tableName="COMPTE" />
+        <loadData encoding="UTF-8"
+            file="config/liquibase/csv/GARANTIE.csv" separator=";"
+            tableName="GARANTIE" />
+        <loadData encoding="UTF-8"
+            file="config/liquibase/csv/ELEMENT_FINANCEMENT.csv"
+            separator=";" tableName="ELEMENT_FINANCEMENT" />
+        <loadData encoding="UTF-8"
+            file="config/liquibase/csv/OPERATION.csv" separator=";"
+            tableName="OPERATION" />
+        <loadData encoding="UTF-8"
+            file="config/liquibase/csv/ECHEANCE.csv" separator=";"
+            tableName="ECHEANCE" />
+        <loadData encoding="UTF-8"
+            file="config/liquibase/csv/OPERATION_ECHEANCE.csv"
+            separator=";" tableName="OPERATION_ECHEANCE" />
+        <loadData encoding="UTF-8"
+            file="config/liquibase/csv/MOUVEMENT.csv" separator=";"
+            tableName="MOUVEMENT" /> -->
+    </changeSet>
+</databaseChangeLog>

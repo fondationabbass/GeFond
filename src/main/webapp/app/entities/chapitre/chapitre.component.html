@@ -15,16 +15,16 @@
     <div class="table-responsive" *ngIf="chapitres">
         <table class="table table-striped">
             <thead>
-            <tr>
-            <th><span jhiTranslate="global.field.id">ID</span></th>
-            <th><span jhiTranslate="geFondApp.chapitre.libChapitre">Lib Chapitre</span></th>
-            <th><span jhiTranslate="geFondApp.chapitre.categorieCompte">Categorie Compte</span></th>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="numero"><span jhiTranslate="geFondApp.chapitre.numero">Numero</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="libChapitre"><span jhiTranslate="geFondApp.chapitre.libChapitre">Lib Chapitre</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="categorieCompte"><span jhiTranslate="geFondApp.chapitre.categorieCompte">Categorie Compte</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let chapitre of chapitres ;trackBy: trackId">
-                <td><a [routerLink]="['../chapitre', chapitre.id ]">{{chapitre.id}}</a></td>
+                <td><a [routerLink]="['../chapitre', chapitre.id ]">{{chapitre.numero}}</a></td>
                 <td>{{chapitre.libChapitre}}</td>
                 <td>{{chapitre.categorieCompte}}</td>
                 <td class="text-right">
@@ -56,5 +56,13 @@
             </tr>
             </tbody>
         </table>
+    </div>
+    <div *ngIf="chapitres && chapitres.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
     </div>
 </div>

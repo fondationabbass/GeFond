@@ -42,7 +42,7 @@
             </column>
 
             <column name="description" type="varchar(255)">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="date_creation" type="date">
@@ -50,11 +50,11 @@
             </column>
 
             <column name="etat" type="varchar(255)">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="lieu" type="varchar(255)">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
             <column name="candidature_id" type="bigint">
                 <constraints unique="true" nullable="true" />

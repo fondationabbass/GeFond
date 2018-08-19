@@ -75,6 +75,9 @@ public class ChapitreQueryService extends QueryService<Chapitre> {
             if (criteria.getLibChapitre() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getLibChapitre(), Chapitre_.libChapitre));
             }
+            if (criteria.getNumero() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getNumero(), Chapitre_.numero));
+            }
             if (criteria.getCategorieCompte() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getCategorieCompte(), Chapitre_.categorieCompte));
             }

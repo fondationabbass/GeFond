@@ -13,7 +13,7 @@ import {
     ParametrageDeleteDialogComponent,
     parametrageRoute,
     parametragePopupRoute,
-} from './';
+} from '.';
 
 const ENTITY_STATES = [
     ...parametrageRoute,

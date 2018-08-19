@@ -13,7 +13,7 @@ import {
     SessionProjetDeleteDialogComponent,
     sessionProjetRoute,
     sessionProjetPopupRoute,
-} from './';
+} from '.';
 
 const ENTITY_STATES = [
     ...sessionProjetRoute,

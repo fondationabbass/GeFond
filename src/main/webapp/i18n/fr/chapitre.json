@@ -17,7 +17,8 @@
                 "title": "Chapitre"
             },
             "libChapitre": "Libelle Chapitre",
-            "categorieCompte": "Categorie Compte"
+            "numero": "Code",
+            "categorieCompte": "Catégorie Compte"
         }
     }
 }

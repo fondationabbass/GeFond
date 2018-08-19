@@ -3,29 +3,29 @@
     "geFondApp": {
         "operation" : {
             "home": {
-                "title": "Operations",
-                "createLabel": "Créer un nouveau Operation",
-                "createOrEditLabel": "Créer ou éditer un Operation"
+                "title": "Opérations",
+                "createLabel": "Saisir une nouvelle Opération",
+                "createOrEditLabel": "Saisi d'une Opération"
             },
-            "created": "Un nouveau Operation a été créé avec l'identifiant {{ param }}",
-            "updated": "Le Operation avec l'identifiant {{ param }} a été mis à jour",
-            "deleted": "Le Operation avec l'identifiant {{ param }} a été supprimé",
+            "created": "Une nouvelle Opération a été créé avec l'identifiant {{ param }}",
+            "updated": "L'Opération avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "L'Opération avec l'identifiant {{ param }} a été supprimé",
             "delete": {
-                "question": "Etes-vous certain de vouloir supprimer le Operation {{ id }} ?"
+                "question": "Etes-vous certain de vouloir supprimer l'Opération {{ id }} ?"
             },
             "detail": {
-                "title": "Operation"
+                "title": "Opération"
             },
-            "dateOperation": "Date Operation",
-            "typeOperation": "Type Operation",
+            "dateOperation": "Date Opération",
+            "typeOperation": "Type Opération",
             "montant": "Montant",
             "etat": "Etat",
-            "moyenPaiement": "Moyen Paiement",
+            "moyenPaiement": "Moyen de Paiement",
             "commentaire": "Commentaire",
             "description": "Description",
-            "compteOrigin": "Compte Origin",
+            "compteOrigin": "Compte Origine",
             "compteDestinataire": "Compte Destinataire",
-            "pret": "Pret",
+            "pret": "Prêt",
             "caisse": "Caisse",
             "echeance": "Echeance"
         }

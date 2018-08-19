@@ -30,6 +30,8 @@ public class ChapitreCriteria implements Serializable {
 
     private StringFilter libChapitre;
 
+    private IntegerFilter numero;
+
     private StringFilter categorieCompte;
 
     public ChapitreCriteria() {
@@ -51,6 +53,14 @@ public class ChapitreCriteria implements Serializable {
         this.libChapitre = libChapitre;
     }
 
+    public IntegerFilter getNumero() {
+        return numero;
+    }
+
+    public void setNumero(IntegerFilter numero) {
+        this.numero = numero;
+    }
+
     public StringFilter getCategorieCompte() {
         return categorieCompte;
     }
@@ -64,6 +74,7 @@ public class ChapitreCriteria implements Serializable {
         return "ChapitreCriteria{" +
                 (id != null ? "id=" + id + ", " : "") +
                 (libChapitre != null ? "libChapitre=" + libChapitre + ", " : "") +
+                (numero != null ? "numero=" + numero + ", " : "") +
                 (categorieCompte != null ? "categorieCompte=" + categorieCompte + ", " : "") +
             "}";
     }

@@ -5,11 +5,16 @@ import com.bdi.fondation.domain.Chapitre;
 import com.bdi.fondation.service.ChapitreService;
 import com.bdi.fondation.web.rest.errors.BadRequestAlertException;
 import com.bdi.fondation.web.rest.util.HeaderUtil;
+import com.bdi.fondation.web.rest.util.PaginationUtil;
 import com.bdi.fondation.service.dto.ChapitreCriteria;
 import com.bdi.fondation.service.ChapitreQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -84,15 +89,17 @@ public class ChapitreResource {
     /**
      * GET  /chapitres : get all the chapitres.
      *
+     * @param pageable the pagination information
      * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of chapitres in body
      */
     @GetMapping("/chapitres")
     @Timed
-    public ResponseEntity<List<Chapitre>> getAllChapitres(ChapitreCriteria criteria) {
+    public ResponseEntity<List<Chapitre>> getAllChapitres(ChapitreCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Chapitres by criteria: {}", criteria);
-        List<Chapitre> entityList = chapitreQueryService.findByCriteria(criteria);
-        return ResponseEntity.ok().body(entityList);
+        Page<Chapitre> page = chapitreQueryService.findByCriteria(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/chapitres");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**

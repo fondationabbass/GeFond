@@ -26,6 +26,9 @@ public class Chapitre implements Serializable {
     @Column(name = "lib_chapitre")
     private String libChapitre;
 
+    @Column(name = "numero")
+    private Integer numero;
+
     @Column(name = "categorie_compte")
     private String categorieCompte;
 
@@ -49,6 +52,19 @@ public class Chapitre implements Serializable {
 
     public void setLibChapitre(String libChapitre) {
         this.libChapitre = libChapitre;
+    }
+
+    public Integer getNumero() {
+        return numero;
+    }
+
+    public Chapitre numero(Integer numero) {
+        this.numero = numero;
+        return this;
+    }
+
+    public void setNumero(Integer numero) {
+        this.numero = numero;
     }
 
     public String getCategorieCompte() {
@@ -90,6 +106,7 @@ public class Chapitre implements Serializable {
         return "Chapitre{" +
             "id=" + getId() +
             ", libChapitre='" + getLibChapitre() + "'" +
+            ", numero=" + getNumero() +
             ", categorieCompte='" + getCategorieCompte() + "'" +
             "}";
     }

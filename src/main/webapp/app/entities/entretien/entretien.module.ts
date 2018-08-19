@@ -13,7 +13,7 @@ import {
     EntretienDeleteDialogComponent,
     entretienRoute,
     entretienPopupRoute,
-} from './';
+} from '.';
 
 const ENTITY_STATES = [
     ...entretienRoute,

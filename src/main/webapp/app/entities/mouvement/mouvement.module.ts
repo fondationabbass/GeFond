@@ -14,7 +14,7 @@ import {
     mouvementRoute,
     mouvementPopupRoute,
     MouvementResolvePagingParams,
-} from './';
+} from '.';
 
 const ENTITY_STATES = [
     ...mouvementRoute,

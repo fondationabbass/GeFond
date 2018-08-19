@@ -14,7 +14,7 @@ import {
     echeanceRoute,
     echeancePopupRoute,
     EcheanceResolvePagingParams,
-} from './';
+} from '.';
 
 const ENTITY_STATES = [
     ...echeanceRoute,

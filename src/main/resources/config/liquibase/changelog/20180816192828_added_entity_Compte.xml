@@ -29,20 +29,24 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="type_compte" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
             <column name="date_ouverture" type="date">
                 <constraints nullable="true" />
             </column>
 
             <column name="solde" type="double">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="date_dernier_credit" type="date">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="date_dernier_debit" type="date">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="client_id" type="bigint">

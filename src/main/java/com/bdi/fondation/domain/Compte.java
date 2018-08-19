@@ -32,19 +32,19 @@ public class Compte implements Serializable {
     @Column(name = "num_compte")
     private String numCompte;
 
+    @Column(name = "type_compte")
+    private String typeCompte;
+
     @Column(name = "date_ouverture")
     private LocalDate dateOuverture;
 
-    @NotNull
-    @Column(name = "solde", nullable = false)
+    @Column(name = "solde")
     private Double solde;
 
-    @NotNull
-    @Column(name = "date_dernier_credit", nullable = false)
+    @Column(name = "date_dernier_credit")
     private LocalDate dateDernierCredit;
 
-    @NotNull
-    @Column(name = "date_dernier_debit", nullable = false)
+    @Column(name = "date_dernier_debit")
     private LocalDate dateDernierDebit;
 
     @ManyToOne
@@ -92,6 +92,19 @@ public class Compte implements Serializable {
 
     public void setNumCompte(String numCompte) {
         this.numCompte = numCompte;
+    }
+
+    public String getTypeCompte() {
+        return typeCompte;
+    }
+
+    public Compte typeCompte(String typeCompte) {
+        this.typeCompte = typeCompte;
+        return this;
+    }
+
+    public void setTypeCompte(String typeCompte) {
+        this.typeCompte = typeCompte;
     }
 
     public LocalDate getDateOuverture() {
@@ -225,6 +238,7 @@ public class Compte implements Serializable {
             "id=" + getId() +
             ", intituleCompte='" + getIntituleCompte() + "'" +
             ", numCompte='" + getNumCompte() + "'" +
+            ", typeCompte='" + getTypeCompte() + "'" +
             ", dateOuverture='" + getDateOuverture() + "'" +
             ", solde=" + getSolde() +
             ", dateDernierCredit='" + getDateDernierCredit() + "'" +

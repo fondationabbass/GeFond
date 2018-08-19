@@ -12,7 +12,7 @@
     </div>
     <div class="row">
         <div class='col-xs-12 col-sm-4'>
-            <div class="card">
+            <div class="card" *ngIf="compte.client">
                 <h5 class="card-header">Bénéficiaire:</h5>
                 <div class="card-body">
                     <dl class="row-md jh-entity-details">
@@ -41,6 +41,20 @@
                 <h5 class="card-header">Détail du compte:</h5>
                 <div class="card-body">
                     <dl class="row-md jh-entity-details">
+                        <dt>
+                            <span jhiTranslate="geFondApp.compte.numCompte">Numéro Compte</span>
+                        </dt>
+                        <dd>
+                            <span>{{compte.numCompte}}</span>
+                        </dd>
+                        <dt>
+                            <span jhiTranslate="geFondApp.compte.chapitre">Chapitre</span>
+                        </dt>
+                        <dd>
+                            <div *ngIf="compte.chapitre">
+                                <a [routerLink]="['/chapitre', compte.chapitre?.id]">{{compte.chapitre?.numero}}</a>
+                            </div>
+                        </dd>
                         <dt>
                             <span jhiTranslate="geFondApp.compte.intituleCompte">Intitule Compte</span>
                         </dt>
@@ -71,7 +85,7 @@
                         <dd>
                             <span>{{compte.dateDernierDebit | date:'mediumDate'}}</span>
                         </dd>
-                        <dt>
+                        <dt *ngIf="compte.client">
                             <span jhiTranslate="geFondApp.compte.client">Client</span>
                         </dt>
                         <dd>
@@ -79,12 +93,12 @@
                                 <a [routerLink]="['/client', compte.client?.id]">{{compte.client?.id}}</a>
                             </div>
                         </dd>
-                        <dt>
-                            <span jhiTranslate="geFondApp.compte.chapitre">Chapitre</span>
+                        <dt *ngIf="compte.caisse">
+                            <span jhiTranslate="geFondApp.compte.caisse">Caisse</span>
                         </dt>
                         <dd>
-                            <div *ngIf="compte.chapitre">
-                                <a [routerLink]="['/chapitre', compte.chapitre?.id]">{{compte.chapitre?.id}}</a>
+                            <div *ngIf="compte.caisse">
+                                <a [routerLink]="['/caisse', compte.caisse?.id]">{{compte.caisse?.id}}</a>
                             </div>
                         </dd>
                     </dl>
@@ -114,7 +128,7 @@
                                 <thead>
                                     <tr>
                                         <th>
-                                            <span jhiTranslate="geFondApp.mouvement.pret">Pret</span>
+                                            <span jhiTranslate="geFondApp.mouvement.operation">Opération</span>
                                         </th>
                                         <th>
                                             <span jhiTranslate="geFondApp.mouvement.dateMvt">Date Mvt</span>
@@ -136,8 +150,8 @@
                                 <tbody>
                                     <tr *ngFor="let mouvement of mouvements ;trackBy: trackId">
                                         <td>
-                                            <div *ngIf="mouvement.pret">
-                                                <a [routerLink]="['../../pret', mouvement.pret?.id ]">{{mouvement.pret?.id}}</a>
+                                            <div *ngIf="mouvement.operation">
+                                                <a [routerLink]="['../../pret', mouvement.operation?.id ]">{{mouvement.operation?.id}}</a>
                                             </div>
                                         </td>
                                         <td>{{mouvement.dateMvt | date:'mediumDate'}}</td>

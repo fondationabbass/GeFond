@@ -129,9 +129,21 @@
                 </a>
                 <ul class="dropdown-menu" ngbDropdownMenu>
                     <li>
+                        <a class="dropdown-item" routerLink="caisse" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-usd" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.entities.caisse">Caisse</span>
+                        </a>
+                    </li>
+                    <li>
                         <a class="dropdown-item" routerLink="compte" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <i class="fa fa-fw fa-bank" aria-hidden="true"></i>
                             <span jhiTranslate="global.menu.entities.compte">Compte</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="operation" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-exchange" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.entities.operation">Opération</span>
                         </a>
                     </li>
                     <li>

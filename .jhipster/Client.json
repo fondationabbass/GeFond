@@ -12,6 +12,10 @@
     ],
     "fields": [
         {
+            "fieldName": "code",
+            "fieldType": "String"
+        },
+        {
             "fieldName": "dateCreat",
             "fieldType": "LocalDate"
         },

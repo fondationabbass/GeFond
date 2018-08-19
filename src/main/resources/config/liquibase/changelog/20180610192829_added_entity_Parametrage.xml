@@ -18,7 +18,7 @@
     -->
     <changeSet id="20180610192829-1" author="jhipster">
         <createTable tableName="parametrage">
-            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+            <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="code_type_param" type="varchar(255)">

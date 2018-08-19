@@ -22,7 +22,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="lieu_visite" type="varchar(255)">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="date_visite" type="date">
@@ -30,11 +30,11 @@
             </column>
 
             <column name="pers_rencontre" type="integer">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="cadre_visite" type="varchar(255)">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="etat_lieu" type="varchar(255)">
@@ -54,7 +54,7 @@
             </column>
 
             <column name="rapport" type="varchar(255)">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="candidature_id" type="bigint">

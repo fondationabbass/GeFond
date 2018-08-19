@@ -13,6 +13,7 @@ import {
     ChapitreDeleteDialogComponent,
     chapitreRoute,
     chapitrePopupRoute,
+    ChapitreResolvePagingParams,
 } from './';
 
 const ENTITY_STATES = [
@@ -43,6 +44,7 @@ const ENTITY_STATES = [
     providers: [
         ChapitreService,
         ChapitrePopupService,
+        ChapitreResolvePagingParams,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

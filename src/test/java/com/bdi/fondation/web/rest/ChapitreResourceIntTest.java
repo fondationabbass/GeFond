@@ -44,6 +44,9 @@ public class ChapitreResourceIntTest {
     private static final String DEFAULT_LIB_CHAPITRE = "AAAAAAAAAA";
     private static final String UPDATED_LIB_CHAPITRE = "BBBBBBBBBB";
 
+    private static final Integer DEFAULT_NUMERO = 1;
+    private static final Integer UPDATED_NUMERO = 2;
+
     private static final String DEFAULT_CATEGORIE_COMPTE = "AAAAAAAAAA";
     private static final String UPDATED_CATEGORIE_COMPTE = "BBBBBBBBBB";
 
@@ -92,6 +95,7 @@ public class ChapitreResourceIntTest {
     public static Chapitre createEntity(EntityManager em) {
         Chapitre chapitre = new Chapitre()
             .libChapitre(DEFAULT_LIB_CHAPITRE)
+            .numero(DEFAULT_NUMERO)
             .categorieCompte(DEFAULT_CATEGORIE_COMPTE);
         return chapitre;
     }
@@ -117,6 +121,7 @@ public class ChapitreResourceIntTest {
         assertThat(chapitreList).hasSize(databaseSizeBeforeCreate + 1);
         Chapitre testChapitre = chapitreList.get(chapitreList.size() - 1);
         assertThat(testChapitre.getLibChapitre()).isEqualTo(DEFAULT_LIB_CHAPITRE);
+        assertThat(testChapitre.getNumero()).isEqualTo(DEFAULT_NUMERO);
         assertThat(testChapitre.getCategorieCompte()).isEqualTo(DEFAULT_CATEGORIE_COMPTE);
     }
 
@@ -151,6 +156,7 @@ public class ChapitreResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(chapitre.getId().intValue())))
             .andExpect(jsonPath("$.[*].libChapitre").value(hasItem(DEFAULT_LIB_CHAPITRE.toString())))
+            .andExpect(jsonPath("$.[*].numero").value(hasItem(DEFAULT_NUMERO)))
             .andExpect(jsonPath("$.[*].categorieCompte").value(hasItem(DEFAULT_CATEGORIE_COMPTE.toString())));
     }
 
@@ -166,6 +172,7 @@ public class ChapitreResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(chapitre.getId().intValue()))
             .andExpect(jsonPath("$.libChapitre").value(DEFAULT_LIB_CHAPITRE.toString()))
+            .andExpect(jsonPath("$.numero").value(DEFAULT_NUMERO))
             .andExpect(jsonPath("$.categorieCompte").value(DEFAULT_CATEGORIE_COMPTE.toString()));
     }
 
@@ -207,6 +214,72 @@ public class ChapitreResourceIntTest {
         // Get all the chapitreList where libChapitre is null
         defaultChapitreShouldNotBeFound("libChapitre.specified=false");
     }
+
+    @Test
+    @Transactional
+    public void getAllChapitresByNumeroIsEqualToSomething() throws Exception {
+        // Initialize the database
+        chapitreRepository.saveAndFlush(chapitre);
+
+        // Get all the chapitreList where numero equals to DEFAULT_NUMERO
+        defaultChapitreShouldBeFound("numero.equals=" + DEFAULT_NUMERO);
+
+        // Get all the chapitreList where numero equals to UPDATED_NUMERO
+        defaultChapitreShouldNotBeFound("numero.equals=" + UPDATED_NUMERO);
+    }
+
+    @Test
+    @Transactional
+    public void getAllChapitresByNumeroIsInShouldWork() throws Exception {
+        // Initialize the database
+        chapitreRepository.saveAndFlush(chapitre);
+
+        // Get all the chapitreList where numero in DEFAULT_NUMERO or UPDATED_NUMERO
+        defaultChapitreShouldBeFound("numero.in=" + DEFAULT_NUMERO + "," + UPDATED_NUMERO);
+
+        // Get all the chapitreList where numero equals to UPDATED_NUMERO
+        defaultChapitreShouldNotBeFound("numero.in=" + UPDATED_NUMERO);
+    }
+
+    @Test
+    @Transactional
+    public void getAllChapitresByNumeroIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        chapitreRepository.saveAndFlush(chapitre);
+
+        // Get all the chapitreList where numero is not null
+        defaultChapitreShouldBeFound("numero.specified=true");
+
+        // Get all the chapitreList where numero is null
+        defaultChapitreShouldNotBeFound("numero.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllChapitresByNumeroIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        chapitreRepository.saveAndFlush(chapitre);
+
+        // Get all the chapitreList where numero greater than or equals to DEFAULT_NUMERO
+        defaultChapitreShouldBeFound("numero.greaterOrEqualThan=" + DEFAULT_NUMERO);
+
+        // Get all the chapitreList where numero greater than or equals to UPDATED_NUMERO
+        defaultChapitreShouldNotBeFound("numero.greaterOrEqualThan=" + UPDATED_NUMERO);
+    }
+
+    @Test
+    @Transactional
+    public void getAllChapitresByNumeroIsLessThanSomething() throws Exception {
+        // Initialize the database
+        chapitreRepository.saveAndFlush(chapitre);
+
+        // Get all the chapitreList where numero less than or equals to DEFAULT_NUMERO
+        defaultChapitreShouldNotBeFound("numero.lessThan=" + DEFAULT_NUMERO);
+
+        // Get all the chapitreList where numero less than or equals to UPDATED_NUMERO
+        defaultChapitreShouldBeFound("numero.lessThan=" + UPDATED_NUMERO);
+    }
+
 
     @Test
     @Transactional
@@ -255,6 +328,7 @@ public class ChapitreResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(chapitre.getId().intValue())))
             .andExpect(jsonPath("$.[*].libChapitre").value(hasItem(DEFAULT_LIB_CHAPITRE.toString())))
+            .andExpect(jsonPath("$.[*].numero").value(hasItem(DEFAULT_NUMERO)))
             .andExpect(jsonPath("$.[*].categorieCompte").value(hasItem(DEFAULT_CATEGORIE_COMPTE.toString())));
     }
 
@@ -292,6 +366,7 @@ public class ChapitreResourceIntTest {
         em.detach(updatedChapitre);
         updatedChapitre
             .libChapitre(UPDATED_LIB_CHAPITRE)
+            .numero(UPDATED_NUMERO)
             .categorieCompte(UPDATED_CATEGORIE_COMPTE);
 
         restChapitreMockMvc.perform(put("/api/chapitres")
@@ -304,6 +379,7 @@ public class ChapitreResourceIntTest {
         assertThat(chapitreList).hasSize(databaseSizeBeforeUpdate);
         Chapitre testChapitre = chapitreList.get(chapitreList.size() - 1);
         assertThat(testChapitre.getLibChapitre()).isEqualTo(UPDATED_LIB_CHAPITRE);
+        assertThat(testChapitre.getNumero()).isEqualTo(UPDATED_NUMERO);
         assertThat(testChapitre.getCategorieCompte()).isEqualTo(UPDATED_CATEGORIE_COMPTE);
     }
 

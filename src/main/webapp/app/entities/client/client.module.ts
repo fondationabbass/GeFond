@@ -14,7 +14,7 @@ import {
     clientRoute,
     clientPopupRoute,
     ClientResolvePagingParams,
-} from './';
+} from '.';
 import { PretWzFormDataService } from '../pret/pret-wz-form-data.service';
 
 const ENTITY_STATES = [

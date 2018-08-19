@@ -39,6 +39,10 @@
             "fieldType": "String"
         },
         {
+            "fieldName": "typeCompte",
+            "fieldType": "String"
+        },
+        {
             "fieldName": "dateOuverture",
             "fieldType": "LocalDate"
         },
