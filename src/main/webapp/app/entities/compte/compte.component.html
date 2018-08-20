@@ -55,7 +55,7 @@
                 </td>
                 <td>
                     <div *ngIf="compte.caisse">
-                        <a [routerLink]="['../caisse', compte.caisse?.id ]" >{{compte.caisse?.user.login}}</a>
+                        <a [routerLink]="['../caisse', compte.caisse?.id ]" >{{compte.caisse?.intituleCaisse+" -- " + compte.caisse?.user.login}}</a>
                     </div>
                 </td>
             </tr>
