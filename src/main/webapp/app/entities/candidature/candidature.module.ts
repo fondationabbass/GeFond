@@ -16,6 +16,15 @@ import {
     CandidatureResolvePagingParams,
 } from '.';
 
+import { CandidatureWzCandidatComponent } from './candidature-wz-candidat.component';
+import { CandWzFormDataService} from './cand-wz-form-data.service';
+import { CandidatureWzCandidatureComponent } from './candidature-wz-candidature.component';
+import { CandidatureWzExpComponent } from './candidature-wz-exp.component';
+import { CandidatureWzProjetComponent } from './candidature-wz-projet.component';
+import { CandidatureWzDocumentComponent } from './candidature-wz-document.component';
+import { CandidatureWzResultComponent } from './candidature-wz-result.component';
+
+
 const ENTITY_STATES = [
     ...candidatureRoute,
     ...candidaturePopupRoute,
@@ -33,6 +42,12 @@ const ENTITY_STATES = [
         CandidatureDeleteDialogComponent,
         CandidaturePopupComponent,
         CandidatureDeletePopupComponent,
+        CandidatureWzCandidatComponent,
+        CandidatureWzCandidatureComponent,
+        CandidatureWzExpComponent,
+        CandidatureWzProjetComponent,
+        CandidatureWzDocumentComponent,
+        CandidatureWzResultComponent,
     ],
     entryComponents: [
         CandidatureComponent,
@@ -45,6 +60,7 @@ const ENTITY_STATES = [
         CandidatureService,
         CandidaturePopupService,
         CandidatureResolvePagingParams,
+        CandWzFormDataService,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
