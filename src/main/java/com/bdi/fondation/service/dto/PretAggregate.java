@@ -12,6 +12,7 @@ public class PretAggregate {
 	private ElementFinancement[] elementFinancements;
 	private Garantie[] garanties;
 	private Echeance[] echeances;
+	
 	public Pret getPret() {
 		return pret;
 	}

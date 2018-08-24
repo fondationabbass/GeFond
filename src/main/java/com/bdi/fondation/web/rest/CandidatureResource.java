@@ -2,11 +2,14 @@ package com.bdi.fondation.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.bdi.fondation.domain.Candidature;
+import com.bdi.fondation.domain.Pret;
 import com.bdi.fondation.service.CandidatureService;
 import com.bdi.fondation.web.rest.errors.BadRequestAlertException;
 import com.bdi.fondation.web.rest.util.HeaderUtil;
 import com.bdi.fondation.web.rest.util.PaginationUtil;
+import com.bdi.fondation.service.dto.CandidatureAggregate;
 import com.bdi.fondation.service.dto.CandidatureCriteria;
+import com.bdi.fondation.service.dto.PretAggregate;
 import com.bdi.fondation.service.CandidatureQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -60,6 +63,18 @@ public class CandidatureResource {
             throw new BadRequestAlertException("A new candidature cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Candidature result = candidatureService.save(candidature);
+        return ResponseEntity.created(new URI("/api/candidatures/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+    
+    
+    @PostMapping("/candidatures/aggregate")
+    @Timed
+    public ResponseEntity<Candidature> createFullCandidature(@Valid @RequestBody CandidatureAggregate aggregate) throws URISyntaxException {
+        log.debug("REST request to save Full Candidature : {}", aggregate);
+        
+        Candidature result = candidatureService.save(aggregate);
         return ResponseEntity.created(new URI("/api/candidatures/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
