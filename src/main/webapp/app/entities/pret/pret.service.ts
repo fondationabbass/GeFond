@@ -7,7 +7,7 @@ import { JhiDateUtils } from 'ng-jhipster';
 
 import { Pret } from './pret.model';
 import { createRequestOption } from '../../shared';
-import { PretWzFormData } from './pret-wz-form-data.model';
+import { PretAggregate } from './pret-wz-aggregate.model';
 import { Echeance, EcheanceService } from '../echeance';
 import { ElementFinancementService, ElementFinancement } from '../element-financement';
 import { GarantieService, Garantie } from '../garantie';
@@ -28,7 +28,7 @@ export class PretService {
         return this.http.post<Pret>(this.resourceUrl, copy, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
-    createWz(pretWz: PretWzFormData): Observable<EntityResponseType> {
+    createWz(pretWz: PretAggregate): Observable<EntityResponseType> {
         const copy = this.convertFull(pretWz);
         return this.http.post<Pret>(this.resourceUrl+'/aggregate', copy, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
@@ -104,8 +104,8 @@ export class PretService {
             .convertLocalDateToServer(dateToNgb(pret.dateDernierDebloq));
         return copy;
     }
-    private convertFull(form: PretWzFormData): PretWzFormData {
-        const copy: PretWzFormData = Object.assign({}, form);
+    private convertFull(form: PretAggregate): PretAggregate {
+        const copy: PretAggregate = Object.assign({}, form);
         copy.pret = this.convert(form.pret);
         copy.elementFinancements=[];
         copy.garanties=[];

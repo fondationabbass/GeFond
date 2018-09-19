@@ -16,7 +16,7 @@ import {
     pretPopupRoute,
     PretResolvePagingParams,
 } from '.';
-import { PretWzFormDataService } from './pret-wz-form-data.service';
+import { PretAggregateService } from './pret-wz-aggregate.service';
 import { PretWzWorkflowGuard } from './pret-wz-workflow-guard.service';
 import { PretWzWorkflowService } from './pret-wz-workflow.service';
 import { PretWzNavbarComponent } from './pret-wz-navbar.component';
@@ -69,7 +69,7 @@ const ENTITY_STATES = [
         PretService,
         PretPopupService,
         PretResolvePagingParams,
-        PretWzFormDataService,
+        PretAggregateService,
         PretWzWorkflowGuard,
         PretWzWorkflowService
     ],

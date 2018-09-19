@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { PretWzFormDataService }            from './pret-wz-form-data.service';
+import { PretAggregateService }            from './pret-wz-aggregate.service';
 
 
 @Component({
@@ -11,7 +11,7 @@ export class PretCreateComponent implements OnInit {
     title = 'Multi-Step Wizard';
     @Input() formData;
     
-    constructor(private formDataService: PretWzFormDataService) {
+    constructor(private formDataService: PretAggregateService) {
     }
 
     ngOnInit() {

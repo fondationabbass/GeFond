@@ -2,8 +2,8 @@ import { Component, OnInit, Input }   from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
-import { PretWzFormData } from './pret-wz-form-data.model';
-import { PretWzFormDataService } from './pret-wz-form-data.service';
+import { PretAggregate } from './pret-wz-aggregate.model';
+import { PretAggregateService } from './pret-wz-aggregate.service';
 import { PretService } from './pret.service';
 import { Pret } from './pret.model';
 import { Garantie } from '../garantie';
@@ -18,14 +18,14 @@ import { ElementFinancement } from '../element-financement';
 
 export class PretWzResultComponent implements OnInit {
     title = 'Vous arrivez à la fin!';
-    @Input() formData: PretWzFormData;
+    @Input() formData: PretAggregate;
     isFormValid: boolean = false;
     pret: Pret;
     garanties:Garantie[];
     elementFinancements: ElementFinancement[];
     echeances:Echeance[];
     
-    constructor(private formDataService: PretWzFormDataService,
+    constructor(private formDataService: PretAggregateService,
         private jhiAlertService: JhiAlertService,
         private pretService: PretService,
         private router: Router,

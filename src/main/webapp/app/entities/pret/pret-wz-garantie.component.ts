@@ -4,7 +4,7 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { ParametrageService } from '../parametrage/parametrage.service';
 import { Pret } from './pret.model';
 import { JhiAlertService } from 'ng-jhipster';
-import { PretWzFormDataService } from './pret-wz-form-data.service';
+import { PretAggregateService } from './pret-wz-aggregate.service';
 import { Garantie } from '../garantie';
 import { ngbToDate } from '../../shared/model/format-utils';
 
@@ -23,7 +23,7 @@ export class PretWzGarantieComponent implements OnInit {
 
     constructor(private router: Router,
         private jhiAlertService: JhiAlertService,
-        private formDataService: PretWzFormDataService,
+        private formDataService: PretAggregateService,
         private parametrageService : ParametrageService) {
     }
 

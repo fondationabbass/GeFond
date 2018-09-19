@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { dateToNgb, ngbToDate } from '../../shared/model/format-utils';
 import { Client, ClientService } from '../client';
-import { PretWzFormDataService } from './pret-wz-form-data.service';
+import { PretAggregateService } from './pret-wz-aggregate.service';
 import { Pret } from './pret.model';
 import { ParametrageService } from '../parametrage/parametrage.service';
 import { Principal } from '../../shared';
@@ -24,7 +24,7 @@ export class PretWzComponent implements OnInit {
     clientError:boolean = false;
 
     constructor(private router: Router,
-        private formDataService: PretWzFormDataService,
+        private formDataService: PretAggregateService,
         private parametrageService: ParametrageService,
         private principal: Principal,
         private clientService: ClientService) {

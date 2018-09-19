@@ -7,7 +7,7 @@ import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 import { Client } from './client.model';
 import { ClientService } from './client.service';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
-import { PretWzFormDataService } from '../pret/pret-wz-form-data.service';
+import { PretAggregateService } from '../pret/pret-wz-aggregate.service';
 import { Pret } from '../pret';
 
 @Component({
@@ -38,7 +38,7 @@ currentAccount: any;
         private principal: Principal,
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private formDataService: PretWzFormDataService,
+        private formDataService: PretAggregateService,
         private eventManager: JhiEventManager
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;

@@ -4,7 +4,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { HttpResponse } from '@angular/common/http';
 import { Echeance } from './echeance.model';
 import { EcheanceService } from './echeance.service';
-import { PretWzFormDataService } from '../pret/pret-wz-form-data.service';
+import { PretAggregateService } from '../pret/pret-wz-aggregate.service';
 
 @Injectable()
 export class EcheancePopupService {
@@ -13,7 +13,7 @@ export class EcheancePopupService {
     constructor(
         private modalService: NgbModal,
         private router: Router,
-        private dataService: PretWzFormDataService,
+        private dataService: PretAggregateService,
         private echeanceService: EcheanceService
 
     ) {

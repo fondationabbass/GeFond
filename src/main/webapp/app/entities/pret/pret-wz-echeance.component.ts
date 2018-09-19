@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Echeance, PeriodType } from '../echeance';
 import { Pret } from './pret.model';
 import { JhiEventManager, JhiParseLinks, JhiAlertService, JhiDateUtils } from 'ng-jhipster';
-import { PretWzFormDataService } from './pret-wz-form-data.service';
+import { PretAggregateService } from './pret-wz-aggregate.service';
 import { dateToNgb, ngbToDate } from '../../shared/model/format-utils';
 
 
@@ -21,7 +21,7 @@ export class PretWzEcheanceComponent implements OnInit {
 
     constructor(private router: Router,
         private jhiAlertService: JhiAlertService,
-        private formDataService: PretWzFormDataService) {
+        private formDataService: PretAggregateService) {
     }
 
     private coeff(period: string): number {
