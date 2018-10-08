@@ -25,7 +25,7 @@ export class CandidatureWzExpComponent implements OnInit {
 
   ngOnInit() {
     this.formData = this.formDataService.getData();
-    this.experienceCandidat=this.formData.experiencecandidat;
+    this.experienceCandidat=this.formData.experienceCandidat;
     this.candidat=this.formData.candidat;
    
   }

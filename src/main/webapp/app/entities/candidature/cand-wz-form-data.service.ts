@@ -20,7 +20,7 @@ getCandidat(): Candidat {
     return this.formData.candidat;
 }
 getCandidature(): ExperienceCandidat {
-  return this.formData.experiencecandidat;
+  return this.formData.experienceCandidat;
 }
 getExperianceCandidat(): Candidature {
   return this.formData.candidature;
@@ -47,7 +47,7 @@ setCandidature(data: Candidature) {
 
 setExperienceCandidat(data: ExperienceCandidat) {
   this.isExperienceCandidatFormValid= true;
-  this.formData.experiencecandidat = data;
+  this.formData.experienceCandidat = data;
 }
 
 setDocument(data: Document) {

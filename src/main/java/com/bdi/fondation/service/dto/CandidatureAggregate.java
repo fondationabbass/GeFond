@@ -9,11 +9,11 @@ import com.bdi.fondation.domain.Projet;
 public class CandidatureAggregate {
 	private Candidature candidature;
 	private Candidat candidat;
-	private ExperienceCandidat experianceCandidat;
+	private ExperienceCandidat experienceCandidat;
 	private Document document;
 	private Projet projet;
-	
-	
+
+
 	public Candidature getCandidature() {
 		return candidature;
 	}
@@ -26,13 +26,14 @@ public class CandidatureAggregate {
 	public void setCandidat(Candidat candidat) {
 		this.candidat = candidat;
 	}
-	public ExperienceCandidat getExperianceCandidat() {
-		return experianceCandidat;
-	}
-	public void setExperianceCandidat(ExperienceCandidat experianceCandidat) {
-		this.experianceCandidat = experianceCandidat;
-	}
-	public Document getDocument() {
+
+	public ExperienceCandidat getExperienceCandidat() {
+        return experienceCandidat;
+    }
+    public void setExperienceCandidat(ExperienceCandidat experienceCandidat) {
+        this.experienceCandidat = experienceCandidat;
+    }
+    public Document getDocument() {
 		return document;
 	}
 	public void setDocument(Document document) {
@@ -46,11 +47,11 @@ public class CandidatureAggregate {
 	}
 	@Override
 	public String toString() {
-		return "CandidatureAggregate [candidature=" + candidature + ", candidat=" + candidat + ", experianceCandidat="
-				+ experianceCandidat + ", document=" + document + ", projet=" + projet + "]";
+		return "CandidatureAggregate [candidature=" + candidature + ", candidat=" + candidat + ", experienceCandidat="
+				+ experienceCandidat + ", document=" + document + ", projet=" + projet + "]";
 	}
 
 
-	
+
 
 }

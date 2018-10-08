@@ -89,7 +89,7 @@ export class CandidatureService {
         const copy: CandWzFormData = Object.assign({}, form);
         copy.candidature = this.convert(form.candidature);
         copy.candidat =  this.convertCand(form.candidat);
-        copy.experiencecandidat = this.convertEx(form.experiencecandidat);
+        copy.experienceCandidat = this.convertEx(form.experienceCandidat);
         copy.document = this.convertDoc(form.document);
         copy.projet = this.convertPro(form.projet);
         return copy;

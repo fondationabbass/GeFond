@@ -39,7 +39,7 @@ ngOnInit() {
     this.formData = this.formDataService.getData();
     this.isFormValid = this.formDataService.isFormValid();
     this.candidat=this.formData.candidat;
-    this.experienceCandidat=this.formData.experiencecandidat;
+    this.experienceCandidat=this.formData.experienceCandidat;
     this.document=this.formData.document;
     this.projet=this.formData.projet;
 }
@@ -54,7 +54,7 @@ goToNext() {
   this.candService.createWz(this.formData).subscribe(
       (res: HttpResponse<Candidature>) => {
           if (res.body.id > 0) {
-              this.eventManager.broadcast({ name: 'ListModification', content: 'OK'});
+              this.eventManager.broadcast({ name: 'candidatureListModification', content: 'OK'});
           }
           
       },

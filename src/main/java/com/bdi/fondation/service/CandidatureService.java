@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bdi.fondation.domain.Candidat;
 import com.bdi.fondation.domain.Candidature;
 import com.bdi.fondation.domain.Chapitre;
 import com.bdi.fondation.domain.Client;
@@ -88,11 +89,11 @@ public class CandidatureService {
 
     public Candidature save(CandidatureAggregate aggregate) {
     	log.debug("Request to save full Candidature : {}", aggregate);
-    	Candidature result = candidatureRepository.save(aggregate.getCandidature());
-    	candidatRepository.save(aggregate.getCandidat());
-    	experianceRepository.save(aggregate.getExperianceCandidat());
-    	documentRepository.save(aggregate.getDocument());
-    	projetRepository.save(aggregate.getProjet());
+    	Candidat candidat = candidatRepository.save(aggregate.getCandidat());
+    	Candidature result = candidatureRepository.save(aggregate.getCandidature().candidat(candidat));
+    	experianceRepository.save(aggregate.getExperienceCandidat().candidat(candidat));
+    	documentRepository.save(aggregate.getDocument().candidature(result));
+    	projetRepository.save(aggregate.getProjet().candidature(result));
     	return result;
 	}
 

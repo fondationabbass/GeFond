@@ -7,7 +7,7 @@ import { Projet} from "../projet";
 export class CandWzFormData {
    candidat : Candidat={};
    candidature : Candidature={};
-   experiencecandidat : ExperienceCandidat={};
+   experienceCandidat : ExperienceCandidat={};
    document : Document={};
    projet: Projet={};
    unblockCand: boolean = false;
