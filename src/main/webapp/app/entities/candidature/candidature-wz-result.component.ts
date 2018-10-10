@@ -67,5 +67,5 @@ goToNext() {
 private onError(error: any) {
   this.jhiAlertService.error(error.message, null, null);
 }
-
+goToPrevious() {}
 }

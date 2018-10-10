@@ -38,5 +38,5 @@ export class CandidatureWzExpComponent implements OnInit {
         this.router.navigate(['/candidature-wz-candidature']);
     }
 }
-
+clear() {}
 }

@@ -30,7 +30,7 @@ export class CandidatureWzCandidatComponent implements OnInit {
   goToNext(form: any) {
     if (this.save(form)) {
         this.router.navigate(['/candidature-wz-exp']);
-    }
-}
-
+    }    
+  }
+  clear() {}
 }

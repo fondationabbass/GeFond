@@ -38,4 +38,5 @@ export class CandidatureWzProjetComponent implements OnInit {
         this.router.navigate(['/candidature-wz-result']);
     }
 }
+clear() {}
 }
