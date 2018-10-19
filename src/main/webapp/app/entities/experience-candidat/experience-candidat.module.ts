@@ -14,6 +14,8 @@ import {
     experienceCandidatRoute,
     experienceCandidatPopupRoute,
 } from '.';
+import { ExperienceCandidatEditComponent } from './experience-candidat-edit.component';
+import { ExperienceCandidatListComponent } from './experience-candidat-list.component';
 
 const ENTITY_STATES = [
     ...experienceCandidatRoute,
@@ -27,6 +29,8 @@ const ENTITY_STATES = [
     ],
     declarations: [
         ExperienceCandidatComponent,
+        ExperienceCandidatEditComponent,
+        ExperienceCandidatListComponent,
         ExperienceCandidatDetailComponent,
         ExperienceCandidatDialogComponent,
         ExperienceCandidatDeleteDialogComponent,
@@ -43,6 +47,10 @@ const ENTITY_STATES = [
     providers: [
         ExperienceCandidatService,
         ExperienceCandidatPopupService,
+    ],
+    exports: [
+        ExperienceCandidatEditComponent,
+        ExperienceCandidatListComponent
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

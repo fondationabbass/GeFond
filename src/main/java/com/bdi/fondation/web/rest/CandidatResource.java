@@ -1,25 +1,34 @@
 package com.bdi.fondation.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
 
-import com.bdi.fondation.domain.Candidat;
-import com.bdi.fondation.service.CandidatService;
-import com.bdi.fondation.web.rest.errors.BadRequestAlertException;
-import com.bdi.fondation.web.rest.util.HeaderUtil;
-import com.bdi.fondation.service.dto.CandidatCriteria;
-import com.bdi.fondation.service.CandidatQueryService;
-import io.github.jhipster.web.util.ResponseUtil;
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
+import com.bdi.fondation.domain.Candidat;
+import com.bdi.fondation.service.CandidatQueryService;
+import com.bdi.fondation.service.CandidatService;
+import com.bdi.fondation.service.dto.CandidatAggregate;
+import com.bdi.fondation.service.dto.CandidatCriteria;
+import com.bdi.fondation.web.rest.errors.BadRequestAlertException;
+import com.bdi.fondation.web.rest.util.HeaderUtil;
+import com.codahale.metrics.annotation.Timed;
 
-import java.util.List;
-import java.util.Optional;
+import io.github.jhipster.web.util.ResponseUtil;
 
 /**
  * REST controller for managing Candidat.
@@ -59,6 +68,15 @@ public class CandidatResource {
         return ResponseEntity.created(new URI("/api/candidats/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
+    }
+    @PostMapping("/candidats/aggregate")
+    @Timed
+    public ResponseEntity<Candidat> createFullCandidat(@Valid @RequestBody CandidatAggregate candidat) throws URISyntaxException {
+        log.debug("REST request to save Candidat : {}", candidat);
+        Candidat result = candidatService.save(candidat);
+        return ResponseEntity.created(new URI("/api/candidats/" + result.getId()))
+                .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+                .body(result);
     }
 
     /**
@@ -115,6 +133,13 @@ public class CandidatResource {
     public ResponseEntity<Candidat> getCandidat(@PathVariable Long id) {
         log.debug("REST request to get Candidat : {}", id);
         Candidat candidat = candidatService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(candidat));
+    }
+    @GetMapping("/candidats/aggregate/{id}")
+    @Timed
+    public ResponseEntity<CandidatAggregate> getCandidatAggregate(@PathVariable Long id) {
+        log.debug("REST request to get Candidat Aggregate : {}", id);
+        CandidatAggregate candidat = candidatQueryService.findAggregate(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(candidat));
     }
 

@@ -1,24 +1,33 @@
 package com.bdi.fondation.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
-import com.bdi.fondation.domain.SessionProjet;
-import com.bdi.fondation.service.SessionProjetService;
-import com.bdi.fondation.web.rest.errors.BadRequestAlertException;
-import com.bdi.fondation.web.rest.util.HeaderUtil;
-import com.bdi.fondation.service.dto.SessionProjetCriteria;
-import com.bdi.fondation.service.SessionProjetQueryService;
-import io.github.jhipster.web.util.ResponseUtil;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
+
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
+import com.bdi.fondation.domain.SessionProjet;
+import com.bdi.fondation.service.SessionProjetQueryService;
+import com.bdi.fondation.service.SessionProjetService;
+import com.bdi.fondation.service.dto.SessionProjetCriteria;
+import com.bdi.fondation.web.rest.errors.BadRequestAlertException;
+import com.bdi.fondation.web.rest.util.HeaderUtil;
+import com.codahale.metrics.annotation.Timed;
 
-import java.util.List;
-import java.util.Optional;
+import io.github.jhipster.web.util.ResponseUtil;
 
 /**
  * REST controller for managing SessionProjet.

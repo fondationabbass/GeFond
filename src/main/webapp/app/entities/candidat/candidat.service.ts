@@ -7,6 +7,9 @@ import { JhiDateUtils } from 'ng-jhipster';
 
 import { Candidat } from './candidat.model';
 import { createRequestOption } from '../../shared';
+import { CandidatAggregate } from './candidat-wz.model';
+import { ExperienceCandidatService, ExperienceCandidat } from '../experience-candidat';
+import { dateToNgb } from '../../shared/model/format-utils';
 
 export type EntityResponseType = HttpResponse<Candidat>;
 
@@ -15,11 +18,18 @@ export class CandidatService {
 
     private resourceUrl =  SERVER_API_URL + 'api/candidats';
 
-    constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
+    constructor(private http: HttpClient,
+        private dateUtils: JhiDateUtils) { }
 
     create(candidat: Candidat): Observable<EntityResponseType> {
         const copy = this.convert(candidat);
         return this.http.post<Candidat>(this.resourceUrl, copy, { observe: 'response' })
+            .map((res: EntityResponseType) => this.convertResponse(res));
+    }
+
+    createAggregate(aggregate: CandidatAggregate): Observable<EntityResponseType> {
+        const copy = this.convertFull(aggregate);
+        return this.http.post<Candidat>(this.resourceUrl+'/aggregate', copy, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
@@ -32,6 +42,11 @@ export class CandidatService {
     find(id: number): Observable<EntityResponseType> {
         return this.http.get<Candidat>(`${this.resourceUrl}/${id}`, { observe: 'response'})
             .map((res: EntityResponseType) => this.convertResponse(res));
+    }
+
+    findAggregate(id: any): Observable<HttpResponse<CandidatAggregate>> {
+        return this.http.get<CandidatAggregate>(`${this.resourceUrl+ '/aggregate'}/${id}`, { observe: 'response'})
+            .map((res: HttpResponse<CandidatAggregate>) => this.convertFullRes(res));
     }
 
     query(req?: any): Observable<HttpResponse<Candidat[]>> {
@@ -83,4 +98,39 @@ export class CandidatService {
             .convertLocalDateToServer(candidat.dateNaissance);
         return copy;
     }
+
+    private convertFullRes(res: HttpResponse<CandidatAggregate>): HttpResponse<CandidatAggregate> {
+        let candidat: Candidat = this.convertItemFromServer(res.body.candidat);
+        let exps: ExperienceCandidat[] = [];
+        res.body.exps.forEach(i => {exps.push(this.convertExpItemFromServer(i))})
+        const body: CandidatAggregate = new CandidatAggregate(candidat,exps);
+        return res.clone({body});
+    }
+
+    private convertFull(aggregate: CandidatAggregate): CandidatAggregate {
+        const copy: CandidatAggregate = Object.assign({}, aggregate);
+        copy.candidat = this.convert(aggregate.candidat);
+        copy.exps = [];
+        aggregate.exps.forEach(i => {copy.exps.push(this.convertExp(i))})
+        return copy;
+    }
+
+    private convertExp(experienceCandidat: ExperienceCandidat): ExperienceCandidat {
+        const copy: ExperienceCandidat = Object.assign({}, experienceCandidat);
+        copy.dateDeb = this.dateUtils
+            .convertLocalDateToServer(dateToNgb(experienceCandidat.dateDeb));
+        copy.dateFin = this.dateUtils
+            .convertLocalDateToServer(dateToNgb(experienceCandidat.dateFin));
+        return copy;
+    }
+    
+    private convertExpItemFromServer(experienceCandidat: ExperienceCandidat): ExperienceCandidat {
+        const copy: ExperienceCandidat = Object.assign({}, experienceCandidat);
+        copy.dateDeb = this.dateUtils
+            .convertLocalDateFromServer(experienceCandidat.dateDeb);
+        copy.dateFin = this.dateUtils
+            .convertLocalDateFromServer(experienceCandidat.dateFin);
+        return copy;
+    }
+
 }

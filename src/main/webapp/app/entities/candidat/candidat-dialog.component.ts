@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
@@ -16,7 +16,7 @@ import { CandidatService } from './candidat.service';
 })
 export class CandidatDialogComponent implements OnInit {
 
-    candidat: Candidat;
+    @Input() candidat: Candidat;
     isSaving: boolean;
     dateNaissanceDp: any;
 

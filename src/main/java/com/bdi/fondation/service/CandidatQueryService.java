@@ -1,7 +1,5 @@
 package com.bdi.fondation.service;
 
-import java.time.LocalDate;
-
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -12,12 +10,17 @@ import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import io.github.jhipster.service.QueryService;
-
+// for static metamodels
 import com.bdi.fondation.domain.Candidat;
-import com.bdi.fondation.domain.*; // for static metamodels
+import com.bdi.fondation.domain.Candidat_;
+import com.bdi.fondation.domain.ExperienceCandidat;
 import com.bdi.fondation.repository.CandidatRepository;
+import com.bdi.fondation.service.dto.CandidatAggregate;
 import com.bdi.fondation.service.dto.CandidatCriteria;
+import com.bdi.fondation.service.dto.ExperienceCandidatCriteria;
+
+import io.github.jhipster.service.QueryService;
+import io.github.jhipster.service.filter.LongFilter;
 
 
 /**
@@ -34,9 +37,11 @@ public class CandidatQueryService extends QueryService<Candidat> {
 
 
     private final CandidatRepository candidatRepository;
+    private ExperienceCandidatQueryService experienceCandidatQueryService;
 
-    public CandidatQueryService(CandidatRepository candidatRepository) {
+    public CandidatQueryService(CandidatRepository candidatRepository, ExperienceCandidatQueryService experienceCandidatQueryService) {
         this.candidatRepository = candidatRepository;
+        this.experienceCandidatQueryService = experienceCandidatQueryService;
     }
 
     /**
@@ -101,6 +106,19 @@ public class CandidatQueryService extends QueryService<Candidat> {
             }
         }
         return specification;
+    }
+
+    public CandidatAggregate findAggregate(Long id) {
+        Candidat candidat = candidatRepository.findOne(id);
+        ExperienceCandidatCriteria criteria = new ExperienceCandidatCriteria();
+        LongFilter candidatId = new LongFilter();
+        candidatId.setEquals(id);
+        criteria.setCandidatId(candidatId );
+        List<ExperienceCandidat> list = experienceCandidatQueryService.findByCriteria(criteria );
+        CandidatAggregate result = new CandidatAggregate();
+        result.setCandidat(candidat);
+        result.setExps(list.toArray(new ExperienceCandidat[list.size()]));
+        return result;
     }
 
 }

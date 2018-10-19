@@ -1,0 +1,12 @@
+<jhi-candidat-wz-navbar></jhi-candidat-wz-navbar>
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <jhi-candidat-edit (valid) ="valid($event)" [candidat]="candidat"></jhi-candidat-edit>
+        <div class="form-group text-center">
+            <button [disabled]="editFormInvalid" (click)="goToNext()" class="btn btn-info">
+                <span jhiTranslate="entity.action.next">Next</span>&nbsp;
+                <span class="fa fa-arrow-right"></span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -28,6 +28,7 @@ export class PretService {
         return this.http.post<Pret>(this.resourceUrl, copy, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
+    
     createWz(pretWz: PretAggregate): Observable<EntityResponseType> {
         const copy = this.convertFull(pretWz);
         return this.http.post<Pret>(this.resourceUrl+'/aggregate', copy, { observe: 'response' })

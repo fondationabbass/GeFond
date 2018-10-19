@@ -4,17 +4,16 @@ import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { Candidat } from './candidat.model';
 import { CandidatService } from './candidat.service';
+import { CandidatAggregate } from './candidat-wz.model';
 
 @Component({
-    selector: 'jhi-candidat-detail',
-    templateUrl: './candidat-detail.component.html'
+    selector: 'jhi-candidat-aggregate-detail',
+    templateUrl: './candidat-aggregate-detail.component.html'
 })
-export class CandidatDetailComponent {
+export class CandidatAggregateDetailComponent implements OnInit, OnDestroy {
 
-    @Input() candidat: Candidat;
-    @Input() preview: boolean = false;
+    aggregate: CandidatAggregate;
     private subscription: Subscription;
     private eventSubscriber: Subscription;
 
@@ -25,21 +24,33 @@ export class CandidatDetailComponent {
     ) {
     }
 
+    ngOnInit() {
+        this.subscription = this.route.params.subscribe((params) => {
+            this.load(params['id']);
+        });
+        this.registerChangeInCandidats();
+    }
+
     load(id) {
-        this.candidatService.find(id)
-            .subscribe((candidatResponse: HttpResponse<Candidat>) => {
-                this.candidat = candidatResponse.body;
+        this.candidatService.findAggregate(id)
+            .subscribe((candidatResponse: HttpResponse<CandidatAggregate>) => {
+                this.aggregate = candidatResponse.body;
             });
     }
+    
     previousState() {
         window.history.back();
     }
 
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
+        this.eventManager.destroy(this.eventSubscriber);
+    }
 
     registerChangeInCandidats() {
         this.eventSubscriber = this.eventManager.subscribe(
             'candidatListModification',
-            (response) => this.load(this.candidat.id)
+            (response) => this.load(this.aggregate.candidat.id)
         );
     }
 }

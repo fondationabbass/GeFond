@@ -73,7 +73,7 @@ export class ExperienceCandidatService {
     /**
      * Convert a ExperienceCandidat to a JSON which can be sent to the server.
      */
-    private convert(experienceCandidat: ExperienceCandidat): ExperienceCandidat {
+    convert(experienceCandidat: ExperienceCandidat): ExperienceCandidat {
         const copy: ExperienceCandidat = Object.assign({}, experienceCandidat);
         copy.dateDeb = this.dateUtils
             .convertLocalDateToServer(experienceCandidat.dateDeb);

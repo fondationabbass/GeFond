@@ -1,14 +1,17 @@
 package com.bdi.fondation.service;
 
-import com.bdi.fondation.domain.Candidat;
+import java.util.Arrays;
+import java.util.List;
 
-import com.bdi.fondation.repository.CandidatRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import com.bdi.fondation.domain.Candidat;
+import com.bdi.fondation.repository.CandidatRepository;
+import com.bdi.fondation.repository.ExperienceCandidatRepository;
+import com.bdi.fondation.service.dto.CandidatAggregate;
 
 /**
  * Service Implementation for managing Candidat.
@@ -21,8 +24,11 @@ public class CandidatService {
 
     private final CandidatRepository candidatRepository;
 
-    public CandidatService(CandidatRepository candidatRepository) {
+    private ExperienceCandidatRepository experienceCandidatRepository;
+
+    public CandidatService(CandidatRepository candidatRepository, ExperienceCandidatRepository experienceCandidatRepository) {
         this.candidatRepository = candidatRepository;
+        this.experienceCandidatRepository = experienceCandidatRepository;
     }
 
     /**
@@ -67,5 +73,11 @@ public class CandidatService {
     public void delete(Long id) {
         log.debug("Request to delete Candidat : {}", id);
         candidatRepository.delete(id);
+    }
+
+    public Candidat save(CandidatAggregate aggregate) {
+        Candidat candidat = candidatRepository.save(aggregate.getCandidat());
+        Arrays.stream(aggregate.getExps()).forEach(i->experienceCandidatRepository.save(i.candidat(candidat)));
+        return candidat;
     }
 }

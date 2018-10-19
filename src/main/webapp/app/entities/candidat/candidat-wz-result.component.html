@@ -1,0 +1,22 @@
+<jhi-candidat-wz-navbar></jhi-candidat-wz-navbar>
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <jhi-candidat-aggregate [aggregate]="aggregate"></jhi-candidat-aggregate>
+        <div class="row justify-content-center">
+            <div class="form-group text-center">
+                <button (click)="goToPrevious()" class="btn btn-info">
+                    <span class="fa fa-arrow-left"></span>&nbsp;
+                    <span jhiTranslate="entity.action.precedent">Previous</span>
+                </button>
+                <button (click)="cancel()" class="btn btn-secondary">
+                    <span class="fa fa-ban"></span>&nbsp;
+                    <span>Annuler</span>
+                </button>
+                <button (click)="create()" class="btn btn-primary">
+                    <span class="fa fa-save"></span>&nbsp;
+                    <span>Créer</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

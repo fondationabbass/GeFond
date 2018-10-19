@@ -15,6 +15,8 @@ import {
     Principal,
     HasAnyAuthorityDirective,
 } from '.';
+import { WizardWorkflowService } from './wizard-workflow.service';
+import { WizardHelperService } from './wizard-helper.service';
 
 @NgModule({
     imports: [
@@ -34,6 +36,8 @@ import {
         CSRFService,
         AuthServerProvider,
         UserService,
+        WizardWorkflowService,
+        WizardHelperService,
         DatePipe
     ],
     entryComponents: [JhiLoginModalComponent],

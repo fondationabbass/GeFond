@@ -34,13 +34,13 @@
         </dd>
     </dl>
 
-    <button type="submit"
+    <button *ngIf="!preview" type="submit"
             (click)="previousState()"
             class="btn btn-info">
         <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
     </button>
 
-    <button type="button"
+    <button *ngIf="!preview" type="button"
             [routerLink]="['/', { outlets: { popup: 'candidat/'+ candidat.id + '/edit'} }]"
             replaceUrl="true"
             queryParamsHandling="merge"

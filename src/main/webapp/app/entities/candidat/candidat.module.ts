@@ -14,6 +14,16 @@ import {
     candidatRoute,
     candidatPopupRoute,
 } from '.';
+import { CandidatWzComponent } from './candidat-wz.component';
+import { CandidatEditComponent } from './candidat-edit.component';
+import { CandidatWzService } from './candidat-wz.service';
+import { CandidatWzExpComponent } from './candidat-wz-exp.component';
+import { GeFondExperienceCandidatModule } from '../experience-candidat/experience-candidat.module';
+import { CandidatWzNavbarComponent } from './candidat-wz-navbar.component';
+import { CandidatWzResultComponent } from './candidat-wz-result.component';
+import { CandidatWzGuardService } from './candidat-wz.guard';
+import { CandidatAggregateComponent } from './candidat-aggregate.component';
+import { CandidatAggregateDetailComponent } from './candidat-aggregate-detail.component';
 
 const ENTITY_STATES = [
     ...candidatRoute,
@@ -23,10 +33,18 @@ const ENTITY_STATES = [
 @NgModule({
     imports: [
         GeFondSharedModule,
+        GeFondExperienceCandidatModule,
         RouterModule.forChild(ENTITY_STATES)
     ],
     declarations: [
         CandidatComponent,
+        CandidatAggregateComponent,
+        CandidatAggregateDetailComponent,
+        CandidatWzNavbarComponent,
+        CandidatWzComponent,
+        CandidatWzExpComponent,
+        CandidatWzResultComponent,
+        CandidatEditComponent,
         CandidatDetailComponent,
         CandidatDialogComponent,
         CandidatDeleteDialogComponent,
@@ -42,7 +60,9 @@ const ENTITY_STATES = [
     ],
     providers: [
         CandidatService,
-        CandidatPopupService,
+        CandidatWzService,
+        CandidatWzGuardService,
+        CandidatPopupService
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

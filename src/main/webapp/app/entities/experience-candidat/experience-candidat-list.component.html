@@ -1,0 +1,60 @@
+    <div class="table-responsive" *ngIf="experienceCandidats">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th *ngIf="fromDb"><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="geFondApp.experienceCandidat.typeInfo">Type Info</span></th>
+            <th><span jhiTranslate="geFondApp.experienceCandidat.titre">Titre</span></th>
+            <th><span jhiTranslate="geFondApp.experienceCandidat.etab">Etab</span></th>
+            <th><span jhiTranslate="geFondApp.experienceCandidat.adressEtab">Adress Etab</span></th>
+            <th><span jhiTranslate="geFondApp.experienceCandidat.dateDeb">Date Deb</span></th>
+            <th><span jhiTranslate="geFondApp.experienceCandidat.dateFin">Date Fin</span></th>
+            <th><span jhiTranslate="geFondApp.experienceCandidat.candidat">Candidat</span></th>
+            <th *ngIf="fromDb"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let experienceCandidat of experienceCandidats ;trackBy: trackId">
+                <td *ngIf="fromDb"><a [routerLink]="['../experience-candidat', experienceCandidat.id ]">{{experienceCandidat.id}}</a></td>
+                <td>{{experienceCandidat.typeInfo}}</td>
+                <td>{{experienceCandidat.titre}}</td>
+                <td>{{experienceCandidat.etab}}</td>
+                <td>{{experienceCandidat.adressEtab}}</td>
+                <td>{{experienceCandidat.dateDeb | date:'mediumDate'}}</td>
+                <td>{{experienceCandidat.dateFin | date:'mediumDate'}}</td>
+                <td>
+                    <div *ngIf="experienceCandidat.candidat">
+                        <a [routerLink]="['../candidat', experienceCandidat.candidat?.id ]" >{{experienceCandidat.candidat?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right" *ngIf="fromDb">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../experience-candidat', experienceCandidat.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'experience-candidat/'+ experienceCandidat.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'experience-candidat/'+ experienceCandidat.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+

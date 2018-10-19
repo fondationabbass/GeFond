@@ -1,6 +1,5 @@
 package com.bdi.fondation.service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -11,12 +10,13 @@ import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import io.github.jhipster.service.QueryService;
-
+// for static metamodels
 import com.bdi.fondation.domain.SessionProjet;
-import com.bdi.fondation.domain.*; // for static metamodels
+import com.bdi.fondation.domain.SessionProjet_;
 import com.bdi.fondation.repository.SessionProjetRepository;
 import com.bdi.fondation.service.dto.SessionProjetCriteria;
+
+import io.github.jhipster.service.QueryService;
 
 
 /**

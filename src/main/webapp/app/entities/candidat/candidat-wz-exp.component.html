@@ -1,0 +1,37 @@
+<jhi-candidat-wz-navbar></jhi-candidat-wz-navbar>
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card border-info mb-3" style="max-width: 18rem;">
+                    <div class="card-body">
+                        <jhi-experience-candidat-edit [experienceCandidat]="exp" (valid)="valid($event)">
+                        </jhi-experience-candidat-edit>
+                        <div class="form-group text-center">
+                            <button [disabled]="editFormInvalid" (click)="add()" class="btn btn-primary">
+                                <span class="fa fa-plus"></span>&nbsp;
+                                <span>Ajouter</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <jhi-experience-candidat-list [experienceCandidats]="exps">
+                </jhi-experience-candidat-list>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="form-group text-center">
+                <button (click)="goToPrevious(cand)" class="btn btn-info">
+                    <span class="fa fa-arrow-left"></span>&nbsp;
+                    <span jhiTranslate="entity.action.precedent">Previous</span>
+                </button>
+                <button (click)="goToNext(cand)" class="btn btn-info">
+                    <span jhiTranslate="entity.action.next">Next</span>&nbsp;
+                    <span class="fa fa-arrow-right"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
