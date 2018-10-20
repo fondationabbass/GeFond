@@ -1,0 +1,59 @@
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <form name="editForm" role="form" novalidate #editForm="ngForm">
+            <div class="row">
+                <div class='col-xs-12 col-sm-6'>
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_code">Id Candidat</label>
+                        <input type="number" class="form-control" name="idCandidat" id="field_idCandidat" [ngModel]="candidature.candidat.id"
+                            (ngModelChange)="findCandidat($event)" required />
+                        <div [hidden]="!(editForm.controls.idCandidat?.dirty && editForm.controls.idCandidat?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.idCandidat?.errors?.required"
+                                jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.idCandidat?.errors?.number"
+                                jhiTranslate="entity.validation.number">
+                                This field should be a number.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-xs-12 col-sm-6'>
+                    <div div class="alert alert-success" role="alert" [hidden]="!candidature.candidat.id">
+                        <jhi-candidat-detail [candidat]="candidature.candidat" [preview]="true"></jhi-candidat-detail>
+                    </div>
+                    <div div class="alert alert-danger" role="alert" [hidden]="!clientError">
+                        <h4>Error</h4>
+                        <hr>
+                        <p>L'id saisi ne corresponde à aucun candidat</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class='col-xs-12 col-sm-6'>
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="geFondApp.candidature.type" for="field_type">Type</label>
+                        <select class="form-control" id="field_type" name="type" [(ngModel)]="candidature.type"
+                            required>
+                            <option>Projet</option>
+                            <option>Blabla</option>
+                        </select>
+                    </div>
+                </div>
+                <div class='col-xs-12 col-sm-6'>
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="geFondApp.candidature.status" for="field_status">Status</label>
+                        <input disabled type="text" class="form-control" name="status" id="field_status" [(ngModel)]="candidature.status" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group text-center">
+                <button (click)="goToNext()" [disabled]="editForm.form.invalid || !candidature.candidat.id" class="btn btn-info">
+                    <span jhiTranslate="entity.action.next">Next</span>&nbsp;
+                    <span class="fa fa-arrow-right"></span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

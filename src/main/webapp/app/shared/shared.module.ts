@@ -17,6 +17,7 @@ import {
 } from '.';
 import { WizardWorkflowService } from './wizard-workflow.service';
 import { WizardHelperService } from './wizard-helper.service';
+import { CandidatureWzService } from './candidature-wz.service';
 
 @NgModule({
     imports: [
@@ -38,6 +39,7 @@ import { WizardHelperService } from './wizard-helper.service';
         UserService,
         WizardWorkflowService,
         WizardHelperService,
+        CandidatureWzService,
         DatePipe
     ],
     entryComponents: [JhiLoginModalComponent],

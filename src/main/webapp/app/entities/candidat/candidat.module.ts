@@ -24,6 +24,7 @@ import { CandidatWzResultComponent } from './candidat-wz-result.component';
 import { CandidatWzGuardService } from './candidat-wz.guard';
 import { CandidatAggregateComponent } from './candidat-aggregate.component';
 import { CandidatAggregateDetailComponent } from './candidat-aggregate-detail.component';
+//import { CandidatureWzService } from '../candidature/candidature-wz.b.service';
 
 const ENTITY_STATES = [
     ...candidatRoute,
@@ -35,6 +36,9 @@ const ENTITY_STATES = [
         GeFondSharedModule,
         GeFondExperienceCandidatModule,
         RouterModule.forChild(ENTITY_STATES)
+    ],
+    exports: [
+        CandidatDetailComponent
     ],
     declarations: [
         CandidatComponent,

@@ -15,14 +15,17 @@ import {
     candidaturePopupRoute,
     CandidatureResolvePagingParams,
 } from '.';
-
-import { CandidatureWzCandidatComponent } from './candidature-wz-candidat.component';
-import { CandWzFormDataService} from './cand-wz-form-data.service';
-import { CandidatureWzCandidatureComponent } from './candidature-wz-candidature.component';
-import { CandidatureWzExpComponent } from './candidature-wz-exp.component';
-import { CandidatureWzProjetComponent } from './candidature-wz-projet.component';
-import { CandidatureWzDocumentComponent } from './candidature-wz-document.component';
-import { CandidatureWzResultComponent } from './candidature-wz-result.component';
+import { CandWzFormDataService} from './wz/cand-wz-form-data.service';
+import { CandidatureWzProjetComponent } from './wz/candidature-wz-projet.component';
+import { CandidatureWzDocumentComponent } from './wz/candidature-wz-document.component';
+import { CandidatureWzResultComponent } from './wz/candidature-wz-result.component';
+import { GeFondCandidatModule } from '../candidat/candidat.module';
+import { GeFondDocumentModule } from '../document/document.module';
+import { GeFondProjetModule } from '../projet/projet.module';
+import { GeFondEntretienModule } from '../entretien/entretien.module';
+import { GeFondVisiteModule } from '../visite/visite.module';
+import { CandidatureWzComponent } from './candidature-wz.component';
+import { CandidatureWzGuardService } from './candidature-wz.guard';
 
 
 const ENTITY_STATES = [
@@ -33,6 +36,11 @@ const ENTITY_STATES = [
 @NgModule({
     imports: [
         GeFondSharedModule,
+        GeFondCandidatModule,
+        GeFondDocumentModule,
+        GeFondProjetModule,
+        GeFondEntretienModule,
+        GeFondVisiteModule,
         RouterModule.forChild(ENTITY_STATES)
     ],
     declarations: [
@@ -42,9 +50,7 @@ const ENTITY_STATES = [
         CandidatureDeleteDialogComponent,
         CandidaturePopupComponent,
         CandidatureDeletePopupComponent,
-        CandidatureWzCandidatComponent,
-        CandidatureWzCandidatureComponent,
-        CandidatureWzExpComponent,
+        CandidatureWzComponent,
         CandidatureWzProjetComponent,
         CandidatureWzDocumentComponent,
         CandidatureWzResultComponent,
@@ -58,6 +64,7 @@ const ENTITY_STATES = [
     ],
     providers: [
         CandidatureService,
+        CandidatureWzGuardService,
         CandidaturePopupService,
         CandidatureResolvePagingParams,
         CandWzFormDataService,

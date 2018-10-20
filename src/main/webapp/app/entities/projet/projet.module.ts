@@ -15,6 +15,7 @@ import {
     projetPopupRoute,
     ProjetResolvePagingParams,
 } from '.';
+import { ProjetEditComponent } from './projet-edit.component';
 
 const ENTITY_STATES = [
     ...projetRoute,
@@ -26,7 +27,11 @@ const ENTITY_STATES = [
         GeFondSharedModule,
         RouterModule.forChild(ENTITY_STATES)
     ],
+    exports: [
+        ProjetEditComponent
+    ],
     declarations: [
+        ProjetEditComponent,
         ProjetComponent,
         ProjetDetailComponent,
         ProjetDialogComponent,

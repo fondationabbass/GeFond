@@ -6,6 +6,8 @@ import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { Candidat } from './candidat.model';
 import { CandidatService } from './candidat.service';
 import { Principal } from '../../shared';
+import { Router } from '@angular/router';
+import { CandidatureWzService } from '../../shared/candidature-wz.service';
 
 @Component({
     selector: 'jhi-candidat',
@@ -17,6 +19,8 @@ candidats: Candidat[];
     eventSubscriber: Subscription;
 
     constructor(
+        private router: Router,
+        private candidatureWz: CandidatureWzService,
         private candidatService: CandidatService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
@@ -47,6 +51,7 @@ candidats: Candidat[];
     trackId(index: number, item: Candidat) {
         return item.id;
     }
+    
     registerChangeInCandidats() {
         this.eventSubscriber = this.eventManager.subscribe('candidatListModification', (response) => this.loadAll());
     }
@@ -54,4 +59,11 @@ candidats: Candidat[];
     private onError(error) {
         this.jhiAlertService.error(error.message, null, null);
     }
+
+    startCandidature(candidat: Candidat) {
+        this.candidatureWz.reset();
+        this.candidatureWz.aggregate.candidature.candidat = candidat;
+        this.router.navigate(['/candidature-wz']);
+    }
+
 }

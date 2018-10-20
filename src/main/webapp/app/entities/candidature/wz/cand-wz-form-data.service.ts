@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { CandWzFormData }       from './cand-wz-form-data';
-import { Candidat} from "../candidat";
-import { Candidature} from "../candidature";
-import { ExperienceCandidat} from "../experience-candidat";
-import { Document} from "../document";
-import { Projet} from "../projet";
+import { Candidat} from "../../candidat";
+import { Candidature} from "..";
+import { ExperienceCandidat} from "../../experience-candidat";
+import { Document} from "../../document";
+import { Projet} from "../../projet";
 
 @Injectable()
 export class CandWzFormDataService {

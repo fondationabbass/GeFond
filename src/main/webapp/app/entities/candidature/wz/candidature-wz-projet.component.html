@@ -1,0 +1,15 @@
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <jhi-projet-edit [projet]="projet" (valid)="valid($event)"></jhi-projet-edit>
+        <div class="form-group text-center">
+            <button (click)="goToPrevious()" class="btn btn-info">
+                <span class="fa fa-arrow-left"></span>&nbsp;
+                <span jhiTranslate="entity.action.precedent">Previous</span>
+            </button>
+            <button [disabled]="editFormInvalid" (click)="goToNext()" class="btn btn-info">
+                <span jhiTranslate="entity.action.next">Next</span>&nbsp;
+                <span class="fa fa-arrow-right"></span>
+            </button>
+        </div>
+    </div>
+</div>

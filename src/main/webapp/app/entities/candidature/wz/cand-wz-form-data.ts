@@ -1,8 +1,8 @@
-import { Candidature } from "./candidature.model";
-import { Candidat} from "../candidat";
-import { ExperienceCandidat} from "../experience-candidat";
-import { Document} from "../document";
-import { Projet} from "../projet";
+import { Candidature } from "../candidature.model";
+import { Candidat} from "../../candidat";
+import { ExperienceCandidat} from "../../experience-candidat";
+import { Document} from "../../document";
+import { Projet} from "../../projet";
 
 export class CandWzFormData {
    candidat : Candidat={};

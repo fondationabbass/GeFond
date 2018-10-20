@@ -2,12 +2,12 @@ import { Component, OnInit, Input }   from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
-import { Candidature } from "./candidature.model";
-import { Candidat} from "../candidat";
-import { ExperienceCandidat} from "../experience-candidat";
-import { Document} from "../document";
-import { Projet} from "../projet";
-import {CandidatureService} from './candidature.service'
+import { Candidature } from "../candidature.model";
+import { Candidat} from "../../candidat";
+import { ExperienceCandidat} from "../../experience-candidat";
+import { Document} from "../../document";
+import { Projet} from "../../projet";
+import {CandidatureService} from '../candidature.service'
 import {CandWzFormDataService} from './cand-wz-form-data.service';
 import {CandWzFormData} from './cand-wz-form-data';
 @Component({

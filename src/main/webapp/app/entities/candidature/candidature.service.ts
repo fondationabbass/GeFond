@@ -5,7 +5,7 @@ import { SERVER_API_URL } from '../../app.constants';
 import { JhiDateUtils } from 'ng-jhipster';
 import { Candidature } from './candidature.model';
 import { createRequestOption } from '../../shared';
-import { CandWzFormData } from './cand-wz-form-data';
+import { CandWzFormData } from './wz/cand-wz-form-data';
 import {Candidat} from '../candidat';
 import { ExperienceCandidat } from '../experience-candidat';
 import { dateToNgb } from '../../shared/model/format-utils';
