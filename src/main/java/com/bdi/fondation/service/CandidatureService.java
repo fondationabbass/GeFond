@@ -1,6 +1,7 @@
 package com.bdi.fondation.service;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,18 +10,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bdi.fondation.domain.Candidat;
 import com.bdi.fondation.domain.Candidature;
 import com.bdi.fondation.domain.Chapitre;
 import com.bdi.fondation.domain.Client;
 import com.bdi.fondation.domain.Compte;
-import com.bdi.fondation.repository.CandidatRepository;
 import com.bdi.fondation.repository.CandidatureRepository;
 import com.bdi.fondation.repository.ClientRepository;
 import com.bdi.fondation.repository.CompteRepository;
 import com.bdi.fondation.repository.DocumentRepository;
-import com.bdi.fondation.repository.ExperienceCandidatRepository;
+import com.bdi.fondation.repository.EntretienRepository;
 import com.bdi.fondation.repository.ProjetRepository;
+import com.bdi.fondation.repository.VisiteRepository;
 import com.bdi.fondation.service.dto.CandidatureAggregate;
 import com.bdi.fondation.service.dto.ChapitreCriteria;
 
@@ -42,21 +42,21 @@ public class CandidatureService {
     private final ClientRepository clientRepository;
     private final ChapitreQueryService chapitreQueryService;
     private final CompteRepository compteRepository;
-    private final CandidatRepository candidatRepository;
-    private final ExperienceCandidatRepository experianceRepository;
     private final DocumentRepository documentRepository;
     private final ProjetRepository  projetRepository;
+    private final EntretienRepository entretienRepository;
+    private final VisiteRepository visiteRepository;
 
 	public CandidatureService(CandidatureRepository candidatureRepository, ClientRepository clientRepository,
             ChapitreQueryService chapitreQueryService, CompteRepository compteRepository,
-            CandidatRepository candidatRepository, ExperienceCandidatRepository experianceRepository,
+            EntretienRepository entretienRepository, VisiteRepository visiteRepository,
             DocumentRepository documentRepository, ProjetRepository projetRepository) {
         this.candidatureRepository = candidatureRepository;
         this.clientRepository = clientRepository;
         this.chapitreQueryService = chapitreQueryService;
         this.compteRepository = compteRepository;
-        this.candidatRepository = candidatRepository;
-        this.experianceRepository = experianceRepository;
+        this.entretienRepository = entretienRepository;
+        this.visiteRepository = visiteRepository;
         this.documentRepository = documentRepository;
         this.projetRepository = projetRepository;
     }
@@ -89,11 +89,11 @@ public class CandidatureService {
 
     public Candidature save(CandidatureAggregate aggregate) {
     	log.debug("Request to save full Candidature : {}", aggregate);
-    	Candidat candidat = candidatRepository.save(aggregate.getCandidat());
-    	Candidature result = candidatureRepository.save(aggregate.getCandidature().candidat(candidat));
-    	experianceRepository.save(aggregate.getExperienceCandidat().candidat(candidat));
-    	documentRepository.save(aggregate.getDocument().candidature(result));
+    	Candidature result = candidatureRepository.save(aggregate.getCandidature());
     	projetRepository.save(aggregate.getProjet().candidature(result));
+    	Arrays.stream(aggregate.getDocuments()).forEach(e->documentRepository.save(e.candidature(result)));
+    	Arrays.stream(aggregate.getEntretiens()).forEach(e->entretienRepository.save(e.candidature(result)));
+    	Arrays.stream(aggregate.getVisites()).forEach(e->visiteRepository.save(e.candidature(result)));
     	return result;
 	}
 

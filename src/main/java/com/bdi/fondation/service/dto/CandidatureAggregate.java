@@ -1,57 +1,53 @@
 package com.bdi.fondation.service.dto;
 
-import com.bdi.fondation.domain.Candidat;
+import java.util.Arrays;
+
 import com.bdi.fondation.domain.Candidature;
 import com.bdi.fondation.domain.Document;
-import com.bdi.fondation.domain.ExperienceCandidat;
+import com.bdi.fondation.domain.Entretien;
 import com.bdi.fondation.domain.Projet;
+import com.bdi.fondation.domain.Visite;
 
 public class CandidatureAggregate {
 	private Candidature candidature;
-	private Candidat candidat;
-	private ExperienceCandidat experienceCandidat;
-	private Document document;
 	private Projet projet;
-
-
-	public Candidature getCandidature() {
-		return candidature;
-	}
-	public void setCandidature(Candidature candidature) {
-		this.candidature = candidature;
-	}
-	public Candidat getCandidat() {
-		return candidat;
-	}
-	public void setCandidat(Candidat candidat) {
-		this.candidat = candidat;
-	}
-
-	public ExperienceCandidat getExperienceCandidat() {
-        return experienceCandidat;
+	private Document[] documents;
+	private Entretien[] entretiens;
+	private Visite[] visites;
+    public Candidature getCandidature() {
+        return candidature;
     }
-    public void setExperienceCandidat(ExperienceCandidat experienceCandidat) {
-        this.experienceCandidat = experienceCandidat;
+    public void setCandidature(Candidature candidature) {
+        this.candidature = candidature;
     }
-    public Document getDocument() {
-		return document;
-	}
-	public void setDocument(Document document) {
-		this.document = document;
-	}
-	public Projet getProjet() {
-		return projet;
-	}
-	public void setProjet(Projet projet) {
-		this.projet = projet;
-	}
-	@Override
-	public String toString() {
-		return "CandidatureAggregate [candidature=" + candidature + ", candidat=" + candidat + ", experienceCandidat="
-				+ experienceCandidat + ", document=" + document + ", projet=" + projet + "]";
-	}
-
-
-
-
+    public Projet getProjet() {
+        return projet;
+    }
+    public void setProjet(Projet projet) {
+        this.projet = projet;
+    }
+    public Document[] getDocuments() {
+        return documents;
+    }
+    public void setDocuments(Document[] documents) {
+        this.documents = documents;
+    }
+    public Entretien[] getEntretiens() {
+        return entretiens;
+    }
+    public void setEntretiens(Entretien[] entretiens) {
+        this.entretiens = entretiens;
+    }
+    public Visite[] getVisites() {
+        return visites;
+    }
+    public void setVisites(Visite[] visites) {
+        this.visites = visites;
+    }
+    @Override
+    public String toString() {
+        return "CandidatureAggregate [candidature=" + candidature + ", projet=" + projet + ", documents="
+                + Arrays.toString(documents) + ", entretiens=" + Arrays.toString(entretiens) + ", visites="
+                + Arrays.toString(visites) + "]";
+    }
 }

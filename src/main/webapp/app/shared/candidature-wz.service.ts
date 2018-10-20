@@ -2,7 +2,7 @@
 import { Injectable } from "@angular/core";
 import { CandidatureAggregate } from "../entities/candidature/candidature-wz.model";
 import { Candidature } from "../entities/candidature";
-import { Document } from "../entities/Document";
+import { Document } from "../entities/document";
 import { Projet } from "../entities/projet";
 import { Entretien } from "../entities/entretien";
 import { Visite } from "../entities/visite";

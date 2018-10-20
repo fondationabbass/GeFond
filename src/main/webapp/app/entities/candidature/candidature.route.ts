@@ -13,6 +13,7 @@ import { CandidatureWzResultComponent } from './wz/candidature-wz-result.compone
 import { CandidatureWzComponent } from './wz/candidature-wz.component';
 import { CandidatureWzVisiteComponent } from './wz/candidature-wz-visite.component';
 import { CandidatureWzEntretienComponent } from './wz/candidature-wz-entretien.component';
+import { CandidatureAggregateDetailComponent } from './candidature-aggregate-detail.component';
 
 @Injectable()
 export class CandidatureResolvePagingParams implements Resolve<any> {
@@ -50,7 +51,7 @@ export const candidatureRoute: Routes = [
         canActivate: [UserRouteAccessService]
     }, {
         path: 'candidature/:id',
-        component: CandidatureDetailComponent,
+        component: CandidatureAggregateDetailComponent,
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'geFondApp.candidature.home.title'

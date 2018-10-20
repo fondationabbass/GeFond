@@ -8,7 +8,6 @@ import { Visite } from '../visite';
 export class CandidatureAggregate {
   constructor(
     public candidature?: Candidature,
-    public candidat?: Candidat,
     public projet?: Projet,
     public documents: Document[] = [],
     public entretiens: Entretien[] = [],

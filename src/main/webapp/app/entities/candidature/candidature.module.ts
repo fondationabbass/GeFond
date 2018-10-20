@@ -29,6 +29,7 @@ import { CandidatureWzComponent } from './wz/candidature-wz.component';
 import { CandidatureWzGuardService } from './candidature-wz.guard';
 import { CandidatureAggregateComponent } from './candidature-aggregate.component';
 import { CandidatureWzNavbarComponent } from './wz/candidature-wz-navbar.component';
+import { CandidatureAggregateDetailComponent } from './candidature-aggregate-detail.component';
 
 
 const ENTITY_STATES = [
@@ -49,6 +50,7 @@ const ENTITY_STATES = [
     declarations: [
         CandidatureComponent,
         CandidatureAggregateComponent,
+        CandidatureAggregateDetailComponent,
         CandidatureDetailComponent,
         CandidatureDialogComponent,
         CandidatureDeleteDialogComponent,

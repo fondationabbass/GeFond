@@ -2,12 +2,12 @@ import { Component, OnInit, Input }   from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
-import { Candidat} from "../../candidat";
 import {CandidatureService} from '../candidature.service'
 import { CandidatureAggregate } from '../candidature-wz.model';
 import { CandidatureWzService } from '../../../shared/candidature-wz.service';
 import { WizardWorkflowService } from '../../../shared/wizard-workflow.service';
 import { WizardHelperService } from '../../../shared/wizard-helper.service';
+import { Candidature } from '../candidature.model';
 @Component({
   selector: 'candidature-wz-result',
   templateUrl: './candidature-wz-result.component.html',
@@ -34,7 +34,7 @@ export class CandidatureWzResultComponent implements OnInit {
 
   create() {
       this.candidatureService.createAggregate(this.aggregate).subscribe(
-          (res: HttpResponse<Candidat>) => {
+          (res: HttpResponse<Candidature>) => {
               if (res.body.id > 0) {
                   this.eventManager.broadcast({ name: 'candidatureListModification', content: 'OK'});
                   this.wizardHelperService.candidatWorkflow = this.workflowService.resetSteps(this.wizardHelperService.candidatWorkflow);
