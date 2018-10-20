@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Candidature } from '.';
-//import { CandidatureWzService } from './candidature-wz.b.service';
-import { CandidatureWzService } from '../../shared/candidature-wz.service';
-import { WizardWorkflowService } from '../../shared/wizard-workflow.service';
-import { WizardHelperService } from '../../shared/wizard-helper.service';
-import { CandidatService } from '../candidat';
-import { Candidat } from '../candidat/candidat.model';
+import { Candidature } from '..';
+import { CandidatureWzService } from '../../../shared/candidature-wz.service';
+import { WizardWorkflowService } from '../../../shared/wizard-workflow.service';
+import { WizardHelperService } from '../../../shared/wizard-helper.service';
+import { CandidatService } from '../../candidat';
+import { Candidat } from '../../candidat/candidat.model';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 @Component({

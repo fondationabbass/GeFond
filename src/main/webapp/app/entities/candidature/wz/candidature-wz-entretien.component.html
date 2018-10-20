@@ -5,8 +5,8 @@
                 <div class="col-md-4">
                     <div class="card border-info mb-3" style="max-width: 18rem;">
                         <div class="card-body">
-                            <jhi-document-edit [document]="document" (valid)="valid($event)">
-                            </jhi-document-edit>
+                            <jhi-entretien-edit [entretien]="entretien" (valid)="valid($event)">
+                            </jhi-entretien-edit>
                             <div class="form-group text-center">
                                 <button [disabled]="editFormInvalid" (click)="add()" class="btn btn-primary">
                                     <span class="fa fa-plus"></span>&nbsp;
@@ -17,8 +17,8 @@
                     </div>
                 </div>
                 <div class="col-md-8">
-                    <jhi-document-list [documents]="documents">
-                    </jhi-document-list>
+                    <jhi-entretien-list [entretiens]="entretiens">
+                    </jhi-entretien-list>
                 </div>
             </div>
             <div class="row justify-content-center">

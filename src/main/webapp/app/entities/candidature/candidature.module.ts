@@ -15,8 +15,9 @@ import {
     candidaturePopupRoute,
     CandidatureResolvePagingParams,
 } from '.';
-import { CandWzFormDataService} from './wz/cand-wz-form-data.service';
 import { CandidatureWzProjetComponent } from './wz/candidature-wz-projet.component';
+import { CandidatureWzEntretienComponent } from './wz/candidature-wz-entretien.component';
+import { CandidatureWzVisiteComponent } from './wz/candidature-wz-visite.component';
 import { CandidatureWzDocumentComponent } from './wz/candidature-wz-document.component';
 import { CandidatureWzResultComponent } from './wz/candidature-wz-result.component';
 import { GeFondCandidatModule } from '../candidat/candidat.module';
@@ -24,8 +25,10 @@ import { GeFondDocumentModule } from '../document/document.module';
 import { GeFondProjetModule } from '../projet/projet.module';
 import { GeFondEntretienModule } from '../entretien/entretien.module';
 import { GeFondVisiteModule } from '../visite/visite.module';
-import { CandidatureWzComponent } from './candidature-wz.component';
+import { CandidatureWzComponent } from './wz/candidature-wz.component';
 import { CandidatureWzGuardService } from './candidature-wz.guard';
+import { CandidatureAggregateComponent } from './candidature-aggregate.component';
+import { CandidatureWzNavbarComponent } from './wz/candidature-wz-navbar.component';
 
 
 const ENTITY_STATES = [
@@ -45,6 +48,7 @@ const ENTITY_STATES = [
     ],
     declarations: [
         CandidatureComponent,
+        CandidatureAggregateComponent,
         CandidatureDetailComponent,
         CandidatureDialogComponent,
         CandidatureDeleteDialogComponent,
@@ -53,7 +57,10 @@ const ENTITY_STATES = [
         CandidatureWzComponent,
         CandidatureWzProjetComponent,
         CandidatureWzDocumentComponent,
+        CandidatureWzEntretienComponent,
+        CandidatureWzVisiteComponent,
         CandidatureWzResultComponent,
+        CandidatureWzNavbarComponent
     ],
     entryComponents: [
         CandidatureComponent,
@@ -67,7 +74,6 @@ const ENTITY_STATES = [
         CandidatureWzGuardService,
         CandidaturePopupService,
         CandidatureResolvePagingParams,
-        CandWzFormDataService,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

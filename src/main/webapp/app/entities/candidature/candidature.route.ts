@@ -10,7 +10,9 @@ import { CandidatureDeletePopupComponent } from './candidature-delete-dialog.com
 import { CandidatureWzDocumentComponent } from './wz/candidature-wz-document.component';
 import { CandidatureWzProjetComponent } from './wz/candidature-wz-projet.component';
 import { CandidatureWzResultComponent } from './wz/candidature-wz-result.component';
-import { CandidatureWzComponent } from './candidature-wz.component';
+import { CandidatureWzComponent } from './wz/candidature-wz.component';
+import { CandidatureWzVisiteComponent } from './wz/candidature-wz-visite.component';
+import { CandidatureWzEntretienComponent } from './wz/candidature-wz-entretien.component';
 
 @Injectable()
 export class CandidatureResolvePagingParams implements Resolve<any> {
@@ -32,8 +34,9 @@ export const candidatureRoute: Routes = [
     { path: 'candidature-wz', component: CandidatureWzComponent, data: { authorities: ['ROLE_USER'], }, canActivate: [UserRouteAccessService] },
     { path: 'candidature-wz-document', component: CandidatureWzDocumentComponent, data: { authorities: ['ROLE_USER'], }, canActivate: [UserRouteAccessService] },
     { path: 'candidature-wz-projet', component: CandidatureWzProjetComponent, data: { authorities: ['ROLE_USER'], }, canActivate: [UserRouteAccessService] },
+    { path: 'candidature-wz-entretien', component: CandidatureWzEntretienComponent, data: { authorities: ['ROLE_USER'], }, canActivate: [UserRouteAccessService] },
+    { path: 'candidature-wz-visite', component: CandidatureWzVisiteComponent, data: { authorities: ['ROLE_USER'], }, canActivate: [UserRouteAccessService] },
     { path: 'candidature-wz-result', component: CandidatureWzResultComponent, data: { authorities: ['ROLE_USER'], }, canActivate: [UserRouteAccessService] },
-
     {
         path: 'candidature',
         component: CandidatureComponent,

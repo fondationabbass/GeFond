@@ -1,0 +1,55 @@
+<div class="wizard">
+    <div class="wizard-inner">
+        <div class="connecting-line"></div>
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="nav-item">
+                <a routerLink="/candidature-wz" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+                    data-toggle="tab" aria-controls="step1" role="tab" title="Candidat" class="nav-link active">
+                    <span class="round-tab">
+                        <i class="fa fa-user"></i>
+                    </span>
+                </a>
+            </li>
+            <li role="presentation" class="nav-item">
+                <a routerLink="/candidature-wz-projet" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+                    data-toggle="tab" aria-controls="step2" role="tab" title="Projet" class="nav-link disabled">
+                    <span class="round-tab">
+                        <i class="fa fa-rocket"></i>
+                    </span>
+                </a>
+            </li>
+            <li role="presentation" class="nav-item">
+                <a routerLink="/candidature-wz-document" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+                    data-toggle="tab" aria-controls="step3" role="tab" title="Documents" class="nav-link disabled">
+                    <span class="round-tab">
+                        <i class="fa fa-file"></i>
+                    </span>
+                </a>
+            </li>
+            <li role="presentation" class="nav-item">
+                <a routerLink="/candidature-wz-entretien" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+                    data-toggle="tab" aria-controls="step4" role="tab" title="Entretiens" class="nav-link disabled">
+                    <span class="round-tab">
+                        <i class="fa fa-briefcase"></i>
+                    </span>
+                </a>
+            </li>
+            <li role="presentation" class="nav-item">
+                <a routerLink="/candidature-wz-visite" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+                    data-toggle="tab" aria-controls="step5" role="tab" title="Visites" class="nav-link disabled">
+                    <span class="round-tab">
+                        <i class="fa fa-handshake-o"></i>
+                    </span>
+                </a>
+            </li>
+            <li role="presentation" class="nav-item">
+                <a routerLink="/candidature-wz-result" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+                    data-toggle="tab" aria-controls="step6" role="tab" title="Résultat" class="nav-link disabled">
+                    <span class="round-tab">
+                        <i class="fa fa-check"></i>
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

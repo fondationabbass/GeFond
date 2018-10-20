@@ -1,0 +1,53 @@
+<div class="table-responsive" *ngIf="documents">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th *ngIf="fromDb"><span jhiTranslate="global.field.id">ID</span></th>
+                <th><span jhiTranslate="geFondApp.document.dateEnreg">Date Enreg</span></th>
+                <th><span jhiTranslate="geFondApp.document.lib">Lib</span></th>
+                <th><span jhiTranslate="geFondApp.document.typeDocument">Type Document</span></th>
+                <th><span jhiTranslate="geFondApp.document.module">Module</span></th>
+                <th><span jhiTranslate="geFondApp.document.etat">Etat</span></th>
+                <th><span jhiTranslate="geFondApp.document.fichier">Fichier</span></th>
+                <th><span jhiTranslate="geFondApp.document.tail">Tail</span></th>
+                <th><span jhiTranslate="geFondApp.document.candidature">Candidature</span></th>
+                <th *ngIf="fromDb"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let document of documents ;trackBy: trackId">
+                <td *ngIf="fromDb"><a [routerLink]="['../document', document.id ]">{{document.id}}</a></td>
+                <td>{{document.dateEnreg | date:'mediumDate'}}</td>
+                <td>{{document.lib}}</td>
+                <td>{{document.typeDocument}}</td>
+                <td>{{document.module}}</td>
+                <td>{{document.etat}}</td>
+                <td>{{document.fichier}}</td>
+                <td>{{document.tail}}</td>
+                <td>
+                    <div *ngIf="document.candidature">
+                        <a [routerLink]="['../candidature', document.candidature?.id ]">{{document.candidature?.id}}</a>
+                    </div>
+                </td>
+                <td *ngIf="fromDb" class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit" [routerLink]="['../document', document.id ]" class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit" [routerLink]="['/', { outlets: { popup: 'document/'+ document.id + '/edit'} }]"
+                            replaceUrl="true" queryParamsHandling="merge" class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit" [routerLink]="['/', { outlets: { popup: 'document/'+ document.id + '/delete'} }]"
+                            replaceUrl="true" queryParamsHandling="merge" class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

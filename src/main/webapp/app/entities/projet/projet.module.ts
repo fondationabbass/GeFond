@@ -28,7 +28,8 @@ const ENTITY_STATES = [
         RouterModule.forChild(ENTITY_STATES)
     ],
     exports: [
-        ProjetEditComponent
+        ProjetEditComponent,
+        ProjetDetailComponent
     ],
     declarations: [
         ProjetEditComponent,

@@ -1,149 +1,22 @@
-
+<jhi-candidature-wz-navbar></jhi-candidature-wz-navbar>
 <div class="row justify-content-center">
     <div class="col-md-10">
-        <div class="row">
-            <h2>{{title}}</h2>
-        </div>
-        <hr>
-        <div class="row">
-            <jhi-alert></jhi-alert>
-        </div>
-        <div class="row">
-            <div class='col-xs-12 col-sm-4'>
-                <div class="card">
-                    <h5 class="card-header">Détail du Candidat:</h5>
-                    <div class="card-body">
-                        <dl class="row-md jh-entity-details">
-                            <dt><span jhiTranslate="geFondApp.candidat.nom">Nom</span></dt>
-                            <dd>
-                                <span>{{candidat.nom}}</span>
-                            </dd>
-                            <dt><span jhiTranslate="geFondApp.candidat.prenom">Prenom</span></dt>
-                            <dd>
-                                <span>{{candidat.prenom}}</span>
-                            </dd>
-                            <dt><span jhiTranslate="geFondApp.candidat.dateNaissance">Date Naissance</span></dt>
-                            <dd>
-                                <span>{{candidat.dateNaissance}}</span>
-                            </dd>
-                            <dt><span jhiTranslate="geFondApp.candidat.lieuNaissance">Lieu Naissance</span></dt>
-                            <dd>
-                                <span>{{candidat.lieuNaissance}}</span>
-                            </dd>
-                            <dt><span jhiTranslate="geFondApp.candidat.adresse">Adresse</span></dt>
-                            <dd>
-                                <span>{{candidat.adresse}}</span>
-                            </dd>
-                            <dt><span jhiTranslate="geFondApp.candidat.tel">Tel</span></dt>
-                            <dd>
-                                <span>{{candidat.tel}}</span>
-                            </dd>
-                            <dt><span jhiTranslate="geFondApp.candidat.situation">Situation</span></dt>
-                            <dd>
-                                <span>{{candidat.situation}}</span>
-                            </dd>
-                        </dl>
-                        
-                    </div>
-                </div>
-            </div>
-
-        <div class='col-xs-12 col-sm-4'>
-            <div class="card">
-              <h5 class="card-header">Détail Experiance Candidat:</h5>
-                <div class="card-body">
-            <dl class="row-md jh-entity-details">
-
-                <dt><span jhiTranslate="geFondApp.experienceCandidat.typeInfo">Type Info</span></dt>
-                <dd>
-                    <span>{{experienceCandidat.typeInfo}}</span>
-                </dd>
-                <dt><span jhiTranslate="geFondApp.experienceCandidat.titre">Titre</span></dt>
-                <dd>
-                    <span>{{experienceCandidat.titre}}</span>
-                </dd>
-                <dt><span jhiTranslate="geFondApp.experienceCandidat.etab">Etab</span></dt>
-                <dd>
-                    <span>{{experienceCandidat.etab}}</span>
-                </dd>
-                <dt><span jhiTranslate="geFondApp.experienceCandidat.adressEtab">Adress Etab</span></dt>
-                <dd>
-                    <span>{{experienceCandidat.adressEtab}}</span>
-                </dd>
-                <dt><span jhiTranslate="geFondApp.experienceCandidat.dateDeb">Date Deb</span></dt>
-                <dd>
-                    <span>{{experienceCandidat.dateDeb}}</span>
-                </dd>
-                <dt><span jhiTranslate="geFondApp.experienceCandidat.dateFin">Date Fin</span></dt>
-                <dd>
-                    <span>{{experienceCandidat.dateFin}}</span>
-                </dd>
-            </dl>
-            </div>
-            </div>
-            </div>
-          
-            <div class='col-xs-12 col-sm-4'>
-                <div class="card">
-                  <h5 class="card-header">Détail Projet :</h5>
-                  <div class="card-body">
-            <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="geFondApp.projet.intitule">Intitule</span></dt>
-                <dd>
-                    <span>{{projet.intitule}}</span>
-                </dd>
-                <dt><span jhiTranslate="geFondApp.projet.montEstime">Mont Estime</span></dt>
-                <dd>
-                    <span>{{projet.montEstime}}</span>
-                </dd>
-                <dt><span jhiTranslate="geFondApp.projet.montApp">Mont App</span></dt>
-                <dd>
-                    <span>{{projet.montApp}}</span>
-                </dd>
-                <dt><span jhiTranslate="geFondApp.projet.domaine">Domaine</span></dt>
-                <dd>
-                    <span>{{projet.domaine}}</span>
-                </dd>
-                <dt><span jhiTranslate="geFondApp.projet.type">Type</span></dt>
-                <dd>
-                    <span>{{projet.type}}</span>
-                </dd>
-                <dt><span jhiTranslate="geFondApp.projet.description">Description</span></dt>
-                <dd>
-                    <span>{{projet.description}}</span>
-                </dd>
-                <dt><span jhiTranslate="geFondApp.projet.dateCreation">Date Creation</span></dt>
-                <dd>
-                    <span>{{projet.dateCreation}}</span>
-                </dd>
-                <dt><span jhiTranslate="geFondApp.projet.etat">Etat</span></dt>
-                <dd>
-                    <span>{{projet.etat}}</span>
-                </dd>
-                <dt><span jhiTranslate="geFondApp.projet.lieu">Lieu</span></dt>
-                <dd>
-                    <span>{{projet.lieu}}</span>
-                </dd>
-            </dl>
-            </div>
-            </div>
-            </div>
-
-            </div>
-        </div>
-        <div class="form-group text-center">
-            <button (click)="goToPrevious()" class="btn btn-info">
-                <span class="fa fa-arrow-left"></span>&nbsp;
-                <span jhiTranslate="entity.action.precedent">Back</span>
-            </button>
-            <button type="button" class="btn btn-secondary" (click)="clear()">
+        <jhi-candidature-aggregate [aggregate]="aggregate"></jhi-candidature-aggregate>
+        <div class="row justify-content-center">
+            <div class="form-group text-center">
+                <button (click)="goToPrevious()" class="btn btn-info">
+                    <span class="fa fa-arrow-left"></span>&nbsp;
+                    <span jhiTranslate="entity.action.precedent">Previous</span>
+                </button>
+                <button (click)="cancel()" class="btn btn-secondary">
                     <span class="fa fa-ban"></span>&nbsp;
-                    <span jhiTranslate="entity.action.cancel">Cancel</span>
-            </button>
-            <button (click)="goToNext()" class="btn btn-primary">
-                <span class="fa fa-check"></span>&nbsp;
-                <span>Valider  la Candidature</span>
-            </button>
+                    <span>Annuler</span>
+                </button>
+                <button (click)="create()" class="btn btn-primary">
+                    <span class="fa fa-save"></span>&nbsp;
+                    <span>Créer</span>
+                </button>
+            </div>
         </div>
     </div>
 </div>

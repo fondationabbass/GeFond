@@ -14,6 +14,8 @@ import {
     visiteRoute,
     visitePopupRoute,
 } from '.';
+import { VisiteListComponent } from './visite-list.component';
+import { VisiteEditComponent } from './visite-edit.component';
 
 const ENTITY_STATES = [
     ...visiteRoute,
@@ -25,8 +27,14 @@ const ENTITY_STATES = [
         GeFondSharedModule,
         RouterModule.forChild(ENTITY_STATES)
     ],
+    exports: [
+        VisiteEditComponent,
+        VisiteListComponent
+    ],
     declarations: [
         VisiteComponent,
+        VisiteEditComponent,
+        VisiteListComponent,
         VisiteDetailComponent,
         VisiteDialogComponent,
         VisiteDeleteDialogComponent,

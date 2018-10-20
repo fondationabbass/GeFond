@@ -1,41 +1,58 @@
-import { Component, OnInit ,Input} from '@angular/core';
-import { ParametrageService } from '../../parametrage/parametrage.service';
-import { Principal } from '../../../shared';
-import { CandWzFormDataService }       from './cand-wz-form-data.service';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Document } from '../../document';
-import { Candidature } from '..';
-import { CandWzFormData } from './cand-wz-form-data';
+import { CandidatureWzService } from '../../../shared/candidature-wz.service';
+import { WizardWorkflowService } from '../../../shared/wizard-workflow.service';
+import { WizardHelperService } from '../../../shared/wizard-helper.service';
+import { ngbToDate } from '../../../shared/model/format-utils';
 
 @Component({
   selector: 'candidature-wz-document',
-  templateUrl: './candidature-wz-document.component.html',
-  styles: []
+  templateUrl: './candidature-wz-document.component.html'
 })
 export class CandidatureWzDocumentComponent implements OnInit {
-  @Input() formData: CandWzFormData;
-  document: Document;
-  candidature : Candidature;
+  document: Document = new Document();
+  documents: Document[];
+  editFormInvalid: boolean;
 
-  constructor(private router: Router,
-    private formDataService: CandWzFormDataService,
-    private parametrageService: ParametrageService,
-    private principal: Principal) { }
-
+  constructor(
+      private router: Router,
+      private service: CandidatureWzService,
+      private workflowService: WizardWorkflowService, 
+      private wizardHelperService: WizardHelperService
+  ) {
+  }
+  
   ngOnInit() {
-    this.formData = this.formDataService.getData();
-    this.document = this.formData.document;
-    this.candidature = this.formData.candidature;
+      this.documents = this.service.aggregate.documents;
   }
-  save(form: any): boolean {
-    this.formDataService.setDocument(this.document);
-    return true;
-  }
-  goToNext(form: any) {
-    if (this.save(form)) {
-        this.router.navigate(['/candidature-wz-projet']);
-    }
-}
-clear() {}
 
+  valid(e) {
+      this.editFormInvalid = !e;
+  }
+
+  add() {
+      this.documents.push(this.convert(this.document));
+  }
+
+  save() {
+      this.service.setDocuments(this.documents);
+      this.wizardHelperService.candidatureWorkflow = this.workflowService.validateStep('candidature-wz-document', this.wizardHelperService.candidatureWorkflow);
+  }
+
+  goToNext() {
+      this.save();
+      this.router.navigate(['/candidature-wz-entretien']);
+  }
+
+  goToPrevious() {
+      this.save();
+      this.router.navigate(['/candidature-wz-projet']);
+  }
+  
+  private convert(Document: Document): Document {
+      const copy: Document = Object.assign({}, Document);
+      copy.dateEnreg = ngbToDate(Document.dateEnreg);
+      return copy;
+  }
 }

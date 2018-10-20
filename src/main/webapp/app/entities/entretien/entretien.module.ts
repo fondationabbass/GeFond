@@ -14,6 +14,8 @@ import {
     entretienRoute,
     entretienPopupRoute,
 } from '.';
+import { EntretienListComponent } from './entretien-list.component';
+import { EntretienEditComponent } from './entretien-edit.component';
 
 const ENTITY_STATES = [
     ...entretienRoute,
@@ -25,8 +27,14 @@ const ENTITY_STATES = [
         GeFondSharedModule,
         RouterModule.forChild(ENTITY_STATES)
     ],
+    exports: [
+        EntretienEditComponent,
+        EntretienListComponent
+    ],
     declarations: [
         EntretienComponent,
+        EntretienEditComponent,
+        EntretienListComponent,
         EntretienDetailComponent,
         EntretienDialogComponent,
         EntretienDeleteDialogComponent,

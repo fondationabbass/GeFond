@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="card border-info mb-3" style="min-width: 100%;min-height: 100%;">
+            <div class="card-body">
+                <jhi-candidat-detail [preview]="true" [candidat]="aggregate.candidature.candidat">
+                </jhi-candidat-detail>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card border-info mb-3" style="min-width: 100%;min-height: 100%;">
+            <div class="card-body">
+                <jhi-projet-detail [preview]="true" [projet]="aggregate.projet">
+                </jhi-projet-detail>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="aggregate.documents">
+    <div class="col-md-12">
+        <h2>Documents:</h2>
+        <jhi-document-list [documents]="aggregate.documents">
+        </jhi-document-list>
+    </div>
+</div>
+<div class="row" *ngIf="aggregate.entretiens">
+    <div class="col-md-12">
+        <h2>Entretiens:</h2>
+        <jhi-entretien-list [entretiens]="aggregate.entretiens">
+        </jhi-entretien-list>
+    </div>
+</div>
+<div class="row" *ngIf="aggregate.visites">
+    <div class="col-md-12">
+        <h2>Visites:</h2>
+        <jhi-visite-list [visites]="aggregate.visites">
+        </jhi-visite-list>
+    </div>
+</div>

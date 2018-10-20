@@ -14,6 +14,8 @@ import {
     documentRoute,
     documentPopupRoute,
 } from '.';
+import { DocumentEditComponent } from './document-edit.component';
+import { DocumentListComponent } from './document-list.component';
 
 const ENTITY_STATES = [
     ...documentRoute,
@@ -25,8 +27,14 @@ const ENTITY_STATES = [
         GeFondSharedModule,
         RouterModule.forChild(ENTITY_STATES)
     ],
+    exports: [
+        DocumentEditComponent,
+        DocumentListComponent
+    ],
     declarations: [
         DocumentComponent,
+        DocumentEditComponent,
+        DocumentListComponent,
         DocumentDetailComponent,
         DocumentDialogComponent,
         DocumentDeleteDialogComponent,

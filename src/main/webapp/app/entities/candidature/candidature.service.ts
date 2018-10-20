@@ -5,12 +5,11 @@ import { SERVER_API_URL } from '../../app.constants';
 import { JhiDateUtils } from 'ng-jhipster';
 import { Candidature } from './candidature.model';
 import { createRequestOption } from '../../shared';
-import { CandWzFormData } from './wz/cand-wz-form-data';
-import {Candidat} from '../candidat';
-import { ExperienceCandidat } from '../experience-candidat';
+import { Candidat } from '../candidat';
 import { dateToNgb } from '../../shared/model/format-utils';
 import { Document } from '../document';
 import { Projet } from '../projet';
+import { CandidatureAggregate } from './candidature-wz.model';
 export type EntityResponseType = HttpResponse<Candidature>;
 
 @Injectable()
@@ -26,9 +25,9 @@ export class CandidatureService {
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
-    createWz(candtWz: CandWzFormData): Observable<EntityResponseType> {
-        const copy = this.convertFull(candtWz);
-        return this.http.post<Candidature>(this.resourceUrl+'/aggregate', copy, { observe: 'response' })
+    createAggregate(aggregate: CandidatureAggregate): Observable<EntityResponseType> {
+        const copy = this.convertFull(aggregate);
+        return this.http.post<Candidat>(this.resourceUrl+'/aggregate', copy, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
@@ -75,22 +74,16 @@ export class CandidatureService {
         return copy;
     }
 
-    
-
-    /**
-     * Convert a Candidature to a JSON which can be sent to the server.
-     */
     private convert(candidature: Candidature): Candidature {
         const copy: Candidature = Object.assign({}, candidature);
         return copy;
     }
 
-    private convertFull(form: CandWzFormData): CandWzFormData {
-        const copy: CandWzFormData = Object.assign({}, form);
+    private convertFull(form: CandidatureAggregate): CandidatureAggregate {
+        const copy: CandidatureAggregate = Object.assign({}, form);
         copy.candidature = this.convert(form.candidature);
         copy.candidat =  this.convertCand(form.candidat);
-        copy.experienceCandidat = this.convertEx(form.experienceCandidat);
-        copy.document = this.convertDoc(form.document);
+        //copy.document = this.convertDoc(form.document);
         copy.projet = this.convertPro(form.projet);
         return copy;
     }
@@ -99,16 +92,6 @@ export class CandidatureService {
         const copy: Candidat = Object.assign({}, candidat);
         copy.dateNaissance = this.dateUtils
         .convertLocalDateToServer(dateToNgb(candidat.dateNaissance));
-        return copy;
-    }
-
-    private convertEx(experienceCandidat: ExperienceCandidat): Candidat {
-        const copy: ExperienceCandidat = Object.assign({}, experienceCandidat);
-        copy.dateDeb = this.dateUtils
-        .convertLocalDateToServer(dateToNgb(experienceCandidat.dateDeb));
-
-        copy.dateFin = this.dateUtils
-        .convertLocalDateToServer(dateToNgb(experienceCandidat.dateFin));
         return copy;
     }
 

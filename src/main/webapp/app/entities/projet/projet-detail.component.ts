@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
@@ -13,7 +13,8 @@ import { ProjetService } from './projet.service';
 })
 export class ProjetDetailComponent implements OnInit, OnDestroy {
 
-    projet: Projet;
+    @Input() projet: Projet;
+    @Input() preview: boolean;
     private subscription: Subscription;
     private eventSubscriber: Subscription;
 
@@ -25,10 +26,10 @@ export class ProjetDetailComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.subscription = this.route.params.subscribe((params) => {
-            this.load(params['id']);
-        });
-        this.registerChangeInProjets();
+        // this.subscription = this.route.params.subscribe((params) => {
+        //     this.load(params['id']);
+        // });
+        // this.registerChangeInProjets();
     }
 
     load(id) {
@@ -42,8 +43,8 @@ export class ProjetDetailComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.subscription.unsubscribe();
-        this.eventManager.destroy(this.eventSubscriber);
+        // this.subscription.unsubscribe();
+        // this.eventManager.destroy(this.eventSubscriber);
     }
 
     registerChangeInProjets() {
