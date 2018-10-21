@@ -44,9 +44,12 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="geFondApp.operation.moyenPaiement" for="field_moyenPaiement">Moyen Paiement</label>
-            <input type="text" class="form-control" name="moyenPaiement" id="field_moyenPaiement"
-                [(ngModel)]="operation.moyenPaiement" />
+            <label class="form-control-label" for="field_moyenPaiement">Mode de Remboursement</label>
+            <select type="text" class="form-control" name="moyenPaiement" id="field_moyenPaiement"
+                [(ngModel)]="operation.moyenPaiement">
+                <option value="Caisse">Sur caisse</option>
+                <option value="Compte">Sur compte</option>
+            </select>
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="geFondApp.operation.commentaire" for="field_commentaire">Commentaire</label>

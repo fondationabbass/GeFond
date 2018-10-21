@@ -44,7 +44,7 @@ export class CompteDialogComponent implements OnInit {
         this.isSaving = false;
         this.caisseService.query()
             .subscribe((res: HttpResponse<Caisse[]>) => { this.caisses = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
-        this.chapitreService.query({"categorieCompte.equals":"00"})
+        this.chapitreService.query({'categorieCompte.equals': '00'})
             .subscribe((res: HttpResponse<Chapitre[]>) => { this.chapitres = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
@@ -52,24 +52,22 @@ export class CompteDialogComponent implements OnInit {
         this.activeModal.dismiss('cancel');
     }
     updateNum(chapitre: Chapitre) {
-        this.compteService.query({"chapitreId.equals":chapitre.id})
-            .subscribe((res: HttpResponse<Compte[]>) => 
-            {
-                const inc = res.body.length+1;
-                this.compte.numCompte = chapitre.numero+'-'+inc+'-'+chapitre.categorieCompte;
-                this.codeChapitre=chapitre.numero;
+        this.compteService.query({'chapitreId.equals': chapitre.id})
+            .subscribe((res: HttpResponse<Compte[]>) => {
+                const inc = res.body.length + 1;
+                this.compte.numCompte = chapitre.numero + '-' + inc + '-' + chapitre.categorieCompte;
+                this.codeChapitre = chapitre.numero;
             }, (res: HttpErrorResponse) => this.onError(res.message));
-    
+
     }
     updateCodeNum(codeChapitre: number) {
-        this.chapitreService.query({"numero.equals":codeChapitre})
-            .subscribe((res: HttpResponse<Chapitre[]>) => 
-            {
+        this.chapitreService.query({'numero.equals': codeChapitre})
+            .subscribe((res: HttpResponse<Chapitre[]>) => {
                 const chapitre = res.body[0];
                 this.compte.chapitre = chapitre;
                 this.updateNum(chapitre);
             }, (res: HttpErrorResponse) => this.onError(res.message));
-    
+
     }
     save() {
         this.isSaving = true;

@@ -15,8 +15,8 @@
             <th jhiSortBy="lib"><span jhiTranslate="geFondApp.mouvement.lib">Lib</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="montant"><span jhiTranslate="geFondApp.mouvement.montant">Montant</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="sens"><span jhiTranslate="geFondApp.mouvement.sens">Sens</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="etat"><span jhiTranslate="geFondApp.mouvement.etat">Etat</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="compte.id"><span jhiTranslate="geFondApp.mouvement.compte">Compte</span> <span class="fa fa-sort"></span></th>
+<!--             <th jhiSortBy="etat"><span jhiTranslate="geFondApp.mouvement.etat">Etat</span> <span class="fa fa-sort"></span></th>
+ -->            <th jhiSortBy="compte.id"><span jhiTranslate="geFondApp.mouvement.compte">Compte</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="operation.id"><span jhiTranslate="geFondApp.mouvement.operation">Operation</span> <span class="fa fa-sort"></span></th>
             </tr>
             </thead>
@@ -27,10 +27,10 @@
                 <td>{{mouvement.lib}}</td>
                 <td>{{mouvement.montant}}</td>
                 <td>{{mouvement.sens}}</td>
-                <td>{{mouvement.etat}}</td>
-                <td>
+<!--                 <td>{{mouvement.etat}}</td>
+ -->                <td>
                     <div *ngIf="mouvement.compte">
-                        <a [routerLink]="['../compte', mouvement.compte?.id ]" >{{mouvement.compte?.id}}</a>
+                        <a [routerLink]="['../compte', mouvement.compte?.id ]" >{{mouvement.compte?.numCompte}}</a>
                     </div>
                 </td>
                 <td>

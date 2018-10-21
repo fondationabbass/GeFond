@@ -76,6 +76,7 @@ public class OperationService {
         if(montant == null || operation.getMontant() < 0) {
             throw new IllegalArgumentException("Le montant doit être positif");
         }
+        operation.setDateOperation(LocalDate.now());
         Pret pret = operation.getPret();
         if(Constants.FINANCEMENT.equals(operation.getTypeOperation())) {
             financementPret(pret, montant);
@@ -93,10 +94,15 @@ public class OperationService {
             remboursementPret(pret, montant);
             Set<Echeance> set = dispatcherEcheances(operation);
             operation.setEcheances(set);
-            Caisse caisse = caisseQueryService.getCurrentCaisse();
             Compte origin = compteQueryService.getCompteByPretId(pret.getId());
-            Compte destinataire = compteQueryService.getCompteByCaisseId(caisse.getId());
-            operation.setCaisse(caisse);
+            Compte destinataire = null;
+            if(Constants.REMBOURSEMENT_SUR_COMPTE.equals(operation.getMoyenPaiement())) {
+                destinataire = compteQueryService.getCompteBanque();
+            } else {
+                Caisse caisse = caisseQueryService.getCurrentCaisse();
+                destinataire = compteQueryService.getCompteByCaisseId(caisse.getId());
+                operation.setCaisse(caisse);
+            }
             operation.setCompteOrigin(origin);
             operation.setCompteDestinataire(destinataire);
             mouvementService.save(mouvements(operation,
@@ -108,8 +114,8 @@ public class OperationService {
                 throw new IllegalArgumentException("Les comptes doivent être renseigné pour une opération générique.");
             }
             mouvementService.save(mouvements(operation,
-                    CompteMouvement.of(operation.getCompteOrigin(),operation.getDescription()),
-                    CompteMouvement.of(operation.getCompteDestinataire(),operation.getDescription())));
+                    CompteMouvement.of(operation.getCompteOrigin(),operation.getTypeOperation()),
+                    CompteMouvement.of(operation.getCompteDestinataire(),operation.getTypeOperation())));
 
         }
         Operation result = operationRepository.save(operation);

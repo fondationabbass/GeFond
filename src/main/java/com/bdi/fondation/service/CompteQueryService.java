@@ -15,12 +15,15 @@ import com.bdi.fondation.domain.Chapitre_;
 import com.bdi.fondation.domain.Client_;
 import com.bdi.fondation.domain.Compte;
 import com.bdi.fondation.domain.Compte_;
+import com.bdi.fondation.domain.Parametrage;
 import com.bdi.fondation.domain.Pret_;
 import com.bdi.fondation.repository.CompteRepository;
 import com.bdi.fondation.service.dto.CompteCriteria;
+import com.bdi.fondation.service.dto.ParametrageCriteria;
 
 import io.github.jhipster.service.QueryService;
 import io.github.jhipster.service.filter.LongFilter;
+import io.github.jhipster.service.filter.StringFilter;
 
 
 /**
@@ -37,9 +40,11 @@ public class CompteQueryService extends QueryService<Compte> {
 
 
     private final CompteRepository compteRepository;
+    private final ParametrageQueryService parametrage;
 
-    public CompteQueryService(CompteRepository compteRepository) {
+    public CompteQueryService(CompteRepository compteRepository, ParametrageQueryService parametrage) {
         this.compteRepository = compteRepository;
+        this.parametrage = parametrage;
     }
 
     /**
@@ -143,6 +148,27 @@ public class CompteQueryService extends QueryService<Compte> {
             return list.get(0);
         }
         throw new IllegalStateException("Trouvé "+list.size()+" compte(s) par caisse Id = "+caisseId);
+    }
+
+    public Compte getCompteBanque() {
+        ParametrageCriteria paramCriteria = new ParametrageCriteria();
+        StringFilter typeParam = new StringFilter();
+        typeParam.setEquals("Compte");
+        StringFilter codeParam = new StringFilter();
+        codeParam.setEquals("CPT BANQ");
+        paramCriteria.setCodeTypeParam(typeParam);
+        paramCriteria.setCodeParam(codeParam);
+        List<Parametrage> params = parametrage.findByCriteria(paramCriteria );
+        String numCompte = params.get(0).getLibelle();
+        CompteCriteria criteria = new CompteCriteria();
+        StringFilter num = new StringFilter();
+        num.setEquals(numCompte);
+        criteria.setNumCompte(num);
+        List<Compte> list = findByCriteria(criteria);
+        if(list!=null && list.size()==1) {
+            return list.get(0);
+        }
+        throw new IllegalStateException("Trouvé "+list.size()+" compte(s) en cherchant par le paramètre CPT BANQ ");
     }
 
 }

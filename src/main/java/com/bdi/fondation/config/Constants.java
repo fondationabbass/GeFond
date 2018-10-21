@@ -19,6 +19,8 @@ public final class Constants {
     public static final String MOINS = "-";
     public static final String FINANCEMENT = "Financement";
     public static final String REMBOURSEMENT = "Remboursement";
+    public static final String REMBOURSEMENT_SUR_COMPTE = "Compte";
+    public static final String REMBOURSEMENT_SUR_CAISEE = "Caisse";
 
     // Comptes
     public static final String COMPTE_ENGAGEMENT_AGR="10";
