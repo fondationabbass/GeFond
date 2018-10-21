@@ -1,15 +1,15 @@
 
-import { Injectable } from "@angular/core";
-import { CandidatureAggregate } from "../entities/candidature/candidature-wz.model";
-import { Candidature } from "../entities/candidature";
-import { Document } from "../entities/document";
-import { Projet } from "../entities/projet";
-import { Entretien } from "../entities/entretien";
-import { Visite } from "../entities/visite";
+import { Injectable } from '@angular/core';
+import { CandidatureAggregate } from '../entities/candidature/candidature-wz.model';
+import { Candidature } from '../entities/candidature';
+import { Document } from '../entities/document';
+import { Projet } from '../entities/projet';
+import { Entretien } from '../entities/entretien';
+import { Visite } from '../entities/visite';
 
 @Injectable()
 export class CandidatureWzService {
-  
+
   aggregate: CandidatureAggregate = new CandidatureAggregate();
 
   constructor() {
@@ -40,7 +40,7 @@ export class CandidatureWzService {
     this.aggregate = new CandidatureAggregate();
     this.aggregate.candidature = {};
     this.aggregate.candidature.candidat = {};
-    this.aggregate.candidature.status = "Encours";
+    this.aggregate.candidature.status = 'Encours';
     this.aggregate.projet = {};
     this.aggregate.documents = [];
     this.aggregate.entretiens = [];

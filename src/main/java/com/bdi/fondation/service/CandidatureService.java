@@ -23,6 +23,7 @@ import com.bdi.fondation.repository.ProjetRepository;
 import com.bdi.fondation.repository.VisiteRepository;
 import com.bdi.fondation.service.dto.CandidatureAggregate;
 import com.bdi.fondation.service.dto.ChapitreCriteria;
+import com.bdi.fondation.service.util.RandomUtil;
 
 import io.github.jhipster.service.filter.StringFilter;
 
@@ -68,7 +69,13 @@ public class CandidatureService {
      */
     public Candidature save(Candidature candidature) {
         log.debug("Request to save Candidature : {}", candidature);
-        return candidatureRepository.save(candidature);
+        Candidature result = candidatureRepository.save(candidature);
+        if(result.getStatus().equals("Validée")) {
+            Client client = new Client();
+            client.code("CLI"+RandomUtil.generateClientCode()).candidat(result.getCandidat()).dateCreat(LocalDate.now());
+            clientRepository.save(client);
+        }
+        return result;
     }
     public Candidature validate(Candidature candidature) {
     	candidature = candidatureRepository.findOne(candidature.getId());

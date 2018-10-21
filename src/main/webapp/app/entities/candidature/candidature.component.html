@@ -42,26 +42,20 @@
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
-                                [routerLink]="['../candidature', candidature.id ]"
+                                [disabled]="!pending(candidature)"
+                                (click)="validate(candidature)"
                                 class="btn btn-info btn-sm">
-                            <span class="fa fa-eye"></span>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            <span class="fa fa-check"></span>
+                            <span class="d-none d-md-inline">Valider</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'candidature/'+ candidature.id + '/edit'} }]"
-                                replaceUrl="true"
-                                queryParamsHandling="merge"
-                                class="btn btn-primary btn-sm">
-                            <span class="fa fa-pencil"></span>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'candidature/'+ candidature.id + '/delete'} }]"
+                        [disabled]="!pending(candidature)"
+                                (click)="cancel(candidature)"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"
                                 class="btn btn-danger btn-sm">
                             <span class="fa fa-remove"></span>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            <span class="d-none d-md-inline">Refuser</span>
                         </button>
                     </div>
                 </td>

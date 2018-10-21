@@ -29,6 +29,9 @@ public final class RandomUtil {
     public static String generateActivationKey() {
         return RandomStringUtils.randomNumeric(DEF_COUNT);
     }
+    public static String generateClientCode() {
+        return RandomStringUtils.randomNumeric(5);
+    }
 
     /**
      * Generate a reset key.

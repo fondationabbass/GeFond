@@ -73,6 +73,24 @@ currentAccount: any;
         this.loadAll();
     }
 
+    validate(candidature: Candidature) {
+        candidature.status = 'Validée';
+        this.candidatureService.update(candidature).subscribe(() => {
+            this.eventManager.broadcast('candidatureListModification');
+            this.router.navigate(['client']);
+        });
+    }
+
+    cancel(candidature: Candidature) {
+        candidature.status = 'Annulée';
+        this.candidatureService.update(candidature).subscribe(() => {
+            this.eventManager.broadcast('candidatureListModification');
+        });
+    }
+
+    pending(candidature: Candidature): boolean {
+        return candidature.status === 'Encours';
+    }
     clear() {
         this.page = 0;
         this.router.navigate(['/candidature', {
