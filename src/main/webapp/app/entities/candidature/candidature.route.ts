@@ -4,7 +4,6 @@ import { JhiPaginationUtil } from 'ng-jhipster';
 
 import { UserRouteAccessService } from '../../shared';
 import { CandidatureComponent } from './candidature.component';
-import { CandidatureDetailComponent } from './candidature-detail.component';
 import { CandidaturePopupComponent } from './candidature-dialog.component';
 import { CandidatureDeletePopupComponent } from './candidature-delete-dialog.component';
 import { CandidatureWzDocumentComponent } from './wz/candidature-wz-document.component';
@@ -14,6 +13,7 @@ import { CandidatureWzComponent } from './wz/candidature-wz.component';
 import { CandidatureWzVisiteComponent } from './wz/candidature-wz-visite.component';
 import { CandidatureWzEntretienComponent } from './wz/candidature-wz-entretien.component';
 import { CandidatureAggregateDetailComponent } from './candidature-aggregate-detail.component';
+import { CandidatureWzGuardService } from './candidature-wz.guard';
 
 @Injectable()
 export class CandidatureResolvePagingParams implements Resolve<any> {
@@ -32,12 +32,44 @@ export class CandidatureResolvePagingParams implements Resolve<any> {
 }
 
 export const candidatureRoute: Routes = [
-    { path: 'candidature-wz', component: CandidatureWzComponent, data: { authorities: ['ROLE_USER'], }, canActivate: [UserRouteAccessService] },
-    { path: 'candidature-wz-document', component: CandidatureWzDocumentComponent, data: { authorities: ['ROLE_USER'], }, canActivate: [UserRouteAccessService] },
-    { path: 'candidature-wz-projet', component: CandidatureWzProjetComponent, data: { authorities: ['ROLE_USER'], }, canActivate: [UserRouteAccessService] },
-    { path: 'candidature-wz-entretien', component: CandidatureWzEntretienComponent, data: { authorities: ['ROLE_USER'], }, canActivate: [UserRouteAccessService] },
-    { path: 'candidature-wz-visite', component: CandidatureWzVisiteComponent, data: { authorities: ['ROLE_USER'], }, canActivate: [UserRouteAccessService] },
-    { path: 'candidature-wz-result', component: CandidatureWzResultComponent, data: { authorities: ['ROLE_USER'], }, canActivate: [UserRouteAccessService] },
+    {
+        path: 'candidature-wz',
+        component: CandidatureWzComponent,
+        data: { authorities: ['ROLE_USER'], },
+        canActivate: [UserRouteAccessService]
+    },
+    {
+        path: 'candidature-wz-document',
+        component: CandidatureWzDocumentComponent,
+        data: { authorities: ['ROLE_USER'], },
+        canActivate: [UserRouteAccessService, CandidatureWzGuardService]
+    },
+    {
+        path: 'candidature-wz-projet',
+        component: CandidatureWzProjetComponent,
+        data: { authorities: ['ROLE_USER'], },
+        canActivate: [UserRouteAccessService,
+            CandidatureWzGuardService]
+    },
+    {
+        path: 'candidature-wz-entretien',
+        component: CandidatureWzEntretienComponent,
+        data: { authorities: ['ROLE_USER'], },
+        canActivate: [UserRouteAccessService,
+            CandidatureWzGuardService]
+    },
+    {
+        path: 'candidature-wz-visite',
+        component: CandidatureWzVisiteComponent,
+        data: { authorities: ['ROLE_USER'], },
+        canActivate: [UserRouteAccessService, CandidatureWzGuardService]
+    },
+    {
+        path: 'candidature-wz-result',
+        component: CandidatureWzResultComponent,
+        data: { authorities: ['ROLE_USER'], },
+        canActivate: [UserRouteAccessService, CandidatureWzGuardService]
+    },
     {
         path: 'candidature',
         component: CandidatureComponent,
@@ -49,7 +81,8 @@ export const candidatureRoute: Routes = [
             pageTitle: 'geFondApp.candidature.home.title'
         },
         canActivate: [UserRouteAccessService]
-    }, {
+    },
+    {
         path: 'candidature/:id',
         component: CandidatureAggregateDetailComponent,
         data: {

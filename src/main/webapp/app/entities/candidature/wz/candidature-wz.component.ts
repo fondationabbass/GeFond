@@ -16,7 +16,7 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 export class CandidatureWzComponent implements OnInit {
 
   candidature: Candidature;
-  clientError: boolean = false;
+  clientError = false;
 
   constructor(private router: Router,
     private service: CandidatureWzService,
@@ -34,14 +34,16 @@ export class CandidatureWzComponent implements OnInit {
     this.candidatService.find(id).subscribe(
         (res: HttpResponse<Candidat>) => {
           this.candidature.candidat = res.body;
-          this.clientError=false;
+          this.clientError = false;
          }
          , (subRes: HttpErrorResponse) => {
           this.candidature.candidat = new Candidat();
-          this.clientError=true;
+          this.clientError = true;
          }
     );
-    if(id==0) this.clientError=false;
+    if (id === 0) {
+      this.clientError = false;
+    }
 }
 
   save() {

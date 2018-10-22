@@ -11,7 +11,7 @@ export class WizardHelperService {
     ];
     public candidatureWorkflow = [
         new WizardStep('candidature-wz', false),
-        new WizardStep('candidature-wz-project', false),
+        new WizardStep('candidature-wz-projet', false),
         new WizardStep('candidature-wz-document', false),
         new WizardStep('candidature-wz-entretien', false),
         new WizardStep('candidature-wz-visite', false),
