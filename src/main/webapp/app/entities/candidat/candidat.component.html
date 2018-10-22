@@ -19,10 +19,10 @@
             <th><span jhiTranslate="global.field.id">ID</span></th>
             <th><span jhiTranslate="geFondApp.candidat.nom">Nom</span></th>
             <th><span jhiTranslate="geFondApp.candidat.prenom">Prenom</span></th>
+            <th><span jhiTranslate="geFondApp.candidat.tel">Tel</span></th>
+            <th><span jhiTranslate="geFondApp.candidat.adresse">Adresse</span></th>
             <th><span jhiTranslate="geFondApp.candidat.dateNaissance">Date Naissance</span></th>
             <th><span jhiTranslate="geFondApp.candidat.lieuNaissance">Lieu Naissance</span></th>
-            <th><span jhiTranslate="geFondApp.candidat.adresse">Adresse</span></th>
-            <th><span jhiTranslate="geFondApp.candidat.tel">Tel</span></th>
             <th><span jhiTranslate="geFondApp.candidat.situation">Situation</span></th>
             <th></th>
             </tr>
@@ -33,10 +33,10 @@
                 <td><a [routerLink]="['../candidat', candidat.id ]">{{candidat.id}}</a></td>
                 <td>{{candidat.nom}}</td>
                 <td>{{candidat.prenom}}</td>
+                <td>{{candidat.tel}}</td>
+                <td>{{candidat.adresse}}</td>
                 <td>{{candidat.dateNaissance | date:'mediumDate'}}</td>
                 <td>{{candidat.lieuNaissance}}</td>
-                <td>{{candidat.adresse}}</td>
-                <td>{{candidat.tel}}</td>
                 <td>{{candidat.situation}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">

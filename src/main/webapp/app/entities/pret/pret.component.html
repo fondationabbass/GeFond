@@ -23,16 +23,16 @@
             <th jhiSortBy="montDebloq"><span jhiTranslate="geFondApp.pret.montDebloq">Mont Debloq</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="nbrEcheance"><span jhiTranslate="geFondApp.pret.nbrEcheance">Nbr Echeance</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="periodicite"><span jhiTranslate="geFondApp.pret.periodicite">Periodicite</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="dateMisePlace"><span jhiTranslate="geFondApp.pret.dateMisePlace">Date Mise Place</span> <span class="fa fa-sort"></span></th>
+<!--             <th jhiSortBy="dateMisePlace"><span jhiTranslate="geFondApp.pret.dateMisePlace">Date Mise Place</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="datePremiereEcheance"><span jhiTranslate="geFondApp.pret.datePremiereEcheance">Date Premiere Echeance</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="dateDerniereEcheance"><span jhiTranslate="geFondApp.pret.dateDerniereEcheance">Date Derniere Echeance</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="dateDernierDebloq"><span jhiTranslate="geFondApp.pret.dateDernierDebloq">Date Dernier Debloq</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="etat"><span jhiTranslate="geFondApp.pret.etat">Etat</span> <span class="fa fa-sort"></span></th>
+ -->            <th jhiSortBy="etat"><span jhiTranslate="geFondApp.pret.etat">Etat</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="encours"><span jhiTranslate="geFondApp.pret.encours">Encours</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="userInitial"><span jhiTranslate="geFondApp.pret.userInitial">User Initial</span> <span class="fa fa-sort"></span></th>
+<!--             <th jhiSortBy="userInitial"><span jhiTranslate="geFondApp.pret.userInitial">User Initial</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="userDecideur"><span jhiTranslate="geFondApp.pret.userDecideur">User Decideur</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="userDebloq"><span jhiTranslate="geFondApp.pret.userDebloq">User Debloq</span> <span class="fa fa-sort"></span></th>
-            </tr>
+ -->            </tr>
             </thead>
             <tbody>
             <tr *ngFor="let pret of prets ;trackBy: trackId">
@@ -47,16 +47,16 @@
                 <td>{{pret.montDebloq}}</td>
                 <td>{{pret.nbrEcheance}}</td>
                 <td>{{pret.periodicite}}</td>
-                <td>{{pret.dateMisePlace | date:'mediumDate'}}</td>
+<!--                 <td>{{pret.dateMisePlace | date:'mediumDate'}}</td>
                 <td>{{pret.datePremiereEcheance | date:'mediumDate'}}</td>
                 <td>{{pret.dateDerniereEcheance | date:'mediumDate'}}</td>
                 <td>{{pret.dateDernierDebloq | date:'mediumDate'}}</td>
-                <td>{{pret.etat}}</td>
+ -->                <td>{{pret.etat}}</td>
                 <td>{{pret.encours}}</td>
-                <td>{{pret.userInitial}}</td>
+<!--                 <td>{{pret.userInitial}}</td>
                 <td>{{pret.userDecideur}}</td>
                 <td>{{pret.userDebloq}}</td>
-                
+ -->                
             </tr>
             </tbody>
         </table>

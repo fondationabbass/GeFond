@@ -12,7 +12,11 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="dateCreat"><span jhiTranslate="geFondApp.client.dateCreat">Date Creat</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="lieuResid"><span jhiTranslate="geFondApp.client.lieuResid">Lieu Resid</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="candidat.nom"><span jhiTranslate="geFondApp.candidat.nom">Nom</span><span class="fa fa-sort"></span></th>
+            <th jhiSortBy="candidat.prenom"><span jhiTranslate="geFondApp.candidat.prenom">Prenom</span><span class="fa fa-sort"></span></th>
+            <th jhiSortBy="candidat.tel"><span jhiTranslate="geFondApp.candidat.tel">Tel</span><span class="fa fa-sort"></span></th>
+            <th jhiSortBy="candidat.addresse"><span jhiTranslate="geFondApp.candidat.adresse">Adresse</span><span class="fa fa-sort"></span></th>
+            <!-- <th jhiSortBy="lieuResid"><span jhiTranslate="geFondApp.client.lieuResid">Lieu Resid</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="typeResid"><span jhiTranslate="geFondApp.client.typeResid">Type Resid</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="arrondResid"><span jhiTranslate="geFondApp.client.arrondResid">Arrond Resid</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="nomPersonneContact"><span jhiTranslate="geFondApp.client.nomPersonneContact">Nom Personne Contact</span> <span class="fa fa-sort"></span></th>
@@ -22,14 +26,19 @@
             <th jhiSortBy="pointsFidel"><span jhiTranslate="geFondApp.client.pointsFidel">Points Fidel</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="dateMaj"><span jhiTranslate="geFondApp.client.dateMaj">Date Maj</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="candidat.id"><span jhiTranslate="geFondApp.client.candidat">Candidat</span> <span class="fa fa-sort"></span></th>
-            <th></th>
+             -->
+             <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let client of clients ;trackBy: trackId">
                 <td><a [routerLink]="['../client', client.id ]">{{client.id}}</a></td>
                 <td>{{client.dateCreat | date:'mediumDate'}}</td>
-                <td>{{client.lieuResid}}</td>
+                <td>{{client.candidat.nom}}</td>
+                <td>{{client.candidat.prenom}}</td>
+                <td>{{client.candidat.tel}}</td>
+                <td>{{client.candidat.adresse}}</td>
+<!--                 <td>{{client.lieuResid}}</td>
                 <td>{{client.typeResid}}</td>
                 <td>{{client.arrondResid}}</td>
                 <td>{{client.nomPersonneContact}}</td>
@@ -43,7 +52,7 @@
                         <a [routerLink]="['../candidat', client.candidat?.id ]" >{{client.candidat?.id}}</a>
                     </div>
                 </td>
-                <td class="text-right">
+ -->                <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
                                 (click)="pret(client)"
