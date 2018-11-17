@@ -16,6 +16,7 @@ export class CandidatWzExpComponent implements OnInit {
     exp: ExperienceCandidat = new ExperienceCandidat();
     exps: ExperienceCandidat[];
     editFormInvalid: boolean;
+    title: 'Experiences Candidat';
 
     constructor(
         private router: Router,
@@ -35,6 +36,7 @@ export class CandidatWzExpComponent implements OnInit {
 
     add() {
         this.exps.push(this.convert(this.exp));
+        this.exp  = new ExperienceCandidat();
     }
 
     save() {

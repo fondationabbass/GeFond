@@ -9,7 +9,7 @@
     position: relative;
     margin: 0 auto;
     margin-bottom: 0;
-    border-bottom-color: #e0e0e0;
+    border-bottom-color: transparent;
 }
 
 .wizard > div.wizard-inner {
@@ -72,7 +72,7 @@ span.round-tab:hover {
 }
 
 .wizard .nav-tabs > li {
-    width: 16%;
+    width: 25%;
 }
 
 .wizard li a:after {

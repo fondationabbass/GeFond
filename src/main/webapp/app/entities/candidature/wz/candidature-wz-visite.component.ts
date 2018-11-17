@@ -47,7 +47,7 @@ export class CandidatureWzVisiteComponent implements OnInit {
 
   goToPrevious() {
       this.save();
-      this.router.navigate(['/candidature-wz-entretien']);
+      this.router.navigate(['/candidature-wz-projet']);
   }
   
   private convert(visite: Visite): Visite {

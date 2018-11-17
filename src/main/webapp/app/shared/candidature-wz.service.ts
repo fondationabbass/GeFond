@@ -36,6 +36,10 @@ export class CandidatureWzService {
     this.aggregate.visites = visites;
   }
 
+  isProjet(): boolean {
+    return this.aggregate.candidature.type === 'Projet';
+  }
+
   reset() {
     this.aggregate = new CandidatureAggregate();
     this.aggregate.candidature = {};

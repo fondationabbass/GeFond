@@ -42,12 +42,12 @@ export class CandidatureWzEntretienComponent implements OnInit {
 
   goToNext() {
       this.save();
-      this.router.navigate(['/candidature-wz-visite']);
+      this.router.navigate(['/candidature-wz-result']);
   }
 
   goToPrevious() {
       this.save();
-      this.router.navigate(['/candidature-wz-document']);
+      this.router.navigate(['/candidature-wz-projet']);
   }
   
   private convert(entretien: Entretien): Entretien {

@@ -1,5 +1,5 @@
-<jhi-candidature-wz-navbar></jhi-candidature-wz-navbar>
-<div class="row justify-content-center">
+<jhi-candidature-wz-navbar-prj *ngIf="isProjet()"></jhi-candidature-wz-navbar-prj>
+<jhi-candidature-wz-navbar-agr *ngIf="!isProjet()"></jhi-candidature-wz-navbar-agr><div class="row justify-content-center">
     <div class="col-md-10">
         <jhi-candidature-aggregate [aggregate]="aggregate"></jhi-candidature-aggregate>
         <div class="row justify-content-center">

@@ -9,7 +9,7 @@
     position: relative;
     margin: 0 auto;
     margin-bottom: 0;
-    border-bottom-color: #e0e0e0;
+    border-bottom-color: transparent;
 }
 
 .wizard > div.wizard-inner {

@@ -49,6 +49,8 @@ export class CandidatureWzComponent implements OnInit {
   save() {
     this.service.setCandidature(this.candidature);
     this.wizardHelperService.candidatureWorkflow = this.workflowService.validateStep('candidature-wz', this.wizardHelperService.candidatureWorkflow);
+    this.wizardHelperService.agrWorkflow = this.workflowService.validateStep('candidature-wz', this.wizardHelperService.agrWorkflow);
+    this.wizardHelperService.projetWorkflow = this.workflowService.validateStep('candidature-wz', this.wizardHelperService.projetWorkflow);
   }
   goToNext() {
     this.save();

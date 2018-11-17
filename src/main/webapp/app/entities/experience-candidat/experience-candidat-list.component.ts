@@ -12,4 +12,7 @@ export class ExperienceCandidatListComponent {
     trackId(index: number, item: ExperienceCandidat) {
         return item.id;
     }
+    remove(item) {
+        this.experienceCandidats.splice(this.experienceCandidats.indexOf(item), 1);
+    }
 }

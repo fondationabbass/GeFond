@@ -28,7 +28,8 @@ import { GeFondVisiteModule } from '../visite/visite.module';
 import { CandidatureWzComponent } from './wz/candidature-wz.component';
 import { CandidatureWzGuardService } from './candidature-wz.guard';
 import { CandidatureAggregateComponent } from './candidature-aggregate.component';
-import { CandidatureWzNavbarComponent } from './wz/candidature-wz-navbar.component';
+import { CandidatureWzNavbarAgrComponent } from './wz/candidature-wz-navbar-agr.component';
+import { CandidatureWzNavbarPrjComponent } from './wz/candidature-wz-navbar-prj.component';
 import { CandidatureAggregateDetailComponent } from './candidature-aggregate-detail.component';
 
 
@@ -62,7 +63,8 @@ const ENTITY_STATES = [
         CandidatureWzEntretienComponent,
         CandidatureWzVisiteComponent,
         CandidatureWzResultComponent,
-        CandidatureWzNavbarComponent
+        CandidatureWzNavbarAgrComponent,
+        CandidatureWzNavbarPrjComponent
     ],
     entryComponents: [
         CandidatureComponent,

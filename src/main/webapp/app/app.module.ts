@@ -27,6 +27,7 @@ import {
     ActiveMenuDirective,
     ErrorComponent
 } from './layouts';
+import { NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -92,4 +93,9 @@ import {
     ],
     bootstrap: [ JhiMainComponent ]
 })
-export class GeFondAppModule {}
+export class GeFondAppModule {
+    constructor(private dpConfig: NgbDatepickerConfig) {
+        this.dpConfig.minDate = {year: 1920, month: 1, day: 1};
+        this.dpConfig.maxDate = {year: 2120, month: 1, day: 1};
+    }
+}

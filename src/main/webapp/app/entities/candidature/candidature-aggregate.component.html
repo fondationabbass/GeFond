@@ -16,21 +16,21 @@
         </div>
     </div>
 </div>
-<div class="row" *ngIf="aggregate.documents">
+<div class="row" *ngIf="aggregate.documents?.length > 0">
     <div class="col-md-12">
         <h2>Documents:</h2>
         <jhi-document-list [documents]="aggregate.documents">
         </jhi-document-list>
     </div>
 </div>
-<div class="row" *ngIf="aggregate.entretiens">
+<div class="row" *ngIf="aggregate.entretiens?.length > 0">
     <div class="col-md-12">
         <h2>Entretiens:</h2>
         <jhi-entretien-list [entretiens]="aggregate.entretiens">
         </jhi-entretien-list>
     </div>
 </div>
-<div class="row" *ngIf="aggregate.visites">
+<div class="row" *ngIf="aggregate.visites?.length > 0">
     <div class="col-md-12">
         <h2>Visites:</h2>
         <jhi-visite-list [visites]="aggregate.visites">

@@ -28,32 +28,10 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="form-control-label" jhiTranslate="geFondApp.projet.montApp" for="field_montApp">Mont App</label>
-        <input type="number" class="form-control" name="montApp" id="field_montApp" [(ngModel)]="projet.montApp"
-            required />
-        <div [hidden]="!(editForm.controls.montApp?.dirty && editForm.controls.montApp?.invalid)">
-            <small class="form-text text-danger" [hidden]="!editForm.controls.montApp?.errors?.required" jhiTranslate="entity.validation.required">
-                This field is required.
-            </small>
-            <small class="form-text text-danger" [hidden]="!editForm.controls.montApp?.errors?.number" jhiTranslate="entity.validation.number">
-                This field should be a number.
-            </small>
-        </div>
-    </div>
-    <div class="form-group">
         <label class="form-control-label" jhiTranslate="geFondApp.projet.domaine" for="field_domaine">Domaine</label>
         <input type="text" class="form-control" name="domaine" id="field_domaine" [(ngModel)]="projet.domaine" required />
         <div [hidden]="!(editForm.controls.domaine?.dirty && editForm.controls.domaine?.invalid)">
             <small class="form-text text-danger" [hidden]="!editForm.controls.domaine?.errors?.required" jhiTranslate="entity.validation.required">
-                This field is required.
-            </small>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="form-control-label" jhiTranslate="geFondApp.projet.type" for="field_type">Type</label>
-        <input type="text" class="form-control" name="type" id="field_type" [(ngModel)]="projet.type" required />
-        <div [hidden]="!(editForm.controls.type?.dirty && editForm.controls.type?.invalid)">
-            <small class="form-text text-danger" [hidden]="!editForm.controls.type?.errors?.required" jhiTranslate="entity.validation.required">
                 This field is required.
             </small>
         </div>
@@ -65,16 +43,6 @@
         <div [hidden]="!(editForm.controls.description?.dirty && editForm.controls.description?.invalid)">
             <small class="form-text text-danger" [hidden]="!editForm.controls.description?.errors?.required"
                 jhiTranslate="entity.validation.required">
-                This field is required.
-            </small>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="form-control-label" jhiTranslate="geFondApp.projet.etat" for="field_etat">Etat</label>
-        <input type="text" class="form-control" name="etat" id="field_etat" [(ngModel)]="projet.etat" required />
-        <div [hidden]="!(editForm.controls.etat?.dirty && editForm.controls.etat?.invalid)">
-            <small class="form-text text-danger" [hidden]="!editForm.controls.etat?.errors?.required" jhiTranslate="entity.validation.required">
                 This field is required.
             </small>
         </div>

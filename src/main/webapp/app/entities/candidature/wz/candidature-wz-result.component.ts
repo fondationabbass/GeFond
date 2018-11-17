@@ -16,7 +16,6 @@ import { Candidature } from '../candidature.model';
 export class CandidatureWzResultComponent implements OnInit {
 
   aggregate: CandidatureAggregate;
-    
   constructor(
       private router: Router,
       private service: CandidatureWzService,
@@ -27,7 +26,6 @@ export class CandidatureWzResultComponent implements OnInit {
       private eventManager: JhiEventManager
   ) {
   }
-  
   ngOnInit() {
       this.aggregate = this.service.aggregate;
   }
@@ -38,9 +36,8 @@ export class CandidatureWzResultComponent implements OnInit {
               if (res.body.id > 0) {
                   this.eventManager.broadcast({ name: 'candidatureListModification', content: 'OK'});
                   this.wizardHelperService.candidatWorkflow = this.workflowService.resetSteps(this.wizardHelperService.candidatWorkflow);
-                  this.router.navigate(['/candidature']);            
+                  this.router.navigate(['/candidature']);
               }
-              
           },
           (res: HttpErrorResponse) => {this.onError(res)}
       );
@@ -56,8 +53,16 @@ export class CandidatureWzResultComponent implements OnInit {
       this.router.navigate(['/candidature']);
   }
 
+  isProjet(): boolean {
+      return this.service.isProjet();
+  }
+
   goToPrevious() {
       this.wizardHelperService.candidatureWorkflow = this.workflowService.validateStep('candidature-wz-result', this.wizardHelperService.candidatureWorkflow);
+      if (this.isProjet()) {
+        this.router.navigate(['/candidature-wz-entretien']);
+      } else {
       this.router.navigate(['/candidature-wz-visite']);
-  }
+      }
+    }
 }

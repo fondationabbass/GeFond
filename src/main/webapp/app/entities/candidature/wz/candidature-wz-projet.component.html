@@ -1,6 +1,13 @@
-<jhi-candidature-wz-navbar></jhi-candidature-wz-navbar>
+<jhi-candidature-wz-navbar-prj *ngIf="isProjet()"></jhi-candidature-wz-navbar-prj>
+<jhi-candidature-wz-navbar-agr *ngIf="!isProjet()"></jhi-candidature-wz-navbar-agr>
 <div class="row justify-content-center">
     <div class="col-md-10">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Projet:</h2>
+                <hr>
+        </div>
+    </div>
         <jhi-projet-edit [projet]="projet" (valid)="valid($event)"></jhi-projet-edit>
         <div class="form-group text-center">
             <button (click)="goToPrevious()" class="btn btn-info">

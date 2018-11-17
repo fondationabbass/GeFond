@@ -9,7 +9,7 @@
             <th><span jhiTranslate="geFondApp.experienceCandidat.adressEtab">Adress Etab</span></th>
             <th><span jhiTranslate="geFondApp.experienceCandidat.dateDeb">Date Deb</span></th>
             <th><span jhiTranslate="geFondApp.experienceCandidat.dateFin">Date Fin</span></th>
-            <th><span jhiTranslate="geFondApp.experienceCandidat.candidat">Candidat</span></th>
+            <th></th>
             <th *ngIf="fromDb"></th>
             </tr>
             </thead>
@@ -23,8 +23,15 @@
                 <td>{{experienceCandidat.dateDeb | date:'mediumDate'}}</td>
                 <td>{{experienceCandidat.dateFin | date:'mediumDate'}}</td>
                 <td>
-                    <div *ngIf="experienceCandidat.candidat">
-                        <a [routerLink]="['../candidat', experienceCandidat.candidat?.id ]" >{{experienceCandidat.candidat?.id}}</a>
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                            (click)="remove(experienceCandidat)"
+                            replaceUrl="true"
+                            queryParamsHandling="merge"
+                            class="btn btn-danger btn-sm">
+                        <span class="fa fa-remove"></span>
+                        <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                    </button>
                     </div>
                 </td>
                 <td class="text-right" *ngIf="fromDb">

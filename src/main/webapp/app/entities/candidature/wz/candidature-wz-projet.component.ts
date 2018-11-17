@@ -33,12 +33,26 @@ export class CandidatureWzProjetComponent implements OnInit {
 
   save() {
       this.service.setProjet(this.projet);
-      this.wizardHelperService.candidatureWorkflow = this.workflowService.validateStep('candidature-wz-projet', this.wizardHelperService.candidatureWorkflow);
+      if (this.service.aggregate.candidature.type === 'Projet') {
+        this.wizardHelperService.projetWorkflow = this.workflowService.validateStep('candidature-wz-projet', this.wizardHelperService.projetWorkflow);
+        this.wizardHelperService.candidatureWorkflow = this.wizardHelperService.projetWorkflow;
+        } else {
+        this.wizardHelperService.agrWorkflow = this.workflowService.validateStep('candidature-wz-projet', this.wizardHelperService.agrWorkflow);
+        this.wizardHelperService.candidatureWorkflow = this.wizardHelperService.agrWorkflow;
+        }
+  }
+
+  isProjet(): boolean {
+      return this.service.isProjet();
   }
 
   goToNext() {
       this.save();
-      this.router.navigate(['/candidature-wz-document']);
+      if (this.isProjet()) {
+        this.router.navigate(['/candidature-wz-entretien']);
+      } else {
+        this.router.navigate(['/candidature-wz-visite']);
+      }
   }
 
   goToPrevious() {
