@@ -31,6 +31,7 @@ import { CandidatureAggregateComponent } from './candidature-aggregate.component
 import { CandidatureWzNavbarAgrComponent } from './wz/candidature-wz-navbar-agr.component';
 import { CandidatureWzNavbarPrjComponent } from './wz/candidature-wz-navbar-prj.component';
 import { CandidatureAggregateDetailComponent } from './candidature-aggregate-detail.component';
+import { GeFondExperienceCandidatModule } from '../experience-candidat/experience-candidat.module';
 
 
 const ENTITY_STATES = [
@@ -46,6 +47,7 @@ const ENTITY_STATES = [
         GeFondProjetModule,
         GeFondEntretienModule,
         GeFondVisiteModule,
+        GeFondExperienceCandidatModule,
         RouterModule.forChild(ENTITY_STATES)
     ],
     declarations: [

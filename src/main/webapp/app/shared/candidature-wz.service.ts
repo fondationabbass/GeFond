@@ -6,16 +6,18 @@ import { Document } from '../entities/document';
 import { Projet } from '../entities/projet';
 import { Entretien } from '../entities/entretien';
 import { Visite } from '../entities/visite';
+import { ExperienceCandidat } from '../entities/experience-candidat';
 
 @Injectable()
 export class CandidatureWzService {
-
   aggregate: CandidatureAggregate = new CandidatureAggregate();
 
   constructor() {
     this.reset();
   }
-
+  setExps(exp: ExperienceCandidat[]) {
+    this.aggregate.exps = exp;
+  }
   setCandidature(candiature: Candidature) {
     this.aggregate.candidature = candiature;
   }

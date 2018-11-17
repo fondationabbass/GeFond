@@ -8,6 +8,8 @@ import { WizardHelperService } from '../../../shared/wizard-helper.service';
 import { CandidatService } from '../../candidat';
 import { Candidat } from '../../candidat/candidat.model';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { CandidatAggregate } from '../../candidat/candidat-wz.model';
+import { ExperienceCandidat } from '../../experience-candidat';
 
 @Component({
   selector: 'jhi-candidature-wz',
@@ -16,6 +18,7 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 export class CandidatureWzComponent implements OnInit {
 
   candidature: Candidature;
+  exps: ExperienceCandidat[];
   clientError = false;
 
   constructor(private router: Router,
@@ -31,9 +34,10 @@ export class CandidatureWzComponent implements OnInit {
   }
 
   findCandidat(id: number) {
-    this.candidatService.find(id).subscribe(
-        (res: HttpResponse<Candidat>) => {
-          this.candidature.candidat = res.body;
+    this.candidatService.findAggregate(id).subscribe(
+        (res: HttpResponse<CandidatAggregate>) => {
+          this.candidature.candidat = res.body.candidat;
+          this.exps = res.body.exps;
           this.clientError = false;
          }
          , (subRes: HttpErrorResponse) => {
@@ -48,6 +52,7 @@ export class CandidatureWzComponent implements OnInit {
 
   save() {
     this.service.setCandidature(this.candidature);
+    this.service.setExps(this.exps);
     this.wizardHelperService.candidatureWorkflow = this.workflowService.validateStep('candidature-wz', this.wizardHelperService.candidatureWorkflow);
     this.wizardHelperService.agrWorkflow = this.workflowService.validateStep('candidature-wz', this.wizardHelperService.agrWorkflow);
     this.wizardHelperService.projetWorkflow = this.workflowService.validateStep('candidature-wz', this.wizardHelperService.projetWorkflow);

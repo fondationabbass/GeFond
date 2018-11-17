@@ -35,12 +35,10 @@
     </div>
     <div class="form-group">
         <label class="form-control-label" jhiTranslate="geFondApp.entretien.etat" for="field_etat">Etat</label>
-        <input type="text" class="form-control" name="etat" id="field_etat" [(ngModel)]="entretien.etat" required />
-        <div [hidden]="!(editForm.controls.etat?.dirty && editForm.controls.etat?.invalid)">
-            <small class="form-text text-danger" [hidden]="!editForm.controls.etat?.errors?.required" jhiTranslate="entity.validation.required">
-                This field is required.
-            </small>
-        </div>
+        <select class="form-control" id="field_etat" name="etat" [(ngModel)]="entretien.etat" required>
+            <option>Concluant</option>
+            <option>Non Concluant</option>
+        </select>
     </div>
     <div class="form-group">
         <label class="form-control-label" jhiTranslate="geFondApp.entretien.dateEntretien" for="field_dateEntretien">Date

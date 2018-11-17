@@ -16,6 +16,13 @@
         </div>
     </div>
 </div>
+<div class="row" *ngIf="aggregate.exps?.length > 0">
+    <div class="col-md-12">
+        <h2>Expériences du candidat</h2>
+        <jhi-experience-candidat-list [experienceCandidats]="aggregate.exps">
+        </jhi-experience-candidat-list>
+    </div>
+</div>    
 <div class="row" *ngIf="aggregate.documents?.length > 0">
     <div class="col-md-12">
         <h2>Documents:</h2>

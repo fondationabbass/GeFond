@@ -4,6 +4,7 @@ import { Document} from "../document";
 import { Projet} from "../projet";
 import { Entretien } from '../entretien';
 import { Visite } from '../visite';
+import { ExperienceCandidat } from "../experience-candidat";
 
 export class CandidatureAggregate {
   constructor(
@@ -11,6 +12,7 @@ export class CandidatureAggregate {
     public projet?: Projet,
     public documents: Document[] = [],
     public entretiens: Entretien[] = [],
-    public visites: Visite[] = []
+    public visites: Visite[] = [],
+    public exps: ExperienceCandidat[] = []
   ){}
 }
