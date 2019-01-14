@@ -1,15 +1,22 @@
 package com.bdi.fondation.domain;
 
-import org.hibernate.annotations.Cache;
-
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Candidat.
@@ -27,12 +34,21 @@ public class Candidat implements Serializable {
     private Long id;
 
     @NotNull
+    @Min(value = 1000000000)
+    @Max(value = 9999999999L)
+    @Column(name = "nni", nullable = false)
+    private Integer nni;
+
+    @NotNull
     @Column(name = "nom", nullable = false)
     private String nom;
 
     @NotNull
     @Column(name = "prenom", nullable = false)
     private String prenom;
+
+    @Column(name = "prenom_pere")
+    private String prenomPere;
 
     @NotNull
     @Column(name = "date_naissance", nullable = false)
@@ -61,6 +77,19 @@ public class Candidat implements Serializable {
         this.id = id;
     }
 
+    public Integer getNni() {
+        return nni;
+    }
+
+    public Candidat nni(Integer nni) {
+        this.nni = nni;
+        return this;
+    }
+
+    public void setNni(Integer nni) {
+        this.nni = nni;
+    }
+
     public String getNom() {
         return nom;
     }
@@ -85,6 +114,19 @@ public class Candidat implements Serializable {
 
     public void setPrenom(String prenom) {
         this.prenom = prenom;
+    }
+
+    public String getPrenomPere() {
+        return prenomPere;
+    }
+
+    public Candidat prenomPere(String prenomPere) {
+        this.prenomPere = prenomPere;
+        return this;
+    }
+
+    public void setPrenomPere(String prenomPere) {
+        this.prenomPere = prenomPere;
     }
 
     public LocalDate getDateNaissance() {
@@ -177,8 +219,10 @@ public class Candidat implements Serializable {
     public String toString() {
         return "Candidat{" +
             "id=" + getId() +
+            ", nni=" + getNni() +
             ", nom='" + getNom() + "'" +
             ", prenom='" + getPrenom() + "'" +
+            ", prenomPere='" + getPrenomPere() + "'" +
             ", dateNaissance='" + getDateNaissance() + "'" +
             ", lieuNaissance='" + getLieuNaissance() + "'" +
             ", adresse='" + getAdresse() + "'" +

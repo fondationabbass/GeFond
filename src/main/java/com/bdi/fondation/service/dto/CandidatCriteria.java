@@ -1,7 +1,6 @@
 package com.bdi.fondation.service.dto;
 
 import java.io.Serializable;
-
 import io.github.jhipster.service.filter.BooleanFilter;
 import io.github.jhipster.service.filter.DoubleFilter;
 import io.github.jhipster.service.filter.Filter;
@@ -29,9 +28,13 @@ public class CandidatCriteria implements Serializable {
 
     private LongFilter id;
 
+    private IntegerFilter nni;
+
     private StringFilter nom;
 
     private StringFilter prenom;
+
+    private StringFilter prenomPere;
 
     private LocalDateFilter dateNaissance;
 
@@ -54,6 +57,14 @@ public class CandidatCriteria implements Serializable {
         this.id = id;
     }
 
+    public IntegerFilter getNni() {
+        return nni;
+    }
+
+    public void setNni(IntegerFilter nni) {
+        this.nni = nni;
+    }
+
     public StringFilter getNom() {
         return nom;
     }
@@ -68,6 +79,14 @@ public class CandidatCriteria implements Serializable {
 
     public void setPrenom(StringFilter prenom) {
         this.prenom = prenom;
+    }
+
+    public StringFilter getPrenomPere() {
+        return prenomPere;
+    }
+
+    public void setPrenomPere(StringFilter prenomPere) {
+        this.prenomPere = prenomPere;
     }
 
     public LocalDateFilter getDateNaissance() {
@@ -114,8 +133,10 @@ public class CandidatCriteria implements Serializable {
     public String toString() {
         return "CandidatCriteria{" +
                 (id != null ? "id=" + id + ", " : "") +
+                (nni != null ? "nni=" + nni + ", " : "") +
                 (nom != null ? "nom=" + nom + ", " : "") +
                 (prenom != null ? "prenom=" + prenom + ", " : "") +
+                (prenomPere != null ? "prenomPere=" + prenomPere + ", " : "") +
                 (dateNaissance != null ? "dateNaissance=" + dateNaissance + ", " : "") +
                 (lieuNaissance != null ? "lieuNaissance=" + lieuNaissance + ", " : "") +
                 (adresse != null ? "adresse=" + adresse + ", " : "") +

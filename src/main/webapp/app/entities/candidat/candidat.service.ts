@@ -44,8 +44,8 @@ export class CandidatService {
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
-    findAggregate(id: any): Observable<HttpResponse<CandidatAggregate>> {
-        return this.http.get<CandidatAggregate>(`${this.resourceUrl+ '/aggregate'}/${id}`, { observe: 'response'})
+    findAggregate(nni: any): Observable<HttpResponse<CandidatAggregate>> {
+        return this.http.get<CandidatAggregate>(`${this.resourceUrl + '/aggregate'}/${nni}`, { observe: 'response'})
             .map((res: HttpResponse<CandidatAggregate>) => this.convertFullRes(res));
     }
 
@@ -95,7 +95,7 @@ export class CandidatService {
     private convert(candidat: Candidat): Candidat {
         const copy: Candidat = Object.assign({}, candidat);
         copy.dateNaissance = this.dateUtils
-            .convertLocalDateToServer(candidat.dateNaissance);
+            .convertLocalDateToServer(dateToNgb(candidat.dateNaissance));
         return copy;
     }
 

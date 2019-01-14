@@ -117,9 +117,9 @@ public class CandidatResource {
     @GetMapping("/candidats/last")
     @Timed
     public ResponseEntity<List<Candidat>> getLast3Candidats() {
-    	log.debug("REST request to get last 3 candidats");
-    	List<Candidat> entityList = candidatQueryService.findLast3();
-    	return ResponseEntity.ok().body(entityList);
+        log.debug("REST request to get last 3 candidats");
+        List<Candidat> entityList = candidatQueryService.findLast3();
+        return ResponseEntity.ok().body(entityList);
     }
 
     /**
@@ -137,7 +137,7 @@ public class CandidatResource {
     }
     @GetMapping("/candidats/aggregate/{id}")
     @Timed
-    public ResponseEntity<CandidatAggregate> getCandidatAggregate(@PathVariable Long id) {
+    public ResponseEntity<CandidatAggregate> getCandidatAggregate(@PathVariable Integer id) {
         log.debug("REST request to get Candidat Aggregate : {}", id);
         CandidatAggregate candidat = candidatQueryService.findAggregate(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(candidat));

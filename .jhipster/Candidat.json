@@ -3,6 +3,17 @@
     "relationships": [],
     "fields": [
         {
+            "fieldName": "nni",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required",
+                "min",
+                "max"
+            ],
+            "fieldValidateRulesMin": 1000000000,
+            "fieldValidateRulesMax": 9999999999
+        },
+        {
             "fieldName": "nom",
             "fieldType": "String",
             "fieldValidateRules": [
@@ -15,6 +26,10 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "prenomPere",
+            "fieldType": "String"
         },
         {
             "fieldName": "dateNaissance",

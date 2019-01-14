@@ -16,8 +16,10 @@
             "detail": {
                 "title": "Candidat"
             },
-            "nom": "Nom",
-            "prenom": "Prenom",
+            "nni": "Nni",
+            "nom": "Nom de famille",
+            "prenom": "Prénom",
+            "prenomPere": "Prénom du père",
             "dateNaissance": "Date Naissance",
             "lieuNaissance": "Lieu Naissance",
             "adresse": "Adresse",

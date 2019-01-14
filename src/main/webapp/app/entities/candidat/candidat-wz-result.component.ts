@@ -17,7 +17,6 @@ import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 export class CandidatWzResultComponent implements OnInit {
 
     aggregate: CandidatAggregate;
-    
     constructor(
         private router: Router,
         private service: CandidatWzService,
@@ -28,7 +27,6 @@ export class CandidatWzResultComponent implements OnInit {
         private eventManager: JhiEventManager
     ) {
     }
-    
     ngOnInit() {
         this.aggregate = this.service.aggregate;
     }
@@ -39,11 +37,10 @@ export class CandidatWzResultComponent implements OnInit {
                 if (res.body.id > 0) {
                     this.eventManager.broadcast({ name: 'candidatListModification', content: 'OK'});
                     this.wizardHelperService.candidatWorkflow = this.workflowService.resetSteps(this.wizardHelperService.candidatWorkflow);
-                    this.router.navigate(['/candidat']);            
+                    this.router.navigate(['/candidat']);
                 }
-                
             },
-            (res: HttpErrorResponse) => {this.onError(res)}
+            (res: HttpErrorResponse) => {this.onError(res); }
         );
     }
 

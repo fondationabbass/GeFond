@@ -17,6 +17,8 @@
                 "title": "المترشح"
             },
             "nom": "الاسم",
+            "nni": "Nni",
+            "prenomPere": "Prenom Pere",
             "prenom": "اللقب",
             "dateNaissance": "تاريخ الميلاد",
             "lieuNaissance": "مكان الميلاد",

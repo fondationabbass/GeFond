@@ -83,11 +83,17 @@ public class CandidatQueryService extends QueryService<Candidat> {
             if (criteria.getId() != null) {
                 specification = specification.and(buildSpecification(criteria.getId(), Candidat_.id));
             }
+            if (criteria.getNni() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getNni(), Candidat_.nni));
+            }
             if (criteria.getNom() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getNom(), Candidat_.nom));
             }
             if (criteria.getPrenom() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getPrenom(), Candidat_.prenom));
+            }
+            if (criteria.getPrenomPere() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getPrenomPere(), Candidat_.prenomPere));
             }
             if (criteria.getDateNaissance() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getDateNaissance(), Candidat_.dateNaissance));
@@ -108,11 +114,11 @@ public class CandidatQueryService extends QueryService<Candidat> {
         return specification;
     }
 
-    public CandidatAggregate findAggregate(Long id) {
-        Candidat candidat = candidatRepository.findOne(id);
+    public CandidatAggregate findAggregate(Integer nni) {
+        Candidat candidat = candidatRepository.findByNni(nni).get(0);
         ExperienceCandidatCriteria criteria = new ExperienceCandidatCriteria();
         LongFilter candidatId = new LongFilter();
-        candidatId.setEquals(id);
+        candidatId.setEquals(candidat.getId());
         criteria.setCandidatId(candidatId );
         List<ExperienceCandidat> list = experienceCandidatQueryService.findByCriteria(criteria );
         CandidatAggregate result = new CandidatAggregate();

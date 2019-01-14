@@ -16,27 +16,28 @@
         <table class="table table-striped">
             <thead>
             <tr>
-            <th><span jhiTranslate="global.field.id">ID</span></th>
-            <th><span jhiTranslate="geFondApp.candidat.nom">Nom</span></th>
-            <th><span jhiTranslate="geFondApp.candidat.prenom">Prenom</span></th>
-            <th><span jhiTranslate="geFondApp.candidat.tel">Tel</span></th>
-            <th><span jhiTranslate="geFondApp.candidat.adresse">Adresse</span></th>
+            <th><span jhiTranslate="geFondApp.candidat.nni">Nni</span></th>
+            <th><span jhiTranslate="geFondApp.candidat.prenom">Prénom</span></th>
+            <th><span jhiTranslate="geFondApp.candidat.prenomPere">Prénom du Père</span></th>
+            <th><span jhiTranslate="geFondApp.candidat.nom">Nom de Famille</span></th>
             <th><span jhiTranslate="geFondApp.candidat.dateNaissance">Date Naissance</span></th>
             <th><span jhiTranslate="geFondApp.candidat.lieuNaissance">Lieu Naissance</span></th>
+            <th><span jhiTranslate="geFondApp.candidat.adresse">Adresse</span></th>
+            <th><span jhiTranslate="geFondApp.candidat.tel">Tel</span></th>
             <th><span jhiTranslate="geFondApp.candidat.situation">Situation</span></th>
             <th></th>
             </tr>
             </thead>
             <tbody>
-
             <tr *ngFor="let candidat of candidats ;trackBy: trackId">
-                <td><a [routerLink]="['../candidat', candidat.id ]">{{candidat.id}}</a></td>
-                <td>{{candidat.nom}}</td>
+                <td><a [routerLink]="['../candidat', candidat.nni ]">{{candidat.nni}}</a></td>
                 <td>{{candidat.prenom}}</td>
-                <td>{{candidat.tel}}</td>
-                <td>{{candidat.adresse}}</td>
+                <td>{{candidat.prenomPere}}</td>
+                <td>{{candidat.nom}}</td>
                 <td>{{candidat.dateNaissance | date:'mediumDate'}}</td>
                 <td>{{candidat.lieuNaissance}}</td>
+                <td>{{candidat.adresse}}</td>
+                <td>{{candidat.tel}}</td>
                 <td>{{candidat.situation}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">

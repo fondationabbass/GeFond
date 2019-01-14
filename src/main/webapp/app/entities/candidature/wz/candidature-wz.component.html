@@ -5,15 +5,15 @@
             <div class="row">
                 <div class='col-xs-12 col-sm-6'>
                     <div class="form-group">
-                        <label class="form-control-label" for="field_code">Id Candidat</label>
-                        <input type="number" class="form-control" name="idCandidat" id="field_idCandidat" [ngModel]="candidature.candidat.id"
+                        <label class="form-control-label" for="field_code">NNI Candidat</label>
+                        <input type="number" class="form-control" name="nniCandidat" id="field_nniCandidat" [ngModel]="candidature.candidat.nni"
                             (ngModelChange)="findCandidat($event)" required />
-                        <div [hidden]="!(editForm.controls.idCandidat?.dirty && editForm.controls.idCandidat?.invalid)">
-                            <small class="form-text text-danger" [hidden]="!editForm.controls.idCandidat?.errors?.required"
+                        <div [hidden]="!(editForm.controls.nniCandidat?.dirty && editForm.controls.nniCandidat?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.nniCandidat?.errors?.required"
                                 jhiTranslate="entity.validation.required">
                                 This field is required.
                             </small>
-                            <small class="form-text text-danger" [hidden]="!editForm.controls.idCandidat?.errors?.number"
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.nniCandidat?.errors?.number"
                                 jhiTranslate="entity.validation.number">
                                 This field should be a number.
                             </small>
@@ -27,7 +27,7 @@
                     <div div class="alert alert-danger" role="alert" [hidden]="!clientError">
                         <h4>Error</h4>
                         <hr>
-                        <p>L'id saisi ne corresponde à aucun candidat</p>
+                        <p>Le NNI saisi ne corresponde à aucun candidat</p>
                     </div>
                 </div>
             </div>

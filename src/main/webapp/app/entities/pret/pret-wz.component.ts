@@ -21,7 +21,7 @@ export class PretWzComponent implements OnInit {
     periodTypes: PeriodType[];
     periodType: PeriodType;
     form: any;
-    clientError:boolean = false;
+    clientError = false;
 
     constructor(private router: Router,
         private formDataService: PretAggregateService,
@@ -32,16 +32,16 @@ export class PretWzComponent implements OnInit {
 
     ngOnInit() {
         this.pret = this.formDataService.getPret();
-        if(!this.pret.client) {        
+        if (!this.pret.client) {
             this.pret.client = {};
             this.pret.client.candidat = {};
         }
-        this.periodType=this.formDataService.getData().periodType;
+        this.periodType = this.formDataService.getData().periodType;
         this.parametrageService.pretTypes().subscribe(
             (res: HttpResponse<string[]>) => {
                 this.pretTypes = res.body;
             }
-        ); 
+        );
         this.parametrageService.periodTypes().subscribe(
             (res: HttpResponse<PeriodType[]>) => {
                 this.periodTypes = res.body;
@@ -49,27 +49,28 @@ export class PretWzComponent implements OnInit {
         );
     }
     findClient(code: string) {
-        this.clientService.query({ "code.equals": code }).subscribe(
+        this.clientService.query({ 'code.equals': code }).subscribe(
             (res: HttpResponse<Client[]>) => {
                 if (res.body.length > 0) {
                     this.pret.client = res.body.pop();
-                    this.clientError=false;
-                }
-                else {
-                    this.clientError=true;
+                    this.clientError = false;
+                } else {
+                    this.clientError = true;
                     this.pret.client = {};
                     this.pret.client.candidat = {};
                 }
             }
         );
-        if(code==="") this.clientError=false;
+        if (code === '') {
+            this.clientError = false;
+        }
     }
     save(form: any): boolean {
         this.pret.dateMisePlace = dateToNgb(new Date());
         this.pret.userInitial = this.principal.getLogin();
         this.pret.etat = 'En attente';
         this.formDataService.setPret(this.pret);
-        this.formDataService.getData().periodType=this.periodType;
+        this.formDataService.getData().periodType = this.periodType;
         return true;
     }
 

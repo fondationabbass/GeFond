@@ -31,6 +31,7 @@ export class CandidatureWzResultComponent implements OnInit {
   }
 
   create() {
+      console.log('creating...');
       this.candidatureService.createAggregate(this.aggregate).subscribe(
           (res: HttpResponse<Candidature>) => {
               if (res.body.id > 0) {
@@ -39,7 +40,7 @@ export class CandidatureWzResultComponent implements OnInit {
                   this.router.navigate(['/candidature']);
               }
           },
-          (res: HttpErrorResponse) => {this.onError(res)}
+          (res: HttpErrorResponse) => {this.onError(res); }
       );
   }
 

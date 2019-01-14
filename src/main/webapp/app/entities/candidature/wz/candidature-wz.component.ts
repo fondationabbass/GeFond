@@ -33,8 +33,8 @@ export class CandidatureWzComponent implements OnInit {
     this.candidature = this.service.aggregate.candidature;
   }
 
-  findCandidat(id: number) {
-    this.candidatService.findAggregate(id).subscribe(
+  findCandidat(nni: number) {
+    this.candidatService.findAggregate(nni).subscribe(
         (res: HttpResponse<CandidatAggregate>) => {
           this.candidature.candidat = res.body.candidat;
           this.exps = res.body.exps;
@@ -45,7 +45,7 @@ export class CandidatureWzComponent implements OnInit {
           this.clientError = true;
          }
     );
-    if (id === 0) {
+    if (nni === 0) {
       this.clientError = false;
     }
 }

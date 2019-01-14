@@ -1,6 +1,7 @@
 ######################
 # Project Specific
 ######################
+/h2db/
 /target/www/**
 /src/test/javascript/coverage/
 /src/test/javascript/PhantomJS*/

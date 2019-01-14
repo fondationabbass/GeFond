@@ -3,6 +3,10 @@
     <h2><span jhiTranslate="geFondApp.candidat.detail.title">Candidat</span> {{candidat.id}}</h2>
     <hr>
     <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="geFondApp.candidat.nni">Nni</span></dt>
+        <dd>
+            <span>{{candidat.nni}}</span>
+        </dd>
         <dt><span jhiTranslate="geFondApp.candidat.nom">Nom</span></dt>
         <dd>
             <span>{{candidat.nom}}</span>
@@ -10,6 +14,10 @@
         <dt><span jhiTranslate="geFondApp.candidat.prenom">Prenom</span></dt>
         <dd>
             <span>{{candidat.prenom}}</span>
+        </dd>
+        <dt><span jhiTranslate="geFondApp.candidat.prenomPere">Prenom Pere</span></dt>
+        <dd>
+            <span>{{candidat.prenomPere}}</span>
         </dd>
         <dt><span jhiTranslate="geFondApp.candidat.dateNaissance">Date Naissance</span></dt>
         <dd>
@@ -46,6 +54,4 @@
             class="btn btn-primary">
         <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
     </button>
-
-    
 </div>

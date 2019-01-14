@@ -27,7 +27,8 @@ import {
     ActiveMenuDirective,
     ErrorComponent
 } from './layouts';
-import { NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateCustomParserFormatter } from './shared/dateformat';
 
 
 
@@ -50,10 +51,9 @@ import { NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
         PageRibbonComponent,
         ActiveMenuDirective,
         FooterComponent,
-      
-      
     ],
     providers: [
+        {provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter},
         ProfileService,
         PaginationConfig,
         UserRouteAccessService,
