@@ -19,36 +19,6 @@
             </select>
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="geFondApp.garantie.montantEvalue" for="field_montantEvalue">Montant Evalue</label>
-            <input type="number" class="form-control" name="montantEvalue" id="field_montantEvalue"
-                [(ngModel)]="garantie.montantEvalue" required/>
-            <div [hidden]="!(editForm.controls.montantEvalue?.dirty && editForm.controls.montantEvalue?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.montantEvalue?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
-                </small>
-                <small class="form-text text-danger"
-                    [hidden]="!editForm.controls.montantEvalue?.errors?.number" jhiTranslate="entity.validation.number">
-                    This field should be a number.
-                </small>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="geFondApp.garantie.montantAfect" for="field_montantAfect">Montant Afect</label>
-            <input type="number" class="form-control" name="montantAfect" id="field_montantAfect"
-                [(ngModel)]="garantie.montantAfect" required/>
-            <div [hidden]="!(editForm.controls.montantAfect?.dirty && editForm.controls.montantAfect?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.montantAfect?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
-                </small>
-                <small class="form-text text-danger"
-                    [hidden]="!editForm.controls.montantAfect?.errors?.number" jhiTranslate="entity.validation.number">
-                    This field should be a number.
-                </small>
-            </div>
-        </div>
-        <div class="form-group">
             <label class="form-control-label" jhiTranslate="geFondApp.garantie.dateDepot" for="field_dateDepot">Date Depot</label>
             <div class="input-group">
                 <input id="field_dateDepot" type="text" class="form-control" name="dateDepot" ngbDatepicker  #dateDepotDp="ngbDatepicker" [(ngModel)]="garantie.dateDepot"

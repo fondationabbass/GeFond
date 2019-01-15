@@ -15,7 +15,7 @@ export class GarantiePopupService {
         private modalService: NgbModal,
         private router: Router,
         private garantieService: GarantieService,
-        private pretService:PretService
+        private pretService: PretService
 
     ) {
         this.ngbModalRef = null;

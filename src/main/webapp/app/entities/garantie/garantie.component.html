@@ -18,8 +18,6 @@
             <tr>
             <th><span jhiTranslate="global.field.id">ID</span></th>
             <th><span jhiTranslate="geFondApp.garantie.typeGar">Type Gar</span></th>
-            <th><span jhiTranslate="geFondApp.garantie.montantEvalue">Montant Evalue</span></th>
-            <th><span jhiTranslate="geFondApp.garantie.montantAfect">Montant Afect</span></th>
             <th><span jhiTranslate="geFondApp.garantie.dateDepot">Date Depot</span></th>
             <th><span jhiTranslate="geFondApp.garantie.numDocument">Num Document</span></th>
             <th><span jhiTranslate="geFondApp.garantie.etat">Etat</span></th>
@@ -32,8 +30,6 @@
             <tr *ngFor="let garantie of garanties ;trackBy: trackId">
                 <td><a [routerLink]="['../garantie', garantie.id ]">{{garantie.id}}</a></td>
                 <td>{{garantie.typeGar}}</td>
-                <td>{{garantie.montantEvalue}}</td>
-                <td>{{garantie.montantAfect}}</td>
                 <td>{{garantie.dateDepot | date:'mediumDate'}}</td>
                 <td>{{garantie.numDocument}}</td>
                 <td>{{garantie.etat}}</td>

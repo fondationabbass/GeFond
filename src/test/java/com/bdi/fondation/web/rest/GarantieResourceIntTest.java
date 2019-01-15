@@ -1,14 +1,21 @@
 package com.bdi.fondation.web.rest;
 
-import com.bdi.fondation.GeFondApp;
+import static com.bdi.fondation.web.rest.TestUtil.createFormattingConversionService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.bdi.fondation.domain.Garantie;
-import com.bdi.fondation.domain.Pret;
-import com.bdi.fondation.repository.GarantieRepository;
-import com.bdi.fondation.service.GarantieService;
-import com.bdi.fondation.web.rest.errors.ExceptionTranslator;
-import com.bdi.fondation.service.dto.GarantieCriteria;
-import com.bdi.fondation.service.GarantieQueryService;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,16 +31,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.List;
-
-import static com.bdi.fondation.web.rest.TestUtil.createFormattingConversionService;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import com.bdi.fondation.GeFondApp;
+import com.bdi.fondation.domain.Garantie;
+import com.bdi.fondation.domain.Pret;
+import com.bdi.fondation.repository.GarantieRepository;
+import com.bdi.fondation.service.GarantieQueryService;
+import com.bdi.fondation.service.GarantieService;
+import com.bdi.fondation.web.rest.errors.ExceptionTranslator;
 
 /**
  * Test class for the GarantieResource REST controller.
@@ -94,7 +98,7 @@ public class GarantieResourceIntTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         final GarantieResource garantieResource = new GarantieResource(garantieService, garantieQueryService);
-        this.restGarantieMockMvc = MockMvcBuilders.standaloneSetup(garantieResource)
+        restGarantieMockMvc = MockMvcBuilders.standaloneSetup(garantieResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
             .setConversionService(createFormattingConversionService())
@@ -110,8 +114,6 @@ public class GarantieResourceIntTest {
     public static Garantie createEntity(EntityManager em) {
         Garantie garantie = new Garantie()
             .typeGar(DEFAULT_TYPE_GAR)
-            .montantEvalue(DEFAULT_MONTANT_EVALUE)
-            .montantAfect(DEFAULT_MONTANT_AFECT)
             .dateDepot(DEFAULT_DATE_DEPOT)
             .numDocument(DEFAULT_NUM_DOCUMENT)
             .etat(DEFAULT_ETAT)
@@ -140,8 +142,6 @@ public class GarantieResourceIntTest {
         assertThat(garantieList).hasSize(databaseSizeBeforeCreate + 1);
         Garantie testGarantie = garantieList.get(garantieList.size() - 1);
         assertThat(testGarantie.getTypeGar()).isEqualTo(DEFAULT_TYPE_GAR);
-        assertThat(testGarantie.getMontantEvalue()).isEqualTo(DEFAULT_MONTANT_EVALUE);
-        assertThat(testGarantie.getMontantAfect()).isEqualTo(DEFAULT_MONTANT_AFECT);
         assertThat(testGarantie.getDateDepot()).isEqualTo(DEFAULT_DATE_DEPOT);
         assertThat(testGarantie.getNumDocument()).isEqualTo(DEFAULT_NUM_DOCUMENT);
         assertThat(testGarantie.getEtat()).isEqualTo(DEFAULT_ETAT);
@@ -173,42 +173,6 @@ public class GarantieResourceIntTest {
         int databaseSizeBeforeTest = garantieRepository.findAll().size();
         // set the field null
         garantie.setTypeGar(null);
-
-        // Create the Garantie, which fails.
-
-        restGarantieMockMvc.perform(post("/api/garanties")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(garantie)))
-            .andExpect(status().isBadRequest());
-
-        List<Garantie> garantieList = garantieRepository.findAll();
-        assertThat(garantieList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkMontantEvalueIsRequired() throws Exception {
-        int databaseSizeBeforeTest = garantieRepository.findAll().size();
-        // set the field null
-        garantie.setMontantEvalue(null);
-
-        // Create the Garantie, which fails.
-
-        restGarantieMockMvc.perform(post("/api/garanties")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(garantie)))
-            .andExpect(status().isBadRequest());
-
-        List<Garantie> garantieList = garantieRepository.findAll();
-        assertThat(garantieList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkMontantAfectIsRequired() throws Exception {
-        int databaseSizeBeforeTest = garantieRepository.findAll().size();
-        // set the field null
-        garantie.setMontantAfect(null);
 
         // Create the Garantie, which fails.
 
@@ -693,8 +657,6 @@ public class GarantieResourceIntTest {
         em.detach(updatedGarantie);
         updatedGarantie
             .typeGar(UPDATED_TYPE_GAR)
-            .montantEvalue(UPDATED_MONTANT_EVALUE)
-            .montantAfect(UPDATED_MONTANT_AFECT)
             .dateDepot(UPDATED_DATE_DEPOT)
             .numDocument(UPDATED_NUM_DOCUMENT)
             .etat(UPDATED_ETAT)
@@ -710,8 +672,6 @@ public class GarantieResourceIntTest {
         assertThat(garantieList).hasSize(databaseSizeBeforeUpdate);
         Garantie testGarantie = garantieList.get(garantieList.size() - 1);
         assertThat(testGarantie.getTypeGar()).isEqualTo(UPDATED_TYPE_GAR);
-        assertThat(testGarantie.getMontantEvalue()).isEqualTo(UPDATED_MONTANT_EVALUE);
-        assertThat(testGarantie.getMontantAfect()).isEqualTo(UPDATED_MONTANT_AFECT);
         assertThat(testGarantie.getDateDepot()).isEqualTo(UPDATED_DATE_DEPOT);
         assertThat(testGarantie.getNumDocument()).isEqualTo(UPDATED_NUM_DOCUMENT);
         assertThat(testGarantie.getEtat()).isEqualTo(UPDATED_ETAT);

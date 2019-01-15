@@ -1,6 +1,5 @@
 package com.bdi.fondation.service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -11,12 +10,14 @@ import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import io.github.jhipster.service.QueryService;
-
+// for static metamodels
 import com.bdi.fondation.domain.Garantie;
-import com.bdi.fondation.domain.*; // for static metamodels
+import com.bdi.fondation.domain.Garantie_;
+import com.bdi.fondation.domain.Pret_;
 import com.bdi.fondation.repository.GarantieRepository;
 import com.bdi.fondation.service.dto.GarantieCriteria;
+
+import io.github.jhipster.service.QueryService;
 
 
 /**
@@ -74,12 +75,6 @@ public class GarantieQueryService extends QueryService<Garantie> {
             }
             if (criteria.getTypeGar() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getTypeGar(), Garantie_.typeGar));
-            }
-            if (criteria.getMontantEvalue() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getMontantEvalue(), Garantie_.montantEvalue));
-            }
-            if (criteria.getMontantAfect() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getMontantAfect(), Garantie_.montantAfect));
             }
             if (criteria.getDateDepot() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getDateDepot(), Garantie_.dateDepot));

@@ -1,16 +1,11 @@
 package com.bdi.fondation.service.dto;
 
 import java.io.Serializable;
-import io.github.jhipster.service.filter.BooleanFilter;
-import io.github.jhipster.service.filter.DoubleFilter;
+
 import io.github.jhipster.service.filter.Filter;
-import io.github.jhipster.service.filter.FloatFilter;
-import io.github.jhipster.service.filter.IntegerFilter;
+import io.github.jhipster.service.filter.LocalDateFilter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
-
-
-import io.github.jhipster.service.filter.LocalDateFilter;
 
 
 
@@ -29,10 +24,6 @@ public class GarantieCriteria implements Serializable {
     private LongFilter id;
 
     private StringFilter typeGar;
-
-    private DoubleFilter montantEvalue;
-
-    private DoubleFilter montantAfect;
 
     private LocalDateFilter dateDepot;
 
@@ -61,22 +52,6 @@ public class GarantieCriteria implements Serializable {
 
     public void setTypeGar(StringFilter typeGar) {
         this.typeGar = typeGar;
-    }
-
-    public DoubleFilter getMontantEvalue() {
-        return montantEvalue;
-    }
-
-    public void setMontantEvalue(DoubleFilter montantEvalue) {
-        this.montantEvalue = montantEvalue;
-    }
-
-    public DoubleFilter getMontantAfect() {
-        return montantAfect;
-    }
-
-    public void setMontantAfect(DoubleFilter montantAfect) {
-        this.montantAfect = montantAfect;
     }
 
     public LocalDateFilter getDateDepot() {
@@ -124,8 +99,6 @@ public class GarantieCriteria implements Serializable {
         return "GarantieCriteria{" +
                 (id != null ? "id=" + id + ", " : "") +
                 (typeGar != null ? "typeGar=" + typeGar + ", " : "") +
-                (montantEvalue != null ? "montantEvalue=" + montantEvalue + ", " : "") +
-                (montantAfect != null ? "montantAfect=" + montantAfect + ", " : "") +
                 (dateDepot != null ? "dateDepot=" + dateDepot + ", " : "") +
                 (numDocument != null ? "numDocument=" + numDocument + ", " : "") +
                 (etat != null ? "etat=" + etat + ", " : "") +

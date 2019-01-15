@@ -19,7 +19,7 @@ export class CandidatureService {
 
     private resourceUrl =  SERVER_API_URL + 'api/candidatures';
 
-    constructor(private http: HttpClient,private dateUtils: JhiDateUtils) { }
+    constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
 
     create(candidature: Candidature): Observable<EntityResponseType> {
         const copy = this.convert(candidature);

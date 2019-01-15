@@ -1,14 +1,21 @@
 package com.bdi.fondation.domain;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Garantie.
@@ -28,14 +35,6 @@ public class Garantie implements Serializable {
     @NotNull
     @Column(name = "type_gar", nullable = false)
     private String typeGar;
-
-    @NotNull
-    @Column(name = "montant_evalue", nullable = false)
-    private Double montantEvalue;
-
-    @NotNull
-    @Column(name = "montant_afect", nullable = false)
-    private Double montantAfect;
 
     @Column(name = "date_depot")
     private LocalDate dateDepot;
@@ -74,32 +73,6 @@ public class Garantie implements Serializable {
 
     public void setTypeGar(String typeGar) {
         this.typeGar = typeGar;
-    }
-
-    public Double getMontantEvalue() {
-        return montantEvalue;
-    }
-
-    public Garantie montantEvalue(Double montantEvalue) {
-        this.montantEvalue = montantEvalue;
-        return this;
-    }
-
-    public void setMontantEvalue(Double montantEvalue) {
-        this.montantEvalue = montantEvalue;
-    }
-
-    public Double getMontantAfect() {
-        return montantAfect;
-    }
-
-    public Garantie montantAfect(Double montantAfect) {
-        this.montantAfect = montantAfect;
-        return this;
-    }
-
-    public void setMontantAfect(Double montantAfect) {
-        this.montantAfect = montantAfect;
     }
 
     public LocalDate getDateDepot() {
@@ -193,8 +166,6 @@ public class Garantie implements Serializable {
         return "Garantie{" +
             "id=" + getId() +
             ", typeGar='" + getTypeGar() + "'" +
-            ", montantEvalue=" + getMontantEvalue() +
-            ", montantAfect=" + getMontantAfect() +
             ", dateDepot='" + getDateDepot() + "'" +
             ", numDocument='" + getNumDocument() + "'" +
             ", etat='" + getEtat() + "'" +

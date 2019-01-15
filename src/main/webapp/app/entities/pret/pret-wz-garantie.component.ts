@@ -18,7 +18,7 @@ export class PretWzGarantieComponent implements OnInit {
     garanties: Garantie[];
     garantie: Garantie;
     pret: Pret;
-    title: string = "Saisie des garanties du pret";
+    title = 'Saisie des garanties du pret';
     garantieTypes: string[];
 
     constructor(private router: Router,
@@ -30,7 +30,7 @@ export class PretWzGarantieComponent implements OnInit {
     ngOnInit() {
         this.pret = this.formDataService.getPret();
         this.garanties = this.formDataService.getGaranties();
-        this.garantie={};
+        this.garantie = {};
         this.parametrageService.garantiesTypes().subscribe(
             (res: HttpResponse<string[]>) => {
                 this.garantieTypes = res.body;
@@ -42,21 +42,10 @@ export class PretWzGarantieComponent implements OnInit {
     }
     add() {
         const e = this.garantie;
-        if(e.montantAfect + this.montantDebloque() > this.formDataService.getPret().montAaccord){
-            this.jhiAlertService.warning("La somme des montants débloqués est supérieur au plafond du pret", null, null);
-            return;
-        }
         e.dateDepot = ngbToDate(e.dateDepot);
         e.dateRetrait = ngbToDate(e.dateRetrait);
         this.garanties.push(e);
         this.garantie = {};
-    }
-    private montantDebloque() {
-        let montant: number = 0;
-        this.garanties.forEach(function (item) {
-            montant += item.dateDepot;
-        });
-        return montant;
     }
     updateGarantie(item: Garantie) {
         this.garantie = item;
@@ -71,16 +60,8 @@ export class PretWzGarantieComponent implements OnInit {
         this.garanties.splice(this.garanties.indexOf(item), 1);
     }
     save(garanties: Garantie[]): boolean {
-        let montant: number = 0;
-        this.garanties.forEach(function (item) {
-            montant += item.montantAfect;
-        });
-        if (montant < this.pret.montDebloq) {
-            this.jhiAlertService.error("La somme des montants des garanties est inférieur au montant du pret", null, null);
-            return false;
-        }
-        this.garanties.forEach(function (item) {
-            item.etat= 'validé';
+        this.garanties.forEach ( function(item) {
+            item.etat = 'validé';
         });
         this.formDataService.setGaranties(garanties);
         return true;
