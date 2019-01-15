@@ -80,18 +80,21 @@ export class PretWzComponent implements OnInit {
         }
     }
     computeEndDate(event: any) {
-        if (!this.periodType || !this.periodType.label || !this.pret.datePremiereEcheance || !this.pret.nbrEcheance)
+        if (!this.periodType || !this.periodType.label || !this.pret.datePremiereEcheance || !this.pret.nbrEcheance) {
             return;
+        }
         this.pret.periodicite = this.periodType.label;
-        
-        let type: string = this.periodType.type;
-        let coeff: number = this.periodType.coeff;
-        let startDate: Date = ngbToDate(this.pret.datePremiereEcheance);
-        let nbrPeriod: number = this.pret.nbrEcheance;
-        if(type==="year")
+        const type: string = this.periodType.type;
+        const coeff: number = this.periodType.coeff;
+        const startDate: Date = ngbToDate(this.pret.datePremiereEcheance);
+        const nbrPeriod: number = this.pret.nbrEcheance;
+        if (type === 'year') {
             startDate.setFullYear(startDate.getFullYear() + coeff * nbrPeriod);
-        if(type==="month")
+        }
+        if (type === 'month') {
             startDate.setMonth(startDate.getMonth() + coeff * nbrPeriod);
+        }
+        startDate.setMonth(startDate.getMonth() + 1);
         this.pret.dateDerniereEcheance = dateToNgb(startDate);
     }
 }

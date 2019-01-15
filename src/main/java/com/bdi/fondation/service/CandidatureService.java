@@ -26,6 +26,7 @@ import com.bdi.fondation.service.dto.ChapitreCriteria;
 import com.bdi.fondation.service.util.RandomUtil;
 
 import io.github.jhipster.service.filter.StringFilter;
+import io.jsonwebtoken.lang.Collections;
 
 
 /**
@@ -71,11 +72,16 @@ public class CandidatureService {
         log.debug("Request to save Candidature : {}", candidature);
         Candidature result = candidatureRepository.save(candidature);
         if(result.getStatus().equals("Validée")) {
+            createClientIfNotExists(result);
+        }
+        return result;
+    }
+    private void createClientIfNotExists(Candidature result) {
+        if(Collections.isEmpty(clientRepository.findByCandidat(result.getCandidat()))) {
             Client client = new Client();
             client.code("CLI"+RandomUtil.generateClientCode()).candidat(result.getCandidat()).dateCreat(LocalDate.now());
             clientRepository.save(client);
         }
-        return result;
     }
     public Candidature validate(Candidature candidature) {
     	candidature = candidatureRepository.findOne(candidature.getId());

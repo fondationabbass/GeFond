@@ -10,7 +10,7 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="id">Code</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="dateCreat"><span jhiTranslate="geFondApp.client.dateCreat">Date Creat</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="candidat.nom"><span jhiTranslate="geFondApp.candidat.nom">Nom</span><span class="fa fa-sort"></span></th>
             <th jhiSortBy="candidat.prenom"><span jhiTranslate="geFondApp.candidat.prenom">Prenom</span><span class="fa fa-sort"></span></th>
@@ -32,7 +32,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let client of clients ;trackBy: trackId">
-                <td><a [routerLink]="['../client', client.id ]">{{client.id}}</a></td>
+                <td><a [routerLink]="['../client', client.id ]">{{client.code}}</a></td>
                 <td>{{client.dateCreat | date:'mediumDate'}}</td>
                 <td>{{client.candidat.nom}}</td>
                 <td>{{client.candidat.prenom}}</td>
