@@ -85,13 +85,13 @@ export class PretWzElementFinancementComponent implements OnInit {
 
     goToPrevious(elements: ElementFinancement[]) {
         if (this.save(elements)) {
-            this.router.navigate(['/pret-wz']);
+            this.router.navigate(['/pret-wz-garantie']);
         }
     }
 
     goToNext(elements: ElementFinancement[]) {
         if (this.save(elements)) {
-            this.router.navigate(['/pret-wz-garantie']);
+            this.router.navigate(['/pret-wz-echeance']);
         }
     }
 }

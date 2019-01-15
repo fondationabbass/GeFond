@@ -108,7 +108,7 @@ export class PretWzEcheanceComponent implements OnInit {
     goToPrevious(echeances: Echeance[]) {
         if (this.save(echeances)) {
             console.log(this.formDataService.getFormData());
-            this.router.navigate(['/pret-wz-garantie']);
+            this.router.navigate(['/pret-wz-element-financement']);
         }
     }
 

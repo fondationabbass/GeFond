@@ -88,13 +88,13 @@ export class PretWzGarantieComponent implements OnInit {
 
     goToPrevious(garanties: Garantie[]) {
         if (this.save(garanties)) {
-            this.router.navigate(['/pret-wz-element-financement']);
+            this.router.navigate(['/pret-wz']);
         }
     }
 
     goToNext(garanties: Garantie[]) {
         if (this.save(garanties)) {
-            this.router.navigate(['/pret-wz-echeance']);
+            this.router.navigate(['/pret-wz-element-financement']);
         }
     }
 }

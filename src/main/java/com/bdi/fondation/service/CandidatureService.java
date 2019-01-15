@@ -97,7 +97,12 @@ public class CandidatureService {
     public Candidature save(CandidatureAggregate aggregate) {
     	log.debug("Request to save full Candidature : {}", aggregate);
     	Candidature result = candidatureRepository.save(aggregate.getCandidature());
-    	projetRepository.save(aggregate.getProjet().candidature(result));
+    	projetRepository.save(aggregate.getProjet()
+    	        .candidature(result)
+    	        .dateCreation(LocalDate.now())
+    	        .etat("En cours")
+    	        .type(result.getType())
+    	        .montApp(aggregate.getProjet().getMontEstime()));
     	Arrays.stream(aggregate.getDocuments()).forEach(e->documentRepository.save(e.candidature(result)));
     	Arrays.stream(aggregate.getEntretiens()).forEach(e->entretienRepository.save(e.candidature(result)));
     	Arrays.stream(aggregate.getVisites()).forEach(e->visiteRepository.save(e.candidature(result)));

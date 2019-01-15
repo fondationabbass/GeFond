@@ -35,6 +35,12 @@ public class GarantieService {
      */
     public Garantie save(Garantie garantie) {
         log.debug("Request to save Garantie : {}", garantie);
+        //validate(garantie);
+
+        return garantieRepository.save(garantie);
+    }
+
+    private void validate(Garantie garantie) {
         StringBuilder sb = new StringBuilder();
         if(garantie.getMontantEvalue() < garantie.getMontantAfect()){
         	sb.append("Le montant affecté est supérieur au montant évalué.\n");
@@ -46,8 +52,6 @@ public class GarantieService {
         if(sb.length() > 0){
         	throw new IllegalStateException(sb.toString());
         }
-
-        return garantieRepository.save(garantie);
     }
     public Iterable<Garantie> save(Iterable<Garantie> items) {
 		List<Garantie> result = new ArrayList<>();

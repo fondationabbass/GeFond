@@ -1,14 +1,22 @@
 package com.bdi.fondation.domain;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Projet.
@@ -33,31 +41,25 @@ public class Projet implements Serializable {
     @Column(name = "mont_estime", nullable = false)
     private Double montEstime;
 
-    @NotNull
-    @Column(name = "mont_app", nullable = false)
+    @Column(name = "mont_app")
     private Double montApp;
 
-    @NotNull
-    @Column(name = "domaine", nullable = false)
+    @Column(name = "domaine")
     private String domaine;
 
-    @NotNull
-    @Column(name = "jhi_type", nullable = false)
+    @Column(name = "jhi_type")
     private String type;
 
-    @NotNull
-    @Column(name = "description", nullable = false)
+    @Column(name = "description")
     private String description;
 
     @Column(name = "date_creation")
     private LocalDate dateCreation;
 
-    @NotNull
-    @Column(name = "etat", nullable = false)
+    @Column(name = "etat")
     private String etat;
 
-    @NotNull
-    @Column(name = "lieu", nullable = false)
+    @Column(name = "lieu")
     private String lieu;
 
     @OneToOne
