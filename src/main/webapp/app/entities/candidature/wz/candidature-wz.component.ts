@@ -31,6 +31,7 @@ export class CandidatureWzComponent implements OnInit {
 
   ngOnInit() {
     this.candidature = this.service.aggregate.candidature;
+    this.exps = this.service.aggregate.exps;
   }
 
   findCandidat(nni: number) {

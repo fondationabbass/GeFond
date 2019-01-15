@@ -37,7 +37,7 @@ export class CandidatAggregateDetailComponent implements OnInit, OnDestroy {
                 this.aggregate = candidatResponse.body;
             });
     }
-    
+
     previousState() {
         window.history.back();
     }

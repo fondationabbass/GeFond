@@ -51,6 +51,7 @@ export class CandidatureWzService {
     this.aggregate.documents = [];
     this.aggregate.entretiens = [];
     this.aggregate.visites = [];
+    this.aggregate.exps = [];
   }
 
 }

@@ -37,7 +37,7 @@ export class CandidatureAggregateDetailComponent implements OnInit, OnDestroy {
                 this.aggregate = candidatResponse.body;
             });
     }
-    
+
     previousState() {
         window.history.back();
     }
@@ -50,7 +50,7 @@ export class CandidatureAggregateDetailComponent implements OnInit, OnDestroy {
     registerChangeInCandidats() {
         this.eventSubscriber = this.eventManager.subscribe(
             'candidatListModification',
-            (response) => this.load(this.aggregate.candidature.id)
+            () => this.load(this.aggregate.candidature.id)
         );
     }
 }

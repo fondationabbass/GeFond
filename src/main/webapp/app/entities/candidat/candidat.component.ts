@@ -8,13 +8,14 @@ import { CandidatService } from './candidat.service';
 import { Principal } from '../../shared';
 import { Router } from '@angular/router';
 import { CandidatureWzService } from '../../shared/candidature-wz.service';
+import { CandidatAggregate } from './candidat-wz.model';
 
 @Component({
     selector: 'jhi-candidat',
     templateUrl: './candidat.component.html'
 })
 export class CandidatComponent implements OnInit, OnDestroy {
-candidats: Candidat[];
+    candidats: Candidat[];
     currentAccount: any;
     eventSubscriber: Subscription;
 
@@ -51,7 +52,7 @@ candidats: Candidat[];
     trackId(index: number, item: Candidat) {
         return item.id;
     }
-    
+
     registerChangeInCandidats() {
         this.eventSubscriber = this.eventManager.subscribe('candidatListModification', (response) => this.loadAll());
     }
@@ -60,10 +61,25 @@ candidats: Candidat[];
         this.jhiAlertService.error(error.message, null, null);
     }
 
-    startCandidature(candidat: Candidat) {
+/*     startCandidature(candidat: Candidat) {
         this.candidatureWz.reset();
         this.candidatureWz.aggregate.candidature.candidat = candidat;
         this.router.navigate(['/candidature-wz']);
     }
-
+ */
+    startCandidature(candidat: Candidat) {
+        this.candidatService.findAggregate(candidat.nni).subscribe(
+            (res: HttpResponse<CandidatAggregate>) => {
+                this.candidatureWz.reset();
+                this.candidatureWz.aggregate.candidature.candidat = candidat;
+                this.candidatureWz.aggregate.exps = res.body.exps;
+                this.router.navigate(['/candidature-wz']);
+            },
+            () => {
+                this.candidatureWz.reset();
+                this.candidatureWz.aggregate.candidature.candidat = candidat;
+                this.router.navigate(['/candidature-wz']);
+            }
+        );
+    }
 }

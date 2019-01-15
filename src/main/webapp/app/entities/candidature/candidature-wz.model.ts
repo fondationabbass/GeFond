@@ -1,10 +1,9 @@
-import { Candidature } from "./candidature.model";
-import { Candidat} from "../candidat";
-import { Document} from "../document";
-import { Projet} from "../projet";
+import { Candidature } from './candidature.model';
+import { Document} from '../document';
+import { Projet} from '../projet';
 import { Entretien } from '../entretien';
 import { Visite } from '../visite';
-import { ExperienceCandidat } from "../experience-candidat";
+import { ExperienceCandidat } from '../experience-candidat';
 
 export class CandidatureAggregate {
   constructor(
@@ -14,5 +13,5 @@ export class CandidatureAggregate {
     public entretiens: Entretien[] = [],
     public visites: Visite[] = [],
     public exps: ExperienceCandidat[] = []
-  ){}
+  ) {}
 }
