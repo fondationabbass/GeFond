@@ -5,24 +5,16 @@
     </div>
     <div class="form-group">
         <label class="form-control-label" jhiTranslate="geFondApp.candidat.nni" for="field_nni">Nni</label>
-        <input type="number" class="form-control" name="nni" id="field_nni"
-            [(ngModel)]="candidat.nni" required min="1000000000" max="9999999999"/>
+        <input type="text" class="form-control" name="nni" id="field_nni"
+            [(ngModel)]="candidat.nni" required minlength="10" maxlength="10" pattern="[0-9]{10}"/>
         <div [hidden]="!(editForm.controls.nni?.dirty && editForm.controls.nni?.invalid)">
             <small class="form-text text-danger"
                [hidden]="!editForm.controls.nni?.errors?.required" jhiTranslate="entity.validation.required">
                This field is required.
             </small>
             <small class="form-text text-danger"
-                [hidden]="!editForm.controls.nni?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 1000000000 }">
-                This field should be at least 1000000000.
-            </small>
-            <small class="form-text text-danger"
-                [hidden]="!editForm.controls.nni?.errors?.max" jhiTranslate="entity.validation.max" translateValues="{ max: 9999999999 }">
-                This field cannot be more than 9999999999.
-            </small>
-            <small class="form-text text-danger"
-                [hidden]="!editForm.controls.nni?.errors?.number" jhiTranslate="entity.validation.number">
-                This field should be a number.
+                [hidden]="!editForm.controls.nni?.errors?.pattern">
+                Le NNI doit etre composé de 10 chiffres.
             </small>
         </div>
     </div>

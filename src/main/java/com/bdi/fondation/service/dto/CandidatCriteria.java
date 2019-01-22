@@ -1,16 +1,11 @@
 package com.bdi.fondation.service.dto;
 
 import java.io.Serializable;
-import io.github.jhipster.service.filter.BooleanFilter;
-import io.github.jhipster.service.filter.DoubleFilter;
+
 import io.github.jhipster.service.filter.Filter;
-import io.github.jhipster.service.filter.FloatFilter;
-import io.github.jhipster.service.filter.IntegerFilter;
+import io.github.jhipster.service.filter.LocalDateFilter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
-
-
-import io.github.jhipster.service.filter.LocalDateFilter;
 
 
 
@@ -28,7 +23,7 @@ public class CandidatCriteria implements Serializable {
 
     private LongFilter id;
 
-    private IntegerFilter nni;
+    private StringFilter nni;
 
     private StringFilter nom;
 
@@ -57,11 +52,11 @@ public class CandidatCriteria implements Serializable {
         this.id = id;
     }
 
-    public IntegerFilter getNni() {
+    public StringFilter getNni() {
         return nni;
     }
 
-    public void setNni(IntegerFilter nni) {
+    public void setNni(StringFilter nni) {
         this.nni = nni;
     }
 

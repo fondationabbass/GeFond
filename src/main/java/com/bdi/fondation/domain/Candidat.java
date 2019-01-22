@@ -11,8 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Cache;
@@ -34,10 +32,8 @@ public class Candidat implements Serializable {
     private Long id;
 
     @NotNull
-    @Min(value = 1000000000)
-    @Max(value = 9999999999L)
     @Column(name = "nni", nullable = false)
-    private Integer nni;
+    private String nni;
 
     @NotNull
     @Column(name = "nom", nullable = false)
@@ -77,16 +73,16 @@ public class Candidat implements Serializable {
         this.id = id;
     }
 
-    public Integer getNni() {
+    public String getNni() {
         return nni;
     }
 
-    public Candidat nni(Integer nni) {
+    public Candidat nni(String nni) {
         this.nni = nni;
         return this;
     }
 
-    public void setNni(Integer nni) {
+    public void setNni(String nni) {
         this.nni = nni;
     }
 
