@@ -12,9 +12,9 @@ export class CandidatEditComponent implements OnInit {
     @ViewChild('editForm') ngForm: NgForm;
 
     ngOnInit() {
-        this.ngForm.form.valueChanges.subscribe(x => {
+        this.ngForm.form.valueChanges.subscribe(() => {
           this.sendValid(this.ngForm.valid);
-        })
+        });
     }
 
     sendValid(val: boolean) {

@@ -5,6 +5,7 @@ import { Candidat } from './candidat.model';
 import { CandidatWzService } from './candidat-wz.service';
 import { WizardWorkflowService } from '../../shared/wizard-workflow.service';
 import { WizardHelperService } from '../../shared/wizard-helper.service';
+import { dateToNgb, ngbToDate } from '../../shared/model/format-utils';
 
 @Component({
     selector: 'jhi-candidat-wz',
@@ -22,9 +23,10 @@ export class CandidatWzComponent implements OnInit {
         private wizardHelperService: WizardHelperService
     ) {
     }
-    
+
     ngOnInit() {
         this.candidat = this.service.aggregate.candidat;
+        this.candidat.dateNaissance = dateToNgb(this.service.aggregate.candidat.dateNaissance);
     }
 
     valid(e) {
@@ -32,9 +34,9 @@ export class CandidatWzComponent implements OnInit {
     }
 
     goToNext() {
+        this.candidat.dateNaissance = ngbToDate(this.service.aggregate.candidat.dateNaissance);
         this.service.setCandidat(this.candidat);
         this.wizardHelperService.candidatWorkflow = this.workflowService.validateStep('candidat-wz', this.wizardHelperService.candidatWorkflow);
         this.router.navigate(['/candidat-wz-exp']);
     }
-    
 }
