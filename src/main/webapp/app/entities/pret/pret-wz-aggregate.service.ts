@@ -12,19 +12,18 @@ import { Garantie } from '../garantie';
 export class PretAggregateService {
 
     private aggregate: PretAggregate = new PretAggregate();
-    private isPretFormValid: boolean = false;
-    private isEcheanceFormValid: boolean = false;
-    private isElementFinancementFormValid: boolean = false;
-    private isGarantieFormValid: boolean = false;
+    private isPretFormValid = false;
+    private isEcheanceFormValid = false;
+    private isElementFinancementFormValid = false;
+    private isGarantieFormValid = false;
 
-
-    constructor(private workflowService: PretWzWorkflowService) { 
+    constructor(private workflowService: PretWzWorkflowService) {
     }
 
     getPret(): Pret {
         return this.aggregate.pret;
     }
-    getData():PretAggregate {
+    getData(): PretAggregate {
         return this.aggregate;
     }
     setPret(data: Pret) {
@@ -33,28 +32,28 @@ export class PretAggregateService {
         this.workflowService.validateStep(PRET_WZ_STEPS.pret);
     }
 
-    getElementFinancements() : ElementFinancement[] {
+    getElementFinancements(): ElementFinancement[] {
         return this.aggregate.elementFinancements;
     }
-    
+
     setElementFinancements(data: ElementFinancement[]) {
         this.isElementFinancementFormValid = true;
         this.aggregate.elementFinancements = data;
         this.workflowService.validateStep(PRET_WZ_STEPS.elementFinancement);
     }
-    getGaranties() : Garantie[] {
+    getGaranties(): Garantie[] {
         return this.aggregate.garanties;
     }
-    
+
     setGaranties(data: Garantie[]) {
         this.isGarantieFormValid = true;
         this.aggregate.garanties = data;
         this.workflowService.validateStep(PRET_WZ_STEPS.garantie);
     }
-    getEcheances() : Echeance[] {
+    getEcheances(): Echeance[] {
         return this.aggregate.echeances;
     }
-    
+
     setEcheances(data: Echeance[]) {
         this.isEcheanceFormValid = true;
         this.aggregate.echeances = data;
@@ -68,7 +67,7 @@ export class PretAggregateService {
 
     resetFormData(): PretAggregate {
         this.workflowService.resetSteps();
-        this.aggregate=new PretAggregate();
+        this.aggregate = new PretAggregate();
         this.isPretFormValid = this.isEcheanceFormValid = this.isElementFinancementFormValid = this.isGarantieFormValid = false;
         return this.aggregate;
     }
@@ -76,7 +75,7 @@ export class PretAggregateService {
     isFormValid() {
         // Return true if all forms had been validated successfully; otherwise, return false
         return this.isPretFormValid &&
-                this.isEcheanceFormValid && 
+                this.isEcheanceFormValid &&
                 this.isElementFinancementFormValid &&
                 this.isGarantieFormValid;
     }

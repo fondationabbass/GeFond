@@ -1,5 +1,6 @@
 import { BaseEntity } from '../../shared';
 import { Client } from '../client';
+import { ngbToDate, dateToNgb } from '../../shared/model/format-utils';
 
 export class Pret implements BaseEntity {
     constructor(
@@ -20,5 +21,17 @@ export class Pret implements BaseEntity {
         public userDebloq?: string,
         public client?: Client,
     ) {
+    }
+    asDate() {
+        this.dateMisePlace = ngbToDate(this.dateMisePlace);
+        this.datePremiereEcheance = ngbToDate(this.datePremiereEcheance);
+        this.dateDerniereEcheance = ngbToDate(this.dateDerniereEcheance);
+        this.dateDernierDebloq = ngbToDate(this.dateDernierDebloq);
+    }
+    asNgb() {
+        this.dateMisePlace = dateToNgb(this.dateMisePlace);
+        this.datePremiereEcheance = dateToNgb(this.datePremiereEcheance);
+        this.dateDerniereEcheance = dateToNgb(this.dateDerniereEcheance);
+        this.dateDernierDebloq = dateToNgb(this.dateDernierDebloq);
     }
 }

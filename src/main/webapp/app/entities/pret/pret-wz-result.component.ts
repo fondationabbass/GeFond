@@ -10,21 +10,20 @@ import { Garantie } from '../garantie';
 import { Echeance } from '../echeance';
 import { ElementFinancement } from '../element-financement';
 
-
 @Component ({
-    selector:     'pret-wz-result'
-    ,templateUrl: './pret-wz-result.component.html'
+    selector:     'pret-wz-result',
+    templateUrl: './pret-wz-result.component.html'
 })
 
 export class PretWzResultComponent implements OnInit {
     title = 'Vous arrivez à la fin!';
     @Input() formData: PretAggregate;
-    isFormValid: boolean = false;
+    isFormValid = false;
     pret: Pret;
-    garanties:Garantie[];
+    garanties: Garantie[];
     elementFinancements: ElementFinancement[];
-    echeances:Echeance[];
-    
+    echeances: Echeance[];
+
     constructor(private formDataService: PretAggregateService,
         private jhiAlertService: JhiAlertService,
         private pretService: PretService,
@@ -35,10 +34,10 @@ export class PretWzResultComponent implements OnInit {
     ngOnInit() {
         this.formData = this.formDataService.getFormData();
         this.isFormValid = this.formDataService.isFormValid();
-        this.pret=this.formData.pret;
-        this.garanties=this.formData.garanties;
-        this.elementFinancements=this.formData.elementFinancements;
-        this.echeances=this.formData.echeances;
+        this.pret = this.formData.pret;
+        this.garanties = this.formData.garanties;
+        this.elementFinancements = this.formData.elementFinancements;
+        this.echeances = this.formData.echeances;
     }
     emptyEf(): boolean {
         return this.elementFinancements.length === 0;
@@ -52,7 +51,7 @@ export class PretWzResultComponent implements OnInit {
     goToPrevious() {
         this.router.navigate(['/pret-wz-echeance']);
     }
-    clear(){
+    clear() {
         this.formData = this.formDataService.resetFormData();
         this.isFormValid = false;
         this.router.navigate(['/pret-wz']);
@@ -63,7 +62,6 @@ export class PretWzResultComponent implements OnInit {
                 if (res.body.id > 0) {
                     this.eventManager.broadcast({ name: 'pretListModification', content: 'OK'});
                 }
-                
             },
             (res: HttpErrorResponse) => {this.onError(res)}
         );

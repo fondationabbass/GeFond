@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Echeance, PeriodType } from '../echeance';
 import { Pret } from './pret.model';
-import { JhiEventManager, JhiParseLinks, JhiAlertService, JhiDateUtils } from 'ng-jhipster';
+import { JhiAlertService } from 'ng-jhipster';
 import { PretAggregateService } from './pret-wz-aggregate.service';
 import { dateToNgb, ngbToDate } from '../../shared/model/format-utils';
-
 
 @Component({
     selector: 'pret-wz-echeance'
@@ -13,46 +12,42 @@ import { dateToNgb, ngbToDate } from '../../shared/model/format-utils';
 })
 
 export class PretWzEcheanceComponent implements OnInit {
-    title = "L'échéancier du prêt:";
+    title = 'Echéancier du prêt:';
     echeances: Echeance[];
     echeance: Echeance;
     pret: Pret;
-    periodType:PeriodType;
+    periodType: PeriodType;
 
     constructor(private router: Router,
         private jhiAlertService: JhiAlertService,
         private formDataService: PretAggregateService) {
     }
 
-    private coeff(period: string): number {
-        if (period === "Trimestriel")
-            return 3;
-        if (period === "Bimensuel")
-            return 2;
-        return 1
-    }
     ngOnInit() {
         this.pret = this.formDataService.getPret();
         this.echeances = [];
         this.echeance = {};
         this.periodType = this.formDataService.getData().periodType;
-        
         const startDate: Date = ngbToDate(this.pret.datePremiereEcheance);
-        if(!this.pret.montDebloq)
-            this.pret.montDebloq=0;
-        for (var i: number = 0; i < this.pret.nbrEcheance; i++) {
-            let e = new Echeance();
+        if (!this.pret.montDebloq) {
+            this.pret.montDebloq = 0;
+        }
+        for (let i = 0; i < this.pret.nbrEcheance; i++) {
+            const e = new Echeance();
             e.montant = this.pret.montDebloq / this.pret.nbrEcheance;
-            e.etatEcheance = "En cours";
+            e.montant = Math.round(e.montant * 100) / 100;
+            e.etatEcheance = 'En cours';
             e.id = i;
             e.pret = this.pret;
-            e.montantPaye=0;
-            const copy: Date = new Date(startDate.getTime());
-            if(this.periodType.type==="month")
-                copy.setMonth(startDate.getMonth() + this.periodType.coeff * i);
-            if(this.periodType.type==="year")
-                copy.setFullYear(startDate.getFullYear() + this.periodType.coeff * i);
-            e.dateTombe = copy;
+            e.montantPaye = 0;
+            const dateTombe: Date = new Date(startDate.getTime());
+            if (this.periodType.type === 'month') {
+                dateTombe.setMonth(startDate.getMonth() + this.periodType.coeff * i);
+            }
+            if (this.periodType.type === 'year') {
+                dateTombe.setFullYear(startDate.getFullYear() + this.periodType.coeff * i);
+            }
+            e.dateTombe = dateTombe;
             e.mouvements = [];
             this.echeances.push(e);
         }
@@ -64,7 +59,7 @@ export class PretWzEcheanceComponent implements OnInit {
     add() {
         const e = this.echeance;
         if (e.montant + this.montantGlobal() > this.formDataService.getPret().montDebloq) {
-            this.jhiAlertService.error("La somme des montants de l'échéancier est supérieur au montant débloqué", null, null);
+            this.jhiAlertService.error('La somme des montants de l\'échéancier est supérieur au montant débloqué', null, null);
             return;
         }
         e.dateTombe = ngbToDate(e.dateTombe);
@@ -75,7 +70,7 @@ export class PretWzEcheanceComponent implements OnInit {
 
     }
     private montantGlobal() {
-        let montant: number = 0;
+        let montant = 0;
         this.echeances.forEach(function (item) {
             montant += item.montant;
         });
@@ -92,12 +87,12 @@ export class PretWzEcheanceComponent implements OnInit {
         this.echeances.splice(this.echeances.indexOf(item), 1);
     }
     save(echeances: Echeance[]): boolean {
-        let montant: number = 0;
-        this.echeances.forEach(function (item) {
+        let montant = 0;
+        this.echeances.forEach(function(item) {
             montant += item.montant;
         });
-        if (montant < this.pret.montDebloq) {
-            this.jhiAlertService.error("La somme des montants des échéances est inférieur au montant du prêt", null, null);
+        if (Math.abs(montant - this.pret.montDebloq) > 100) {
+            this.jhiAlertService.error('La somme des montants des échéances est inférieur au montant du prêt', null, null);
             return false;
         }
 

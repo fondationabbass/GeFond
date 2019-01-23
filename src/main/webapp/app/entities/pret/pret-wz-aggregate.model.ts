@@ -4,7 +4,7 @@ import { Garantie} from '../garantie';
 import { ElementFinancement } from '../element-financement'
 
 export class PretAggregate {
-    pret: Pret = {};
+    pret: Pret = new Pret();
     periodType: PeriodType;
     echeances: Echeance[] = [];
     garanties: Garantie[] = [];

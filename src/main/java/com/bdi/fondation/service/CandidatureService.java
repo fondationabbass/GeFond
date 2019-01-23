@@ -79,7 +79,8 @@ public class CandidatureService {
     private void createClientIfNotExists(Candidature result) {
         if(Collections.isEmpty(clientRepository.findByCandidat(result.getCandidat()))) {
             Client client = new Client();
-            client.code("CLI"+RandomUtil.generateClientCode()).candidat(result.getCandidat()).dateCreat(LocalDate.now());
+            char charAt = result.getType().charAt(0);
+            client.code(charAt+RandomUtil.generateClientCode()).candidat(result.getCandidat()).dateCreat(LocalDate.now());
             clientRepository.save(client);
         }
     }

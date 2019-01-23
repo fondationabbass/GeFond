@@ -32,6 +32,7 @@ export class PretWzComponent implements OnInit {
 
     ngOnInit() {
         this.pret = this.formDataService.getPret();
+        this.pret.asNgb();
         if (!this.pret.client) {
             this.pret.client = {};
             this.pret.client.candidat = {};
@@ -69,6 +70,7 @@ export class PretWzComponent implements OnInit {
         this.pret.dateMisePlace = dateToNgb(new Date());
         this.pret.userInitial = this.principal.getLogin();
         this.pret.etat = 'En attente';
+        this.pret.asDate();
         this.formDataService.setPret(this.pret);
         this.formDataService.getData().periodType = this.periodType;
         return true;
@@ -94,7 +96,7 @@ export class PretWzComponent implements OnInit {
         if (type === 'month') {
             startDate.setMonth(startDate.getMonth() + coeff * nbrPeriod);
         }
-        startDate.setMonth(startDate.getMonth() + 1);
+        //startDate.setMonth(startDate.getMonth() + 1);
         this.pret.dateDerniereEcheance = dateToNgb(startDate);
     }
 }
