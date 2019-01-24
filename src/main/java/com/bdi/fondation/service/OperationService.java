@@ -131,7 +131,8 @@ public class OperationService {
     private void ajusterEcheancier(Double montant, Pret pret) {
         List<Echeance> echeances = echeanceQueryService.findNotPayedByPretId(pret.getId());
         if(echeances.size() > 0) {
-            double addOn = montant/echeances.size();
+            double rounded = Math.round(100 * montant/echeances.size());
+            double addOn = rounded / 100d;
             echeances.forEach(e->e.setMontant(e.getMontant() + addOn));
         }
     }

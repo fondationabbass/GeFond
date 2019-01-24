@@ -96,7 +96,7 @@ export class PretWzComponent implements OnInit {
         if (type === 'month') {
             startDate.setMonth(startDate.getMonth() + coeff * nbrPeriod);
         }
-        //startDate.setMonth(startDate.getMonth() + 1);
+        startDate.setMonth(startDate.getMonth() + 1);
         this.pret.dateDerniereEcheance = dateToNgb(startDate);
     }
 }
