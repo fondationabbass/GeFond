@@ -84,7 +84,7 @@ public class CandidatQueryService extends QueryService<Candidat> {
                 specification = specification.and(buildSpecification(criteria.getId(), Candidat_.id));
             }
             if (criteria.getNni() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getNni(), Candidat_.nni));
+                specification = specification.and(buildStringSpecification(criteria.getNni(), Candidat_.nni));
             }
             if (criteria.getNom() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getNom(), Candidat_.nom));
